@@ -1,3 +1,4 @@
 npm install
-npm install express --save
-npm install mysql2 --save
+npm install --save express
+npm install --save mysql2
+npm install --save dotenv

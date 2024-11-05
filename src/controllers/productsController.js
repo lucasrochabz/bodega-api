@@ -1,8 +1,8 @@
-const { show } = require('../models/products');
+const { getAllProducts } = require('../models/products');
 
 const productsController = {
-  listAll: async (req, res) => {
-    const showProducts = await show();
+  listAllProducts: async (req, res) => {
+    const showProducts = await getAllProducts();
     res.json(showProducts);
   },
 };
