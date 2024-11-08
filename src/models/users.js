@@ -29,8 +29,19 @@ const postOneUser = async (name, email) => {
   return results;
 };
 
+const deleteOneUser = async (userId) => {
+  const connection = await getDBConnection();
+  const [results] = await connection.query(
+    `
+    DELETE FROM users WHERE id=?`,
+    [userId],
+  );
+  return results;
+};
+
 module.exports = {
   getAllUsers,
   getOneUser,
   postOneUser,
+  deleteOneUser,
 };

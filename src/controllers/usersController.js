@@ -1,4 +1,9 @@
-const { getAllUsers, getOneUser, postOneUser } = require('../models/users');
+const {
+  getAllUsers,
+  getOneUser,
+  postOneUser,
+  deleteOneUser,
+} = require('../models/users');
 
 const usersController = {
   listAll: async (req, res) => {
@@ -40,6 +45,13 @@ const usersController = {
     } catch (error) {
       res.status(500).json({ message: 'Erro ao criar usuário' });
     }
+  },
+
+  deleteOneUser: async (req, res) => {
+    const { userId } = req.params;
+
+    const user = await deleteOneUser(userId);
+    res.json(user);
   },
 };
 
