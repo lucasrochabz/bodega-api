@@ -1,9 +1,21 @@
-const { getAllProducts } = require('../models/products');
+const { getAllProducts, getOneProduct } = require('../models/products');
 
 const productsController = {
-  listAllProducts: async (req, res) => {
-    const showProducts = await getAllProducts();
-    res.json(showProducts);
+  listAll: async (req, res) => {
+    const products = await getAllProducts();
+    res.json(products);
+  },
+
+  listOne: async (req, res) => {
+    const { productId } = req.params;
+    console.log(productId);
+    const getProduct = await getOneProduct(productId);
+    console.log(getProduct);
+    if (getProduct.length === 0) {
+      res.json({ message: 'Produto não encontrado' });
+    } else {
+      res.json(getProduct);
+    }
   },
 };
 
