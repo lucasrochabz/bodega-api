@@ -29,6 +29,16 @@ const postOneUser = async (name, email) => {
   return results;
 };
 
+const putOneUser = async (name, userId) => {
+  const connection = await getDBConnection();
+  const [results] = await connection.query(
+    `
+    UPDATE users SET name=? WHERE id=?`,
+    [name, userId],
+  );
+  return results;
+};
+
 const deleteOneUser = async (userId) => {
   const connection = await getDBConnection();
   const [results] = await connection.query(
@@ -44,4 +54,5 @@ module.exports = {
   getOneUser,
   postOneUser,
   deleteOneUser,
+  putOneUser,
 };

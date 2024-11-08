@@ -3,6 +3,7 @@ const {
   getOneUser,
   postOneUser,
   deleteOneUser,
+  putOneUser,
 } = require('../models/users');
 
 const usersController = {
@@ -39,11 +40,26 @@ const usersController = {
       const newUser = await postOneUser(name, email);
 
       if (newUser.affectedRows === 0) {
-        return res.status(404).json({ message: 'Usuário não foi criado' });
+        return res.status(404).json({ message: 'Usuário não criado' });
       }
       res.json(newUser);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao criar usuário' });
+    }
+  },
+
+  updateOne: async (req, res) => {
+    const { userId } = req.params;
+    const { name } = req.body;
+    try {
+      const updatedUser = await putOneUser(name, userId);
+
+      if (updatedUser.affectedRows === 0) {
+        return res.status(404).json({ message: 'Usuário não encontrado' });
+      }
+      res.json(updatedUser);
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao atualizar usuário' });
     }
   },
 
