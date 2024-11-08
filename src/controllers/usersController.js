@@ -47,11 +47,19 @@ const usersController = {
     }
   },
 
-  deleteOneUser: async (req, res) => {
+  deleteOne: async (req, res) => {
     const { userId } = req.params;
+    try {
+      const user = await deleteOneUser(userId);
+      console.log(user);
 
-    const user = await deleteOneUser(userId);
-    res.json(user);
+      if (user.affectedRows === 0) {
+        return res.status(404).json({ message: 'Usuário não encontrado' });
+      }
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao deletar usuário' });
+    }
   },
 };
 
