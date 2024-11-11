@@ -40,7 +40,7 @@ const usersController = {
       const newUser = await postOneUser(name, email);
 
       if (newUser.affectedRows === 0) {
-        return res.status(404).json({ message: 'Usuário não criado' });
+        return res.status(404).json({ message: 'Usuário não foi cadastrado' });
       }
       res.json(newUser);
     } catch (error) {

@@ -2,6 +2,7 @@ const {
   getAllProducts,
   getOneProduct,
   putOneProduct,
+  postOneProduct,
 } = require('../models/products');
 
 const productsController = {
@@ -29,6 +30,20 @@ const productsController = {
       res.json(product);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar produto' });
+    }
+  },
+
+  createOne: async (req, res) => {
+    const { name, price, description, stock } = req.body;
+    try {
+      const newProduct = await postOneProduct(name, price, description, stock);
+
+      if (newProduct.affectedRows === 0) {
+        res.status(404).json({ message: 'Produto não foi cadastrado' });
+      }
+      res.json(newProduct);
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao cadastrar produto' });
     }
   },
 

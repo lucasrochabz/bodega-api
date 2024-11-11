@@ -19,6 +19,16 @@ const getOneProduct = async (productId) => {
   return results;
 };
 
+const postOneProduct = async (name, price, description, stock) => {
+  const connection = await getDBConnection();
+  const [results] = await connection.query(
+    `
+    INSERT INTO products (name, price, description, stock) VALUES (?, ?, ?, ?)`,
+    [name, price, description, stock],
+  );
+  return results;
+};
+
 const putOneProduct = async (description, productId) => {
   const connection = await getDBConnection();
   const [results] = await connection.query(
@@ -33,4 +43,5 @@ module.exports = {
   getAllProducts,
   getOneProduct,
   putOneProduct,
+  postOneProduct,
 };
