@@ -1,4 +1,8 @@
-const { getAllProducts, getOneProduct } = require('../models/products');
+const {
+  getAllProducts,
+  getOneProduct,
+  putOneProduct,
+} = require('../models/products');
 
 const productsController = {
   listAll: async (req, res) => {
@@ -17,14 +21,29 @@ const productsController = {
   listOne: async (req, res) => {
     const { productId } = req.params;
     try {
-      const getProduct = await getOneProduct(productId);
+      const product = await getOneProduct(productId);
 
-      if (getProduct.length === 0) {
+      if (product.length === 0) {
         return res.status(404).json({ message: 'Produto não encontrado' });
       }
-      res.json(getProduct);
+      res.json(product);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar produto' });
+    }
+  },
+
+  updateOne: async (req, res) => {
+    const { description } = req.body;
+    const { productId } = req.params;
+    try {
+      const updateProduct = await putOneProduct(description, productId);
+
+      if (updateProduct.affectedRows === 0) {
+        return res.status(404).json({ message: 'Produto não encontrado' });
+      }
+      res.json(updateProduct);
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao atualizar produto' });
     }
   },
 };

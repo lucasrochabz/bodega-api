@@ -12,8 +12,19 @@ const getAllProducts = async () => {
 const getOneProduct = async (productId) => {
   const connection = await getDBConnection();
   const [results] = await connection.query(
-    `SELECT * FROM products WHERE id=?`,
+    `
+    SELECT * FROM products WHERE id=?`,
     [productId],
+  );
+  return results;
+};
+
+const putOneProduct = async (description, productId) => {
+  const connection = await getDBConnection();
+  const [results] = await connection.query(
+    `
+    UPDATE products SET description=? WHERE id=?`,
+    [description, productId],
   );
   return results;
 };
@@ -21,4 +32,5 @@ const getOneProduct = async (productId) => {
 module.exports = {
   getAllProducts,
   getOneProduct,
+  putOneProduct,
 };

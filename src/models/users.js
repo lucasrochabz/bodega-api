@@ -3,8 +3,8 @@ const { getDBConnection } = require('../utils/getDBConnection');
 const getAllUsers = async () => {
   const connection = await getDBConnection();
   const [results] = await connection.query(
-    `SELECT * FROM users
-    `,
+    `
+    SELECT * FROM users`,
   );
   return results;
 };
