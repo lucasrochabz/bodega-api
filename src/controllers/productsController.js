@@ -37,7 +37,12 @@ const productsController = {
   createOne: async (req, res) => {
     const { name, price, description, stock } = req.body;
     try {
-      const newProduct = await postOneProduct(name, price, description, stock);
+      const newProduct = await postOneProduct({
+        name,
+        price,
+        description,
+        stock,
+      });
 
       if (newProduct.affectedRows === 0) {
         res.status(404).json({ message: 'Produto não foi cadastrado' });

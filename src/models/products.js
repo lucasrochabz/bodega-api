@@ -27,7 +27,7 @@ const getOneProduct = async (productId) => {
   }
 };
 
-const postOneProduct = async (name, price, description, stock) => {
+const postOneProduct = async ({ name, price, description, stock }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
