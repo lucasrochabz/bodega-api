@@ -45,7 +45,7 @@ const productsController = {
       });
 
       if (newProduct.affectedRows === 0) {
-        res.status(404).json({ message: 'Produto não foi cadastrado' });
+        return res.status(404).json({ message: 'Produto não foi cadastrado' });
       }
       res.json(newProduct);
     } catch (error) {
@@ -57,7 +57,7 @@ const productsController = {
     const { description } = req.body;
     const { productId } = req.params;
     try {
-      const updateProduct = await putOneProduct(description, productId);
+      const updateProduct = await putOneProduct({ description, productId });
 
       if (updateProduct.affectedRows === 0) {
         return res.status(404).json({ message: 'Produto não encontrado' });

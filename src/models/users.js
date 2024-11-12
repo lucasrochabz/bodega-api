@@ -27,7 +27,7 @@ const getOneUser = async (userId) => {
   }
 };
 
-const postOneUser = async (name, email) => {
+const postOneUser = async ({ name, email }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -41,7 +41,7 @@ const postOneUser = async (name, email) => {
   }
 };
 
-const putOneUser = async (name, userId) => {
+const putOneUser = async ({ name, userId }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(

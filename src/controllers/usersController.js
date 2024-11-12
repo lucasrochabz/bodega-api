@@ -37,7 +37,7 @@ const usersController = {
   createOne: async (req, res) => {
     const { name, email } = req.body;
     try {
-      const newUser = await postOneUser(name, email);
+      const newUser = await postOneUser({ name, email });
 
       if (newUser.affectedRows === 0) {
         return res.status(404).json({ message: 'Usuário não foi cadastrado' });
@@ -52,7 +52,7 @@ const usersController = {
     const { userId } = req.params;
     const { name } = req.body;
     try {
-      const updatedUser = await putOneUser(name, userId);
+      const updatedUser = await putOneUser({ name, userId });
 
       if (updatedUser.affectedRows === 0) {
         return res.status(404).json({ message: 'Usuário não encontrado' });

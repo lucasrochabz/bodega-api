@@ -41,7 +41,7 @@ const postOneProduct = async ({ name, price, description, stock }) => {
   }
 };
 
-const putOneProduct = async (description, productId) => {
+const putOneProduct = async ({ description, productId }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
