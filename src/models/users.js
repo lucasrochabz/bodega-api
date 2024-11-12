@@ -13,7 +13,7 @@ const getAllUsers = async () => {
   }
 };
 
-const getOneUser = async (userId) => {
+const getUser = async (userId) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -27,7 +27,7 @@ const getOneUser = async (userId) => {
   }
 };
 
-const postOneUser = async ({ name, email }) => {
+const createUser = async ({ name, email }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -41,7 +41,7 @@ const postOneUser = async ({ name, email }) => {
   }
 };
 
-const putOneUser = async ({ name, userId }) => {
+const updateUser = async ({ name, userId }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -55,7 +55,7 @@ const putOneUser = async ({ name, userId }) => {
   }
 };
 
-const deleteOneUser = async (userId) => {
+const deleteUser = async (userId) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -71,8 +71,8 @@ const deleteOneUser = async (userId) => {
 
 module.exports = {
   getAllUsers,
-  getOneUser,
-  postOneUser,
-  deleteOneUser,
-  putOneUser,
+  getUser,
+  createUser,
+  updateUser,
+  deleteUser,
 };

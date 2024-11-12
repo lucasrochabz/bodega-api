@@ -1,13 +1,13 @@
 const {
   getAllUsers,
-  getOneUser,
-  postOneUser,
-  deleteOneUser,
-  putOneUser,
+  getUser,
+  createUser,
+  updateUser,
+  deleteUser,
 } = require('../models/users');
 
 const usersController = {
-  listAll: async (req, res) => {
+  listAllUsers: async (req, res) => {
     try {
       const users = await getAllUsers();
 
@@ -20,10 +20,10 @@ const usersController = {
     }
   },
 
-  listOne: async (req, res) => {
+  getUser: async (req, res) => {
     const { userId } = req.params;
     try {
-      const user = await getOneUser(userId);
+      const user = await getUser(userId);
 
       if (user.length === 0) {
         return res.status(404).json({ message: 'Usuário não encontrado' });
@@ -34,10 +34,10 @@ const usersController = {
     }
   },
 
-  createOne: async (req, res) => {
+  createUser: async (req, res) => {
     const { name, email } = req.body;
     try {
-      const newUser = await postOneUser({ name, email });
+      const newUser = await createUser({ name, email });
 
       if (newUser.affectedRows === 0) {
         return res.status(404).json({ message: 'Usuário não foi cadastrado' });
@@ -48,11 +48,11 @@ const usersController = {
     }
   },
 
-  updateOne: async (req, res) => {
+  updateUser: async (req, res) => {
     const { userId } = req.params;
     const { name } = req.body;
     try {
-      const updatedUser = await putOneUser({ name, userId });
+      const updatedUser = await updateUser({ name, userId });
 
       if (updatedUser.affectedRows === 0) {
         return res.status(404).json({ message: 'Usuário não encontrado' });
@@ -63,10 +63,10 @@ const usersController = {
     }
   },
 
-  deleteOne: async (req, res) => {
+  deleteUser: async (req, res) => {
     const { userId } = req.params;
     try {
-      const user = await deleteOneUser(userId);
+      const user = await deleteUser(userId);
       console.log(user);
 
       if (user.affectedRows === 0) {
