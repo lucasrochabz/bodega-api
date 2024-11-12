@@ -18,7 +18,9 @@ const getUser = async (userId) => {
   try {
     const [results] = await connection.query(
       `
-      SELECT * FROM users WHERE id=?`,
+      SELECT * FROM users
+      JOIN addresses ON users.id = addresses.user_id
+      WHERE users.id=?`,
       [userId],
     );
     return results;

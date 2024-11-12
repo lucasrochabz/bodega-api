@@ -67,7 +67,6 @@ const usersController = {
     const { userId } = req.params;
     try {
       const user = await deleteUser(userId);
-      console.log(user);
 
       if (user.affectedRows === 0) {
         return res.status(404).json({ message: 'Usuário não encontrado' });
