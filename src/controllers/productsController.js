@@ -1,13 +1,13 @@
 const {
   getAllProducts,
-  getOneProduct,
-  putOneProduct,
-  postOneProduct,
-  deleteOneProduct,
+  getProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
 } = require('../models/products');
 
 const productsController = {
-  listAll: async (req, res) => {
+  listAllProducts: async (req, res) => {
     try {
       const products = await getAllProducts();
 
@@ -20,10 +20,10 @@ const productsController = {
     }
   },
 
-  listOne: async (req, res) => {
+  getProduct: async (req, res) => {
     const { productId } = req.params;
     try {
-      const product = await getOneProduct(productId);
+      const product = await getProduct(productId);
 
       if (product.length === 0) {
         return res.status(404).json({ message: 'Produto não encontrado' });
@@ -34,10 +34,10 @@ const productsController = {
     }
   },
 
-  createOne: async (req, res) => {
+  createProduct: async (req, res) => {
     const { name, price, description, stock } = req.body;
     try {
-      const newProduct = await postOneProduct({
+      const newProduct = await createProduct({
         name,
         price,
         description,
@@ -53,25 +53,25 @@ const productsController = {
     }
   },
 
-  updateOne: async (req, res) => {
+  updateProduct: async (req, res) => {
     const { description } = req.body;
     const { productId } = req.params;
     try {
-      const updateProduct = await putOneProduct({ description, productId });
+      const updatedProduct = await updateProduct({ description, productId });
 
-      if (updateProduct.affectedRows === 0) {
+      if (updatedProduct.affectedRows === 0) {
         return res.status(404).json({ message: 'Produto não encontrado' });
       }
-      res.json(updateProduct);
+      res.json(updatedProduct);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao atualizar produto' });
     }
   },
 
-  deleteOne: async (req, res) => {
+  deleteProduct: async (req, res) => {
     const { productId } = req.params;
     try {
-      const product = await deleteOneProduct(productId);
+      const product = await deleteProduct(productId);
 
       if (product.affectedRows === 0) {
         return res.status(404).json({ message: 'Produto não encontrado' });

@@ -13,7 +13,7 @@ const getAllProducts = async () => {
   }
 };
 
-const getOneProduct = async (productId) => {
+const getProduct = async (productId) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -27,7 +27,7 @@ const getOneProduct = async (productId) => {
   }
 };
 
-const postOneProduct = async ({ name, price, description, stock }) => {
+const createProduct = async ({ name, price, description, stock }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -41,7 +41,7 @@ const postOneProduct = async ({ name, price, description, stock }) => {
   }
 };
 
-const putOneProduct = async ({ description, productId }) => {
+const updateProduct = async ({ description, productId }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -55,7 +55,7 @@ const putOneProduct = async ({ description, productId }) => {
   }
 };
 
-const deleteOneProduct = async (productId) => {
+const deleteProduct = async (productId) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -71,8 +71,8 @@ const deleteOneProduct = async (productId) => {
 
 module.exports = {
   getAllProducts,
-  getOneProduct,
-  putOneProduct,
-  postOneProduct,
-  deleteOneProduct,
+  getProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
 };
