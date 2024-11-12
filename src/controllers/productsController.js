@@ -3,6 +3,7 @@ const {
   getOneProduct,
   putOneProduct,
   postOneProduct,
+  deleteOneProduct,
 } = require('../models/products');
 
 const productsController = {
@@ -59,6 +60,20 @@ const productsController = {
       res.json(updateProduct);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao atualizar produto' });
+    }
+  },
+
+  deleteOne: async (req, res) => {
+    const { productId } = req.params;
+    try {
+      const product = await deleteOneProduct(productId);
+
+      if (product.affectedRows === 0) {
+        return res.status(404).json({ message: 'Produto não encontrado' });
+      }
+      res.json(product);
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao deletar produto' });
     }
   },
 };
