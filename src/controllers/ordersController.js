@@ -1,4 +1,9 @@
-const { getAllOrders, getOrder, createOrder } = require('../models/orders');
+const {
+  getAllOrders,
+  getOrder,
+  createOrder,
+  deleteOrder,
+} = require('../models/orders');
 
 const ordersController = {
   lisAllOrders: async (req, res) => {
@@ -45,6 +50,20 @@ const ordersController = {
       res.json(order);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao cadastrar pedido' });
+    }
+  },
+
+  deleteOrder: async (req, res) => {
+    const { orderId } = req.params;
+    try {
+      const order = await deleteOrder(orderId);
+
+      if (order.affectedRows === 0) {
+        return res.status(404).json({ message: 'Pedido não encontrado' });
+      }
+      res.json(order);
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao deletar pedido' });
     }
   },
 };

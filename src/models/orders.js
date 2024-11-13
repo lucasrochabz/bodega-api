@@ -48,4 +48,18 @@ const createOrder = async ({
   }
 };
 
-module.exports = { getAllOrders, getOrder, createOrder };
+const deleteOrder = async (orderId) => {
+  const connection = await getDBConnection();
+  try {
+    const [results] = await connection.query(
+      `
+      DELETE FROM orders WHERE id=?`,
+      [orderId],
+    );
+    return results;
+  } finally {
+    await connection.end();
+  }
+};
+
+module.exports = { getAllOrders, getOrder, createOrder, deleteOrder };
