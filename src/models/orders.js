@@ -22,7 +22,7 @@ const getOrder = async (orderId) => {
       [orderId],
     );
     return results;
-  } catch (error) {
+  } finally {
     await connection.end();
   }
 };
