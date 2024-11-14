@@ -14,7 +14,7 @@ const productsController = {
       if (!products.success) {
         return res.status(404).json({ message: 'Produtos não encontrados' });
       }
-      res.json(products.data);
+      res.status(200).json(products.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar produtos' });
     }
@@ -28,7 +28,7 @@ const productsController = {
       if (!product.success) {
         return res.status(404).json({ message: 'Produto não encontrado' });
       }
-      res.json(product.data);
+      res.status(200).json(product.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar produto' });
     }
@@ -62,7 +62,7 @@ const productsController = {
       if (!updatedProduct.success) {
         return res.status(404).json({ message: 'Produto não encontrado' });
       }
-      res.json(updatedProduct.data);
+      res.status(200).json(updatedProduct.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao atualizar produto' });
     }
@@ -76,7 +76,7 @@ const productsController = {
       if (!product.success) {
         return res.status(404).json({ message: 'Produto não encontrado' });
       }
-      res.json(product.data);
+      res.status(200).json(product.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao deletar produto' });
     }

@@ -14,7 +14,7 @@ const ordersController = {
       if (!orders.success) {
         return res.status(404).json({ message: 'Pedidos não encontrados' });
       }
-      res.json(orders.data);
+      res.status(200).json(orders.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar pedidos' });
     }
@@ -28,7 +28,7 @@ const ordersController = {
       if (!order.success) {
         return res.status(404).json({ message: 'Pedido não encontrado' });
       }
-      res.json(order.data);
+      res.status(200).json(order.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar pedido' });
     }
@@ -63,7 +63,7 @@ const ordersController = {
       if (!updatedOrder.success) {
         return res.status(404).json({ message: 'Pedido não encontrado' });
       }
-      res.json(updatedOrder.data);
+      res.status(200).json(updatedOrder.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao atualizar pedido' });
     }
@@ -77,7 +77,7 @@ const ordersController = {
       if (!order.success) {
         return res.status(404).json({ message: 'Pedido não encontrado' });
       }
-      res.json(order.data);
+      res.status(200).json(order.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao deletar pedido' });
     }
