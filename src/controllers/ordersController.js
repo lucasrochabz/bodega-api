@@ -72,12 +72,12 @@ const ordersController = {
   deleteOrder: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const order = await deleteOrder(orderId);
+      const deletedOrder = await deleteOrder(orderId);
 
-      if (!order.success) {
+      if (!deletedOrder.success) {
         return res.status(404).json({ message: 'Pedido não encontrado' });
       }
-      res.status(200).json(order.data);
+      res.status(200).json(deletedOrder.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao deletar pedido' });
     }
