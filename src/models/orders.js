@@ -7,7 +7,12 @@ const getAllOrders = async () => {
       `
       SELECT * FROM orders`,
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao buscar pedidos no banco de dados',
+    };
   } finally {
     await connection.end();
   }
@@ -21,7 +26,12 @@ const getOrder = async (orderId) => {
       SELECT * FROM orders WHERE id=?`,
       [orderId],
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao buscar pedido no banco de dados',
+    };
   } finally {
     await connection.end();
   }
@@ -42,7 +52,12 @@ const createOrder = async ({
       VALUES (?, ?, ?, ?, ?)`,
       [user_id, address_id, date, status, product_id],
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao cadastrar pedido no banco de dados',
+    };
   } finally {
     await connection.end();
   }
@@ -56,7 +71,12 @@ const updateOrder = async ({ product_id, orderId }) => {
       UPDATE orders SET product_id=? WHERE id=?`,
       [product_id, orderId],
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao atualizar pedido no banco de dados',
+    };
   } finally {
     await connection.end();
   }
@@ -70,7 +90,12 @@ const deleteOrder = async (orderId) => {
       DELETE FROM orders WHERE id=?`,
       [orderId],
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao deletar pedido no banco de dados',
+    };
   } finally {
     await connection.end();
   }
