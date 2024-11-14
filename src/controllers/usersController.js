@@ -14,7 +14,7 @@ const usersController = {
       if (!users.success) {
         return res.status(404).json({ message: 'Usuários não encontrados' });
       }
-      res.json(users.data);
+      res.status(200).json(users.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar usuários' });
     }
@@ -28,7 +28,7 @@ const usersController = {
       if (!user.success) {
         return res.status(404).json({ message: 'Usuário não encontrado' });
       }
-      res.json(user.data);
+      res.status(200).json(user.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar usuário' });
     }
@@ -57,7 +57,7 @@ const usersController = {
       if (!updatedUser.success) {
         return res.status(404).json({ message: 'Usuário não encontrado' });
       }
-      res.json(updatedUser.data);
+      res.status(200).json(updatedUser.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao atualizar usuário' });
     }
@@ -71,7 +71,7 @@ const usersController = {
       if (!user.success) {
         return res.status(404).json({ message: 'Usuário não encontrado' });
       }
-      res.json(user.data);
+      res.status(200).json(user.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao deletar usuário' });
     }
