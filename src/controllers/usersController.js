@@ -42,7 +42,7 @@ const usersController = {
       if (!newUser.success) {
         return res.status(404).json({ message: 'Usuário não foi cadastrado' });
       }
-      res.json(newUser.data);
+      res.status(201).json(newUser.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao criar usuário' });
     }

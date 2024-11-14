@@ -47,7 +47,7 @@ const productsController = {
       if (!newProduct.success) {
         return res.status(404).json({ message: 'Produto não foi cadastrado' });
       }
-      res.json(newProduct.data);
+      res.status(201).json(newProduct.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao cadastrar produto' });
     }

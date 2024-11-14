@@ -48,7 +48,7 @@ const ordersController = {
       if (!newOrder.success) {
         return res.status(404).json({ message: 'Pedido não foi cadastrado' });
       }
-      res.json(newOrder.data);
+      res.status(201).json(newOrder.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao cadastrar pedido' });
     }
