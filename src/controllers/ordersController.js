@@ -7,7 +7,7 @@ const {
 } = require('../models/orders');
 
 const ordersController = {
-  lisAllOrders: async (req, res) => {
+  listAllOrders: async (req, res) => {
     try {
       const orders = await getAllOrders();
 
