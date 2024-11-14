@@ -37,7 +37,7 @@ const ordersController = {
   createOrder: async (req, res) => {
     const { user_id, address_id, date, status, product_id } = req.body;
     try {
-      const order = await createOrder({
+      const newOrder = await createOrder({
         user_id,
         address_id,
         date,
@@ -45,10 +45,10 @@ const ordersController = {
         product_id,
       });
 
-      if (!order.success) {
+      if (!newOrder.success) {
         return res.status(404).json({ message: 'Pedido não foi cadastrado' });
       }
-      res.json(order.data);
+      res.json(newOrder.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao cadastrar pedido' });
     }

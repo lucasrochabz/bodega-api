@@ -11,10 +11,10 @@ const usersController = {
     try {
       const users = await getAllUsers();
 
-      if (users.length === 0) {
+      if (!users.success) {
         return res.status(404).json({ message: 'Usuários não encontrados' });
       }
-      res.json(users);
+      res.json(users.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar usuários' });
     }
@@ -25,10 +25,10 @@ const usersController = {
     try {
       const user = await getUser(userId);
 
-      if (user.length === 0) {
+      if (!user.success) {
         return res.status(404).json({ message: 'Usuário não encontrado' });
       }
-      res.json(user);
+      res.json(user.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar usuário' });
     }
@@ -39,10 +39,10 @@ const usersController = {
     try {
       const newUser = await createUser({ name, email });
 
-      if (newUser.affectedRows === 0) {
+      if (!newUser.success) {
         return res.status(404).json({ message: 'Usuário não foi cadastrado' });
       }
-      res.json(newUser);
+      res.json(newUser.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao criar usuário' });
     }
@@ -54,10 +54,10 @@ const usersController = {
     try {
       const updatedUser = await updateUser({ name, userId });
 
-      if (updatedUser.affectedRows === 0) {
+      if (!updatedUser.success) {
         return res.status(404).json({ message: 'Usuário não encontrado' });
       }
-      res.json(updatedUser);
+      res.json(updatedUser.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao atualizar usuário' });
     }
@@ -68,10 +68,10 @@ const usersController = {
     try {
       const user = await deleteUser(userId);
 
-      if (user.affectedRows === 0) {
+      if (!user.success) {
         return res.status(404).json({ message: 'Usuário não encontrado' });
       }
-      res.json(user);
+      res.json(user.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao deletar usuário' });
     }
