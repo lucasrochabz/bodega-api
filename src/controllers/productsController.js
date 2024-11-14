@@ -11,10 +11,10 @@ const productsController = {
     try {
       const products = await getAllProducts();
 
-      if (products.length === 0) {
+      if (!products.success) {
         return res.status(404).json({ message: 'Produtos não encontrados' });
       }
-      res.json(products);
+      res.json(products.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar produtos' });
     }
@@ -25,10 +25,10 @@ const productsController = {
     try {
       const product = await getProduct(productId);
 
-      if (product.length === 0) {
+      if (!product.success) {
         return res.status(404).json({ message: 'Produto não encontrado' });
       }
-      res.json(product);
+      res.json(product.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar produto' });
     }
@@ -44,10 +44,10 @@ const productsController = {
         stock,
       });
 
-      if (newProduct.affectedRows === 0) {
+      if (!newProduct.success) {
         return res.status(404).json({ message: 'Produto não foi cadastrado' });
       }
-      res.json(newProduct);
+      res.json(newProduct.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao cadastrar produto' });
     }
@@ -59,10 +59,10 @@ const productsController = {
     try {
       const updatedProduct = await updateProduct({ description, productId });
 
-      if (updatedProduct.affectedRows === 0) {
+      if (!updatedProduct.success) {
         return res.status(404).json({ message: 'Produto não encontrado' });
       }
-      res.json(updatedProduct);
+      res.json(updatedProduct.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao atualizar produto' });
     }
@@ -73,10 +73,10 @@ const productsController = {
     try {
       const product = await deleteProduct(productId);
 
-      if (product.affectedRows === 0) {
+      if (!product.success) {
         return res.status(404).json({ message: 'Produto não encontrado' });
       }
-      res.json(product);
+      res.json(product.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao deletar produto' });
     }
