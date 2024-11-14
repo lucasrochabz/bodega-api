@@ -7,7 +7,12 @@ const getAllUsers = async () => {
       `
       SELECT * FROM users`,
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao buscar usuários no banco de dados',
+    };
   } finally {
     await connection.end();
   }
@@ -23,7 +28,12 @@ const getUser = async (userId) => {
       WHERE users.id=?`,
       [userId],
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao buscar usuário no banco de dados',
+    };
   } finally {
     await connection.end();
   }
@@ -37,7 +47,12 @@ const createUser = async ({ name, email }) => {
       INSERT INTO users (name, email) VALUES (?,?)`,
       [name, email],
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao cadastrar usuário no banco de dados',
+    };
   } finally {
     await connection.end();
   }
@@ -51,7 +66,12 @@ const updateUser = async ({ name, userId }) => {
       UPDATE users SET name=? WHERE id=?`,
       [name, userId],
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao atualizar usuário no banco de dados',
+    };
   } finally {
     await connection.end();
   }
@@ -65,7 +85,12 @@ const deleteUser = async (userId) => {
       DELETE FROM users WHERE id=?`,
       [userId],
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao deletar usuário no banco de dados',
+    };
   } finally {
     await connection.end();
   }
