@@ -2,6 +2,7 @@ const {
   getAllOrders,
   getOrder,
   createOrder,
+  updateOrder,
   deleteOrder,
 } = require('../models/orders');
 
@@ -45,11 +46,26 @@ const ordersController = {
       });
 
       if (order.affectedRows === 0) {
-        return res.status(404).json({ message: 'Produto não foi cadastrado' });
+        return res.status(404).json({ message: 'Pedido não foi cadastrado' });
       }
       res.json(order);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao cadastrar pedido' });
+    }
+  },
+
+  updateOrder: async (req, res) => {
+    const { product_id } = req.body;
+    const { orderId } = req.params;
+    try {
+      const updatedOrder = updateOrder({ product_id, orderId });
+
+      if (updatedOrder.affectedRows === 0) {
+        return res.status(404).json({ message: 'Pedido não encontrado' });
+      }
+      res.json(updatedOrder);
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao atualizar pedido' });
     }
   },
 

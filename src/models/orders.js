@@ -48,6 +48,20 @@ const createOrder = async ({
   }
 };
 
+const updateOrder = async ({ product_id, orderId }) => {
+  const connection = await getDBConnection();
+  try {
+    const [results] = await connection.query(
+      `
+      UPDATE orders SET product_id=? WHERE id=?`,
+      [product_id, orderId],
+    );
+    return results;
+  } finally {
+    await connection.end();
+  }
+};
+
 const deleteOrder = async (orderId) => {
   const connection = await getDBConnection();
   try {
@@ -62,4 +76,10 @@ const deleteOrder = async (orderId) => {
   }
 };
 
-module.exports = { getAllOrders, getOrder, createOrder, deleteOrder };
+module.exports = {
+  getAllOrders,
+  getOrder,
+  createOrder,
+  updateOrder,
+  deleteOrder,
+};
