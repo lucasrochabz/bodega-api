@@ -11,10 +11,10 @@ const ordersController = {
     try {
       const orders = await getAllOrders();
 
-      if (orders.length === 0) {
+      if (!orders.success) {
         return res.status(404).json({ message: 'Pedidos não encontrados' });
       }
-      res.json(orders);
+      res.json(orders.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar pedidos' });
     }
@@ -25,10 +25,10 @@ const ordersController = {
     try {
       const order = await getOrder(orderId);
 
-      if (order.length === 0) {
+      if (!order.success) {
         return res.status(404).json({ message: 'Pedido não encontrado' });
       }
-      res.json(order);
+      res.json(order.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao buscar pedido' });
     }
@@ -45,10 +45,10 @@ const ordersController = {
         product_id,
       });
 
-      if (order.affectedRows === 0) {
+      if (!order.success) {
         return res.status(404).json({ message: 'Pedido não foi cadastrado' });
       }
-      res.json(order);
+      res.json(order.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao cadastrar pedido' });
     }
@@ -58,12 +58,12 @@ const ordersController = {
     const { product_id } = req.body;
     const { orderId } = req.params;
     try {
-      const updatedOrder = updateOrder({ product_id, orderId });
+      const updatedOrder = await updateOrder({ product_id, orderId });
 
-      if (updatedOrder.affectedRows === 0) {
+      if (!updatedOrder.success) {
         return res.status(404).json({ message: 'Pedido não encontrado' });
       }
-      res.json(updatedOrder);
+      res.json(updatedOrder.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao atualizar pedido' });
     }
@@ -74,10 +74,10 @@ const ordersController = {
     try {
       const order = await deleteOrder(orderId);
 
-      if (order.affectedRows === 0) {
+      if (!order.success) {
         return res.status(404).json({ message: 'Pedido não encontrado' });
       }
-      res.json(order);
+      res.json(order.data);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao deletar pedido' });
     }
