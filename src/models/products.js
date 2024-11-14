@@ -7,7 +7,12 @@ const getAllProducts = async () => {
       `SELECT * from products
       `,
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao buscar produtos no banco de dados',
+    };
   } finally {
     await connection.end();
   }
@@ -21,7 +26,12 @@ const getProduct = async (productId) => {
       SELECT * FROM products WHERE id=?`,
       [productId],
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao buscar produto no banco de dados',
+    };
   } finally {
     await connection.end();
   }
@@ -35,7 +45,12 @@ const createProduct = async ({ name, price, description, stock }) => {
       INSERT INTO products (name, price, description, stock) VALUES (?, ?, ?, ?)`,
       [name, price, description, stock],
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao cadastrar produto no banco de dados',
+    };
   } finally {
     await connection.end();
   }
@@ -49,7 +64,12 @@ const updateProduct = async ({ description, productId }) => {
       UPDATE products SET description=? WHERE id=?`,
       [description, productId],
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao atualizar produto no banco de dados',
+    };
   } finally {
     await connection.end();
   }
@@ -63,7 +83,12 @@ const deleteProduct = async (productId) => {
       DELETE FROM products WHERE id=?`,
       [productId],
     );
-    return results;
+    return { success: true, data: results };
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Erro ao deletar produto no banco de dados',
+    };
   } finally {
     await connection.end();
   }
