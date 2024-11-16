@@ -87,7 +87,7 @@ const productsController = {
     } catch (error) {
       res
         .status(500)
-        .json({ success: true, message: 'Erro ao atualizar produto' });
+        .json({ success: false, message: 'Erro ao atualizar produto' });
     }
   },
 
