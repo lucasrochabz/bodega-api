@@ -101,6 +101,7 @@ const productsController = {
           .status(404)
           .json({ success: false, message: 'Produto não encontrado' });
       }
+
       res.status(200).json({ success: true, data: deletedProduct.data });
     } catch (error) {
       res
