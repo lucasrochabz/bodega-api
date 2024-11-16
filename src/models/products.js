@@ -1,12 +1,17 @@
 const { getDBConnection } = require('../utils/getDBConnection');
 
-const getAllProducts = async () => {
+const getAllProductsFromDB = async () => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
-      `SELECT * from products
-      `,
+      `
+      SELECT * from products`,
     );
+
+    if (results.length === 0) {
+      return { success: false, message: 'Produtos não encontrados' };
+    }
+
     return { success: true, data: results };
   } catch (error) {
     return {
@@ -18,7 +23,7 @@ const getAllProducts = async () => {
   }
 };
 
-const getProduct = async (productId) => {
+const getProductFromDB = async (productId) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -26,6 +31,11 @@ const getProduct = async (productId) => {
       SELECT * FROM products WHERE id=?`,
       [productId],
     );
+
+    if (results.length === 0) {
+      return { success: false, message: 'Produto não encontrado' };
+    }
+
     return { success: true, data: results };
   } catch (error) {
     return {
@@ -37,7 +47,7 @@ const getProduct = async (productId) => {
   }
 };
 
-const createProduct = async ({ name, price, description, stock }) => {
+const createProductInDB = async ({ name, price, description, stock }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -45,6 +55,11 @@ const createProduct = async ({ name, price, description, stock }) => {
       INSERT INTO products (name, price, description, stock) VALUES (?, ?, ?, ?)`,
       [name, price, description, stock],
     );
+
+    if (results.affectedRows === 0) {
+      return { success: false, message: 'Produto não foi cadastrado' };
+    }
+
     return { success: true, data: results };
   } catch (error) {
     return {
@@ -56,7 +71,7 @@ const createProduct = async ({ name, price, description, stock }) => {
   }
 };
 
-const updateProduct = async ({ description, productId }) => {
+const updateProductInDB = async ({ description, productId }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -64,6 +79,11 @@ const updateProduct = async ({ description, productId }) => {
       UPDATE products SET description=? WHERE id=?`,
       [description, productId],
     );
+
+    if (results.affectedRows === 0) {
+      return { success: false, message: 'Produto não encontrado' };
+    }
+
     return { success: true, data: results };
   } catch (error) {
     return {
@@ -75,7 +95,7 @@ const updateProduct = async ({ description, productId }) => {
   }
 };
 
-const deleteProduct = async (productId) => {
+const deleteProductInDB = async (productId) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -83,6 +103,11 @@ const deleteProduct = async (productId) => {
       DELETE FROM products WHERE id=?`,
       [productId],
     );
+
+    if (results.affectedRows === 0) {
+      return { success: false, message: 'Produto não encontrado' };
+    }
+
     return { success: true, data: results };
   } catch (error) {
     return {
@@ -95,9 +120,9 @@ const deleteProduct = async (productId) => {
 };
 
 module.exports = {
-  getAllProducts,
-  getProduct,
-  createProduct,
-  updateProduct,
-  deleteProduct,
+  getAllProductsFromDB,
+  getProductFromDB,
+  createProductInDB,
+  updateProductInDB,
+  deleteProductInDB,
 };
