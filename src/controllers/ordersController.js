@@ -2,8 +2,8 @@ const {
   getAllOrdersFromDB,
   getOrderFromDB,
   createOrderInDB,
-  updateOrder,
-  deleteOrder,
+  updateOrderInDB,
+  deleteOrderInDB,
 } = require('../models/orders');
 
 const ordersController = {
@@ -71,7 +71,7 @@ const ordersController = {
     const { product_id } = req.body;
     const { orderId } = req.params;
     try {
-      const updatedOrder = await updateOrder({ product_id, orderId });
+      const updatedOrder = await updateOrderInDB({ product_id, orderId });
 
       if (!updatedOrder.success) {
         return res
@@ -90,7 +90,7 @@ const ordersController = {
   deleteOrder: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const deletedOrder = await deleteOrder(orderId);
+      const deletedOrder = await deleteOrderInDB(orderId);
 
       if (!deletedOrder.success) {
         return res

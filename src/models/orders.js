@@ -78,7 +78,7 @@ const createOrderInDB = async ({
   }
 };
 
-const updateOrder = async ({ product_id, orderId }) => {
+const updateOrderInDB = async ({ product_id, orderId }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -102,7 +102,7 @@ const updateOrder = async ({ product_id, orderId }) => {
   }
 };
 
-const deleteOrder = async (orderId) => {
+const deleteOrderInDB = async (orderId) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -130,6 +130,6 @@ module.exports = {
   getAllOrdersFromDB,
   getOrderFromDB,
   createOrderInDB,
-  updateOrder,
-  deleteOrder,
+  updateOrderInDB,
+  deleteOrderInDB,
 };
