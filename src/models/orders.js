@@ -67,7 +67,17 @@ const createOrderInDB = async ({
       return { success: false, message: 'Pedido não foi cadastrado' };
     }
 
-    return { success: true, data: results };
+    return {
+      success: true,
+      data: {
+        id: results.insertId,
+        user_id,
+        address_id,
+        date,
+        status,
+        product_id,
+      },
+    };
   } catch (error) {
     return {
       success: false,
@@ -91,7 +101,7 @@ const updateOrderInDB = async ({ product_id, orderId }) => {
       return { success: false, message: 'Pedido não encontrado' };
     }
 
-    return { success: true, data: results };
+    return { success: true, data: { id: orderId, product_id } };
   } catch (error) {
     return {
       success: false,
@@ -115,7 +125,7 @@ const deleteOrderInDB = async (orderId) => {
       return { success: false, message: 'Pedido não foi encontrado' };
     }
 
-    return { success: true, data: results };
+    return { success: true, data: { id: orderId } };
   } catch (error) {
     return {
       success: false,

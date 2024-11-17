@@ -17,7 +17,11 @@ const ordersController = {
           .json({ success: false, message: orders.message });
       }
 
-      res.status(200).json({ success: true, data: orders.data });
+      res.status(200).json({
+        success: true,
+        message: 'Pedidos encontrados com sucesso.',
+        data: orders.data,
+      });
     } catch (error) {
       res
         .status(500)
@@ -34,7 +38,11 @@ const ordersController = {
         return res.status(404).json({ success: false, message: order.message });
       }
 
-      res.status(200).json({ success: true, data: order.data });
+      res.status(200).json({
+        success: true,
+        message: 'Pedido encontrado com sucesso.',
+        data: order.data,
+      });
     } catch (error) {
       res
         .status(500)
@@ -59,7 +67,11 @@ const ordersController = {
           .json({ success: false, message: newOrder.message });
       }
 
-      res.status(201).json({ success: true, data: newOrder.data });
+      res.status(201).json({
+        success: true,
+        message: 'Pedido cadastrado com sucesso.',
+        data: newOrder.data,
+      });
     } catch (error) {
       res
         .status(500)
@@ -79,7 +91,11 @@ const ordersController = {
           .json({ success: false, message: updatedOrder.message });
       }
 
-      res.status(200).json({ success: true, data: updatedOrder.data });
+      res.status(200).json({
+        success: true,
+        message: 'Pedido atualizado com sucesso',
+        data: updatedOrder.data,
+      });
     } catch (error) {
       res
         .status(500)
@@ -98,7 +114,11 @@ const ordersController = {
           .json({ success: false, message: deletedOrder.message });
       }
 
-      res.status(200).json({ success: true, data: deletedOrder.data });
+      res.status(200).json({
+        success: true,
+        message: 'Pedido deletado com sucesso.',
+        data: deletedOrder.data,
+      });
     } catch (error) {
       res
         .status(500)
