@@ -1,12 +1,17 @@
 const { getDBConnection } = require('../utils/getDBConnection');
 
-const getAllUsers = async () => {
+const getAllUsersFromDB = async () => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
       `
       SELECT * FROM users`,
     );
+
+    if (results.length === 0) {
+      return { success: false, message: 'Usuários não encontrados' };
+    }
+
     return { success: true, data: results };
   } catch (error) {
     return {
@@ -18,7 +23,7 @@ const getAllUsers = async () => {
   }
 };
 
-const getUser = async (userId) => {
+const getUserFromDB = async (userId) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -28,6 +33,11 @@ const getUser = async (userId) => {
       WHERE users.id=?`,
       [userId],
     );
+
+    if (results.length === 0) {
+      return { success: false, message: 'Usuário não encontrado' };
+    }
+
     return { success: true, data: results };
   } catch (error) {
     return {
@@ -39,7 +49,7 @@ const getUser = async (userId) => {
   }
 };
 
-const createUser = async ({ name, email }) => {
+const createUserInDB = async ({ name, email }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -47,6 +57,11 @@ const createUser = async ({ name, email }) => {
       INSERT INTO users (name, email) VALUES (?,?)`,
       [name, email],
     );
+
+    if (results.affectedRows === 0) {
+      return { success: false, message: 'Usuário não foi cadastrado' };
+    }
+
     return { success: true, data: results };
   } catch (error) {
     return {
@@ -58,7 +73,7 @@ const createUser = async ({ name, email }) => {
   }
 };
 
-const updateUser = async ({ name, userId }) => {
+const updateUserInDB = async ({ name, userId }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -66,6 +81,11 @@ const updateUser = async ({ name, userId }) => {
       UPDATE users SET name=? WHERE id=?`,
       [name, userId],
     );
+
+    if (results.affectedRows === 0) {
+      return { success: false, message: 'Usuário não encontrado' };
+    }
+
     return { success: true, data: results };
   } catch (error) {
     return {
@@ -77,7 +97,7 @@ const updateUser = async ({ name, userId }) => {
   }
 };
 
-const deleteUser = async (userId) => {
+const deleteUserInDB = async (userId) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -85,6 +105,11 @@ const deleteUser = async (userId) => {
       DELETE FROM users WHERE id=?`,
       [userId],
     );
+
+    if (results.affectedRows === 0) {
+      return { success: false, message: 'Usuário não encontrado' };
+    }
+
     return { success: true, data: results };
   } catch (error) {
     return {
@@ -97,9 +122,9 @@ const deleteUser = async (userId) => {
 };
 
 module.exports = {
-  getAllUsers,
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser,
+  getAllUsersFromDB,
+  getUserFromDB,
+  createUserInDB,
+  updateUserInDB,
+  deleteUserInDB,
 };

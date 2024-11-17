@@ -1,50 +1,61 @@
 const {
-  getAllUsers,
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser,
+  getAllUsersFromDB,
+  getUserFromDB,
+  createUserInDB,
+  updateUserInDB,
+  deleteUserInDB,
 } = require('../models/users');
 
 const usersController = {
   listAllUsers: async (req, res) => {
     try {
-      const users = await getAllUsers();
+      const users = await getAllUsersFromDB();
 
       if (!users.success) {
-        return res.status(404).json({ message: 'Usuários não encontrados' });
+        return res.status(404).json({ success: false, message: users.message });
       }
-      res.status(200).json(users.data);
+
+      res.status(200).json({ success: true, data: users.data });
     } catch (error) {
-      res.status(500).json({ message: 'Erro ao buscar usuários' });
+      res
+        .status(500)
+        .json({ success: false, message: 'Erro ao buscar usuários' });
     }
   },
 
   getUser: async (req, res) => {
     const { userId } = req.params;
     try {
-      const user = await getUser(userId);
+      const user = await getUserFromDB(userId);
 
       if (!user.success) {
-        return res.status(404).json({ message: 'Usuário não encontrado' });
+        return res.status(404).json({ success: false, message: user.message });
       }
-      res.status(200).json(user.data);
+
+      res.status(200).json({ success: true, data: user.data });
     } catch (error) {
-      res.status(500).json({ message: 'Erro ao buscar usuário' });
+      res
+        .status(500)
+        .json({ success: false, message: 'Erro ao buscar usuário' });
     }
   },
 
   createUser: async (req, res) => {
     const { name, email } = req.body;
     try {
-      const newUser = await createUser({ name, email });
+      const newUser = await createUserInDB({ name, email });
 
       if (!newUser.success) {
-        return res.status(404).json({ message: 'Usuário não foi cadastrado' });
+        return res
+          .status(404)
+          .json({ success: false, message: newUser.message });
       }
-      res.status(201).json(newUser.data);
+
+      res.status(201).json({ success: true, data: newUser.data });
     } catch (error) {
-      res.status(500).json({ message: 'Erro ao criar usuário' });
+      res
+        .status(500)
+        .json({ success: false, message: 'Erro ao criar usuário' });
     }
   },
 
@@ -52,28 +63,38 @@ const usersController = {
     const { userId } = req.params;
     const { name } = req.body;
     try {
-      const updatedUser = await updateUser({ name, userId });
+      const updatedUser = await updateUserInDB({ name, userId });
 
       if (!updatedUser.success) {
-        return res.status(404).json({ message: 'Usuário não encontrado' });
+        return res
+          .status(404)
+          .json({ success: false, message: 'Usuário não encontrado' });
       }
-      res.status(200).json(updatedUser.data);
+
+      res.status(200).json({ success: true, data: updatedUser.data });
     } catch (error) {
-      res.status(500).json({ message: 'Erro ao atualizar usuário' });
+      res
+        .status(500)
+        .json({ success: false, message: 'Erro ao atualizar usuário' });
     }
   },
 
   deleteUser: async (req, res) => {
     const { userId } = req.params;
     try {
-      const deletedUser = await deleteUser(userId);
+      const deletedUser = await deleteUserInDB(userId);
 
       if (!deletedUser.success) {
-        return res.status(404).json({ message: 'Usuário não encontrado' });
+        return res
+          .status(404)
+          .json({ success: false, message: 'Usuário não encontrado' });
       }
-      res.status(200).json(deletedUser.data);
+
+      res.status(200).json({ success: true, data: deletedUser.data });
     } catch (error) {
-      res.status(500).json({ message: 'Erro ao deletar usuário' });
+      res
+        .status(500)
+        .json({ success: false, message: 'Erro ao deletar usuário' });
     }
   },
 };
