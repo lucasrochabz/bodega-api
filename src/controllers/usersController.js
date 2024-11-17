@@ -15,7 +15,11 @@ const usersController = {
         return res.status(404).json({ success: false, message: users.message });
       }
 
-      res.status(200).json({ success: true, data: users.data });
+      res.status(200).json({
+        success: true,
+        message: 'Usuários encontrados com sucesso.',
+        data: users.data,
+      });
     } catch (error) {
       res
         .status(500)
@@ -32,7 +36,11 @@ const usersController = {
         return res.status(404).json({ success: false, message: user.message });
       }
 
-      res.status(200).json({ success: true, data: user.data });
+      res.status(200).json({
+        success: true,
+        message: 'Usuário encontrado com sucesso',
+        data: user.data,
+      });
     } catch (error) {
       res
         .status(500)
@@ -51,7 +59,11 @@ const usersController = {
           .json({ success: false, message: newUser.message });
       }
 
-      res.status(201).json({ success: true, data: newUser.data });
+      res.status(201).json({
+        success: true,
+        message: 'Usuário cadastrado com sucesso.',
+        data: newUser.data,
+      });
     } catch (error) {
       res
         .status(500)
@@ -71,7 +83,11 @@ const usersController = {
           .json({ success: false, message: 'Usuário não encontrado' });
       }
 
-      res.status(200).json({ success: true, data: updatedUser.data });
+      res.status(200).json({
+        success: true,
+        message: 'Usuário atualizado com sucesso',
+        data: updatedUser.data,
+      });
     } catch (error) {
       res
         .status(500)
@@ -90,7 +106,11 @@ const usersController = {
           .json({ success: false, message: 'Usuário não encontrado' });
       }
 
-      res.status(200).json({ success: true, data: deletedUser.data });
+      res.status(200).json({
+        success: true,
+        message: 'Usuário deletado com sucesso.',
+        data: deletedUser.data,
+      });
     } catch (error) {
       res
         .status(500)

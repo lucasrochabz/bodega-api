@@ -62,7 +62,10 @@ const createUserInDB = async ({ name, email }) => {
       return { success: false, message: 'Usuário não foi cadastrado' };
     }
 
-    return { success: true, data: results };
+    return {
+      success: true,
+      data: { id: results.insertId, name, email },
+    };
   } catch (error) {
     return {
       success: false,
@@ -86,7 +89,7 @@ const updateUserInDB = async ({ name, userId }) => {
       return { success: false, message: 'Usuário não encontrado' };
     }
 
-    return { success: true, data: results };
+    return { success: true, data: { id: userId, name } };
   } catch (error) {
     return {
       success: false,
@@ -110,7 +113,7 @@ const deleteUserInDB = async (userId) => {
       return { success: false, message: 'Usuário não encontrado' };
     }
 
-    return { success: true, data: results };
+    return { success: true, data: { id: userId } };
   } catch (error) {
     return {
       success: false,
