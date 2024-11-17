@@ -17,7 +17,11 @@ const productsController = {
           .json({ success: false, message: products.message });
       }
 
-      res.status(200).json({ success: true, data: products.data });
+      res.status(200).json({
+        success: true,
+        message: 'Produtos encontrados com sucesso.',
+        data: products.data,
+      });
     } catch (error) {
       res
         .status(500)
@@ -36,7 +40,11 @@ const productsController = {
           .json({ success: false, message: product.message });
       }
 
-      res.status(200).json({ success: true, data: product.data });
+      res.status(200).json({
+        success: true,
+        message: 'Produto encontrado com sucesso.',
+        data: product.data,
+      });
     } catch (error) {
       res
         .status(500)
@@ -60,7 +68,11 @@ const productsController = {
           .json({ success: false, message: newProduct.message });
       }
 
-      res.status(201).json({ success: true, data: newProduct.data });
+      res.status(201).json({
+        success: true,
+        message: 'Produto cadastrado com sucesso.',
+        data: newProduct.data,
+      });
     } catch (error) {
       res
         .status(500)
@@ -83,7 +95,11 @@ const productsController = {
           .json({ success: false, message: updatedProduct.message });
       }
 
-      res.status(200).json({ success: true, data: updatedProduct.data });
+      res.status(200).json({
+        success: true,
+        message: 'Produto atualizado com sucesso.',
+        data: updatedProduct.data,
+      });
     } catch (error) {
       res
         .status(500)
@@ -102,7 +118,11 @@ const productsController = {
           .json({ success: false, message: 'Produto não encontrado' });
       }
 
-      res.status(200).json({ success: true, data: deletedProduct.data });
+      res.status(200).json({
+        success: true,
+        message: 'Produto deletado com sucesso.',
+        data: deletedProduct.data,
+      });
     } catch (error) {
       res
         .status(500)

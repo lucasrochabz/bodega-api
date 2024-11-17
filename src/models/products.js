@@ -60,7 +60,10 @@ const createProductInDB = async ({ name, price, description, stock }) => {
       return { success: false, message: 'Produto não foi cadastrado' };
     }
 
-    return { success: true, data: results };
+    return {
+      success: true,
+      data: { id: results.insertId, name, price, description, stock },
+    };
   } catch (error) {
     return {
       success: false,
@@ -84,7 +87,7 @@ const updateProductInDB = async ({ description, productId }) => {
       return { success: false, message: 'Produto não encontrado' };
     }
 
-    return { success: true, data: results };
+    return { success: true, data: { id: productId, description } };
   } catch (error) {
     return {
       success: false,
@@ -108,7 +111,7 @@ const deleteProductInDB = async (productId) => {
       return { success: false, message: 'Produto não encontrado' };
     }
 
-    return { success: true, data: results };
+    return { success: true, data: { id: productId } };
   } catch (error) {
     return {
       success: false,
