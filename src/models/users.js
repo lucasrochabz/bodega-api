@@ -14,9 +14,11 @@ const getAllUsersFromDB = async () => {
 
     return { success: true, data: results };
   } catch (error) {
+    console.error('Erro ao buscar usuários no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao buscar usuários no banco de dados',
+      message: 'Erro ao buscar usuários no Banco de Dados',
+      data: null,
     };
   } finally {
     await connection.end();
@@ -40,9 +42,11 @@ const getUserFromDB = async (userId) => {
 
     return { success: true, data: results[0] };
   } catch (error) {
+    console.error('Erro ao buscar usuário no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao buscar usuário no banco de dados',
+      message: 'Erro ao buscar usuário no Banco de Dados',
+      data: null,
     };
   } finally {
     await connection.end();
@@ -67,9 +71,11 @@ const createUserInDB = async ({ name, email }) => {
       data: { id: results.insertId, name, email },
     };
   } catch (error) {
+    console.error('Erro ao cadastrar usuário no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao cadastrar usuário no banco de dados',
+      message: 'Erro ao cadastrar usuário no Banco de Dados',
+      data: null,
     };
   } finally {
     await connection.end();
@@ -91,9 +97,11 @@ const updateUserInDB = async ({ name, userId }) => {
 
     return { success: true, data: { id: userId, name } };
   } catch (error) {
+    console.error('Erro ao atualizar usuário no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao atualizar usuário no banco de dados',
+      message: 'Erro ao atualizar usuário no Banco de Dados',
+      data: null,
     };
   } finally {
     await connection.end();
@@ -115,9 +123,11 @@ const deleteUserInDB = async (userId) => {
 
     return { success: true, data: { id: userId } };
   } catch (error) {
+    console.error('Erro ao deletar usuário no Banco de Dados:', error);
     return {
       success: false,
       message: 'Erro ao deletar usuário no banco de dados',
+      data: null,
     };
   } finally {
     await connection.end();

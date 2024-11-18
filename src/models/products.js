@@ -14,9 +14,11 @@ const getAllProductsFromDB = async () => {
 
     return { success: true, data: results };
   } catch (error) {
+    console.error('Erro ao buscar produtos no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao buscar produtos no banco de dados',
+      message: 'Erro ao buscar produtos no Banco de Dados',
+      data: null,
     };
   } finally {
     await connection.end();
@@ -31,7 +33,6 @@ const getProductFromDB = async (productId) => {
       SELECT * FROM products WHERE id=?`,
       [productId],
     );
-    console.log(results);
 
     if (results.length === 0) {
       return { success: false, message: 'Produto não encontrado' };
@@ -39,9 +40,11 @@ const getProductFromDB = async (productId) => {
 
     return { success: true, data: results[0] };
   } catch (error) {
+    console.error('Erro ao buscar produto no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao buscar produto no banco de dados',
+      message: 'Erro ao buscar produto no Banco de Dados',
+      data: null,
     };
   } finally {
     await connection.end();
@@ -66,9 +69,11 @@ const createProductInDB = async ({ name, price, description, stock }) => {
       data: { id: results.insertId, name, price, description, stock },
     };
   } catch (error) {
+    console.error('Erro ao cadastrar produto no Banco de Dados:', error);
     return {
       success: false,
       message: 'Erro ao cadastrar produto no banco de dados',
+      data: null,
     };
   } finally {
     await connection.end();
@@ -90,9 +95,11 @@ const updateProductInDB = async ({ description, productId }) => {
 
     return { success: true, data: { id: productId, description } };
   } catch (error) {
+    console.error('Erro ao atualizar pedido no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao atualizar produto no banco de dados',
+      message: 'Erro ao atualizar produto no Banco de Dados',
+      data: null,
     };
   } finally {
     await connection.end();
@@ -114,9 +121,11 @@ const deleteProductInDB = async (productId) => {
 
     return { success: true, data: { id: productId } };
   } catch (error) {
+    console.error('Erro ao deletar produto no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao deletar produto no banco de dados',
+      message: 'Erro ao deletar produto no Banco de Dados',
+      data: null,
     };
   } finally {
     await connection.end();
