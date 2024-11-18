@@ -12,7 +12,11 @@ const usersController = {
       const users = await getAllUsersFromDB();
 
       if (!users.success) {
-        return res.status(404).json({ success: false, message: users.message });
+        return res.status(404).json({
+          success: false,
+          message: users.message,
+          data: users.data,
+        });
       }
 
       res.status(200).json({
@@ -33,7 +37,11 @@ const usersController = {
       const user = await getUserFromDB(userId);
 
       if (!user.success) {
-        return res.status(404).json({ success: false, message: user.message });
+        return res.status(404).json({
+          success: false,
+          message: user.message,
+          data: user.data,
+        });
       }
 
       res.status(200).json({
@@ -54,9 +62,11 @@ const usersController = {
       const newUser = await createUserInDB({ name, email });
 
       if (!newUser.success) {
-        return res
-          .status(404)
-          .json({ success: false, message: newUser.message });
+        return res.status(404).json({
+          success: false,
+          message: newUser.message,
+          data: newUser.data,
+        });
       }
 
       res.status(201).json({
@@ -78,9 +88,11 @@ const usersController = {
       const updatedUser = await updateUserInDB({ name, userId });
 
       if (!updatedUser.success) {
-        return res
-          .status(404)
-          .json({ success: false, message: 'Usuário não encontrado' });
+        return res.status(404).json({
+          success: false,
+          message: 'Usuário não encontrado',
+          data: updatedUser.data,
+        });
       }
 
       res.status(200).json({
@@ -101,9 +113,11 @@ const usersController = {
       const deletedUser = await deleteUserInDB(userId);
 
       if (!deletedUser.success) {
-        return res
-          .status(404)
-          .json({ success: false, message: 'Usuário não encontrado' });
+        return res.status(404).json({
+          success: false,
+          message: 'Usuário não encontrado',
+          data: deletedUser.data,
+        });
       }
 
       res.status(200).json({

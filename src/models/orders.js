@@ -17,7 +17,7 @@ const getAllOrdersFromDB = async () => {
     console.error('Erro ao buscar pedidos no Banco de dados:', error);
     return {
       success: false,
-      message: 'Erro ao buscar pedidos no banco de dados',
+      message: 'Erro ao buscar pedidos no banco de dados.',
       data: null,
     };
   } finally {
@@ -43,7 +43,7 @@ const getOrderFromDB = async (orderId) => {
     console.error('Erro ao buscar pedido no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao buscar pedido no Banco de Dados',
+      message: 'Erro ao buscar pedido no Banco de Dados.',
       data: null,
     };
   } finally {
@@ -86,7 +86,7 @@ const createOrderInDB = async ({
     console.error('Erro ao cadastrar pedido no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao cadastrar pedido no Banco de Dados',
+      message: 'Erro ao cadastrar pedido no Banco de Dados.',
       data: null,
     };
   } finally {
@@ -112,7 +112,7 @@ const updateOrderInDB = async ({ product_id, orderId }) => {
     console.error('Erro ao atualizar pedido no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao atualizar pedido no banco de dados',
+      message: 'Erro ao atualizar pedido no banco de dados.',
       data: null,
     };
   } finally {
@@ -138,7 +138,7 @@ const deleteOrderInDB = async (orderId) => {
     console.error('Erro ao deletar pedido no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao deletar pedido no Banco de Dados',
+      message: 'Erro ao deletar pedido no Banco de Dados.',
     };
   } finally {
     await connection.end();

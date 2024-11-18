@@ -17,7 +17,7 @@ const getAllUsersFromDB = async () => {
     console.error('Erro ao buscar usuários no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao buscar usuários no Banco de Dados',
+      message: 'Erro ao buscar usuários no Banco de Dados.',
       data: null,
     };
   } finally {
@@ -45,7 +45,7 @@ const getUserFromDB = async (userId) => {
     console.error('Erro ao buscar usuário no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao buscar usuário no Banco de Dados',
+      message: 'Erro ao buscar usuário no Banco de Dados.',
       data: null,
     };
   } finally {
@@ -74,7 +74,7 @@ const createUserInDB = async ({ name, email }) => {
     console.error('Erro ao cadastrar usuário no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao cadastrar usuário no Banco de Dados',
+      message: 'Erro ao cadastrar usuário no Banco de Dados.',
       data: null,
     };
   } finally {
@@ -100,7 +100,7 @@ const updateUserInDB = async ({ name, userId }) => {
     console.error('Erro ao atualizar usuário no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao atualizar usuário no Banco de Dados',
+      message: 'Erro ao atualizar usuário no Banco de Dados.',
       data: null,
     };
   } finally {
@@ -126,7 +126,7 @@ const deleteUserInDB = async (userId) => {
     console.error('Erro ao deletar usuário no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao deletar usuário no banco de dados',
+      message: 'Erro ao deletar usuário no banco de dados.',
       data: null,
     };
   } finally {

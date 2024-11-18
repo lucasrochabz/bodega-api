@@ -12,9 +12,11 @@ const productsController = {
       const products = await getAllProductsFromDB();
 
       if (!products.success) {
-        return res
-          .status(404)
-          .json({ success: false, message: products.message });
+        return res.status(404).json({
+          success: false,
+          message: products.message,
+          data: products.data,
+        });
       }
 
       res.status(200).json({
@@ -35,9 +37,11 @@ const productsController = {
       const product = await getProductFromDB(productId);
 
       if (!product.success) {
-        return res
-          .status(404)
-          .json({ success: false, message: product.message });
+        return res.status(404).json({
+          success: false,
+          message: product.message,
+          data: product.data,
+        });
       }
 
       res.status(200).json({
@@ -63,9 +67,11 @@ const productsController = {
       });
 
       if (!newProduct.success) {
-        return res
-          .status(404)
-          .json({ success: false, message: newProduct.message });
+        return res.status(404).json({
+          success: false,
+          message: newProduct.message,
+          data: newProduct.data,
+        });
       }
 
       res.status(201).json({
@@ -90,9 +96,11 @@ const productsController = {
       });
 
       if (!updatedProduct.success) {
-        return res
-          .status(404)
-          .json({ success: false, message: updatedProduct.message });
+        return res.status(404).json({
+          success: false,
+          message: updatedProduct.message,
+          data: updatedProduct.data,
+        });
       }
 
       res.status(200).json({
@@ -113,9 +121,11 @@ const productsController = {
       const deletedProduct = await deleteProductInDB(productId);
 
       if (!deletedProduct.success) {
-        return res
-          .status(404)
-          .json({ success: false, message: 'Produto não encontrado' });
+        return res.status(404).json({
+          success: false,
+          message: 'Produto não encontrado',
+          data: deletedProduct.data,
+        });
       }
 
       res.status(200).json({

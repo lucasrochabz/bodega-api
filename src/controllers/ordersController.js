@@ -12,9 +12,11 @@ const ordersController = {
       const orders = await getAllOrdersFromDB();
 
       if (!orders.success) {
-        return res
-          .status(404)
-          .json({ success: false, message: orders.message });
+        return res.status(404).json({
+          success: false,
+          message: orders.message,
+          data: orders.data,
+        });
       }
 
       res.status(200).json({
@@ -35,7 +37,11 @@ const ordersController = {
       const order = await getOrderFromDB(orderId);
 
       if (!order.success) {
-        return res.status(404).json({ success: false, message: order.message });
+        return res.status(404).json({
+          success: false,
+          message: order.message,
+          data: order.data,
+        });
       }
 
       res.status(200).json({
@@ -62,9 +68,11 @@ const ordersController = {
       });
 
       if (!newOrder.success) {
-        return res
-          .status(404)
-          .json({ success: false, message: newOrder.message });
+        return res.status(404).json({
+          success: false,
+          message: newOrder.message,
+          data: newOrder.data,
+        });
       }
 
       res.status(201).json({
@@ -86,9 +94,11 @@ const ordersController = {
       const updatedOrder = await updateOrderInDB({ product_id, orderId });
 
       if (!updatedOrder.success) {
-        return res
-          .status(404)
-          .json({ success: false, message: updatedOrder.message });
+        return res.status(404).json({
+          success: false,
+          message: updatedOrder.message,
+          data: updatedOrder.data,
+        });
       }
 
       res.status(200).json({
@@ -109,9 +119,11 @@ const ordersController = {
       const deletedOrder = await deleteOrderInDB(orderId);
 
       if (!deletedOrder.success) {
-        return res
-          .status(404)
-          .json({ success: false, message: deletedOrder.message });
+        return res.status(404).json({
+          success: false,
+          message: deletedOrder.message,
+          data: deletedOrder.data,
+        });
       }
 
       res.status(200).json({

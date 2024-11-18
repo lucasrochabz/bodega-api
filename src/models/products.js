@@ -17,7 +17,7 @@ const getAllProductsFromDB = async () => {
     console.error('Erro ao buscar produtos no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao buscar produtos no Banco de Dados',
+      message: 'Erro ao buscar produtos no Banco de Dados.',
       data: null,
     };
   } finally {
@@ -43,7 +43,7 @@ const getProductFromDB = async (productId) => {
     console.error('Erro ao buscar produto no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao buscar produto no Banco de Dados',
+      message: 'Erro ao buscar produto no Banco de Dados.',
       data: null,
     };
   } finally {
@@ -72,7 +72,7 @@ const createProductInDB = async ({ name, price, description, stock }) => {
     console.error('Erro ao cadastrar produto no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao cadastrar produto no banco de dados',
+      message: 'Erro ao cadastrar produto no Banco de Dados.',
       data: null,
     };
   } finally {
@@ -98,7 +98,7 @@ const updateProductInDB = async ({ description, productId }) => {
     console.error('Erro ao atualizar pedido no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao atualizar produto no Banco de Dados',
+      message: 'Erro ao atualizar produto no Banco de Dados.',
       data: null,
     };
   } finally {
@@ -124,7 +124,7 @@ const deleteProductInDB = async (productId) => {
     console.error('Erro ao deletar produto no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao deletar produto no Banco de Dados',
+      message: 'Erro ao deletar produto no Banco de Dados.',
       data: null,
     };
   } finally {
