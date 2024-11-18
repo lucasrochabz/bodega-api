@@ -90,7 +90,7 @@ const usersController = {
       if (!updatedUser.success) {
         return res.status(404).json({
           success: false,
-          message: 'Usuário não encontrado',
+          message: updatedUser.message,
           data: updatedUser.data,
         });
       }
@@ -115,7 +115,7 @@ const usersController = {
       if (!deletedUser.success) {
         return res.status(404).json({
           success: false,
-          message: 'Usuário não encontrado',
+          message: deletedUser.message,
           data: deletedUser.data,
         });
       }
