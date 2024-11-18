@@ -18,7 +18,6 @@ const getAllUsersFromDB = async () => {
     return {
       success: false,
       message: 'Erro ao buscar usuários no Banco de Dados.',
-      data: null,
     };
   } finally {
     await connection.end();
@@ -46,7 +45,6 @@ const getUserFromDB = async (userId) => {
     return {
       success: false,
       message: 'Erro ao buscar usuário no Banco de Dados.',
-      data: null,
     };
   } finally {
     await connection.end();
@@ -75,7 +73,6 @@ const createUserInDB = async ({ name, email }) => {
     return {
       success: false,
       message: 'Erro ao cadastrar usuário no Banco de Dados.',
-      data: null,
     };
   } finally {
     await connection.end();
@@ -101,7 +98,6 @@ const updateUserInDB = async ({ name, userId }) => {
     return {
       success: false,
       message: 'Erro ao atualizar usuário no Banco de Dados.',
-      data: null,
     };
   } finally {
     await connection.end();
@@ -127,7 +123,6 @@ const deleteUserInDB = async (userId) => {
     return {
       success: false,
       message: 'Erro ao deletar usuário no banco de dados.',
-      data: null,
     };
   } finally {
     await connection.end();

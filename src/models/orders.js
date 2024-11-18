@@ -18,7 +18,6 @@ const getAllOrdersFromDB = async () => {
     return {
       success: false,
       message: 'Erro ao buscar pedidos no banco de dados.',
-      data: null,
     };
   } finally {
     await connection.end();
@@ -44,7 +43,6 @@ const getOrderFromDB = async (orderId) => {
     return {
       success: false,
       message: 'Erro ao buscar pedido no Banco de Dados.',
-      data: null,
     };
   } finally {
     await connection.end();
@@ -87,7 +85,6 @@ const createOrderInDB = async ({
     return {
       success: false,
       message: 'Erro ao cadastrar pedido no Banco de Dados.',
-      data: null,
     };
   } finally {
     await connection.end();
@@ -113,7 +110,6 @@ const updateOrderInDB = async ({ product_id, orderId }) => {
     return {
       success: false,
       message: 'Erro ao atualizar pedido no banco de dados.',
-      data: null,
     };
   } finally {
     await connection.end();

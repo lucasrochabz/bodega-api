@@ -15,7 +15,6 @@ const productsController = {
         return res.status(404).json({
           success: false,
           message: products.message,
-          data: products.data,
         });
       }
 
@@ -40,7 +39,6 @@ const productsController = {
         return res.status(404).json({
           success: false,
           message: product.message,
-          data: product.data,
         });
       }
 
@@ -70,7 +68,6 @@ const productsController = {
         return res.status(404).json({
           success: false,
           message: newProduct.message,
-          data: newProduct.data,
         });
       }
 
@@ -99,7 +96,6 @@ const productsController = {
         return res.status(404).json({
           success: false,
           message: updatedProduct.message,
-          data: updatedProduct.data,
         });
       }
 
@@ -124,7 +120,6 @@ const productsController = {
         return res.status(404).json({
           success: false,
           message: deletedProduct.message,
-          data: deletedProduct.data,
         });
       }
 

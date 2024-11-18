@@ -18,7 +18,6 @@ const getAllProductsFromDB = async () => {
     return {
       success: false,
       message: 'Erro ao buscar produtos no Banco de Dados.',
-      data: null,
     };
   } finally {
     await connection.end();
@@ -44,7 +43,6 @@ const getProductFromDB = async (productId) => {
     return {
       success: false,
       message: 'Erro ao buscar produto no Banco de Dados.',
-      data: null,
     };
   } finally {
     await connection.end();
@@ -73,7 +71,6 @@ const createProductInDB = async ({ name, price, description, stock }) => {
     return {
       success: false,
       message: 'Erro ao cadastrar produto no Banco de Dados.',
-      data: null,
     };
   } finally {
     await connection.end();
@@ -99,7 +96,6 @@ const updateProductInDB = async ({ description, productId }) => {
     return {
       success: false,
       message: 'Erro ao atualizar produto no Banco de Dados.',
-      data: null,
     };
   } finally {
     await connection.end();
@@ -125,7 +121,6 @@ const deleteProductInDB = async (productId) => {
     return {
       success: false,
       message: 'Erro ao deletar produto no Banco de Dados.',
-      data: null,
     };
   } finally {
     await connection.end();

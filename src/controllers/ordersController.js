@@ -15,7 +15,6 @@ const ordersController = {
         return res.status(404).json({
           success: false,
           message: orders.message,
-          data: orders.data,
         });
       }
 
@@ -40,7 +39,6 @@ const ordersController = {
         return res.status(404).json({
           success: false,
           message: order.message,
-          data: order.data,
         });
       }
 
@@ -71,7 +69,6 @@ const ordersController = {
         return res.status(404).json({
           success: false,
           message: newOrder.message,
-          data: newOrder.data,
         });
       }
 
@@ -97,7 +94,6 @@ const ordersController = {
         return res.status(404).json({
           success: false,
           message: updatedOrder.message,
-          data: updatedOrder.data,
         });
       }
 
@@ -122,7 +118,6 @@ const ordersController = {
         return res.status(404).json({
           success: false,
           message: deletedOrder.message,
-          data: deletedOrder.data,
         });
       }
 

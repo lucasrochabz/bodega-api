@@ -15,7 +15,6 @@ const usersController = {
         return res.status(404).json({
           success: false,
           message: users.message,
-          data: users.data,
         });
       }
 
@@ -40,7 +39,6 @@ const usersController = {
         return res.status(404).json({
           success: false,
           message: user.message,
-          data: user.data,
         });
       }
 
@@ -65,7 +63,6 @@ const usersController = {
         return res.status(404).json({
           success: false,
           message: newUser.message,
-          data: newUser.data,
         });
       }
 
@@ -91,7 +88,6 @@ const usersController = {
         return res.status(404).json({
           success: false,
           message: updatedUser.message,
-          data: updatedUser.data,
         });
       }
 
@@ -116,7 +112,6 @@ const usersController = {
         return res.status(404).json({
           success: false,
           message: deletedUser.message,
-          data: deletedUser.data,
         });
       }
 
