@@ -9,7 +9,7 @@ const getAllProductsFromDB = async () => {
     );
 
     if (results.length === 0) {
-      return { success: false, message: 'Produtos não encontrados' };
+      return { success: false, message: 'Produtos não encontrados.' };
     }
 
     return { success: true, data: results };
@@ -35,7 +35,7 @@ const getProductFromDB = async (productId) => {
     );
 
     if (results.length === 0) {
-      return { success: false, message: 'Produto não encontrado' };
+      return { success: false, message: 'Produto não encontrado.' };
     }
 
     return { success: true, data: results[0] };
@@ -61,7 +61,7 @@ const createProductInDB = async ({ name, price, description, stock }) => {
     );
 
     if (results.affectedRows === 0) {
-      return { success: false, message: 'Produto não foi cadastrado' };
+      return { success: false, message: 'Produto não cadastrado.' };
     }
 
     return {
@@ -90,7 +90,7 @@ const updateProductInDB = async ({ description, productId }) => {
     );
 
     if (results.affectedRows === 0) {
-      return { success: false, message: 'Produto não encontrado' };
+      return { success: false, message: 'Produto não encontrado.' };
     }
 
     return { success: true, data: { id: productId, description } };
@@ -116,7 +116,7 @@ const deleteProductInDB = async (productId) => {
     );
 
     if (results.affectedRows === 0) {
-      return { success: false, message: 'Produto não encontrado' };
+      return { success: false, message: 'Produto não encontrado.' };
     }
 
     return { success: true, data: { id: productId } };

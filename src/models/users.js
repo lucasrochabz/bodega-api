@@ -9,7 +9,7 @@ const getAllUsersFromDB = async () => {
     );
 
     if (results.length === 0) {
-      return { success: false, message: 'Usuários não encontrados' };
+      return { success: false, message: 'Usuários não encontrados.' };
     }
 
     return { success: true, data: results };
@@ -37,7 +37,7 @@ const getUserFromDB = async (userId) => {
     );
 
     if (results.length === 0) {
-      return { success: false, message: 'Usuário não encontrado' };
+      return { success: false, message: 'Usuário não encontrado.' };
     }
 
     return { success: true, data: results[0] };
@@ -63,7 +63,7 @@ const createUserInDB = async ({ name, email }) => {
     );
 
     if (results.affectedRows === 0) {
-      return { success: false, message: 'Usuário não foi cadastrado' };
+      return { success: false, message: 'Usuário não cadastrado.' };
     }
 
     return {
@@ -92,7 +92,7 @@ const updateUserInDB = async ({ name, userId }) => {
     );
 
     if (results.affectedRows === 0) {
-      return { success: false, message: 'Usuário não encontrado' };
+      return { success: false, message: 'Usuário não encontrado.' };
     }
 
     return { success: true, data: { id: userId, name } };
@@ -118,7 +118,7 @@ const deleteUserInDB = async (userId) => {
     );
 
     if (results.affectedRows === 0) {
-      return { success: false, message: 'Usuário não encontrado' };
+      return { success: false, message: 'Usuário não encontrado.' };
     }
 
     return { success: true, data: { id: userId } };

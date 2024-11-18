@@ -9,7 +9,7 @@ const getAllOrdersFromDB = async () => {
     );
 
     if (results.length === 0) {
-      return { success: false, message: 'Pedidos não encontrados' };
+      return { success: false, message: 'Pedidos não encontrados.' };
     }
 
     return { success: true, data: results };
@@ -35,7 +35,7 @@ const getOrderFromDB = async (orderId) => {
     );
 
     if (results.length === 0) {
-      return { success: false, message: 'Pedido não encontrado' };
+      return { success: false, message: 'Pedido não encontrado.' };
     }
 
     return { success: true, data: results[0] };
@@ -68,7 +68,7 @@ const createOrderInDB = async ({
     );
 
     if (results.affectedRows === 0) {
-      return { success: false, message: 'Pedido não foi cadastrado' };
+      return { success: false, message: 'Pedido não cadastrado.' };
     }
 
     return {
@@ -104,7 +104,7 @@ const updateOrderInDB = async ({ product_id, orderId }) => {
     );
 
     if (results.affectedRows === 0) {
-      return { success: false, message: 'Pedido não encontrado' };
+      return { success: false, message: 'Pedido não encontrado.' };
     }
 
     return { success: true, data: { id: orderId, product_id } };
@@ -130,7 +130,7 @@ const deleteOrderInDB = async (orderId) => {
     );
 
     if (results.affectedRows === 0) {
-      return { success: false, message: 'Pedido não foi encontrado' };
+      return { success: false, message: 'Pedido não encontrado.' };
     }
 
     return { success: true, data: { id: orderId } };
