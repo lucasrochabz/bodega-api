@@ -123,7 +123,7 @@ const productsController = {
       if (!deletedProduct.success) {
         return res.status(404).json({
           success: false,
-          message: 'Produto não encontrado',
+          message: deletedProduct.message,
           data: deletedProduct.data,
         });
       }
