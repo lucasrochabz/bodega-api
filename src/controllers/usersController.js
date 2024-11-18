@@ -27,7 +27,7 @@ const usersController = {
     } catch (error) {
       res
         .status(500)
-        .json({ success: false, message: 'Erro ao buscar usuários' });
+        .json({ success: false, message: 'Erro ao buscar usuários.' });
     }
   },
 
@@ -52,7 +52,7 @@ const usersController = {
     } catch (error) {
       res
         .status(500)
-        .json({ success: false, message: 'Erro ao buscar usuário' });
+        .json({ success: false, message: 'Erro ao buscar usuário.' });
     }
   },
 
@@ -77,7 +77,7 @@ const usersController = {
     } catch (error) {
       res
         .status(500)
-        .json({ success: false, message: 'Erro ao criar usuário' });
+        .json({ success: false, message: 'Erro ao criar usuário.' });
     }
   },
 
@@ -103,7 +103,7 @@ const usersController = {
     } catch (error) {
       res
         .status(500)
-        .json({ success: false, message: 'Erro ao atualizar usuário' });
+        .json({ success: false, message: 'Erro ao atualizar usuário.' });
     }
   },
 
@@ -128,7 +128,7 @@ const usersController = {
     } catch (error) {
       res
         .status(500)
-        .json({ success: false, message: 'Erro ao deletar usuário' });
+        .json({ success: false, message: 'Erro ao deletar usuário.' });
     }
   },
 };

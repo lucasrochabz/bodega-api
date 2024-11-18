@@ -27,7 +27,7 @@ const ordersController = {
     } catch (error) {
       res
         .status(500)
-        .json({ success: false, message: 'Erro ao buscar pedidos' });
+        .json({ success: false, message: 'Erro ao buscar pedidos.' });
     }
   },
 
@@ -52,7 +52,7 @@ const ordersController = {
     } catch (error) {
       res
         .status(500)
-        .json({ success: false, message: 'Erro ao buscar pedido' });
+        .json({ success: false, message: 'Erro ao buscar pedido.' });
     }
   },
 
@@ -83,7 +83,7 @@ const ordersController = {
     } catch (error) {
       res
         .status(500)
-        .json({ success: false, message: 'Erro ao cadastrar pedido' });
+        .json({ success: false, message: 'Erro ao cadastrar pedido.' });
     }
   },
 
@@ -109,7 +109,7 @@ const ordersController = {
     } catch (error) {
       res
         .status(500)
-        .json({ success: false, message: 'Erro ao atualizar pedido' });
+        .json({ success: false, message: 'Erro ao atualizar pedido.' });
     }
   },
 
@@ -134,7 +134,7 @@ const ordersController = {
     } catch (error) {
       res
         .status(500)
-        .json({ success: false, message: 'Erro ao deletar pedido' });
+        .json({ success: false, message: 'Erro ao deletar pedido.' });
     }
   },
 };
