@@ -31,12 +31,13 @@ const getProductFromDB = async (productId) => {
       SELECT * FROM products WHERE id=?`,
       [productId],
     );
+    console.log(results);
 
     if (results.length === 0) {
       return { success: false, message: 'Produto não encontrado' };
     }
 
-    return { success: true, data: results };
+    return { success: true, data: results[0] };
   } catch (error) {
     return {
       success: false,

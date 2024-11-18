@@ -5,3 +5,5 @@ npm install --save dotenv
 npm install --save cors
 
 npm install --save-dev nodemon (falta instalar)
+
+node --watch index.js

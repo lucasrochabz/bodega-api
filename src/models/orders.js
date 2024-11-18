@@ -36,7 +36,7 @@ const getOrderFromDB = async (orderId) => {
       return { success: false, message: 'Pedido não encontrado' };
     }
 
-    return { success: true, data: results };
+    return { success: true, data: results[0] };
   } catch (error) {
     return {
       success: false,
