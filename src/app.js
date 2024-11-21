@@ -13,6 +13,6 @@ app.use(cors());
 app.use('/products', productsRouter);
 app.use('/users', usersRouter);
 app.use('/orders', ordersRouter);
-app.use('/cart', cartsRouter);
+app.use('/carts', cartsRouter);
 
 module.exports = app;
