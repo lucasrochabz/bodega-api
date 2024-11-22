@@ -2,7 +2,13 @@
 
 ### Sobre
 
-Esse projeto é destinado ao estudo back-end de API's REST utlizando: Node e Express como principais ferramentas.
+Este projeto é destinado ao estudo de back-end de APIs REST utilizando Node e Express como principais ferramentas.
+
+### Tecnologias
+
+- **Node.js**: Ambiente de execução JavaScript.
+- **Express**: Framework web para Node.js.
+- **MySQL**: Banco de dados relacional.
 
 ### Requisitos
 
@@ -12,25 +18,13 @@ Esse projeto é destinado ao estudo back-end de API's REST utlizando: Node e Exp
 
 ### Como instalar?
 
-- Faça o clone do projeto;
-- Abra o terminal e navegue até a pasta do projeto;
-- Faça uma copia do arquivo .env.example: `cp .env.example .env`
-- Edite o arquivo .env com os valores que fazem sentido pro seu ambiente;
-- Instale as dependencias usando o comando: `npm install`;
-- Inicie o servidor localmente: `npm start`.
+1. Faça o clone do projeto;
+2. Abra o terminal e navegue até a pasta do projeto;
+3. Faça uma copia do arquivo .env.example: `cp .env.example .env`
+4. Edite o arquivo .env com os valores que fazem sentido pro seu ambiente;
+5. Instale as dependencias usando o comando: `npm install`;
+6. Inicie o servidor localmente: `npm start`.
 
 ### Encontrou algum problema?
 
 Abra uma issue com sua sugestão ou crítica.
-
----
-
-npm install
-npm install --save express
-npm install --save mysql2
-npm install --save dotenv
-npm install --save cors
-
-npm install --save-dev nodemon (falta instalar)
-
-node --watch index.js
