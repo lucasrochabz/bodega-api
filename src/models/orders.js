@@ -27,17 +27,26 @@ const getAllOrdersFromDB = async () => {
 const getOrderFromDB = async (orderId) => {
   const connection = await getDBConnection();
   try {
-    const [results] = await connection.query(
+    const [orderResult] = await connection.query(
       `
       SELECT * FROM orders WHERE id=?`,
       [orderId],
     );
 
-    if (results.length === 0) {
+    if (orderResult.length === 0) {
       return { success: false, message: 'Pedido não encontrado.' };
     }
 
-    return { success: true, data: results[0] };
+    const [productResult] = await connection.query(
+      `
+      SELECT product_name FROM products WHERE id=?`,
+      [orderResult[0].product_id],
+    );
+
+    return {
+      success: true,
+      data: { ...orderResult[0], product: productResult[0] },
+    };
   } catch (error) {
     console.error('Erro ao buscar pedido no Banco de Dados:', error);
     return {
