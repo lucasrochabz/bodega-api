@@ -39,7 +39,7 @@ const getOrderFromDB = async (orderId) => {
 
     const [productResult] = await connection.query(
       `
-      SELECT product_name FROM products WHERE id=?`,
+      SELECT name, price, image_path FROM products WHERE id=?`,
       [orderResult[0].product_id],
     );
 
