@@ -1,5 +1,9 @@
-const users = {
-  id,
-  name,
-  email,
-};
+class Users {
+  constructor(id, name, email) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+  }
+}
+
+module.exports = Users;
