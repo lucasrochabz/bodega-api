@@ -16,11 +16,10 @@ const scriptsPath = path.join(__dirname, 'sql-scripts');
 // Função para executar os scripts SQL
 const executeScripts = async () => {
   try {
-    // Conect ao banco de dados
+    // Conecta ao banco de dados
     const connection = await mysql.createConnection(connectionConfig);
 
     // Lê os arquivos da pasta
-
     const files = await fs.readdir(scriptsPath);
     const sqlFiles = files.filter((file) => file.endsWith('.sql'));
 
@@ -35,6 +34,7 @@ const executeScripts = async () => {
         console.error(`Erro ao executar o script ${file}:`, queryErr.message);
       }
     }
+
     // Fecha a conexão
     await connection.end();
   } catch (error) {
