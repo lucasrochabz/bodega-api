@@ -1,4 +1,4 @@
-CREATE TABLE orders (
+CREATE TABLE IF NOT EXISTS orders (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
   address_id INT NOT NULL,

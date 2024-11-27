@@ -1,10 +1,10 @@
-CREATE TABLE addresses (
+CREATE TABLE IF NOT EXISTS addresses (
   id INT AUTO_INCREMENT PRIMARY,
   user_id INT,
   rua VARCHAR(255) NOT NULL,
   numero INT,
   cidade VARCHAR(100) NOT NULL,
-  estado VARCHAR(100) NOT NULL,
+  estado VARCHAR(100) NOT NULL DEFAULT 'CE',
   cep CHAR(8),
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
