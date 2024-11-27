@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "node index.js",
-    "create-table": "node create-table.js"
+    "create-table": "node createTables.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
