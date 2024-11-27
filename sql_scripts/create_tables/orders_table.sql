@@ -3,7 +3,7 @@ CREATE TABLE orders (
   user_id INT NOT NULL,
   address_id INT NOT NULL,
   product_id INT
-  date DATE NOT NULL,
+  order_date DATE NOT NULL,
   status VARCHAR(200) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (address_id) REFERENCES addresses(id),
