@@ -1,13 +1,15 @@
 const fs = require('fs/promises');
 const mysql = require('mysql2/promise');
 const path = require('path');
+require('dotenv').config();
 
 // Configuração do banco de dados
 const connectionConfig = {
-  host: 'localhost',
-  user: 'seu_usuario',
-  password: 'sua_senha',
-  database: 'nome_do_banco',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
 };
 
 // Caminho para a pasta com os scripts SQL
