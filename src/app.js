@@ -11,7 +11,7 @@ const cartsRouter = require('./routes/cartsRoute');
 app.use(express.json());
 app.use(cors());
 
-app.use('/auth', authsRouter);
+app.use('/auths', authsRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/orders', ordersRouter);
