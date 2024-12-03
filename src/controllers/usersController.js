@@ -4,7 +4,7 @@ const {
   createUserInDB,
   updateUserInDB,
   deleteUserInDB,
-} = require('../models/users');
+} = require('../models/usersModel');
 
 const usersController = {
   listAllUsers: async (req, res) => {

@@ -4,7 +4,7 @@ const {
   createProductInDB,
   updateProductInDB,
   deleteProductInDB,
-} = require('../models/products');
+} = require('../models/productsModel');
 
 const productsController = {
   listAllProducts: async (req, res) => {

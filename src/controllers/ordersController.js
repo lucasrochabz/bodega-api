@@ -4,7 +4,7 @@ const {
   createOrderInDB,
   updateOrderInDB,
   deleteOrderInDB,
-} = require('../models/orders');
+} = require('../models/ordersModel');
 
 const ordersController = {
   listAllOrders: async (req, res) => {
