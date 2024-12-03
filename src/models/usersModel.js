@@ -24,7 +24,7 @@ const getAllUsersFromDB = async () => {
   }
 };
 
-const getUserFromDB = async ({ email, password }) => {
+const verifyUserInDB = async ({ email, password }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
@@ -131,7 +131,7 @@ const deleteUserInDB = async (userId) => {
 
 module.exports = {
   getAllUsersFromDB,
-  getUserFromDB,
+  verifyUserInDB,
   createUserInDB,
   updateUserInDB,
   deleteUserInDB,

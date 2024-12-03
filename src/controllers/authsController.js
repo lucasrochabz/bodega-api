@@ -1,10 +1,10 @@
-const { getUserFromDB } = require('../models/usersModel');
+const { verifyUserInDB } = require('../models/usersModel');
 
 const authsController = {
   login: async (req, res) => {
     const { email, password } = req.body;
     try {
-      const user = await getUserFromDB({ email, password });
+      const user = await verifyUserInDB({ email, password });
 
       if (!user.success) {
         return res.status(404).json({
