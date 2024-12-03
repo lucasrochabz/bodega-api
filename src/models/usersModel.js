@@ -24,15 +24,15 @@ const getAllUsersFromDB = async () => {
   }
 };
 
-const getUserFromDB = async (userId) => {
+const getUserFromDB = async ({ email, password }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
       `
-      SELECT * FROM users
-      JOIN addresses ON users.id = addresses.user_id
-      WHERE users.id=?`,
-      [userId],
+      SELECT name FROM users
+      WHERE email=?
+      AND password=?`,
+      [email, password],
     );
 
     if (results.length === 0) {
