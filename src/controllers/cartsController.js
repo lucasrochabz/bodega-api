@@ -18,9 +18,10 @@ const cartsController = {
         data: carts.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao buscar pedidos.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao buscar pedidos.',
+      });
     }
   },
 };

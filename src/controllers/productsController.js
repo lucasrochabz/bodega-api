@@ -24,9 +24,10 @@ const productsController = {
         data: products.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao buscar produtos.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao buscar produtos.',
+      });
     }
   },
 
@@ -48,9 +49,10 @@ const productsController = {
         data: product.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao buscar produto.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao buscar produto.',
+      });
     }
   },
 
@@ -77,9 +79,10 @@ const productsController = {
         data: newProduct.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao cadastrar produto.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao cadastrar produto.',
+      });
     }
   },
 
@@ -105,9 +108,10 @@ const productsController = {
         data: updatedProduct.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao atualizar produto.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao atualizar produto.',
+      });
     }
   },
 
@@ -129,9 +133,10 @@ const productsController = {
         data: deletedProduct.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao deletar produto.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao deletar produto.',
+      });
     }
   },
 };

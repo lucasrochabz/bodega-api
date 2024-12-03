@@ -73,9 +73,10 @@ const usersController = {
         data: newUser.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao criar usuário.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao criar usuário.',
+      });
     }
   },
 
@@ -98,9 +99,10 @@ const usersController = {
         data: updatedUser.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao atualizar usuário.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao atualizar usuário.',
+      });
     }
   },
 
@@ -122,9 +124,10 @@ const usersController = {
         data: deletedUser.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao deletar usuário.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao deletar usuário.',
+      });
     }
   },
 };

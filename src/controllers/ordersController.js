@@ -48,9 +48,10 @@ const ordersController = {
         data: order.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao buscar pedido.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao buscar pedido.',
+      });
     }
   },
 
@@ -78,9 +79,10 @@ const ordersController = {
         data: newOrder.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao cadastrar pedido.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao cadastrar pedido.',
+      });
     }
   },
 
@@ -103,9 +105,10 @@ const ordersController = {
         data: updatedOrder.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao atualizar pedido.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao atualizar pedido.',
+      });
     }
   },
 
@@ -127,9 +130,10 @@ const ordersController = {
         data: deletedOrder.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao deletar pedido.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao deletar pedido.',
+      });
     }
   },
 };
