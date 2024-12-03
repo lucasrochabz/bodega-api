@@ -24,9 +24,10 @@ const usersController = {
         data: users.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao buscar usuários.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao buscar usuários.',
+      });
     }
   },
 
