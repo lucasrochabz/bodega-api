@@ -44,13 +44,14 @@ const usersController = {
 
       res.status(200).json({
         success: true,
-        message: 'Usuário encontrado com sucesso',
+        message: 'Usuário encontrado com sucesso.',
         data: user.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao buscar usuário.' });
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao buscar usuário.',
+      });
     }
   },
 
