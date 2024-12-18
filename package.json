@@ -1,8 +1,9 @@
 {
   "scripts": {
     "start": "node index.js",
-    "create-table": "node createTables.js",
-    "insert-data": "node insertDatas.js"
+    "db:create": "node createDB.js",
+    "db:create-tables": "node createTables.js",
+    "db:insert-data": "node insertData.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
