@@ -1,10 +1,11 @@
 CREATE TABLE IF NOT EXISTS addresses (
-  id INT AUTO_INCREMENT PRIMARY,
-  user_id INT,
-  rua VARCHAR(255) NOT NULL,
-  numero INT,
-  cidade VARCHAR(100) NOT NULL,
-  estado VARCHAR(100) NOT NULL DEFAULT 'CE',
-  cep CHAR(8),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	user_id INT NOT NULL, 
+	street VARCHAR(200) NOT NULL,
+	number INT NOT NULL,
+	neighborhood VARCHAR(200) NOT NULL,
+	city VARCHAR(200) NOT NULL,
+	state CHAR(2) NOT NULL,
+	zip_code CHAR(8) NOT NULL,
+	FOREIGN KEY (user_id) REFERENCES users(id)
 );
