@@ -7,10 +7,3 @@ CREATE TABLE IF NOT EXISTS orders (
 	FOREIGN KEY (user_id) REFERENCES users(id),
 	FOREIGN KEY (address_id) REFERENCES addresses(id)
 );
-
-INSERT INTO orders
-  (user_id, address_id, date, status)
-  VALUES
-  (1, 10, '2024-12-01', 'rascunho'),
-  (2, 10, '2024-12-02', 'rascunho'),
-  (3, 10, '2024-12-03', 'rascunho');
