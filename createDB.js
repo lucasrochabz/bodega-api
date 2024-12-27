@@ -25,9 +25,13 @@ const executeDB = async () => {
     // Lê o  conteúdo do arquivo SQL
     const sql = await fs.readFile(scriptsPath, 'utf8');
 
-    // Executa o script SQL
-    await connection.query(sql);
-    console.log('Banco de dados criado com sucesso.');
+    try {
+      // Executa o script SQL
+      await connection.query(sql);
+      console.log('Banco de dados criado com sucesso.');
+    } catch (queryErr) {
+      console.error('Erro ao criar Banco de dados:', queryErr);
+    }
 
     // fecha a conexão
   } catch (error) {
