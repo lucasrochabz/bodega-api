@@ -5,7 +5,8 @@ const getAllUsersFromDB = async () => {
   try {
     const [results] = await connection.query(
       `
-      SELECT * FROM users`,
+      SELECT id, name, email, password, status
+      FROM users`,
     );
 
     if (results.length === 0) {
@@ -56,7 +57,8 @@ const createUserInDB = async ({ name, email }) => {
   try {
     const [results] = await connection.query(
       `
-      INSERT INTO users (name, email) VALUES (?,?)`,
+      INSERT INTO users (name, email)
+      VALUES (?,?)`,
       [name, email],
     );
 
@@ -84,7 +86,9 @@ const updateUserInDB = async ({ name, userId }) => {
   try {
     const [results] = await connection.query(
       `
-      UPDATE users SET name=? WHERE id=?`,
+      UPDATE users
+      SET name=?
+      WHERE id=?`,
       [name, userId],
     );
 

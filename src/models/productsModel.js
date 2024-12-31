@@ -5,7 +5,8 @@ const getAllProductsFromDB = async () => {
   try {
     const [results] = await connection.query(
       `
-      SELECT * from products`,
+      SELECT id, name, price, description, stock, status, image_path
+      FROM products`,
     );
 
     if (results.length === 0) {
@@ -29,7 +30,8 @@ const getProductFromDB = async (productId) => {
   try {
     const [results] = await connection.query(
       `
-      SELECT * FROM products WHERE id=?`,
+      SELECT id, name, price, description, stock, status, image_path
+      FROM products WHERE id=?`,
       [productId],
     );
 
@@ -54,7 +56,8 @@ const createProductInDB = async ({ name, price, description, stock }) => {
   try {
     const [results] = await connection.query(
       `
-      INSERT INTO products (name, price, description, stock) VALUES (?, ?, ?, ?)`,
+      INSERT INTO products (name, price, description, stock)
+      VALUES (?, ?, ?, ?)`,
       [name, price, description, stock],
     );
 
@@ -82,7 +85,9 @@ const updateProductInDB = async ({ description, productId }) => {
   try {
     const [results] = await connection.query(
       `
-      UPDATE products SET description=? WHERE id=?`,
+      UPDATE products
+      SET description=?
+      WHERE id=?`,
       [description, productId],
     );
 
