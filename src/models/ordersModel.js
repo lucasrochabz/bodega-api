@@ -1,4 +1,4 @@
-const { getDBConnection } = require('../utils/getDBConnection');
+const { getDBConnection } = require('../config/database');
 
 const getAllOrdersFromDB = async () => {
   const connection = await getDBConnection();
