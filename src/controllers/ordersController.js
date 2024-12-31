@@ -56,13 +56,14 @@ const ordersController = {
   },
 
   createOrder: async (req, res) => {
-    const { user_id, address_id, date, status } = req.body;
+    const { user_id, address_id, date, status, products } = req.body;
     try {
       const newOrder = await createOrderInDB({
         user_id,
         address_id,
         date,
         status,
+        products,
       });
 
       if (!newOrder.success) {

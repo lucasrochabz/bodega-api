@@ -32,20 +32,22 @@ const getOrderFromDB = async (orderId) => {
       `
       SELECT order_id, product_id, quantity
       FROM orders_products
-      WHERE order_id=? AND product_id=?`,
-      [orderId, orderId],
+      WHERE order_id=?`,
+      [orderId],
     );
 
     if (ordersProductsResult.length === 0) {
       return { success: false, message: 'Pedido não encontrado.' };
     }
 
+    const productId = ordersProductsResult[0].product_id;
+
     const [productResult] = await connection.query(
       `
       SELECT name, price, image_path
       FROM products
       WHERE id=?`,
-      [ordersProductsResult[0].order_id],
+      [productId],
     );
 
     return {
@@ -63,28 +65,50 @@ const getOrderFromDB = async (orderId) => {
   }
 };
 
-const createOrderInDB = async ({ user_id, address_id, date, status }) => {
+const createOrderInDB = async ({
+  user_id,
+  address_id,
+  date,
+  status,
+  products,
+}) => {
   const connection = await getDBConnection();
   try {
-    const [results] = await connection.query(
+    const [orderResult] = await connection.query(
       `
       INSERT INTO orders (user_id, address_id, date, status)
       VALUES (?, ?, ?, ?)`,
       [user_id, address_id, date, status],
     );
 
-    if (results.affectedRows === 0) {
+    if (orderResult.affectedRows === 0) {
       return { success: false, message: 'Pedido não cadastrado.' };
     }
+
+    const orderId = orderResult.insertId;
+
+    const orderProducts = products.map((product) => [
+      orderId,
+      product.product_id,
+      product.quantity,
+    ]);
+
+    const [productResult] = await connection.query(
+      `
+      INSERT INTO orders_products (order_id, product_id, quantity)
+      VALUES ?`,
+      [orderProducts],
+    );
 
     return {
       success: true,
       data: {
-        id: results.insertId,
+        id: orderResult.insertId,
         user_id,
         address_id,
         date,
         status,
+        products,
       },
     };
   } catch (error) {
