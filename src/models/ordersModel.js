@@ -32,8 +32,8 @@ const getOrderFromDB = async (orderId) => {
       `
       SELECT order_id, product_id, quantity
       FROM orders_products
-      WHERE order_id=? AND product_id=1`,
-      [orderId],
+      WHERE order_id=? AND product_id=?`,
+      [orderId, orderId],
     );
 
     if (ordersProductsResult.length === 0) {
@@ -45,7 +45,7 @@ const getOrderFromDB = async (orderId) => {
       SELECT name, price, image_path
       FROM products
       WHERE id=?`,
-      [ordersProductsResult[0].product_id],
+      [ordersProductsResult[0].order_id],
     );
 
     return {
