@@ -1,4 +1,4 @@
-## Bodega Api version-1.0
+## Bodega API version-1.0
 
 ### Sobre
 
