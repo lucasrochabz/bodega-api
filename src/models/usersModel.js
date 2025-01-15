@@ -52,14 +52,14 @@ const verifyUserInDB = async ({ email, password }) => {
   }
 };
 
-const createUserInDB = async ({ name, email }) => {
+const createUserInDB = async ({ name, email, password }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
       `
-      INSERT INTO users (name, email)
-      VALUES (?,?)`,
-      [name, email],
+      INSERT INTO users (name, email, password)
+      VALUES (?, ?, ?)`,
+      [name, email, password],
     );
 
     if (results.affectedRows === 0) {
@@ -68,7 +68,7 @@ const createUserInDB = async ({ name, email }) => {
 
     return {
       success: true,
-      data: { id: results.insertId, name, email },
+      data: { id: results.insertId, name, email, password },
     };
   } catch (error) {
     console.error('Erro ao cadastrar usuário no Banco de Dados:', error);

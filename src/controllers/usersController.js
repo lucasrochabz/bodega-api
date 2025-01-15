@@ -57,9 +57,9 @@ const usersController = {
   },
 
   createUser: async (req, res) => {
-    const { name, email } = req.body;
+    const { name, email, password } = req.body;
     try {
-      const newUser = await createUserInDB({ name, email });
+      const newUser = await createUserInDB({ name, email, password });
 
       if (!newUser.success) {
         return res.status(404).json({
