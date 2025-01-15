@@ -28,6 +28,14 @@ const getAllOrdersFromDB = async () => {
 const getOrderFromDB = async (orderId) => {
   const connection = await getDBConnection();
   try {
+    const [orderDate] = await connection.query(
+      `
+      SELECT date
+      FROM orders
+      WHERE id=?`,
+      [orderId],
+    );
+
     const [ordersProductsResult] = await connection.query(
       `
       SELECT order_id, product_id, quantity
@@ -52,7 +60,11 @@ const getOrderFromDB = async (orderId) => {
 
     return {
       success: true,
-      data: { ...ordersProductsResult[0], product: productResult[0] },
+      data: {
+        ...ordersProductsResult[0],
+        date: orderDate[0].date,
+        product: productResult[0],
+      },
     };
   } catch (error) {
     console.error('Erro ao buscar pedido no Banco de Dados:', error);
