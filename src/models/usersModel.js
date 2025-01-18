@@ -30,7 +30,7 @@ const verifyUserInDB = async ({ email, password }) => {
   try {
     const [results] = await connection.query(
       `
-      SELECT name FROM users
+      SELECT id, name FROM users
       WHERE email=?
       AND password=?`,
       [email, password],
@@ -50,6 +50,20 @@ const verifyUserInDB = async ({ email, password }) => {
   } finally {
     await connection.end();
   }
+};
+
+const getUserFromDB = async (userId) => {
+  const connection = await getDBConnection();
+
+  const [results] = await connection.query(
+    `
+    SELECT * 
+    FROM users 
+    WHERE id=?`,
+    [userId],
+  );
+
+  return { success: true, data: results[0] };
 };
 
 const createUserInDB = async ({ name, email, password }) => {
@@ -136,6 +150,7 @@ const deleteUserInDB = async (userId) => {
 module.exports = {
   getAllUsersFromDB,
   verifyUserInDB,
+  getUserFromDB,
   createUserInDB,
   updateUserInDB,
   deleteUserInDB,
