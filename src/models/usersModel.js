@@ -54,16 +54,41 @@ const verifyUserInDB = async ({ email, password }) => {
 
 const getUserFromDB = async (userId) => {
   const connection = await getDBConnection();
+  try {
+    const [results] = await connection.query(
+      `
+      SELECT
+        users.id AS user_id,
+        users.name,
+        users.email,
+        addresses.street,
+        addresses.number,
+        addresses.neighborhood,
+        addresses.city,
+        addresses.state
+      FROM
+        users 
+      JOIN
+        addresses ON users.id = addresses.user_id
+      WHERE
+        users.id = ?`,
+      [userId],
+    );
 
-  const [results] = await connection.query(
-    `
-    SELECT * 
-    FROM users 
-    WHERE id=?`,
-    [userId],
-  );
+    if (results.length === 0) {
+      return { success: false, message: 'Usuário não encontrado.' };
+    }
 
-  return { success: true, data: results[0] };
+    return { success: true, data: results[0] };
+  } catch (error) {
+    console.error('Erro ao buscar usuário no Banco de Dados:', error);
+    return {
+      success: false,
+      message: 'Erro ao buscar usuário no Banco de Dados',
+    };
+  } finally {
+    await connection.end();
+  }
 };
 
 const createUserInDB = async ({ name, email, password }) => {
