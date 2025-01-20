@@ -4,6 +4,7 @@ const {
   createOrderInDB,
   updateOrderInDB,
   deleteOrderInDB,
+  getOrdersUserFromDB,
 } = require('../models/ordersModel');
 
 const ordersController = {
@@ -27,6 +28,31 @@ const ordersController = {
       res
         .status(500)
         .json({ success: false, message: 'Erro ao buscar pedidos.' });
+    }
+  },
+
+  getAllOrdersUser: async (req, res) => {
+    const { userId } = req.params;
+    try {
+      const order = await getOrdersUserFromDB(userId);
+
+      if (!order.success) {
+        return res.status(404).json({
+          success: false,
+          message: order.message,
+        });
+      }
+
+      res.status(200).json({
+        success: true,
+        message: 'Pedidos encontrados com sucesso.',
+        data: order.data,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao buscar pedidos.',
+      });
     }
   },
 
