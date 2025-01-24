@@ -58,7 +58,7 @@ const getUserFromDB = async (userId) => {
     const [results] = await connection.query(
       `
       SELECT
-        users.id AS user_id,
+        users.id,
         users.name,
         users.email,
         addresses.street,

@@ -15,10 +15,10 @@ const getAllOrdersFromDB = async () => {
 
     return { success: true, data: results };
   } catch (error) {
-    console.error('Erro ao buscar pedidos no Banco de dados:', error);
+    console.error('Erro ao buscar pedidos no Banco de Dados:', error);
     return {
       success: false,
-      message: 'Erro ao buscar pedidos no banco de dados.',
+      message: 'Erro ao buscar pedidos no Banco de Dados.',
     };
   } finally {
     await connection.end();
@@ -27,31 +27,49 @@ const getAllOrdersFromDB = async () => {
 
 const getOrdersUserFromDB = async (userId) => {
   const connection = await getDBConnection();
+  try {
+    const [results] = await connection.query(
+      `
+      SELECT 
+        orders.id,
+        orders.date,
+        orders_products.product_id,
+        products.name,
+        products.price,
+        products.image_path
+      FROM 
+        orders
+      JOIN
+        orders_products
+        ON orders.id = orders_products.order_id
+      JOIN 
+        products ON
+        orders_products.product_id = products.id
+      WHERE 
+        orders.user_id = ?`,
+      [userId],
+    );
 
-  const [results] = await connection.query(
-    `
-    SELECT 
-      orders.id AS id,
-      orders.date AS date,
-      orders_products.product_id,
-      products.id As product_name,
-      products.name,
-      products.price,
-      products.image_path
-    FROM 
-      orders
-    JOIN
-      orders_products
-      ON orders.id = orders_products.order_id
-    JOIN 
-      products ON
-      orders_products.product_id = products.id
-    WHERE 
-      orders.user_id = ?`,
-    [userId],
-  );
+    if (results.length === 0) {
+      return {
+        success: false,
+        message: 'Pedido(s) do usuário não encontrado no Banco de Dados.',
+      };
+    }
 
-  return { success: true, data: results };
+    return { success: true, data: results };
+  } catch (error) {
+    console.error(
+      'Erro ao buscar pedido(s) do usuário no Banco de Dados.',
+      error,
+    );
+    return {
+      success: false,
+      message: 'Erro ao buscar pedido(s) do usuário no Banco de Dados.',
+    };
+  } finally {
+    await connection.end();
+  }
 };
 
 const getOrderFromDB = async (orderId) => {
@@ -217,9 +235,9 @@ const deleteOrderInDB = async (orderId) => {
 
 module.exports = {
   getAllOrdersFromDB,
+  getOrdersUserFromDB,
   getOrderFromDB,
   createOrderInDB,
   updateOrderInDB,
   deleteOrderInDB,
-  getOrdersUserFromDB,
 };
