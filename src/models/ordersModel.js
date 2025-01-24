@@ -46,21 +46,21 @@ const getOrdersUserFromDB = async (userId) => {
         products ON
         orders_products.product_id = products.id
       WHERE 
-        orders.user_id = ?`,
+        orders.user_id=?`,
       [userId],
     );
 
     if (results.length === 0) {
       return {
         success: false,
-        message: 'Pedido(s) do usuário não encontrado no Banco de Dados.',
+        message: 'Pedido(s) do usuário não encontrado(s) no Banco de Dados.',
       };
     }
 
     return { success: true, data: results };
   } catch (error) {
     console.error(
-      'Erro ao buscar pedido(s) do usuário no Banco de Dados.',
+      'Erro ao buscar pedido(s) do usuário no Banco de Dados:',
       error,
     );
     return {

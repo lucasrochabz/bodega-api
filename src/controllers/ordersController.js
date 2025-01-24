@@ -45,7 +45,7 @@ const ordersController = {
 
       res.status(200).json({
         success: true,
-        message: 'Pedidos encontrados com sucesso.',
+        message: 'Pedido(s) encontrado(s) com sucesso.',
         data: order.data,
       });
     } catch (error) {
