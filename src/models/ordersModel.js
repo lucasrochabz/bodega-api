@@ -75,44 +75,33 @@ const getOrdersUserFromDB = async (userId) => {
 const getOrderFromDB = async (orderId) => {
   const connection = await getDBConnection();
   try {
-    const [orderDate] = await connection.query(
+    const [results] = await connection.query(
       `
-      SELECT date
-      FROM orders
-      WHERE id=?`,
+      SELECT
+        orders.id,
+        orders.date,
+        orders.status,
+        orders_products.product_id,
+        orders_products.quantity,
+        products.name,
+        products.price,
+        products.image_path
+      FROM
+        orders
+      JOIN
+        orders_products ON orders.id = orders_products.order_id
+      JOIN
+        products ON orders_products.product_id = products.id
+      WHERE
+        orders.id=?`,
       [orderId],
     );
 
-    const [ordersProductsResult] = await connection.query(
-      `
-      SELECT order_id, product_id, quantity
-      FROM orders_products
-      WHERE order_id=?`,
-      [orderId],
-    );
-
-    if (ordersProductsResult.length === 0) {
+    if (results.length === 0) {
       return { success: false, message: 'Pedido não encontrado.' };
     }
 
-    const productId = ordersProductsResult[0].product_id;
-
-    const [productResult] = await connection.query(
-      `
-      SELECT name, price, image_path
-      FROM products
-      WHERE id=?`,
-      [productId],
-    );
-
-    return {
-      success: true,
-      data: {
-        ...ordersProductsResult[0],
-        date: orderDate[0].date,
-        product: productResult[0],
-      },
-    };
+    return { success: true, data: results[0] };
   } catch (error) {
     console.error('Erro ao buscar pedido no Banco de Dados:', error);
     return {
