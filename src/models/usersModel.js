@@ -71,7 +71,7 @@ const getUserFromDB = async (userId) => {
       JOIN
         addresses ON users.id = addresses.user_id
       WHERE
-        users.id = ?`,
+        users.id=?`,
       [userId],
     );
 

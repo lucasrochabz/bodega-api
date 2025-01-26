@@ -33,6 +33,7 @@ const getOrdersUserFromDB = async (userId) => {
       SELECT 
         orders.id,
         orders.date,
+        orders.status,
         orders_products.product_id,
         products.name,
         products.price,
