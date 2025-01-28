@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const {
   getAllUsersFromDB,
   getUserFromDB,
@@ -58,8 +59,20 @@ const usersController = {
 
   createUser: async (req, res) => {
     const { name, email, password } = req.body;
+    const saltRounds = 10;
+
+    const generateHash = async (passwordValue, saltRounds) => {
+      try {
+        const hashPassword = await bcrypt.hash(passwordValue, saltRounds);
+        return hashPassword;
+      } catch (error) {
+        console.error('Erro ao gerar o hash:', error);
+      }
+    };
+
     try {
-      const newUser = await createUserInDB({ name, email, password });
+      const hashedPassword = await generateHash(password, saltRounds);
+      const newUser = await createUserInDB({ name, email, hashedPassword });
 
       if (!newUser.success) {
         return res.status(404).json({
