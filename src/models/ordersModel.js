@@ -5,7 +5,7 @@ const getAllOrdersFromDB = async () => {
   try {
     const [results] = await connection.query(
       `
-      SELECT id, user_id, address_id, date, status
+      SELECT id, user_id, address_id, created_at, status
       FROM orders`,
     );
 
@@ -32,7 +32,7 @@ const getOrdersUserFromDB = async (userId) => {
       `
       SELECT 
         orders.id,
-        orders.date,
+        orders.created_at,
         orders.status,
         orders_products.product_id,
         products.name,
@@ -80,7 +80,7 @@ const getOrderFromDB = async (orderId) => {
       `
       SELECT
         orders.id,
-        orders.date,
+        orders.created_at,
         orders.status,
         orders_products.product_id,
         orders_products.quantity,
@@ -114,20 +114,14 @@ const getOrderFromDB = async (orderId) => {
   }
 };
 
-const createOrderInDB = async ({
-  user_id,
-  address_id,
-  date,
-  status,
-  products,
-}) => {
+const createOrderInDB = async ({ user_id, address_id, status, products }) => {
   const connection = await getDBConnection();
   try {
     const [orderResult] = await connection.query(
       `
-      INSERT INTO orders (user_id, address_id, date, status)
-      VALUES (?, ?, ?, ?)`,
-      [user_id, address_id, date, status],
+      INSERT INTO orders (user_id, address_id, status)
+      VALUES (?, ?, ?)`,
+      [user_id, address_id, status],
     );
 
     if (orderResult.affectedRows === 0) {
@@ -155,7 +149,6 @@ const createOrderInDB = async ({
         id: orderResult.insertId,
         user_id,
         address_id,
-        date,
         status,
         products,
       },
