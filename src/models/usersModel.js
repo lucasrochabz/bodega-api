@@ -25,20 +25,21 @@ const getAllUsersFromDB = async () => {
   }
 };
 
-const verifyUserInDB = async ({ email, password }) => {
+const verifyUserInDB = async ({ email }) => {
   const connection = await getDBConnection();
   try {
     const [results] = await connection.query(
       `
-      SELECT id, name FROM users
-      WHERE email=?
-      AND password=?`,
-      [email, password],
+      SELECT id, name, password FROM users
+      WHERE email=?`,
+      [email],
     );
+    // AND password=?
 
     if (results.length === 0) {
       return { success: false, message: 'Usuário não encontrado.' };
     }
+    console.log(results);
 
     return { success: true, data: results[0] };
   } catch (error) {
