@@ -91,23 +91,53 @@ const getUserFromDB = async (userId) => {
   }
 };
 
-const createUserInDB = async ({ name, email, hashedPassword }) => {
+const createUserInDB = async ({
+  name,
+  email,
+  hashedPassword,
+  street,
+  number,
+  neighborhood,
+  city,
+  state,
+  zip_code,
+}) => {
   const connection = await getDBConnection();
   try {
-    const [results] = await connection.query(
+    const [resultsUser] = await connection.query(
       `
       INSERT INTO users (name, email, password)
       VALUES (?, ?, ?)`,
       [name, email, hashedPassword],
     );
 
-    if (results.affectedRows === 0) {
+    const userId = resultsUser.insertId;
+
+    const [resultsAddress] = await connection.query(
+      `
+      INSERT INTO addresses (user_id, street, number, neighborhood, city, state, zip_code)
+      VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [userId, street, number, neighborhood, city, state, zip_code],
+    );
+
+    if (resultsUser.affectedRows === 0 || resultsAddress.affectedRows === 0) {
       return { success: false, message: 'Usuário não cadastrado.' };
     }
 
     return {
       success: true,
-      data: { id: results.insertId, name, email, hashedPassword },
+      data: {
+        id: resultsUser.insertId,
+        name,
+        email,
+        hashedPassword,
+        street,
+        number,
+        neighborhood,
+        city,
+        state,
+        zip_code,
+      },
     };
   } catch (error) {
     console.error('Erro ao cadastrar usuário no Banco de Dados:', error);

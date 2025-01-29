@@ -58,7 +58,17 @@ const usersController = {
   },
 
   createUser: async (req, res) => {
-    const { name, email, password } = req.body;
+    const {
+      name,
+      email,
+      password,
+      zip_code,
+      street,
+      number,
+      neighborhood,
+      city,
+      state,
+    } = req.body;
     const saltRounds = 10;
 
     const generateHash = async (passwordValue, saltRounds) => {
@@ -72,7 +82,17 @@ const usersController = {
 
     try {
       const hashedPassword = await generateHash(password, saltRounds);
-      const newUser = await createUserInDB({ name, email, hashedPassword });
+      const newUser = await createUserInDB({
+        name,
+        email,
+        hashedPassword,
+        street,
+        number,
+        neighborhood,
+        city,
+        state,
+        zip_code,
+      });
 
       if (!newUser.success) {
         return res.status(404).json({
