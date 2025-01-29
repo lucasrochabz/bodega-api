@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { verifyUserInDB } = require('../models/usersModel');
+const { verifyUserInDB } = require('../models/authsModel');
 
 const authsController = {
   login: async (req, res) => {

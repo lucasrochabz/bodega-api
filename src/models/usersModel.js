@@ -25,34 +25,6 @@ const getAllUsersFromDB = async () => {
   }
 };
 
-const verifyUserInDB = async ({ email }) => {
-  const connection = await getDBConnection();
-  try {
-    const [results] = await connection.query(
-      `
-      SELECT id, name, password FROM users
-      WHERE email=?`,
-      [email],
-    );
-    // AND password=?
-
-    if (results.length === 0) {
-      return { success: false, message: 'Usuário não encontrado.' };
-    }
-    console.log(results);
-
-    return { success: true, data: results[0] };
-  } catch (error) {
-    console.error('Erro ao buscar usuário no Banco de Dados:', error);
-    return {
-      success: false,
-      message: 'Erro ao buscar usuário no Banco de Dados.',
-    };
-  } finally {
-    await connection.end();
-  }
-};
-
 const getUserFromDB = async (userId) => {
   const connection = await getDBConnection();
   try {
@@ -205,7 +177,6 @@ const deleteUserInDB = async (userId) => {
 
 module.exports = {
   getAllUsersFromDB,
-  verifyUserInDB,
   getUserFromDB,
   createUserInDB,
   updateUserInDB,
