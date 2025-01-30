@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const { compareHash } = require('../utils/hash');
 const { verifyUserInDB } = require('../models/authsModel');
 require('dotenv').config();
 
@@ -18,10 +18,7 @@ const authsController = {
         });
       }
 
-      const isPasswordValid = await bcrypt.compare(
-        password,
-        user.data.password,
-      );
+      const isPasswordValid = await compareHash(password, user.data.password);
 
       if (!isPasswordValid) {
         return res.status(401).json({

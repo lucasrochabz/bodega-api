@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const { generateHash } = require('../utils/hash');
 const {
   getAllUsersFromDB,
   getUserFromDB,
@@ -69,19 +69,9 @@ const usersController = {
       city,
       state,
     } = req.body;
-    const saltRounds = 10;
-
-    const generateHash = async (passwordValue, saltRounds) => {
-      try {
-        const hashPassword = await bcrypt.hash(passwordValue, saltRounds);
-        return hashPassword;
-      } catch (error) {
-        console.error('Erro ao gerar o hash:', error);
-      }
-    };
 
     try {
-      const hashedPassword = await generateHash(password, saltRounds);
+      const hashedPassword = await generateHash(password, 10);
       const newUser = await createUserInDB({
         name,
         email,
@@ -109,7 +99,7 @@ const usersController = {
     } catch (error) {
       res.status(500).json({
         success: false,
-        message: 'Erro ao criar usuário.',
+        message: 'Erro ao cadastrar usuário.',
       });
     }
   },
