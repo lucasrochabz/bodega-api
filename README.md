@@ -8,6 +8,8 @@ Este projeto é destinado ao estudo de back-end de APIs REST utilizando Node e E
 
 - **Node.js**: Ambiente de execução JavaScript.
 - **Express**: Framework web para Node.js.
+- **Json Web Token**: Mecanismo de autenticação baseado em tokens.
+- **Bcrypt**: Biblioteca para hash e criptografia de senhas.
 - **MySQL**: Banco de dados relacional.
 
 ### Requisitos
