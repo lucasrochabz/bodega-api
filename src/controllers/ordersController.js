@@ -32,7 +32,7 @@ const ordersController = {
   },
 
   getAllOrdersUser: async (req, res) => {
-    const { userId } = req.params;
+    const userId = req.user.id;
     try {
       const order = await getOrdersUserFromDB(userId);
 

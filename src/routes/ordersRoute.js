@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { ordersController } = require('../controllers/ordersController');
+const authenticate = require('../middlewares/usersMiddlewares');
 
 router.get('/', ordersController.listAllOrders);
-router.get('/:userId', ordersController.getAllOrdersUser);
+router.get('/user', authenticate, ordersController.getAllOrdersUser);
 router.get('/details/:orderId', ordersController.getOrder);
 router.post('/', ordersController.createOrder);
 router.put('/:orderId', ordersController.updateOrder);
