@@ -33,7 +33,7 @@ const usersController = {
   },
 
   getUser: async (req, res) => {
-    const { userId } = req.params;
+    const userId = req.user.id;
     try {
       const user = await getUserFromDB(userId);
 

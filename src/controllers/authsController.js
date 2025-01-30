@@ -32,18 +32,16 @@ const authsController = {
 
       const token = jwt.sign(
         {
-          id: user.id,
-          email: user.email,
-          password: user.password,
+          id: user.data.id,
+          name: user.data.name,
         },
         SECRET_KEY,
-        { expiresIn: '1h' },
+        { expiresIn: '2h' },
       );
 
       res.status(200).json({
         success: true,
         message: 'Login realizado com sucesso.',
-        data: user.data,
         token: token,
       });
     } catch (error) {
