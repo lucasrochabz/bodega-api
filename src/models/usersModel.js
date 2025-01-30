@@ -38,7 +38,8 @@ const getUserFromDB = async (userId) => {
         addresses.number,
         addresses.neighborhood,
         addresses.city,
-        addresses.state
+        addresses.state,
+        addresses.zip_code
       FROM
         users 
       JOIN
