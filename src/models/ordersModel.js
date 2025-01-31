@@ -124,7 +124,6 @@ const createOrderInDB = async ({ userId, status, products }) => {
       WHERE id = ?`,
       [userId],
     );
-    console.log(addressResult);
 
     const addressUser = addressResult[0].id;
 
