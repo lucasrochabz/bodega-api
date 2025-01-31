@@ -30,6 +30,11 @@ Este projeto é destinado ao estudo de back-end de APIs REST utilizando Node e E
 8. Insira os dados nas tabelas com o comando: `npm run db:insert-data`.
 9. Inicie o servidor localmente com o comando: `npm start`.
 
+### Front-end do Projeto
+
+Este projeto possui um Front-end desenvolvido para consumir esta API. Você pode acessá-lo no repositório:
+[Acesse o repositório do Front-end](https://github.com/lucasrochabz/bodega)
+
 ### Encontrou algum problema?
 
-Abra uma issue com sua sugestão ou crítica.
+Abra uma [issue](https://github.com/lucasrochabz/bodega-api/issues) com sua sugestão ou crítica.
