@@ -114,14 +114,25 @@ const getOrderFromDB = async (orderId) => {
   }
 };
 
-const createOrderInDB = async ({ user_id, address_id, status, products }) => {
+const createOrderInDB = async ({ userId, status, products }) => {
   const connection = await getDBConnection();
   try {
+    const [addressResult] = await connection.query(
+      `
+      SELECT id
+      FROM addresses
+      WHERE id = ?`,
+      [userId],
+    );
+    console.log(addressResult);
+
+    const addressUser = addressResult[0].id;
+
     const [orderResult] = await connection.query(
       `
       INSERT INTO orders (user_id, address_id, status)
       VALUES (?, ?, ?)`,
-      [user_id, address_id, status],
+      [userId, addressUser, status],
     );
 
     if (orderResult.affectedRows === 0) {
@@ -147,8 +158,8 @@ const createOrderInDB = async ({ user_id, address_id, status, products }) => {
       success: true,
       data: {
         id: orderResult.insertId,
-        user_id,
-        address_id,
+        userId,
+        addressUser,
         status,
         products,
       },

@@ -82,11 +82,11 @@ const ordersController = {
   },
 
   createOrder: async (req, res) => {
-    const { user_id, address_id, status, products } = req.body;
+    const userId = req.user.id;
+    const { status, products } = req.body;
     try {
       const newOrder = await createOrderInDB({
-        user_id,
-        address_id,
+        userId,
         status,
         products,
       });
