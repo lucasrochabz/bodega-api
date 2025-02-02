@@ -1,17 +1,11 @@
 const { generateHash } = require('../utils/hash');
-const User = require('../modelo/usersModelo');
-const usersService = require('../services/usersService');
-const {
-  getAllUsersFromDB,
-  getUserFromDB,
-  updateUserInDB,
-  deleteUserInDB,
-} = require('../models/usersModel');
+const { usersService } = require('../services/usersService');
+const User = require('../models/usersModel');
 
 const usersController = {
   listAllUsers: async (req, res) => {
     try {
-      const users = await getAllUsersFromDB();
+      const users = await usersService.getAllUsersFromDB();
 
       if (!users.success) {
         return res.status(404).json({
@@ -36,7 +30,7 @@ const usersController = {
   getUser: async (req, res) => {
     const userId = req.user.id;
     try {
-      const user = await getUserFromDB(userId);
+      const user = await usersService.getUserFromDB(userId);
 
       if (!user.success) {
         return res.status(404).json({
@@ -112,7 +106,7 @@ const usersController = {
     const { userId } = req.params;
     const { name } = req.body;
     try {
-      const updatedUser = await updateUserInDB({ name, userId });
+      const updatedUser = await usersService.updateUserInDB({ name, userId });
 
       if (!updatedUser.success) {
         return res.status(404).json({
@@ -137,7 +131,7 @@ const usersController = {
   deleteUser: async (req, res) => {
     const { userId } = req.params;
     try {
-      const deletedUser = await deleteUserInDB(userId);
+      const deletedUser = await usersService.deleteUserInDB(userId);
 
       if (!deletedUser.success) {
         return res.status(404).json({

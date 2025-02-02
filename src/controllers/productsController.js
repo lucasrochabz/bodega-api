@@ -1,15 +1,9 @@
-const {
-  getAllProductsFromDB,
-  getProductFromDB,
-  createProductInDB,
-  updateProductInDB,
-  deleteProductInDB,
-} = require('../models/productsModel');
+const { productsService } = require('../services/productsService');
 
 const productsController = {
   listAllProducts: async (req, res) => {
     try {
-      const products = await getAllProductsFromDB();
+      const products = await productsService.getAllProductsFromDB();
 
       if (!products.success) {
         return res.status(404).json({
@@ -34,7 +28,7 @@ const productsController = {
   getProduct: async (req, res) => {
     const { productId } = req.params;
     try {
-      const product = await getProductFromDB(productId);
+      const product = await productsService.getProductFromDB(productId);
 
       if (!product.success) {
         return res.status(404).json({
@@ -59,7 +53,7 @@ const productsController = {
   createProduct: async (req, res) => {
     const { name, price, description, stock } = req.body;
     try {
-      const newProduct = await createProductInDB({
+      const newProduct = await productsService.createProductInDB({
         name,
         price,
         description,
@@ -90,7 +84,7 @@ const productsController = {
     const { description } = req.body;
     const { productId } = req.params;
     try {
-      const updatedProduct = await updateProductInDB({
+      const updatedProduct = await productsService.updateProductInDB({
         description,
         productId,
       });
@@ -118,7 +112,7 @@ const productsController = {
   deleteProduct: async (req, res) => {
     const { productId } = req.params;
     try {
-      const deletedProduct = await deleteProductInDB(productId);
+      const deletedProduct = await productsService.deleteProductInDB(productId);
 
       if (!deletedProduct.success) {
         return res.status(404).json({

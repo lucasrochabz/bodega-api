@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { compareHash } = require('../utils/hash');
-const { verifyUserInDB } = require('../models/authsModel');
+const { authsService } = require('../services/authsService');
 require('dotenv').config();
 
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
@@ -9,7 +9,7 @@ const authsController = {
   login: async (req, res) => {
     const { email, password } = req.body;
     try {
-      const user = await verifyUserInDB({ email });
+      const user = await authsService.verifyUserInDB({ email });
 
       if (!user.success) {
         return res.status(404).json({

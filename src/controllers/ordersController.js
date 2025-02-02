@@ -1,16 +1,9 @@
-const {
-  getAllOrdersFromDB,
-  getOrderFromDB,
-  createOrderInDB,
-  updateOrderInDB,
-  deleteOrderInDB,
-  getOrdersUserFromDB,
-} = require('../models/ordersModel');
+const { ordersService } = require('../services/ordersService');
 
 const ordersController = {
   listAllOrders: async (req, res) => {
     try {
-      const orders = await getAllOrdersFromDB();
+      const orders = await ordersService.getAllOrdersFromDB();
 
       if (!orders.success) {
         return res.status(404).json({
@@ -34,7 +27,7 @@ const ordersController = {
   getAllOrdersUser: async (req, res) => {
     const userId = req.user.id;
     try {
-      const order = await getOrdersUserFromDB(userId);
+      const order = await ordersService.getOrdersUserFromDB(userId);
 
       if (!order.success) {
         return res.status(404).json({
@@ -59,7 +52,7 @@ const ordersController = {
   getOrder: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const order = await getOrderFromDB(orderId);
+      const order = await ordersService.getOrderFromDB(orderId);
 
       if (!order.success) {
         return res.status(404).json({
@@ -85,7 +78,7 @@ const ordersController = {
     const userId = req.user.id;
     const { status, products } = req.body;
     try {
-      const newOrder = await createOrderInDB({
+      const newOrder = await ordersService.createOrderInDB({
         userId,
         status,
         products,
@@ -115,7 +108,10 @@ const ordersController = {
     const { product_id } = req.body;
     const { orderId } = req.params;
     try {
-      const updatedOrder = await updateOrderInDB({ product_id, orderId });
+      const updatedOrder = await ordersService.updateOrderInDB({
+        product_id,
+        orderId,
+      });
 
       if (!updatedOrder.success) {
         return res.status(404).json({
@@ -140,7 +136,7 @@ const ordersController = {
   deleteOrder: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const deletedOrder = await deleteOrderInDB(orderId);
+      const deletedOrder = await ordersService.deleteOrderInDB(orderId);
 
       if (!deletedOrder.success) {
         return res.status(404).json({
