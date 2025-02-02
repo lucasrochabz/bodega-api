@@ -1,4 +1,4 @@
-const { generateHash } = require('../utils/hash');
+const { generateHash } = require('../utils/hashUtils');
 const { usersService } = require('../services/usersService');
 const User = require('../models/usersModel');
 

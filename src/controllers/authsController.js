@@ -1,24 +1,23 @@
-const jwt = require('jsonwebtoken');
-const { compareHash } = require('../utils/hash');
 const { authsService } = require('../services/authsService');
-require('dotenv').config();
-
-const SECRET_KEY = process.env.JWT_SECRET_KEY;
+const { compareHash } = require('../utils/hashUtils');
+const { generateToken } = require('../utils/tokenUtils');
+const User = require('../models/usersModel');
 
 const authsController = {
   login: async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password: plainPassword } = req.body;
     try {
-      const user = await authsService.verifyUserInDB({ email });
+      const userResult = await authsService.verifyUserInDB({ email });
 
-      if (!user.success) {
+      if (!userResult.success) {
         return res.status(404).json({
           success: false,
-          message: user.message,
+          message: userResult.message,
         });
       }
+      const user = new User(userResult.data);
 
-      const isPasswordValid = await compareHash(password, user.data.password);
+      const isPasswordValid = await compareHash(plainPassword, user.password);
 
       if (!isPasswordValid) {
         return res.status(401).json({
@@ -27,14 +26,7 @@ const authsController = {
         });
       }
 
-      const token = jwt.sign(
-        {
-          id: user.data.id,
-          name: user.data.name,
-        },
-        SECRET_KEY,
-        { expiresIn: '2h' },
-      );
+      const token = generateToken(user);
 
       res.status(200).json({
         success: true,
