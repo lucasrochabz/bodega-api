@@ -65,65 +65,6 @@ const getUserFromDB = async (userId) => {
   }
 };
 
-const createUserInDB = async ({
-  name,
-  email,
-  hashedPassword,
-  street,
-  number,
-  neighborhood,
-  city,
-  state,
-  zip_code,
-}) => {
-  const connection = await getDBConnection();
-  try {
-    const [resultsUser] = await connection.query(
-      `
-      INSERT INTO users (name, email, password)
-      VALUES (?, ?, ?)`,
-      [name, email, hashedPassword],
-    );
-
-    const userId = resultsUser.insertId;
-
-    const [resultsAddress] = await connection.query(
-      `
-      INSERT INTO addresses (user_id, street, number, neighborhood, city, state, zip_code)
-      VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [userId, street, number, neighborhood, city, state, zip_code],
-    );
-
-    if (resultsUser.affectedRows === 0 || resultsAddress.affectedRows === 0) {
-      return { success: false, message: 'Usuário não cadastrado.' };
-    }
-
-    return {
-      success: true,
-      data: {
-        id: resultsUser.insertId,
-        name,
-        email,
-        hashedPassword,
-        street,
-        number,
-        neighborhood,
-        city,
-        state,
-        zip_code,
-      },
-    };
-  } catch (error) {
-    console.error('Erro ao cadastrar usuário no Banco de Dados:', error);
-    return {
-      success: false,
-      message: 'Erro ao cadastrar usuário no Banco de Dados.',
-    };
-  } finally {
-    await connection.end();
-  }
-};
-
 const updateUserInDB = async ({ name, userId }) => {
   const connection = await getDBConnection();
   try {
@@ -179,7 +120,6 @@ const deleteUserInDB = async (userId) => {
 module.exports = {
   getAllUsersFromDB,
   getUserFromDB,
-  createUserInDB,
   updateUserInDB,
   deleteUserInDB,
 };

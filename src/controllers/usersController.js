@@ -1,8 +1,9 @@
 const { generateHash } = require('../utils/hash');
+const User = require('../modelo/usersModelo');
+const usersService = require('../services/usersService');
 const {
   getAllUsersFromDB,
   getUserFromDB,
-  createUserInDB,
   updateUserInDB,
   deleteUserInDB,
 } = require('../models/usersModel');
@@ -72,7 +73,8 @@ const usersController = {
 
     try {
       const hashedPassword = await generateHash(password, 10);
-      const newUser = await createUserInDB({
+      const newUser = new User(
+        null,
         name,
         email,
         hashedPassword,
@@ -82,19 +84,21 @@ const usersController = {
         city,
         state,
         zip_code,
-      });
+      );
 
-      if (!newUser.success) {
+      const result = await usersService.createUserInDB(newUser);
+
+      if (!result.success) {
         return res.status(404).json({
           success: false,
-          message: newUser.message,
+          message: result.message,
         });
       }
 
       res.status(201).json({
         success: true,
         message: 'Usuário cadastrado com sucesso.',
-        data: newUser.data,
+        data: result.data,
       });
     } catch (error) {
       res.status(500).json({
