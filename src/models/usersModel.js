@@ -1,5 +1,5 @@
 class User {
-  constructor(
+  constructor({
     id = null,
     name,
     email,
@@ -10,7 +10,7 @@ class User {
     city,
     state,
     zip_code,
-  ) {
+  }) {
     this.id = id;
     this.name = name;
     this.email = email;

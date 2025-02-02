@@ -67,18 +67,17 @@ const usersController = {
 
     try {
       const hashedPassword = await generateHash(password, 10);
-      const newUser = new User(
-        null,
+      const newUser = new User({
         name,
         email,
-        hashedPassword,
+        password: hashedPassword,
         street,
         number,
         neighborhood,
         city,
         state,
         zip_code,
-      );
+      });
 
       const result = await usersService.createUserInDB(newUser);
 
