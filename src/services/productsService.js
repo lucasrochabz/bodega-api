@@ -52,14 +52,21 @@ const productsService = {
     }
   },
 
-  createProductInDB: async ({ name, price, description, stock }) => {
+  createProductInDB: async (product) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(
         `
-        INSERT INTO products (name, price, description, stock)
-        VALUES (?, ?, ?, ?)`,
-        [name, price, description, stock],
+        INSERT INTO products (name, price, description, stock, status, image_path)
+        VALUES (?, ?, ?, ?, ?, ?)`,
+        [
+          product.name,
+          product.price,
+          product.description,
+          product.stock,
+          product.status,
+          product.image_path,
+        ],
       );
 
       if (results.affectedRows === 0) {
@@ -68,7 +75,15 @@ const productsService = {
 
       return {
         success: true,
-        data: { id: results.insertId, name, price, description, stock },
+        data: {
+          id: results.insertId,
+          name: product.name,
+          price: product.price,
+          description: product.description,
+          stock: product.stock,
+          status: product.status,
+          image_path: product.image_path,
+        },
       };
     } catch (error) {
       console.error('Erro ao cadastrar produto no Banco de Dados:', error);

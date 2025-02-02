@@ -1,4 +1,5 @@
 const { productsService } = require('../services/productsService');
+const Product = require('../models/productsModel');
 
 const productsController = {
   listAllProducts: async (req, res) => {
@@ -51,26 +52,29 @@ const productsController = {
   },
 
   createProduct: async (req, res) => {
-    const { name, price, description, stock } = req.body;
+    const { name, price, description, stock, status, image_path } = req.body;
     try {
-      const newProduct = await productsService.createProductInDB({
+      const newProduct = new Product({
         name,
         price,
         description,
         stock,
+        status,
+        image_path,
       });
+      const result = await productsService.createProductInDB(newProduct);
 
-      if (!newProduct.success) {
+      if (!result.success) {
         return res.status(404).json({
           success: false,
-          message: newProduct.message,
+          message: result.message,
         });
       }
 
       res.status(201).json({
         success: true,
         message: 'Produto cadastrado com sucesso.',
-        data: newProduct.data,
+        data: result.data,
       });
     } catch (error) {
       res.status(500).json({

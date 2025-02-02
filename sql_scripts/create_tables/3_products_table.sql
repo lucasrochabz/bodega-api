@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS products (
 	description TEXT NOT NULL,
 	stock INT UNSIGNED NOT NULL DEFAULT 10,
 	status ENUM('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
-	image_path VARCHAR(200)
+	image_path VARCHAR(200) DEFAULT 'default_image.png'
 );
