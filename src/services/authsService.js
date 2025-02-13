@@ -7,7 +7,7 @@ const authsService = {
       const [results] = await connection.query(
         `
         SELECT id, name, password FROM users
-        WHERE email=?`,
+        WHERE email = ?`,
         [email],
       );
 

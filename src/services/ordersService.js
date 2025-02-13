@@ -48,7 +48,7 @@ const ordersService = {
           products ON
           orders_products.product_id = products.id
         WHERE 
-          orders.user_id=?`,
+          orders.user_id = ?`,
         [userId],
       );
 
@@ -95,7 +95,7 @@ const ordersService = {
         JOIN
           products ON orders_products.product_id = products.id
         WHERE
-          orders.id=?`,
+          orders.id = ?`,
         [orderId],
       );
 
@@ -181,8 +181,8 @@ const ordersService = {
       const [results] = await connection.query(
         `
         UPDATE orders
-        SET product_id=?
-        WHERE id=?`,
+        SET product_id = ?
+        WHERE id = ?`,
         [product_id, orderId],
       );
 
@@ -207,7 +207,7 @@ const ordersService = {
     try {
       const [results] = await connection.query(
         `
-        DELETE FROM orders WHERE id=?`,
+        DELETE FROM orders WHERE id = ?`,
         [orderId],
       );
 

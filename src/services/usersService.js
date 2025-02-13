@@ -46,7 +46,7 @@ const usersService = {
         JOIN
           addresses ON users.id = addresses.user_id
         WHERE
-          users.id=?`,
+          users.id = ?`,
         [userId],
       );
 
@@ -132,8 +132,8 @@ const usersService = {
       const [results] = await connection.query(
         `
         UPDATE users
-        SET name=?
-        WHERE id=?`,
+        SET name = ?
+        WHERE id = ?`,
         [name, userId],
       );
 
@@ -158,7 +158,7 @@ const usersService = {
     try {
       const [results] = await connection.query(
         `
-        DELETE FROM users WHERE id=?`,
+        DELETE FROM users WHERE id = ?`,
         [userId],
       );
 

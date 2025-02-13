@@ -32,7 +32,7 @@ const productsService = {
       const [results] = await connection.query(
         `
         SELECT id, name, price, description, stock, status, image_path
-        FROM products WHERE id=?`,
+        FROM products WHERE id = ?`,
         [productId],
       );
 
@@ -102,8 +102,8 @@ const productsService = {
       const [results] = await connection.query(
         `
         UPDATE products
-        SET description=?
-        WHERE id=?`,
+        SET description = ?
+        WHERE id = ?`,
         [description, productId],
       );
 
@@ -128,7 +128,7 @@ const productsService = {
     try {
       const [results] = await connection.query(
         `
-        DELETE FROM products WHERE id=?`,
+        DELETE FROM products WHERE id = ?`,
         [productId],
       );
 
