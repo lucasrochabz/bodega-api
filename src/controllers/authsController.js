@@ -22,7 +22,7 @@ const authsController = {
       if (!isPasswordValid) {
         return res.status(401).json({
           success: false,
-          message: 'Dados inválidos',
+          message: 'E-mail ou senha incorretos',
         });
       }
 
