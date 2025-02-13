@@ -4,7 +4,7 @@ const Product = require('../models/productsModel');
 const productsController = {
   listAllProducts: async (req, res) => {
     try {
-      const products = await productsService.getAllProductsFromDB();
+      const products = await productsService.getAllProducts();
 
       if (!products.success) {
         return res.status(404).json({

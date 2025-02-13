@@ -2,9 +2,9 @@ const { productsRepository } = require('../repositories/productsRepository');
 const { getDBConnection } = require('../database/connection');
 
 const productsService = {
-  getAllProductsFromDB: async () => {
+  getAllProducts: async () => {
     try {
-      const products = await productsRepository.getAllProducts();
+      const products = await productsRepository.getAll();
 
       if (products.length === 0) {
         return { success: false, message: 'Produtos não encontrados.' };
