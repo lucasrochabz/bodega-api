@@ -1,28 +1,22 @@
+const { productsRepository } = require('../repositories/productsRepository');
 const { getDBConnection } = require('../database/connection');
 
 const productsService = {
   getAllProductsFromDB: async () => {
-    const connection = await getDBConnection();
     try {
-      const [results] = await connection.query(
-        `
-        SELECT id, name, price, description, stock, status, image_path
-        FROM products`,
-      );
+      const products = await productsRepository.getAllProducts();
 
-      if (results.length === 0) {
+      if (products.length === 0) {
         return { success: false, message: 'Produtos não encontrados.' };
       }
 
-      return { success: true, data: results };
+      return { success: true, data: products };
     } catch (error) {
-      console.error('Erro ao buscar produtos no Banco de Dados:', error);
+      console.error('Erro no Service ao buscar produtos:', error);
       return {
         success: false,
-        message: 'Erro ao buscar produtos no Banco de Dados.',
+        message: 'Erro no Service ao buscar produtos.',
       };
-    } finally {
-      await connection.end();
     }
   },
 
