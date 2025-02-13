@@ -20,6 +20,7 @@ const usersController = {
         data: users.data,
       });
     } catch (error) {
+      console.error('Erro ao buscar usuários:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao buscar usuários.',
@@ -45,6 +46,7 @@ const usersController = {
         data: user.data,
       });
     } catch (error) {
+      console.error('Erro ao buscar usuário:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao buscar usuário.',
@@ -94,6 +96,7 @@ const usersController = {
         data: result.data,
       });
     } catch (error) {
+      console.error('Erro ao cadastrar usuário:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao cadastrar usuário.',
@@ -120,6 +123,7 @@ const usersController = {
         data: updatedUser.data,
       });
     } catch (error) {
+      console.error('Erro ao atualizar usuário:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao atualizar usuário.',
@@ -145,6 +149,7 @@ const usersController = {
         data: deletedUser.data,
       });
     } catch (error) {
+      console.error('Erro ao deletar usuário:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao deletar usuário.',

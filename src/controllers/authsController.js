@@ -34,6 +34,7 @@ const authsController = {
         token: token,
       });
     } catch (error) {
+      console.error('Erro ao realizar login:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao realizar login.',

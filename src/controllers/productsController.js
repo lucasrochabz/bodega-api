@@ -19,6 +19,7 @@ const productsController = {
         data: products.data,
       });
     } catch (error) {
+      console.error('Erro ao buscar produtos:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao buscar produtos.',
@@ -44,6 +45,7 @@ const productsController = {
         data: product.data,
       });
     } catch (error) {
+      console.error('Erro ao buscar produto:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao buscar produto.',
@@ -77,6 +79,7 @@ const productsController = {
         data: result.data,
       });
     } catch (error) {
+      console.error('Erro ao cadastrar produto:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao cadastrar produto.',
@@ -106,6 +109,7 @@ const productsController = {
         data: updatedProduct.data,
       });
     } catch (error) {
+      console.error('Erro ao atualizar produto:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao atualizar produto.',
@@ -131,6 +135,7 @@ const productsController = {
         data: deletedProduct.data,
       });
     } catch (error) {
+      console.error('Erro ao deletar produto:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao deletar produto.',

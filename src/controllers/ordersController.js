@@ -18,9 +18,11 @@ const ordersController = {
         data: orders.data,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: 'Erro ao buscar pedidos.' });
+      console.error('Erro ao buscar pedidos:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Erro ao buscar pedidos.',
+      });
     }
   },
 
@@ -42,9 +44,10 @@ const ordersController = {
         data: order.data,
       });
     } catch (error) {
+      console.error('Erro ao buscar pedidos do usuário:', error);
       res.status(500).json({
         success: false,
-        message: 'Erro ao buscar pedidos.',
+        message: 'Erro ao buscar pedidos do usuário.',
       });
     }
   },
@@ -67,6 +70,7 @@ const ordersController = {
         data: order.data,
       });
     } catch (error) {
+      console.error('Erro ao buscar pedido:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao buscar pedido.',
@@ -97,6 +101,7 @@ const ordersController = {
         data: newOrder.data,
       });
     } catch (error) {
+      console.error('Erro ao cadastrar pedido:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao cadastrar pedido.',
@@ -126,6 +131,7 @@ const ordersController = {
         data: updatedOrder.data,
       });
     } catch (error) {
+      console.error('Erro ao atualizar pedido:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao atualizar pedido.',
@@ -151,6 +157,7 @@ const ordersController = {
         data: deletedOrder.data,
       });
     } catch (error) {
+      console.error('Erro ao deletar pedido:', error);
       res.status(500).json({
         success: false,
         message: 'Erro ao deletar pedido.',
