@@ -3,9 +3,9 @@ const { usersService } = require('../services/usersService');
 const User = require('../models/usersModel');
 
 const usersController = {
-  listAllUsers: async (req, res) => {
+  getAllUsers: async (req, res) => {
     try {
-      const users = await usersService.getAllUsersFromDB();
+      const users = await usersService.fetchAllUsers();
 
       if (!users.success) {
         return res.status(404).json({
@@ -31,7 +31,7 @@ const usersController = {
   getUser: async (req, res) => {
     const userId = req.user.id;
     try {
-      const user = await usersService.getUserFromDB(userId);
+      const user = await usersService.fetchUser(userId);
 
       if (!user.success) {
         return res.status(404).json({
@@ -81,7 +81,7 @@ const usersController = {
         zip_code,
       });
 
-      const result = await usersService.createUserInDB(newUser);
+      const result = await usersService.registerUser(newUser);
 
       if (!result.success) {
         return res.status(404).json({

@@ -1,7 +1,7 @@
 const { getDBConnection } = require('../database/connection');
 
 const usersService = {
-  getAllUsersFromDB: async () => {
+  fetchAllUsers: async () => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(
@@ -26,7 +26,7 @@ const usersService = {
     }
   },
 
-  getUserFromDB: async (userId) => {
+  fetchUser: async (userId) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(
@@ -66,7 +66,7 @@ const usersService = {
     }
   },
 
-  createUserInDB: async (user) => {
+  registerUser: async (user) => {
     const connection = await getDBConnection();
     try {
       const [resultsUser] = await connection.query(
