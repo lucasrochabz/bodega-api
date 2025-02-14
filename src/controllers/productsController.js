@@ -91,7 +91,7 @@ const productsController = {
     const { description } = req.body;
     const { productId } = req.params;
     try {
-      const updatedProduct = await productsService.updateProductInDB({
+      const updatedProduct = await productsService.editProduct({
         description,
         productId,
       });
@@ -120,7 +120,7 @@ const productsController = {
   deleteProduct: async (req, res) => {
     const { productId } = req.params;
     try {
-      const deletedProduct = await productsService.deleteProductInDB(productId);
+      const deletedProduct = await productsService.removeProduct(productId);
 
       if (!deletedProduct.success) {
         return res.status(404).json({

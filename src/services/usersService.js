@@ -126,7 +126,7 @@ const usersService = {
     }
   },
 
-  updateUserInDB: async ({ name, userId }) => {
+  editUser: async ({ name, userId }) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(
@@ -153,7 +153,7 @@ const usersService = {
     }
   },
 
-  deleteUserInDB: async (userId) => {
+  removeUser: async (userId) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(

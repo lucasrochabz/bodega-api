@@ -175,7 +175,7 @@ const ordersService = {
     }
   },
 
-  updateOrderInDB: async ({ product_id, orderId }) => {
+  editOrder: async ({ product_id, orderId }) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(
@@ -202,7 +202,7 @@ const ordersService = {
     }
   },
 
-  deleteOrderInDB: async (orderId) => {
+  removeOrder: async (orderId) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(

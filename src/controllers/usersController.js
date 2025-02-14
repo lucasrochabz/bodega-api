@@ -108,7 +108,7 @@ const usersController = {
     const { userId } = req.params;
     const { name } = req.body;
     try {
-      const updatedUser = await usersService.updateUserInDB({ name, userId });
+      const updatedUser = await usersService.editUser({ name, userId });
 
       if (!updatedUser.success) {
         return res.status(404).json({
@@ -134,7 +134,7 @@ const usersController = {
   deleteUser: async (req, res) => {
     const { userId } = req.params;
     try {
-      const deletedUser = await usersService.deleteUserInDB(userId);
+      const deletedUser = await usersService.removeUser(userId);
 
       if (!deletedUser.success) {
         return res.status(404).json({

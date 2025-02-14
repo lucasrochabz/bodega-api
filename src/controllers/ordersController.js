@@ -113,7 +113,7 @@ const ordersController = {
     const { product_id } = req.body;
     const { orderId } = req.params;
     try {
-      const updatedOrder = await ordersService.updateOrderInDB({
+      const updatedOrder = await ordersService.editOrder({
         product_id,
         orderId,
       });
@@ -142,7 +142,7 @@ const ordersController = {
   deleteOrder: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const deletedOrder = await ordersService.deleteOrderInDB(orderId);
+      const deletedOrder = await ordersService.removeOrder(orderId);
 
       if (!deletedOrder.success) {
         return res.status(404).json({

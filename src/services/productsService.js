@@ -90,7 +90,7 @@ const productsService = {
     }
   },
 
-  updateProductInDB: async ({ description, productId }) => {
+  editProduct: async ({ description, productId }) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(
@@ -117,7 +117,7 @@ const productsService = {
     }
   },
 
-  deleteProductInDB: async (productId) => {
+  removeProduct: async (productId) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(
