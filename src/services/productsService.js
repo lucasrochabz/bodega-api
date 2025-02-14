@@ -46,7 +46,7 @@ const productsService = {
     }
   },
 
-  createProductInDB: async (product) => {
+  registerProduct: async (product) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(

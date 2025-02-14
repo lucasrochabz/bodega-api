@@ -115,7 +115,7 @@ const ordersService = {
     }
   },
 
-  createOrderInDB: async ({ userId, status, products }) => {
+  registerOrder: async ({ userId, status, products }) => {
     const connection = await getDBConnection();
     try {
       const [addressResult] = await connection.query(

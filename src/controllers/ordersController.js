@@ -82,7 +82,7 @@ const ordersController = {
     const userId = req.user.id;
     const { status, products } = req.body;
     try {
-      const newOrder = await ordersService.createOrderInDB({
+      const newOrder = await ordersService.registerOrder({
         userId,
         status,
         products,

@@ -64,7 +64,7 @@ const productsController = {
         status,
         image_path,
       });
-      const result = await productsService.createProductInDB(newProduct);
+      const result = await productsService.registerProduct(newProduct);
 
       if (!result.success) {
         return res.status(404).json({
