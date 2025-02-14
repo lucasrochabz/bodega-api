@@ -2,9 +2,9 @@ const { productsService } = require('../services/productsService');
 const Product = require('../models/productsModel');
 
 const productsController = {
-  listAllProducts: async (req, res) => {
+  getAllProducts: async (req, res) => {
     try {
-      const products = await productsService.getAllProducts();
+      const products = await productsService.fetchAllProducts();
 
       if (!products.success) {
         return res.status(404).json({
@@ -30,7 +30,7 @@ const productsController = {
   getProduct: async (req, res) => {
     const { productId } = req.params;
     try {
-      const product = await productsService.getProductFromDB(productId);
+      const product = await productsService.fetchProduct(productId);
 
       if (!product.success) {
         return res.status(404).json({

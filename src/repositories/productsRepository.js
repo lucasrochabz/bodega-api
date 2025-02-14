@@ -1,7 +1,7 @@
 const { getDBConnection } = require('../database/connection');
 
 const productsRepository = {
-  getAll: async () => {
+  fetchAll: async () => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(

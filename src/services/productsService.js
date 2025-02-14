@@ -2,9 +2,9 @@ const { productsRepository } = require('../repositories/productsRepository');
 const { getDBConnection } = require('../database/connection');
 
 const productsService = {
-  getAllProducts: async () => {
+  fetchAllProducts: async () => {
     try {
-      const products = await productsRepository.getAll();
+      const products = await productsRepository.fetchAll();
 
       if (products.length === 0) {
         return { success: false, message: 'Produtos não encontrados.' };
@@ -20,7 +20,7 @@ const productsService = {
     }
   },
 
-  getProductFromDB: async (productId) => {
+  fetchProduct: async (productId) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(
