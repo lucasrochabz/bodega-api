@@ -1,9 +1,9 @@
 const { ordersService } = require('../services/ordersService');
 
 const ordersController = {
-  listAllOrders: async (req, res) => {
+  getAllOrders: async (req, res) => {
     try {
-      const orders = await ordersService.getAllOrdersFromDB();
+      const orders = await ordersService.fetchAllOrders();
 
       if (!orders.success) {
         return res.status(404).json({
@@ -26,10 +26,10 @@ const ordersController = {
     }
   },
 
-  getAllOrdersUser: async (req, res) => {
+  getUserOrders: async (req, res) => {
     const userId = req.user.id;
     try {
-      const order = await ordersService.getOrdersUserFromDB(userId);
+      const order = await ordersService.fetchUserOrders(userId);
 
       if (!order.success) {
         return res.status(404).json({
@@ -52,10 +52,10 @@ const ordersController = {
     }
   },
 
-  getOrder: async (req, res) => {
+  getOrderDetails: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const order = await ordersService.getOrderFromDB(orderId);
+      const order = await ordersService.fetchOrderDetails(orderId);
 
       if (!order.success) {
         return res.status(404).json({
