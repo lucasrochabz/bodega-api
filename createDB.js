@@ -23,7 +23,8 @@ const executeDB = async () => {
   const connection = await mysql.createConnection(connectionConfig);
   try {
     // Lê o  conteúdo do arquivo SQL
-    const sql = await fs.readFile(scriptsPath, 'utf8');
+    let sql = await fs.readFile(scriptsPath, 'utf8');
+    sql = sql.replace('${DB_NAME}', process.env.DB_NAME);
 
     try {
       // Executa o script SQL
