@@ -1,3 +1,6 @@
+const {
+  ordersProductsRepository,
+} = require('../repositories/ordersProductsRepository');
 const { ordersRepository } = require('../repositories/ordersRepository');
 const { usersRepository } = require('../repositories/usersRepository');
 
@@ -22,7 +25,7 @@ const ordersService = {
 
   fetchUserOrders: async (userId) => {
     try {
-      const userOrders = await ordersRepository.fetchUserOrdersById(userId);
+      const userOrders = await ordersRepository.fetchAllUserOrders(userId);
 
       if (userOrders.length === 0) {
         return {
@@ -43,7 +46,7 @@ const ordersService = {
 
   fetchOrderDetails: async (orderId) => {
     try {
-      const orderDetails = await ordersRepository.fetchOrder(orderId);
+      const orderDetails = await ordersRepository.fetchOrderById(orderId);
 
       if (orderDetails.length === 0) {
         return { success: false, message: 'Pedido não encontrado.' };
@@ -89,9 +92,8 @@ const ordersService = {
         product.quantity,
       ]);
 
-      const isProductsInserted = await ordersRepository.insertOrderProducts(
-        orderProducts,
-      );
+      const isProductsInserted =
+        await ordersProductsRepository.insertOrderProducts(orderProducts);
 
       if (isProductsInserted.affectedRows === 0) {
         return {
