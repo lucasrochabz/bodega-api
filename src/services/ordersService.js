@@ -1,145 +1,87 @@
-const { getDBConnection } = require('../database/connection');
+const { ordersRepository } = require('../repositories/ordersRepository');
+const { usersRepository } = require('../repositories/usersRepository');
 
 const ordersService = {
   fetchAllOrders: async () => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        SELECT id, user_id, address_id, created_at, status
-        FROM orders`,
-      );
+    const orders = await ordersRepository.fetchAll();
 
-      if (results.length === 0) {
+    try {
+      if (orders.length === 0) {
         return { success: false, message: 'Pedidos não encontrados.' };
       }
 
-      return { success: true, data: results };
+      return { success: true, data: orders };
     } catch (error) {
-      console.error('Erro ao buscar pedidos no Banco de Dados:', error);
+      console.error('Erro no Service ao buscar pedidos:', error);
       return {
         success: false,
-        message: 'Erro ao buscar pedidos no Banco de Dados.',
+        message: 'Erro no Service ao buscar pedidos.',
       };
-    } finally {
-      await connection.end();
     }
   },
 
   fetchUserOrders: async (userId) => {
-    const connection = await getDBConnection();
     try {
-      const [results] = await connection.query(
-        `
-        SELECT 
-          orders.id,
-          orders.created_at,
-          orders.status,
-          orders_products.product_id,
-          products.name,
-          products.price,
-          products.image_path
-        FROM 
-          orders
-        JOIN
-          orders_products
-          ON orders.id = orders_products.order_id
-        JOIN 
-          products ON
-          orders_products.product_id = products.id
-        WHERE 
-          orders.user_id = ?`,
-        [userId],
-      );
+      const userOrders = await ordersRepository.fetchUserOrdersById(userId);
 
-      if (results.length === 0) {
+      if (userOrders.length === 0) {
         return {
           success: false,
           message: 'Pedido(s) do usuário não encontrado(s) no Banco de Dados.',
         };
       }
 
-      return { success: true, data: results };
+      return { success: true, data: userOrders };
     } catch (error) {
-      console.error(
-        'Erro ao buscar pedido(s) do usuário no Banco de Dados:',
-        error,
-      );
+      console.error('Erro no Service ao buscar pedido(s) do usuário:', error);
       return {
         success: false,
-        message: 'Erro ao buscar pedido(s) do usuário no Banco de Dados.',
+        message: 'Erro no Service ao buscar pedido(s) do usuário.',
       };
-    } finally {
-      await connection.end();
     }
   },
 
   fetchOrderDetails: async (orderId) => {
-    const connection = await getDBConnection();
     try {
-      const [results] = await connection.query(
-        `
-        SELECT
-          orders.id,
-          orders.created_at,
-          orders.status,
-          orders_products.product_id,
-          orders_products.quantity,
-          products.name,
-          products.price,
-          products.image_path
-        FROM
-          orders
-        JOIN
-          orders_products ON orders.id = orders_products.order_id
-        JOIN
-          products ON orders_products.product_id = products.id
-        WHERE
-          orders.id = ?`,
-        [orderId],
-      );
+      const orderDetails = await ordersRepository.fetchOrder(orderId);
 
-      if (results.length === 0) {
+      if (orderDetails.length === 0) {
         return { success: false, message: 'Pedido não encontrado.' };
       }
 
-      return { success: true, data: results[0] };
+      return { success: true, data: orderDetails[0] };
     } catch (error) {
-      console.error('Erro ao buscar pedido no Banco de Dados:', error);
+      console.error('Erro no Service ao buscar pedido:', error);
       return {
         success: false,
-        message: 'Erro ao buscar pedido no Banco de Dados.',
+        message: 'Erro no Service ao buscar pedido.',
       };
-    } finally {
-      await connection.end();
     }
   },
 
   registerOrder: async ({ userId, status, products }) => {
-    const connection = await getDBConnection();
     try {
-      const [addressResult] = await connection.query(
-        `
-        SELECT id
-        FROM addresses
-        WHERE id = ?`,
-        [userId],
-      );
+      const addressId = await usersRepository.fetchUserAddress(userId);
 
-      const addressUser = addressResult[0].id;
-
-      const [orderResult] = await connection.query(
-        `
-        INSERT INTO orders (user_id, address_id, status)
-        VALUES (?, ?, ?)`,
-        [userId, addressUser, status],
-      );
-
-      if (orderResult.affectedRows === 0) {
-        return { success: false, message: 'Pedido não cadastrado.' };
+      if (!addressId) {
+        return {
+          success: false,
+          message: 'Endereço não encontrado para o usuário.',
+        };
       }
 
-      const orderId = orderResult.insertId;
+      const orderId = await ordersRepository.insertOrder({
+        userId,
+        addressId,
+        status,
+      });
+
+      if (!orderId) {
+        return {
+          success: false,
+          message: 'Pedido não cadastrado.',
+        };
+      }
 
       const orderProducts = products.map((product) => [
         orderId,
@@ -147,83 +89,63 @@ const ordersService = {
         product.quantity,
       ]);
 
-      const [productResult] = await connection.query(
-        `
-        INSERT INTO orders_products (order_id, product_id, quantity)
-        VALUES ?`,
-        [orderProducts],
+      const isProductsInserted = await ordersRepository.insertOrderProducts(
+        orderProducts,
       );
+
+      if (isProductsInserted.affectedRows === 0) {
+        return {
+          success: false,
+          message: 'Erro ao associar produtos ao pedido.',
+        };
+      }
 
       return {
         success: true,
-        data: {
-          id: orderResult.insertId,
-          userId,
-          addressUser,
-          status,
-          products,
-        },
+        data: { id: orderId, userId, addressId, status, products },
       };
     } catch (error) {
-      console.error('Erro ao cadastrar pedido no Banco de Dados:', error);
+      console.error('Erro no Service ao cadastrar pedido:', error);
       return {
         success: false,
-        message: 'Erro ao cadastrar pedido no Banco de Dados.',
+        message: 'Erro no Service ao cadastrar pedido.',
       };
-    } finally {
-      await connection.end();
     }
   },
 
   editOrder: async ({ product_id, orderId }) => {
-    const connection = await getDBConnection();
     try {
-      const [results] = await connection.query(
-        `
-        UPDATE orders
-        SET product_id = ?
-        WHERE id = ?`,
-        [product_id, orderId],
-      );
+      const order = await ordersRepository.editById({ product_id, orderId });
 
-      if (results.affectedRows === 0) {
+      if (order.affectedRows === 0) {
         return { success: false, message: 'Pedido não encontrado.' };
       }
 
       return { success: true, data: { id: orderId, product_id } };
     } catch (error) {
-      console.error('Erro ao atualizar pedido no Banco de Dados:', error);
+      console.error('Erro no Service ao atualizar pedido:', error);
       return {
         success: false,
-        message: 'Erro ao atualizar pedido no banco de dados.',
+        message: 'Erro no Service ao atualizar pedido.',
       };
-    } finally {
-      await connection.end();
     }
   },
 
   removeOrder: async (orderId) => {
-    const connection = await getDBConnection();
     try {
-      const [results] = await connection.query(
-        `
-        DELETE FROM orders WHERE id = ?`,
-        [orderId],
-      );
+      const order = await ordersRepository.removeById(orderId);
 
-      if (results.affectedRows === 0) {
+      if (order.affectedRows === 0) {
         return { success: false, message: 'Pedido não encontrado.' };
       }
 
       return { success: true, data: { id: orderId } };
     } catch (error) {
-      console.error('Erro ao deletar pedido no Banco de Dados:', error);
+      console.error('Erro no Service ao deletar pedido:', error);
       return {
         success: false,
-        message: 'Erro ao deletar pedido no Banco de Dados.',
+        message: 'Erro no Service ao deletar pedido.',
       };
-    } finally {
-      await connection.end();
     }
   },
 };
