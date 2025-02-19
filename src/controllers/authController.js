@@ -1,13 +1,13 @@
-const { authsService } = require('../services/authsService');
+const { authService } = require('../services/authService');
 const { compareHash } = require('../utils/hashUtils');
 const { generateToken } = require('../utils/tokenUtils');
 const User = require('../models/usersModel');
 
-const authsController = {
+const authController = {
   login: async (req, res) => {
     const { email, password: plainPassword } = req.body;
     try {
-      const userResult = await authsService.verifyUserInDB({ email });
+      const userResult = await authService.verifyUserInDB({ email });
 
       if (!userResult.success) {
         return res.status(404).json({
@@ -44,4 +44,4 @@ const authsController = {
   },
 };
 
-module.exports = { authsController };
+module.exports = { authController };

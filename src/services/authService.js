@@ -1,6 +1,6 @@
 const { getDBConnection } = require('../database/connection');
 
-const authsService = {
+const authService = {
   verifyUserInDB: async ({ email }) => {
     const connection = await getDBConnection();
     try {
@@ -28,4 +28,4 @@ const authsService = {
   },
 };
 
-module.exports = { authsService };
+module.exports = { authService };
