@@ -65,6 +65,7 @@ const ordersRepository = {
         SELECT
           orders.id,
           orders.created_at,
+          orders.address_id,
           orders.status,
           orders_products.product_id,
           orders_products.quantity,
@@ -74,6 +75,8 @@ const ordersRepository = {
         FROM
           orders
         JOIN
+          addresses ON orders.address_id = addresses.id
+        JOIN
           orders_products ON orders.id = orders_products.order_id
         JOIN
           products ON orders_products.product_id = products.id
@@ -82,7 +85,7 @@ const ordersRepository = {
         [orderId],
       );
 
-      return results;
+      return results[0];
     } catch (error) {
       console.error('Erro ao buscar pedido no Banco de Dados:', error);
       throw new Error('Erro ao buscar pedido no Banco de Dados.');

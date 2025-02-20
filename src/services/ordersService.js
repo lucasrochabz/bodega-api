@@ -1,3 +1,4 @@
+const { addressesRepository } = require('../repositories/addressesRepository');
 const {
   ordersProductsRepository,
 } = require('../repositories/ordersProductsRepository');
@@ -48,11 +49,15 @@ const ordersService = {
     try {
       const orderDetails = await ordersRepository.fetchOrderById(orderId);
 
+      const address = await addressesRepository.fetchAddressById(
+        orderDetails.address_id,
+      );
+
       if (orderDetails.length === 0) {
         return { success: false, message: 'Pedido não encontrado.' };
       }
 
-      return { success: true, data: orderDetails[0] };
+      return { success: true, data: { ...orderDetails, ...address } };
     } catch (error) {
       console.error('Erro no Service ao buscar pedido:', error);
       return {
