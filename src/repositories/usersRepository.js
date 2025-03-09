@@ -71,15 +71,35 @@ const usersRepository = {
     }
   },
 
-  editById: async ({ name, userId }) => {
+  editById: async (userId, formData) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(
         `
         UPDATE users
-        SET name = ?
-        WHERE id = ?`,
-        [name, userId],
+        JOIN
+          addresses ON users.id = addresses.user_id
+        SET
+          users.name = ?,
+          users.email = ?,
+          addresses.zip_code = ?,
+          addresses.street = ?,
+          addresses.number = ?,
+          addresses.neighborhood = ?,
+          addresses.city = ?,
+          addresses.state = ?
+        WHERE users.id = ?`,
+        [
+          formData.name,
+          formData.email,
+          formData.zipCode,
+          formData.street,
+          formData.number,
+          formData.neighborhood,
+          formData.city,
+          formData.state,
+          userId,
+        ],
       );
 
       return results;
