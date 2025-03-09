@@ -8,4 +8,4 @@ const serverless = require('serverless-http');
 // Cria o servidor Express para a Vercel
 // app.use('/orders', ordersRouter);
 
-module.exports.handler = serverless(app);
+module.exports = serverless(app);
