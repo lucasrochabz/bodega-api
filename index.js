@@ -2,7 +2,7 @@ require('dotenv').config();
 const serverless = require('serverless-http');
 const app = require('./src/app');
 
-module.exports.handler = serverless(app);
+module.exports = serverless(app);
 
 // const API_PORT = process.env.API_PORT || 3000;
 
