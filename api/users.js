@@ -1,11 +1,6 @@
 // api/users.js
-const app = require('../src/app');
-// const express = require('express');
 const serverless = require('serverless-http');
+const app = require('../src/app'); // Importando o app Express configurado
 
-// const usersRouter = require('../src/routes/usersRoute');
-
-// Cria o servidor Express para a Vercel
-// app.use('/users', usersRouter);
-
-module.exports = serverless(app);
+// Exportando a função serverless para o Vercel
+module.exports.handler = serverless(app);
