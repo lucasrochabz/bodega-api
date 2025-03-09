@@ -1,6 +1,5 @@
 {
   "scripts": {
-    "start": "node index.js",
     "db:create": "node createDB.js",
     "db:create-tables": "node createTables.js",
     "db:insert-data": "node insertData.js"
