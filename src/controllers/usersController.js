@@ -106,10 +106,10 @@ const usersController = {
 
   updateUser: async (req, res) => {
     const userId = req.user.id;
-    const formData = req.body;
+    const userData = req.body;
 
     try {
-      const updatedUser = await usersService.editUser(userId, formData);
+      const updatedUser = await usersService.editUser(userId, userData);
 
       if (!updatedUser.success) {
         return res.status(404).json({

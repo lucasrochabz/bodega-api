@@ -78,15 +78,15 @@ const usersService = {
     }
   },
 
-  editUser: async (userId, formData) => {
+  editUser: async (userId, userData) => {
     try {
-      const userUpdated = await usersRepository.editById(userId, formData);
+      const userUpdated = await usersRepository.editById(userId, userData);
 
       if (userUpdated.affectedRows === 0) {
         return { success: false, message: 'Usuário não encontrado.' };
       }
 
-      return { success: true, data: { id: userId, name: formData.name } };
+      return { success: true, data: { id: userId, name: userData.name } };
     } catch (error) {
       console.error('Erro no Service ao atualizar usuário:', error);
       return {

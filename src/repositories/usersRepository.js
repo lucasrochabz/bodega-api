@@ -71,7 +71,7 @@ const usersRepository = {
     }
   },
 
-  editById: async (userId, formData) => {
+  editById: async (userId, userData) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(
@@ -90,14 +90,14 @@ const usersRepository = {
           addresses.state = ?
         WHERE users.id = ?`,
         [
-          formData.name,
-          formData.email,
-          formData.zipCode,
-          formData.street,
-          formData.number,
-          formData.neighborhood,
-          formData.city,
-          formData.state,
+          userData.name,
+          userData.email,
+          userData.zipCode,
+          userData.street,
+          userData.number,
+          userData.neighborhood,
+          userData.city,
+          userData.state,
           userId,
         ],
       );
