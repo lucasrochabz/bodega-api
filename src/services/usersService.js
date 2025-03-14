@@ -59,6 +59,7 @@ const usersService = {
         data: {
           id: newUser.insertId,
           name: user.name,
+          last_name: user.last_name,
           email: user.email,
           password: user.password,
           street: user.street,

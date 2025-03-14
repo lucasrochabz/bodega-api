@@ -6,6 +6,7 @@ npm install --save cors
 npm install --save bcrypt
 npm install --save jsonwebtoken
 npm install --save serverless-http
+teste
 
 node --watch index.js
 npm install --save-dev nodemon (falta instalar)
