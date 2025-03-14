@@ -58,6 +58,7 @@ const usersController = {
     const {
       name,
       email,
+      last_name,
       password,
       zip_code,
       street,
@@ -71,6 +72,7 @@ const usersController = {
       const hashedPassword = await generateHash(password, 10);
       const newUser = new User({
         name,
+        last_name,
         email,
         password: hashedPassword,
         street,

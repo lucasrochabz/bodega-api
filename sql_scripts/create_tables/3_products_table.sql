@@ -4,6 +4,8 @@ CREATE TABLE IF NOT EXISTS products (
 	price DECIMAL(10, 2) NOT NULL,
 	description TEXT NOT NULL,
 	stock INT UNSIGNED NOT NULL DEFAULT 10,
+	image_path VARCHAR(200) DEFAULT 'default_image.png',
 	status ENUM('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
-	image_path VARCHAR(200) DEFAULT 'default_image.png'
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
