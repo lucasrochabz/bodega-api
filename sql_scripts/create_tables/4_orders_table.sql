@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS orders (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	user_id INT NOT NULL, 
+	user_id INT NOT NULL,
 	address_id INT NOT NULL,
 	status ENUM('rascunho', 'aguardando pagamento', 'pagamento efetuado', 'concluido') NOT NULL,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
