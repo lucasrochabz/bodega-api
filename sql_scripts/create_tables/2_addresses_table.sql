@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS addresses (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	user_id INT NOT NULL, 
+	user_id INT NOT NULL,
 	street VARCHAR(200) NOT NULL,
 	number INT NOT NULL,
 	neighborhood VARCHAR(200) NOT NULL,
