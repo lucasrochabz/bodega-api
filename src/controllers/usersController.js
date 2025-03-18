@@ -56,7 +56,7 @@ const usersController = {
 
   createUser: async (req, res) => {
     const {
-      name,
+      first_name,
       email,
       last_name,
       password,
@@ -71,7 +71,7 @@ const usersController = {
     try {
       const hashedPassword = await generateHash(password, 10);
       const newUser = new User({
-        name,
+        first_name,
         last_name,
         email,
         password: hashedPassword,

@@ -1,7 +1,7 @@
 class User {
   constructor({
     id = null,
-    name,
+    first_name,
     last_name,
     email,
     password,
@@ -13,7 +13,7 @@ class User {
     zip_code,
   }) {
     this.id = id;
-    this.name = name;
+    this.first_name = first_name;
     this.last_name = last_name;
     this.email = email;
     this.password = password;

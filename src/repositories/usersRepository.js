@@ -6,7 +6,7 @@ const usersRepository = {
     try {
       const [results] = await connection.query(
         `
-        SELECT id, name, last_name, email, password, status
+        SELECT id, first_name, last_name, email, password, status
         FROM users`,
       );
 
@@ -26,7 +26,7 @@ const usersRepository = {
         `
         SELECT
           users.id,
-          users.name,
+          users.first_name,
           users.last_name,
           users.email,
           addresses.street,
@@ -58,7 +58,7 @@ const usersRepository = {
     try {
       const [results] = await connection.query(
         `
-        INSERT INTO users (name, last_name, email, password)
+        INSERT INTO users (first_name, last_name, email, password)
         VALUES (?, ?, ?, ?)`,
         [user.name, user.last_name, user.email, user.password],
       );
@@ -81,7 +81,7 @@ const usersRepository = {
         JOIN
           addresses ON users.id = addresses.user_id
         SET
-          users.name = ?,
+          users.first_name = ?,
           users.last_name = ?,
           users.email = ?,
           addresses.zip_code = ?,
@@ -92,7 +92,7 @@ const usersRepository = {
           addresses.state = ?
         WHERE users.id = ?`,
         [
-          userData.name,
+          userData.first_name,
           userData.last_name,
           userData.email,
           userData.zip_code,
