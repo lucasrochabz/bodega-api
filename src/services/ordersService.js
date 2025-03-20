@@ -120,15 +120,15 @@ const ordersService = {
     }
   },
 
-  editOrder: async ({ product_id, orderId }) => {
+  editOrder: async ({ status, orderId }) => {
     try {
-      const order = await ordersRepository.editById({ product_id, orderId });
+      const order = await ordersRepository.editById({ status, orderId });
 
       if (order.affectedRows === 0) {
         return { success: false, message: 'Pedido não encontrado.' };
       }
 
-      return { success: true, data: { id: orderId, product_id } };
+      return { success: true, data: { id: orderId, status } };
     } catch (error) {
       console.error('Erro no Service ao atualizar pedido:', error);
       return {

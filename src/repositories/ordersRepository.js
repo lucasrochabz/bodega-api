@@ -113,15 +113,15 @@ const ordersRepository = {
     }
   },
 
-  editById: async ({ product_id, orderId }) => {
+  editById: async ({ status, orderId }) => {
     const connection = await getDBConnection();
     try {
       const [results] = await connection.query(
         `
         UPDATE orders
-        SET product_id = ?
+        SET status = ?
         WHERE id = ?`,
-        [product_id, orderId],
+        [status, orderId],
       );
 
       return results;
