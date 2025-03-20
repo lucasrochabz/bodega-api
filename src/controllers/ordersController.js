@@ -110,11 +110,11 @@ const ordersController = {
   },
 
   updateOrder: async (req, res) => {
-    const { product_id } = req.body;
+    const { status } = req.body;
     const { orderId } = req.params;
     try {
       const updatedOrder = await ordersService.editOrder({
-        product_id,
+        status,
         orderId,
       });
 
