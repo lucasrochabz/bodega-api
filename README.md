@@ -28,7 +28,9 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
 1. Faça o clone do projeto.
 2. Abra o terminal e navegue até a pasta do projeto.
 3. Faça uma cópia do arquivo `.env.example`:
-   `cp .env.example .env`.
+   ```bash
+   cp .env.example .env
+   ```
 4. Edite o arquivo **.env** com os valores apropriados para o seu ambiente.
 5. Instale as dependências usando o comando:
    ```bash
