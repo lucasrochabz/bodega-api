@@ -8,8 +8,8 @@ paths:
   # --- Auth ---
   /api/auth/login:
     post:
-      summary: Retorna uma lista de usuários
-      description: Realiza o login de um usuário no sistema
+      summary: Retorna o token
+      description: Retorna o token do usuário
       tags:
         - Autenticação
       requestBody:
@@ -121,7 +121,7 @@ paths:
   # --- Orders ---
   /api/orders:
     get:
-      summary: Retorna todos os pedidos
+      summary: Retorna uma lista de pedidos
       description: Retorna todos os pedidos no sistema
       tags:
         - Pedidos
@@ -143,3 +143,26 @@ paths:
                     type: array
                     items:
                       type: object
+
+    post:
+      summary: Cadastra um pedido
+      description: Retorna o pedido cadastrado no sistema
+      tags:
+        - Pedidos
+      responses:
+
+  /details/{orderId}:
+    get:
+      summary: Retorna os detalhes do pedido
+      description: Retorna os detalhes do pedido no sistema
+      tags:
+        - Pedidos
+      responses:
+
+  /api/orders/{orderId}:
+    put:
+      summary: Atualiza um pedido
+      description: Retorna o pedido no sistema
+      tags:
+        - Pedidos
+      responses:
