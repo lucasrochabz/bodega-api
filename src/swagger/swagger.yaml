@@ -1,0 +1,61 @@
+openapi: 3.0.0
+info:
+  title: Bodega API
+  description: Esta é a documentação da Bodega API.
+  version: 1.0.0
+
+paths:
+  /api/products:
+    get:
+      summary: Retorna uma lista de produtos
+      description: Retorna uma lista de todos os produtos disponíveis no sistema
+      tags:
+        - Produtos
+      responses:
+        '200':
+          description: Produtos encontrados com sucesso
+          content:
+            application/json: {}
+            schema:
+              type: object
+              items:
+                type: object
+
+  /api/products/{id}:
+    get:
+      summary: Retorna um produto
+      description: Retorna um produto disponíveis no sistema
+      tags:
+        - Produtos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do produto
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Produto encontrado com sucesso
+          content:
+            application/json: {}
+            schema:
+              type: object
+              items:
+                type: object
+
+  /api/users/:
+    get:
+      summary: Retorna uma lista de usuários
+      description: Retorna uma lista de usuários cadastrados no sistema
+      tags:
+        - Usuários
+      responses:
+        '200':
+          description: Usuários encontrados com sucesso
+          content:
+            application/json: {}
+            schema:
+              type: object
+              items:
+                type: object

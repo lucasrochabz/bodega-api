@@ -5,8 +5,9 @@ npm install --save dotenv
 npm install --save cors
 npm install --save bcrypt
 npm install --save jsonwebtoken
-npm install --save serverless-http
-teste
+
+npm install --save swagger-ui-express
+npm install --save yamljs
 
 node --watch index.js
 npm install --save-dev nodemon (falta instalar)
