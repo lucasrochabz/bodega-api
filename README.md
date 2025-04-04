@@ -27,16 +27,6 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
 
 1. Faça o clone do projeto.
 2. Abra o terminal e navegue até a pasta do projeto.
-<<<<<<< HEAD
-3. Execute o comando: `git checkout develop`.
-4. Faça uma cópia do arquivo `.env.example`: `cp .env.example .env`.
-5. Edite o arquivo **.env** com os valores apropriados para o seu ambiente.
-6. Instale as dependências usando o comando: `npm install`.
-7. Crie o banco de dados com o comando: `npm run db:create`.
-8. Crie as tabelas com o comando: `npm run db:create-tables`.
-9. Insira os dados nas tabelas com o comando: `npm run db:insert-data`.
-10. Inicie o servidor localmente com o comando: `npm start`.
-=======
 3. Faça uma cópia do arquivo `.env.example`:
    ```bash
    cp .env.example .env
@@ -62,7 +52,6 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
    ```bash
    npm start
    ```
->>>>>>> develop
 
 ### Front-end do Projeto
 
