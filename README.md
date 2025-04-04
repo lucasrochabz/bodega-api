@@ -53,10 +53,9 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
    npm run db:insert-data
    ```
 10. Inicie o servidor localmente com o comando:
-
-```bash
-npm start
-```
+    ```bash
+    npm start
+    ```
 
 ### Front-end do Projeto
 
