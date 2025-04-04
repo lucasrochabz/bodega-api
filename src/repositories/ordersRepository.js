@@ -28,9 +28,7 @@ const ordersRepository = {
           orders.id,
           orders.created_at,
           orders.status,
-          orders_products.product_id,
           products.name,
-          products.price,
           products.image_path
         FROM 
           orders
@@ -67,8 +65,6 @@ const ordersRepository = {
           orders.created_at,
           orders.address_id,
           orders.status,
-          orders_products.product_id,
-          orders_products.quantity,
           products.name,
           products.price,
           products.image_path
