@@ -6,7 +6,7 @@ const productsRepository = {
     try {
       const [results] = await connection.query(
         `
-        SELECT id, name, price, description, image_path
+        SELECT id, name, price, description, stock, status, image_path
         FROM products`,
       );
 
