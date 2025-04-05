@@ -3,8 +3,15 @@ const Product = require('../models/productsModel');
 
 const productsController = {
   getAllProducts: async (req, res) => {
+    const { page, pageSize } = req.query;
+
+    const pageNumber = parseInt(page);
+    const pageSizeNumber = parseInt(pageSize);
     try {
-      const products = await productsService.fetchAllProducts();
+      const products = await productsService.fetchAllProducts({
+        pageNumber,
+        pageSizeNumber,
+      });
 
       if (!products.success) {
         return res.status(404).json({
