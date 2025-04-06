@@ -1,15 +1,21 @@
 const { productsRepository } = require('../repositories/productsRepository');
 
 const productsService = {
-  fetchAllProducts: async () => {
+  fetchAllProducts: async ({ pageNumber, pageSizeNumber }) => {
     try {
-      const products = await productsRepository.fetchAll();
+      const products = await productsRepository.fetchAll({
+        pageNumber,
+        pageSizeNumber,
+      });
 
-      if (products.length === 0) {
+      if (products.results.length === 0) {
         return { success: false, message: 'Produtos não encontrados.' };
       }
 
-      return { success: true, data: products };
+      return {
+        success: true,
+        data: { results: products.results, totalPages: products.totalPages },
+      };
     } catch (error) {
       console.error('Erro no Service ao buscar produtos:', error);
       return {

@@ -1,16 +1,30 @@
 const { getDBConnection } = require('../database/connection');
 
 const productsRepository = {
-  fetchAll: async () => {
+  fetchAll: async ({ pageNumber, pageSizeNumber }) => {
     const connection = await getDBConnection();
     try {
-      const [results] = await connection.query(
+      const offset = (pageNumber - 1) * pageSizeNumber;
+
+      const [countResults] = await connection.query(
         `
-        SELECT id, name, price, description, image_path
+        SELECT COUNT(*)
+        AS total
         FROM products`,
       );
 
-      return results;
+      const totalProducts = countResults[0].total;
+      const totalPages = Math.ceil(totalProducts / pageSizeNumber);
+
+      const [results] = await connection.query(
+        `
+        SELECT id, name, price, description, image_path
+        FROM products
+        LIMIT ? OFFSET ?`,
+        [pageSizeNumber, offset],
+      );
+
+      return { results, totalPages };
     } catch (error) {
       console.error('Erro ao buscar produtos no Banco de Dados:', error);
       throw new Error('Erro ao buscar produtos no Banco de Dados.');

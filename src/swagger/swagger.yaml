@@ -5,6 +5,71 @@ info:
   version: 1.0.0
 
 paths:
+  # --- Auth ---
+  /api/auth/login:
+    post:
+      summary: Retorna o token
+      description: Retorna o token do usuário
+      tags:
+        - Autenticação
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'teste@email.com'
+                password:
+                  type: string
+                  example: '123456'
+      responses:
+        '200':
+          description: Usuários encontrados com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Login realizado com sucesso.'
+                  token:
+                    type: string
+                    example: 'jwt-token-here'
+
+  # --- Users ---
+  /api/users/:
+    get:
+      summary: Retorna uma lista de usuários
+      description: Retorna uma lista de usuários cadastrados no sistema
+      tags:
+        - Usuários
+      responses:
+        '200':
+          description: Usuários encontrados com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: boolean
+                    example: 'Usuários encontrados com sucesso.'
+                  data:
+                    type: array
+                    items:
+                      type: object
+
+  # --- Products ---
   /api/products:
     get:
       summary: Retorna uma lista de produtos
@@ -13,13 +78,22 @@ paths:
         - Produtos
       responses:
         '200':
-          description: Produtos encontrados com sucesso
+          description: Produtos encontrados com sucesso.
           content:
-            application/json: {}
-            schema:
-              type: object
-              items:
+            application/json:
+              schema:
                 type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Produtos encontrados com sucesso.'
+                  data:
+                    type: array
+                    items:
+                      type: object
 
   /api/products/{id}:
     get:
@@ -36,26 +110,59 @@ paths:
             type: integer
       responses:
         '200':
-          description: Produto encontrado com sucesso
+          description: Produto encontrado com sucesso.
           content:
-            application/json: {}
-            schema:
-              type: object
-              items:
+            application/json:
+              schema:
                 type: object
+                items:
+                  type: object
 
-  /api/users/:
+  # --- Orders ---
+  /api/orders:
     get:
-      summary: Retorna uma lista de usuários
-      description: Retorna uma lista de usuários cadastrados no sistema
+      summary: Retorna uma lista de pedidos
+      description: Retorna todos os pedidos no sistema
       tags:
-        - Usuários
+        - Pedidos
       responses:
         '200':
-          description: Usuários encontrados com sucesso
+          description: Pedidos encontrados com sucesso.
           content:
-            application/json: {}
-            schema:
-              type: object
-              items:
+            application/json:
+              schema:
                 type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Pedidos encontrados com sucesso.'
+                  data:
+                    type: array
+                    items:
+                      type: object
+
+    post:
+      summary: Cadastra um pedido
+      description: Retorna o pedido cadastrado no sistema
+      tags:
+        - Pedidos
+      responses:
+
+  /details/{orderId}:
+    get:
+      summary: Retorna os detalhes do pedido
+      description: Retorna os detalhes do pedido no sistema
+      tags:
+        - Pedidos
+      responses:
+
+  /api/orders/{orderId}:
+    put:
+      summary: Atualiza um pedido
+      description: Retorna o pedido no sistema
+      tags:
+        - Pedidos
+      responses:
