@@ -21,7 +21,7 @@ paths:
               properties:
                 email:
                   type: string
-                  example: 'teste@email.com'
+                  example: 'user@example.com'
                 password:
                   type: string
                   example: '123456'
@@ -68,13 +68,42 @@ paths:
                     type: array
                     items:
                       type: object
+                      properties:
+                        id:
+                          type: number
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                        email:
+                          type: string
+                        password:
+                          type: string
+                        status:
+                          type: string
 
     post:
       summary: Cadastra um usuário
       description: Retorna os dados do usuário cadastrado no sistema
       tags:
         - Usuários
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
       responses:
+        '200':
 
   /api/users/user:
     get:
