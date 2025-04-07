@@ -69,7 +69,30 @@ paths:
                     items:
                       type: object
 
-  # --- Products ---
+    post:
+      summary: Cadastra um usuário
+      description: Retorna o usuário cadastrado no sistema
+      tags:
+        - Usuários
+      responses:
+
+  /api/users/user:
+    get:
+      summary: Retorna uma lista de dados do usuário
+      description:  Retorna uma lista de dados do usuário no sistema
+      tags:
+        - Usuários
+      responses:
+
+  /api/users/update:
+    put:
+      summary: Retorna o usuário atualizado
+      description: Retorna o usuário atualizado no sistema
+      tags:
+        - Usuários
+      responses:
+
+  #  --- Products ---
   /api/products:
     get:
       summary: Retorna uma lista de produtos
@@ -95,14 +118,21 @@ paths:
                     items:
                       type: object
 
-  /api/products/{id}:
+    post:
+      summary: Retorna o produto cadastrado
+      description: Retorna o produto cadastrado no sistema
+      tags:
+        - Produtos
+      responses:
+
+  /api/products/{productId}:
     get:
       summary: Retorna um produto
-      description: Retorna um produto disponíveis no sistema
+      description: Retorna o produto disponíveis no sistema
       tags:
         - Produtos
       parameters:
-        - name: id
+        - name: productId
           in: path
           required: true
           description: ID do produto
@@ -118,11 +148,18 @@ paths:
                 items:
                   type: object
 
+    put:
+      summary: Retorna o produto atualizado
+      description: Retorna o produto atualizado no sistema
+      tags:
+        - Produtos
+      responses:
+
   # --- Orders ---
   /api/orders:
     get:
-      summary: Retorna uma lista de pedidos
-      description: Retorna todos os pedidos no sistema
+      summary: Retorna uma lista de todos os pedidos
+      description: Retorna uma lista de todos os pedidos no sistema
       tags:
         - Pedidos
       responses:
@@ -151,6 +188,14 @@ paths:
         - Pedidos
       responses:
 
+  /api/orders/user:
+    get:
+      summary: Retorna uma lista de todos os pedidos do usuário
+      description: Retorna uma lista de todos os pedidos do usuário no sistema
+      tags:
+        - Pedidos
+      responses:
+
   /details/{orderId}:
     get:
       summary: Retorna os detalhes do pedido
@@ -162,7 +207,7 @@ paths:
   /api/orders/{orderId}:
     put:
       summary: Atualiza um pedido
-      description: Retorna o pedido no sistema
+      description: Retorna o pedido atualizado no sistema
       tags:
         - Pedidos
       responses:
