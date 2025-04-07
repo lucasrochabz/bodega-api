@@ -8,7 +8,7 @@ paths:
   # --- Auth ---
   /api/auth/login:
     post:
-      summary: Retorna o token
+      summary: Executa o login
       description: Retorna o token do usuário
       tags:
         - Autenticação
@@ -47,7 +47,7 @@ paths:
   /api/users/:
     get:
       summary: Retorna uma lista de usuários
-      description: Retorna uma lista de usuários cadastrados no sistema
+      description: Retorna uma lista com os dados dos usuários cadastrados no sistema
       tags:
         - Usuários
       responses:
@@ -71,7 +71,7 @@ paths:
 
     post:
       summary: Cadastra um usuário
-      description: Retorna o usuário cadastrado no sistema
+      description: Retorna os dados do usuário cadastrado no sistema
       tags:
         - Usuários
       responses:
@@ -86,8 +86,8 @@ paths:
 
   /api/users/update:
     put:
-      summary: Retorna o usuário atualizado
-      description: Retorna o usuário atualizado no sistema
+      summary: Atualiza o usuário
+      description: Retorna os dados do usuário atualizado no sistema
       tags:
         - Usuários
       responses:
@@ -119,8 +119,8 @@ paths:
                       type: object
 
     post:
-      summary: Retorna o produto cadastrado
-      description: Retorna o produto cadastrado no sistema
+      summary: Cadastra um produto
+      description: Retorna os dados do produto cadastrado no sistema
       tags:
         - Produtos
       responses:
@@ -128,7 +128,7 @@ paths:
   /api/products/{productId}:
     get:
       summary: Retorna um produto
-      description: Retorna o produto disponíveis no sistema
+      description: Retorna os dados do produto no sistema
       tags:
         - Produtos
       parameters:
@@ -150,7 +150,7 @@ paths:
 
     put:
       summary: Retorna o produto atualizado
-      description: Retorna o produto atualizado no sistema
+      description: Retorna os dados do produto atualizado no sistema
       tags:
         - Produtos
       responses:
@@ -159,7 +159,7 @@ paths:
   /api/orders:
     get:
       summary: Retorna uma lista de todos os pedidos
-      description: Retorna uma lista de todos os pedidos no sistema
+      description: Retorna uma lista com os dados dos pedidos no sistema
       tags:
         - Pedidos
       responses:
@@ -183,7 +183,7 @@ paths:
 
     post:
       summary: Cadastra um pedido
-      description: Retorna o pedido cadastrado no sistema
+      description: Retorna os dados do pedido cadastrado no sistema
       tags:
         - Pedidos
       responses:
@@ -191,7 +191,7 @@ paths:
   /api/orders/user:
     get:
       summary: Retorna uma lista de todos os pedidos do usuário
-      description: Retorna uma lista de todos os pedidos do usuário no sistema
+      description: Retorna uma lista com os dados de todos os pedidos do usuário no sistema
       tags:
         - Pedidos
       responses:
@@ -199,7 +199,7 @@ paths:
   /details/{orderId}:
     get:
       summary: Retorna os detalhes do pedido
-      description: Retorna os detalhes do pedido no sistema
+      description: Retorna os dados dos detalhes do pedido no sistema
       tags:
         - Pedidos
       responses:
@@ -207,7 +207,7 @@ paths:
   /api/orders/{orderId}:
     put:
       summary: Atualiza um pedido
-      description: Retorna o pedido atualizado no sistema
+      description: Retorna os dados do pedido atualizado no sistema
       tags:
         - Pedidos
       responses:
