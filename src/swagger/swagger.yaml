@@ -182,6 +182,10 @@ paths:
       tags:
         - Usuários
       responses:
+        '200':
+          description: 'Usuário atualizado com sucesso.'
+          content:
+            application/json: {}
 
   #  --- Products ---
   /api/products:
@@ -245,6 +249,10 @@ paths:
       tags:
         - Produtos
       responses:
+        '200':
+          description: 'Produto atualizado com sucesso.'
+          content:
+            application/json: {}
 
   # --- Orders ---
   /api/orders:
