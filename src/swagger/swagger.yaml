@@ -417,7 +417,7 @@ paths:
                           type: string
                           example: '2025-03-25T17:04:28.000Z'
 
-  /api/orders/details/{orderId}:
+  /api/orders/{orderId}:
     get:
       summary: Retorna os detalhes do pedido
       description: Retorna os dados dos detalhes do pedido no sistema
@@ -487,7 +487,6 @@ paths:
                         type: string
                         example: '60000000'
 
-  /api/orders/{orderId}:
     put:
       summary: Atualiza um pedido
       description: Retorna os dados do pedido atualizado no sistema
