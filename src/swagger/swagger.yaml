@@ -19,7 +19,7 @@ paths:
       summary: Executa o login
       description: Retorna o token do usuário
       tags:
-        - Autenticação
+        - Auth
       requestBody:
         required: true
         content:
@@ -35,7 +35,7 @@ paths:
                   example: '123456'
       responses:
         '200':
-          description: Usuários encontrados com sucesso.
+          description: Usuários encontrados com sucesso
           content:
             application/json:
               schema:
@@ -57,7 +57,7 @@ paths:
       summary: Retorna uma lista de usuários
       description: Retorna uma lista com os dados dos usuários cadastrados no sistema
       tags:
-        - Usuários
+        - Users
       responses:
         '200':
           description: Usuários encontrados com sucesso.
@@ -100,7 +100,7 @@ paths:
       summary: Cadastra um usuário
       description: Retorna os dados do usuário cadastrado no sistema
       tags:
-        - Usuários
+        - Users
       requestBody:
         required: true
         content:
@@ -110,21 +110,30 @@ paths:
               properties:
                 first_name:
                   type: string
+                  example: 'teste'
                 last_name:
                   type: string
+                  example: 'teste'
                 email:
                   type: string
+                  example: 'teste'
                 password:
                   type: string
+                  example: 'teste'
       responses:
         '200':
+          description: Usuário cadastrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
 
   /api/users/user:
     get:
       summary: Retorna uma lista de dados do usuário
       description:  Retorna uma lista de dados do usuário no sistema
       tags:
-        - Usuários
+        - Users
       security:
        - bearerAuth: []
       responses:
@@ -158,7 +167,7 @@ paths:
                         example: 'user@example.com'
                       street:
                         type: string
-                        example: 'Rua Sem Nome'
+                        example: 'Rua Nome do logradouro'
                       number:
                         type: number
                         example: 123
@@ -167,10 +176,10 @@ paths:
                         example: 'Bairro'
                       city:
                         type: string
-                        example: 'Fortaleza'
+                        example: 'Cidade'
                       state:
                         type: string
-                        example: 'CE'
+                        example: 'UF'
                       zip_code:
                         type: string
                         example: '60000000'
@@ -180,7 +189,7 @@ paths:
       summary: Atualiza o usuário
       description: Retorna os dados do usuário atualizado no sistema
       tags:
-        - Usuários
+        - Users
       responses:
         '200':
           description: 'Usuário atualizado com sucesso.'
@@ -193,7 +202,20 @@ paths:
       summary: Retorna uma lista de produtos
       description: Retorna uma lista de todos os produtos disponíveis no sistema
       tags:
-        - Produtos
+        - Products
+      parameters:
+        - in: query
+          name: page
+          required: true
+          schema:
+            type: string
+            description: Número da página atual
+        - in: query
+          name: pageSize
+          required: true
+          schema:
+            type: string
+            default: 4
       responses:
         '200':
           description: Produtos encontrados com sucesso.
@@ -209,23 +231,28 @@ paths:
                     type: string
                     example: 'Produtos encontrados com sucesso.'
                   data:
-                    type: array
-                    items:
-                      type: object
+                    type: object
+                    properties:
+                      totalPages:
+                        type: number
+                      results:
+                        type: array
+                        items:
+                          type: object
 
     post:
       summary: Cadastra um produto
       description: Retorna os dados do produto cadastrado no sistema
       tags:
-        - Produtos
+        - Products
       responses:
 
   /api/products/{productId}:
     get:
       summary: Retorna um produto
-      description: Retorna os dados do produto no sistema
+      description: Retorna os dados do produto selecionado no sistema
       tags:
-        - Produtos
+        - Products
       parameters:
         - name: productId
           in: path
@@ -247,7 +274,7 @@ paths:
       summary: Retorna o produto atualizado
       description: Retorna os dados do produto atualizado no sistema
       tags:
-        - Produtos
+        - Products
       responses:
         '200':
           description: 'Produto atualizado com sucesso.'
@@ -260,7 +287,7 @@ paths:
       summary: Retorna uma lista de todos os pedidos
       description: Retorna uma lista com os dados dos pedidos no sistema
       tags:
-        - Pedidos
+        - Orders
       responses:
         '200':
           description: Pedidos encontrados com sucesso.
@@ -279,12 +306,28 @@ paths:
                     type: array
                     items:
                       type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        user_id:
+                          type: number
+                          example: 1
+                        address_id:
+                          type: number
+                          example: 1
+                        created_at:
+                          type: string
+                          example: '2024-11-07T17:30:00.000Z'
+                        status:
+                          type: string
+                          example: 'pagamento efetuado'
 
     post:
       summary: Cadastra um pedido
       description: Retorna os dados do pedido cadastrado no sistema
       tags:
-        - Pedidos
+        - Orders
       responses:
 
   /api/orders/user:
@@ -292,7 +335,7 @@ paths:
       summary: Retorna uma lista de todos os pedidos do usuário
       description: Retorna uma lista com os dados de todos os pedidos do usuário no sistema
       tags:
-        - Pedidos
+        - Orders
       responses:
 
   /details/{orderId}:
@@ -300,7 +343,7 @@ paths:
       summary: Retorna os detalhes do pedido
       description: Retorna os dados dos detalhes do pedido no sistema
       tags:
-        - Pedidos
+        - Orders
       responses:
 
   /api/orders/{orderId}:
@@ -308,5 +351,5 @@ paths:
       summary: Atualiza um pedido
       description: Retorna os dados do pedido atualizado no sistema
       tags:
-        - Pedidos
+        - Orders
       responses:
