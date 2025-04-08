@@ -4,6 +4,14 @@ info:
   description: Esta é a documentação da Bodega API.
   version: 1.0.0
 
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerformat: JWT
+      in: header
+
 paths:
   # --- Auth ---
   /api/auth/login:
@@ -62,7 +70,7 @@ paths:
                     type: boolean
                     example: true
                   message:
-                    type: boolean
+                    type: string
                     example: 'Usuários encontrados com sucesso.'
                   data:
                     type: array
@@ -71,16 +79,22 @@ paths:
                       properties:
                         id:
                           type: number
+                          example: 1
                         first_name:
                           type: string
+                          example: 'User'
                         last_name:
                           type: string
+                          example: 'Teste'
                         email:
                           type: string
+                          example: 'user@example.com'
                         password:
                           type: string
+                          example: 'passwordhash'
                         status:
                           type: string
+                          example: 'ativo'
 
     post:
       summary: Cadastra um usuário
@@ -111,7 +125,15 @@ paths:
       description:  Retorna uma lista de dados do usuário no sistema
       tags:
         - Usuários
+      security:
+       - bearerAuth: []
       responses:
+        '200':
+          description: Usuário encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
 
   /api/users/update:
     put:
