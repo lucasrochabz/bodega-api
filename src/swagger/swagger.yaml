@@ -134,6 +134,46 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Usuário encontrado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      first_name:
+                        type: string
+                        example: 'User'
+                      last_name:
+                        type: string
+                        example: 'Teste'
+                      email:
+                        type: string
+                        example: 'user@example.com'
+                      street:
+                        type: string
+                        example: 'Rua Sem Nome'
+                      number:
+                        type: number
+                        example: 123
+                      neighborhood:
+                        type: string
+                        example: 'Bairro'
+                      city:
+                        type: string
+                        example: 'Fortaleza'
+                      state:
+                        type: string
+                        example: 'CE'
+                      zip_code:
+                        type: string
+                        example: '60000000'
 
   /api/users/update:
     put:
