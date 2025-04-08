@@ -235,10 +235,27 @@ paths:
                     properties:
                       totalPages:
                         type: number
+                        example: 2
                       results:
                         type: array
                         items:
                           type: object
+                          properties:
+                            id:
+                              type: number
+                              example: 1
+                            name:
+                              type: string
+                              example: 'Produto'
+                            price:
+                              type: string
+                              example: '1500.00'
+                            description:
+                              type: string
+                              example: 'Descrição do produto'
+                            image_path:
+                              type: string
+                              example: 'produto.jpg'
 
     post:
       summary: Cadastra um produto
@@ -267,8 +284,37 @@ paths:
             application/json:
               schema:
                 type: object
-                items:
-                  type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Produto encontrado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Produto'
+                      price:
+                        type: string
+                        example: '1500.00'
+                      description:
+                        type: string
+                        example: 'Descrição do produto'
+                      stock:
+                        type: number
+                        example: 10
+                      status:
+                        type: string
+                        example: 'ativo'
+                      image_path:
+                        type: string
+                        example: 'produto.jpg'
 
     put:
       summary: Retorna o produto atualizado
@@ -336,15 +382,110 @@ paths:
       description: Retorna uma lista com os dados de todos os pedidos do usuário no sistema
       tags:
         - Orders
+      security:
+        - bearerAuth: []
       responses:
+        '200':
+          description: Pedidos do usuário encontrado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                    example: 'Pedido(s) encontrado(s) com sucesso.'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        name:
+                          type: string
+                          example: 'Produto'
+                        status:
+                          type: string
+                          example: 'rascunho'
+                        image_path:
+                          type: string
+                        created_at:
+                          type: string
+                          example: '2025-03-25T17:04:28.000Z'
 
-  /details/{orderId}:
+  /api/orders/details/{orderId}:
     get:
       summary: Retorna os detalhes do pedido
       description: Retorna os dados dos detalhes do pedido no sistema
       tags:
         - Orders
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: ID do pedido
+          schema:
+            type: integer
       responses:
+        '200':
+          description: Mensagem
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Pedido encontrado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      status:
+                        type: string
+                        example: 'aguardando pagamento'
+                      created_at:
+                        type: string
+                        example: '2024-11-07T17:30:00.000Z'
+                      name:
+                        type: string
+                        example: 'Produto'
+                      price:
+                        type: string
+                        example: '1500.00'
+                      image_path:
+                        type: string
+                        example: 'produto.jpg'
+                      address_id:
+                        type: number
+                        example: 1
+                      street:
+                        type: string
+                        example: 'Rua Nome do logradouro'
+                      number:
+                        type: number
+                        example: 1
+                      neighborhood:
+                        type: string
+                        example: 'Bairro'
+                      city:
+                        type: string
+                        example: 'Cidade'
+                      state:
+                        type: string
+                        example: 'UF'
+                      zip_code:
+                        type: string
+                        example: '60000000'
 
   /api/orders/{orderId}:
     put:
