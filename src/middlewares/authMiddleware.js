@@ -15,6 +15,7 @@ const authenticate = (req, res, next) => {
   try {
     const decoded = verifyToken(token);
     req.user = decoded;
+
     next();
   } catch (error) {
     return res.status(401).json({
@@ -24,4 +25,15 @@ const authenticate = (req, res, next) => {
   }
 };
 
-module.exports = authenticate;
+const authorizeAdmin = (req, res, next) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({
+      success: false,
+      message: 'Acesso negado. Permissões insuficientes.',
+    });
+  }
+
+  next();
+};
+
+module.exports = { authenticate, authorizeAdmin };

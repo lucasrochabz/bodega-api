@@ -12,7 +12,7 @@ const authService = {
       );
 
       if (results.length === 0) {
-        return { success: false, message: 'Usuário não encontrado.' };
+        return { success: false, message: 'E-mail ou senha incorretos.' };
       }
 
       return { success: true, data: results[0] };

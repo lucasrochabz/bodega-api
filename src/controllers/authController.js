@@ -10,7 +10,7 @@ const authController = {
       const userResult = await authService.verifyUserInDB({ email });
 
       if (!userResult.success) {
-        return res.status(404).json({
+        return res.status(401).json({
           success: false,
           message: userResult.message,
         });

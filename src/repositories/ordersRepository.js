@@ -26,10 +26,10 @@ const ordersRepository = {
         `
         SELECT 
           orders.id,
-          orders.created_at,
-          orders.status,
           products.name,
-          products.image_path
+          orders.status,
+          products.image_path,
+          orders.created_at
         FROM 
           orders
         JOIN
@@ -62,12 +62,12 @@ const ordersRepository = {
         `
         SELECT
           orders.id,
-          orders.created_at,
-          orders.address_id,
           orders.status,
+          orders.created_at,
           products.name,
           products.price,
-          products.image_path
+          products.image_path,
+          orders.address_id
         FROM
           orders
         JOIN
