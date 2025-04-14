@@ -110,23 +110,84 @@ paths:
               properties:
                 first_name:
                   type: string
-                  example: 'teste'
+                  example: 'Swagger'
                 last_name:
                   type: string
-                  example: 'teste'
+                  example: 'Documentation'
                 email:
                   type: string
-                  example: 'teste'
+                  example: 'swagger@email.com'
                 password:
                   type: string
-                  example: 'teste'
+                  example: '123456'
+                zip_code:
+                  type: number
+                  example: '60710000'
+                street:
+                  type: string
+                  example: 'Avenida Godofredo Maciel'
+                number:
+                  type: number
+                  example: 123
+                neighborhood:
+                  type: string
+                  example: 'Parangaba'
+                city:
+                  type: string
+                  example: 'Fortaleza'
+                state:
+                  type: string
+                  example: 'CE'
       responses:
-        '200':
+        '201':
           description: Usuário cadastrado com sucesso
           content:
             application/json:
               schema:
                 type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Usuário cadastrado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      first_name:
+                        type: string
+                        example: 'Nome'
+                      last_name:
+                        type: string
+                        example: 'Sobrenome'
+                      email:
+                        type: string
+                        example: 'nome@email.com'
+                      password:
+                        type: string
+                        example: 'bcrypthash'
+                      zip_code:
+                        type: number
+                        example: 60710000
+                      street:
+                        type: string
+                        example: 'Avenida Godofredo Maciel'
+                      number:
+                        type: number
+                        example: 123
+                      neighborhood:
+                        type: string
+                        example: 'Parangaba'
+                      city:
+                        type: string
+                        example: 'Fortaleza'
+                      state:
+                        type: string
+                        example: 'CE'
 
   /api/users/user:
     get:
