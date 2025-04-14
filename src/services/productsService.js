@@ -14,7 +14,7 @@ const productsService = {
 
       return {
         success: true,
-        data: { results: products.results, totalPages: products.totalPages },
+        data: { totalPages: products.totalPages, results: products.results },
       };
     } catch (error) {
       console.error('Erro no Service ao buscar produtos:', error);

@@ -4,14 +4,22 @@ info:
   description: Esta é a documentação da Bodega API.
   version: 1.0.0
 
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerformat: JWT
+      in: header
+
 paths:
   # --- Auth ---
   /api/auth/login:
     post:
-      summary: Retorna o token
+      summary: Executa o login
       description: Retorna o token do usuário
       tags:
-        - Autenticação
+        - Auth
       requestBody:
         required: true
         content:
@@ -21,13 +29,13 @@ paths:
               properties:
                 email:
                   type: string
-                  example: 'teste@email.com'
+                  example: 'user@example.com'
                 password:
                   type: string
                   example: '123456'
       responses:
         '200':
-          description: Usuários encontrados com sucesso.
+          description: Login realizado com sucesso
           content:
             application/json:
               schema:
@@ -47,9 +55,9 @@ paths:
   /api/users/:
     get:
       summary: Retorna uma lista de usuários
-      description: Retorna uma lista de usuários cadastrados no sistema
+      description: Retorna uma lista com os dados dos usuários cadastrados no sistema
       tags:
-        - Usuários
+        - Users
       responses:
         '200':
           description: Usuários encontrados com sucesso.
@@ -62,20 +70,213 @@ paths:
                     type: boolean
                     example: true
                   message:
-                    type: boolean
+                    type: string
                     example: 'Usuários encontrados com sucesso.'
                   data:
                     type: array
                     items:
                       type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        first_name:
+                          type: string
+                          example: 'User'
+                        last_name:
+                          type: string
+                          example: 'Teste'
+                        email:
+                          type: string
+                          example: 'user@example.com'
+                        password:
+                          type: string
+                          example: 'passwordhash'
+                        status:
+                          type: string
+                          example: 'ativo'
 
-  # --- Products ---
+    post:
+      summary: Cadastra um usuário
+      description: Retorna os dados do usuário cadastrado no sistema
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  example: 'Swagger'
+                last_name:
+                  type: string
+                  example: 'Documentation'
+                email:
+                  type: string
+                  example: 'swagger@email.com'
+                password:
+                  type: string
+                  example: '123456'
+                zip_code:
+                  type: number
+                  example: '60710000'
+                street:
+                  type: string
+                  example: 'Avenida Godofredo Maciel'
+                number:
+                  type: number
+                  example: 123
+                neighborhood:
+                  type: string
+                  example: 'Parangaba'
+                city:
+                  type: string
+                  example: 'Fortaleza'
+                state:
+                  type: string
+                  example: 'CE'
+      responses:
+        '201':
+          description: Usuário cadastrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Usuário cadastrado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      first_name:
+                        type: string
+                        example: 'Nome'
+                      last_name:
+                        type: string
+                        example: 'Sobrenome'
+                      email:
+                        type: string
+                        example: 'nome@email.com'
+                      password:
+                        type: string
+                        example: 'bcrypthash'
+                      zip_code:
+                        type: number
+                        example: 60710000
+                      street:
+                        type: string
+                        example: 'Avenida Godofredo Maciel'
+                      number:
+                        type: number
+                        example: 123
+                      neighborhood:
+                        type: string
+                        example: 'Parangaba'
+                      city:
+                        type: string
+                        example: 'Fortaleza'
+                      state:
+                        type: string
+                        example: 'CE'
+
+  /api/users/user:
+    get:
+      summary: Retorna uma lista de dados do usuário
+      description:  Retorna uma lista de dados do usuário no sistema
+      tags:
+        - Users
+      security:
+       - bearerAuth: []
+      responses:
+        '200':
+          description: Usuário encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Usuário encontrado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      first_name:
+                        type: string
+                        example: 'User'
+                      last_name:
+                        type: string
+                        example: 'Teste'
+                      email:
+                        type: string
+                        example: 'user@example.com'
+                      street:
+                        type: string
+                        example: 'Rua Nome do logradouro'
+                      number:
+                        type: number
+                        example: 123
+                      neighborhood:
+                        type: string
+                        example: 'Bairro'
+                      city:
+                        type: string
+                        example: 'Cidade'
+                      state:
+                        type: string
+                        example: 'UF'
+                      zip_code:
+                        type: string
+                        example: '60000000'
+
+  /api/users/update:
+    put:
+      summary: Atualiza o usuário
+      description: Retorna os dados do usuário atualizado no sistema
+      tags:
+        - Users
+      responses:
+        '200':
+          description: 'Usuário atualizado com sucesso.'
+          content:
+            application/json: {}
+
+  #  --- Products ---
   /api/products:
     get:
       summary: Retorna uma lista de produtos
       description: Retorna uma lista de todos os produtos disponíveis no sistema
       tags:
-        - Produtos
+        - Products
+      parameters:
+        - in: query
+          name: page
+          required: true
+          schema:
+            type: string
+            description: Número da página atual
+        - in: query
+          name: pageSize
+          required: true
+          schema:
+            type: string
+            default: 4
       responses:
         '200':
           description: Produtos encontrados com sucesso.
@@ -91,18 +292,109 @@ paths:
                     type: string
                     example: 'Produtos encontrados com sucesso.'
                   data:
-                    type: array
-                    items:
-                      type: object
+                    type: object
+                    properties:
+                      totalPages:
+                        type: number
+                        example: 2
+                      results:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                              example: 1
+                            name:
+                              type: string
+                              example: 'Produto'
+                            price:
+                              type: string
+                              example: '1500.00'
+                            description:
+                              type: string
+                              example: 'Descrição do produto'
+                            image_path:
+                              type: string
+                              example: 'produto.jpg'
 
-  /api/products/{id}:
+    post:
+      summary: Cadastra um produto
+      description: Retorna os dados do produto cadastrado no sistema
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 'Nome do produto'
+                price:
+                  type: number
+                  example: 1234.56
+                description:
+                  type: string
+                  example: 'Descrição do produto...'
+                stock:
+                  type: number
+                  example: 10
+                status:
+                  type: string
+                  example: 'ativo'
+                image_path:
+                  type: string
+                  example: 'default_image.png'
+      responses:
+        '201':
+          description: Produto cadastrado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Produto cadastrado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Nome do produto cadastrado'
+                      price:
+                        type: number
+                        example:  1234.56
+                      description:
+                        type: string
+                        example: 'Descrição do produto cadastrada...'
+                      stock:
+                        type: number
+                        example: 10
+                      status:
+                        type: string
+                        example: 'ativo'
+                      image_path:
+                        type: string
+                        example: 'default_image.png'
+
+  /api/products/{productId}:
     get:
       summary: Retorna um produto
-      description: Retorna um produto disponíveis no sistema
+      description: Retorna os dados do produto selecionado no sistema
       tags:
-        - Produtos
+        - Products
       parameters:
-        - name: id
+        - name: productId
           in: path
           required: true
           description: ID do produto
@@ -115,16 +407,56 @@ paths:
             application/json:
               schema:
                 type: object
-                items:
-                  type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Produto encontrado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Produto'
+                      price:
+                        type: string
+                        example: '1500.00'
+                      description:
+                        type: string
+                        example: 'Descrição do produto'
+                      stock:
+                        type: number
+                        example: 10
+                      status:
+                        type: string
+                        example: 'ativo'
+                      image_path:
+                        type: string
+                        example: 'produto.jpg'
+
+    put:
+      summary: Retorna o produto atualizado
+      description: Retorna os dados do produto atualizado no sistema
+      tags:
+        - Products
+      responses:
+        '200':
+          description: 'Produto atualizado com sucesso.'
+          content:
+            application/json: {}
 
   # --- Orders ---
   /api/orders:
     get:
-      summary: Retorna uma lista de pedidos
-      description: Retorna todos os pedidos no sistema
+      summary: Retorna uma lista de todos os pedidos
+      description: Retorna uma lista com os dados dos pedidos no sistema
       tags:
-        - Pedidos
+        - Orders
       responses:
         '200':
           description: Pedidos encontrados com sucesso.
@@ -143,26 +475,206 @@ paths:
                     type: array
                     items:
                       type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        user_id:
+                          type: number
+                          example: 1
+                        address_id:
+                          type: number
+                          example: 1
+                        created_at:
+                          type: string
+                          example: '2024-11-07T17:30:00.000Z'
+                        status:
+                          type: string
+                          example: 'pagamento efetuado'
 
     post:
       summary: Cadastra um pedido
-      description: Retorna o pedido cadastrado no sistema
+      description: Retorna os dados do pedido cadastrado no sistema
       tags:
-        - Pedidos
+        - Orders
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: 'rascunho'
+                products:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: number
+                        example: 1
+                      quantity:
+                        type: number
+                        example: 1
       responses:
+        '201':
+          description: Pedido cadastrado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Pedido cadastrado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      userId:
+                        type: number
+                        example: 1
+                      addressId:
+                        type: number
+                        example: 1
+                      status:
+                        type: string
+                        example: 'rascunho'
+                      products:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            product_id:
+                              type: number
+                              example: 1
+                            quantity:
+                              type: number
+                              example: 1
 
-  /details/{orderId}:
+  /api/orders/user:
     get:
-      summary: Retorna os detalhes do pedido
-      description: Retorna os detalhes do pedido no sistema
+      summary: Retorna uma lista de todos os pedidos do usuário
+      description: Retorna uma lista com os dados de todos os pedidos do usuário no sistema
       tags:
-        - Pedidos
+        - Orders
+      security:
+        - bearerAuth: []
       responses:
+        '200':
+          description: Pedidos do usuário encontrado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                    example: 'Pedido(s) encontrado(s) com sucesso.'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        name:
+                          type: string
+                          example: 'Produto'
+                        status:
+                          type: string
+                          example: 'rascunho'
+                        image_path:
+                          type: string
+                        created_at:
+                          type: string
+                          example: '2025-03-25T17:04:28.000Z'
 
   /api/orders/{orderId}:
+    get:
+      summary: Retorna os detalhes do pedido
+      description: Retorna os dados dos detalhes do pedido no sistema
+      tags:
+        - Orders
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: ID do pedido
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Mensagem
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Pedido encontrado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      status:
+                        type: string
+                        example: 'aguardando pagamento'
+                      created_at:
+                        type: string
+                        example: '2024-11-07T17:30:00.000Z'
+                      name:
+                        type: string
+                        example: 'Produto'
+                      price:
+                        type: string
+                        example: '1500.00'
+                      image_path:
+                        type: string
+                        example: 'produto.jpg'
+                      address_id:
+                        type: number
+                        example: 1
+                      street:
+                        type: string
+                        example: 'Rua Nome do logradouro'
+                      number:
+                        type: number
+                        example: 1
+                      neighborhood:
+                        type: string
+                        example: 'Bairro'
+                      city:
+                        type: string
+                        example: 'Cidade'
+                      state:
+                        type: string
+                        example: 'UF'
+                      zip_code:
+                        type: string
+                        example: '60000000'
+
     put:
       summary: Atualiza um pedido
-      description: Retorna o pedido no sistema
+      description: Retorna os dados do pedido atualizado no sistema
       tags:
-        - Pedidos
+        - Orders
       responses:

@@ -62,12 +62,12 @@ const usersService = {
           last_name: user.last_name,
           email: user.email,
           password: user.password,
+          zip_code: user.zip_code,
           street: user.street,
           number: user.number,
           neighborhood: user.neighborhood,
           city: user.city,
           state: user.state,
-          zip_code: user.zip_code,
         },
       };
     } catch (error) {
