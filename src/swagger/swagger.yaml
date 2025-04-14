@@ -323,7 +323,69 @@ paths:
       description: Retorna os dados do produto cadastrado no sistema
       tags:
         - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 'Nome do produto'
+                price:
+                  type: number
+                  example: 1234.56
+                description:
+                  type: string
+                  example: 'Descrição do produto...'
+                stock:
+                  type: number
+                  example: 10
+                status:
+                  type: string
+                  example: 'ativo'
+                image_path:
+                  type: string
+                  example: 'default_image.png'
       responses:
+        '201':
+          description: Produto cadastrado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Produto cadastrado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Nome do produto cadastrado'
+                      price:
+                        type: number
+                        example:  1234.56
+                      description:
+                        type: string
+                        example: 'Descrição do produto cadastrada...'
+                      stock:
+                        type: number
+                        example: 10
+                      status:
+                        type: string
+                        example: 'ativo'
+                      image_path:
+                        type: string
+                        example: 'default_image.png'
 
   /api/products/{productId}:
     get:
@@ -435,7 +497,69 @@ paths:
       description: Retorna os dados do pedido cadastrado no sistema
       tags:
         - Orders
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: 'rascunho'
+                products:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: number
+                        example: 1
+                      quantity:
+                        type: number
+                        example: 1
       responses:
+        '201':
+          description: Pedido cadastrado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Pedido cadastrado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      userId:
+                        type: number
+                        example: 1
+                      addressId:
+                        type: number
+                        example: 1
+                      status:
+                        type: string
+                        example: 'rascunho'
+                      products:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            product_id:
+                              type: number
+                              example: 1
+                            quantity:
+                              type: number
+                              example: 1
 
   /api/orders/user:
     get:
