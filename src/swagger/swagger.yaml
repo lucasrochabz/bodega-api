@@ -55,7 +55,12 @@ paths:
   /api/users/:
     get:
       summary: Retorna uma lista de usuários
-      description: Retorna uma lista com os dados dos usuários cadastrados no sistema
+      description: |
+        Retorna uma lista com os dados dos usuários cadastrados no sistema.
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
       tags:
         - Users
       responses:
@@ -110,13 +115,13 @@ paths:
               properties:
                 first_name:
                   type: string
-                  example: 'Swagger'
+                  example: 'User'
                 last_name:
                   type: string
-                  example: 'Documentation'
+                  example: 'Example'
                 email:
                   type: string
-                  example: 'swagger@email.com'
+                  example: 'user@example.com'
                 password:
                   type: string
                   example: '123456'
@@ -192,7 +197,12 @@ paths:
   /api/users/user:
     get:
       summary: Retorna uma lista de dados do usuário
-      description:  Retorna uma lista de dados do usuário no sistema
+      description: |
+        Retorna uma lista de dados do usuário no sistema.
+
+        Requer autenticação via token JWT.
+        
+        **Apenas usuários autenticados podem acessar este endpoint.**
       tags:
         - Users
       security:
@@ -248,14 +258,73 @@ paths:
   /api/users/update:
     put:
       summary: Atualiza o usuário
-      description: Retorna os dados do usuário atualizado no sistema
+      description: |
+        Retorna os dados do usuário atualizado no sistema.
+
+        Requer autenticação via token JWT.
+        
+        **Apenas usuários autenticados podem acessar este endpoint.**
       tags:
         - Users
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  example: 'Novo Nome'
+                last_name:
+                  type: string
+                  example: 'Novo Sobrenome'
+                email:
+                  type: string
+                  example: 'novonome@email.com'
+                password:
+                  type: string
+                  example: '123456'
+                zip_code:
+                  type: number
+                  example: '60710000'
+                street:
+                  type: string
+                  example: 'Avenida Godofredo Maciel'
+                number:
+                  type: number
+                  example: 456
+                neighborhood:
+                  type: string
+                  example: 'Parangaba'
+                city:
+                  type: string
+                  example: 'Fortaleza'
+                state:
+                  type: string
+                  example: 'CE'
       responses:
-        '200':
-          description: 'Usuário atualizado com sucesso.'
+        '201':
+          description: Usuário atualizado com sucesso
           content:
-            application/json: {}
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Usuário atualizado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
 
   #  --- Products ---
   /api/products:
@@ -494,7 +563,12 @@ paths:
 
     post:
       summary: Cadastra um pedido
-      description: Retorna os dados do pedido cadastrado no sistema
+      description: |
+        Retorna os dados do pedido cadastrado no sistema.
+
+        Requer autenticação via token JWT.
+        
+        **Apenas usuários autenticados podem acessar este endpoint.**
       tags:
         - Orders
       security:
@@ -564,7 +638,12 @@ paths:
   /api/orders/user:
     get:
       summary: Retorna uma lista de todos os pedidos do usuário
-      description: Retorna uma lista com os dados de todos os pedidos do usuário no sistema
+      description: |
+        Retorna uma lista com os dados de todos os pedidos do usuário no sistema.
+
+        Requer autenticação via token JWT.
+        
+        **Apenas usuários autenticados podem acessar este endpoint.**
       tags:
         - Orders
       security:
