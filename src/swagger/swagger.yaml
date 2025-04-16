@@ -63,6 +63,8 @@ paths:
         **Apenas administradores têm permissão para acessar este endpoint.**
       tags:
         - Users
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Usuários encontrados com sucesso.
