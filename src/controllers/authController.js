@@ -32,7 +32,6 @@ const authController = {
         success: true,
         message: 'Login realizado com sucesso.',
         token: token,
-        name: user.name,
       });
     } catch (error) {
       console.error('Erro ao realizar login:', error);
