@@ -391,9 +391,16 @@ paths:
 
     post:
       summary: Cadastra um produto
-      description: Retorna os dados do produto cadastrado no sistema
+      description: |
+        Retorna os dados do produto cadastrado no sistema.
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
       tags:
         - Products
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -512,9 +519,16 @@ paths:
 
     put:
       summary: Retorna o produto atualizado
-      description: Retorna os dados do produto atualizado no sistema
+      description: |
+        Retorna os dados do produto atualizado no sistema
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
       tags:
         - Products
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: 'Produto atualizado com sucesso.'
@@ -525,9 +539,16 @@ paths:
   /api/orders:
     get:
       summary: Retorna uma lista de todos os pedidos
-      description: Retorna uma lista com os dados dos pedidos no sistema
+      description: |
+        Retorna uma lista com os dados dos pedidos no sistema
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
       tags:
         - Orders
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Pedidos encontrados com sucesso.
