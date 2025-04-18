@@ -55,9 +55,16 @@ paths:
   /api/users/:
     get:
       summary: Retorna uma lista de usuários
-      description: Retorna uma lista com os dados dos usuários cadastrados no sistema
+      description: |
+        Retorna uma lista com os dados dos usuários cadastrados no sistema.
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
       tags:
         - Users
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Usuários encontrados com sucesso.
@@ -110,13 +117,13 @@ paths:
               properties:
                 first_name:
                   type: string
-                  example: 'Swagger'
+                  example: 'User'
                 last_name:
                   type: string
-                  example: 'Documentation'
+                  example: 'Example'
                 email:
                   type: string
-                  example: 'swagger@email.com'
+                  example: 'user@example.com'
                 password:
                   type: string
                   example: '123456'
@@ -192,7 +199,12 @@ paths:
   /api/users/user:
     get:
       summary: Retorna uma lista de dados do usuário
-      description:  Retorna uma lista de dados do usuário no sistema
+      description: |
+        Retorna uma lista de dados do usuário no sistema.
+
+        Requer autenticação via token JWT.
+        
+        **Apenas usuários autenticados podem acessar este endpoint.**
       tags:
         - Users
       security:
@@ -248,14 +260,114 @@ paths:
   /api/users/update:
     put:
       summary: Atualiza o usuário
-      description: Retorna os dados do usuário atualizado no sistema
+      description: |
+        Retorna os dados do usuário atualizado no sistema.
+
+        Requer autenticação via token JWT.
+        
+        **Apenas usuários autenticados podem acessar este endpoint.**
       tags:
         - Users
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  example: 'Novo Nome'
+                last_name:
+                  type: string
+                  example: 'Novo Sobrenome'
+                email:
+                  type: string
+                  example: 'novonome@email.com'
+                password:
+                  type: string
+                  example: '123456'
+                zip_code:
+                  type: number
+                  example: '60710000'
+                street:
+                  type: string
+                  example: 'Avenida Godofredo Maciel'
+                number:
+                  type: number
+                  example: 456
+                neighborhood:
+                  type: string
+                  example: 'Parangaba'
+                city:
+                  type: string
+                  example: 'Fortaleza'
+                state:
+                  type: string
+                  example: 'CE'
+      responses:
+        '201':
+          description: Usuário atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Usuário atualizado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+
+  /api/users/{userId}:
+    delete:
+      summary: Deleta o usuário
+      description: |
+        Retorna o dado do usuário deletado do sistema.
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: ID do usuário
+          schema:
+            type: integer
       responses:
         '200':
-          description: 'Usuário atualizado com sucesso.'
+          description: Usuário deletado com sucesso.
           content:
-            application/json: {}
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Usuário deletado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '1'
 
   #  --- Products ---
   /api/products:
@@ -320,9 +432,16 @@ paths:
 
     post:
       summary: Cadastra um produto
-      description: Retorna os dados do produto cadastrado no sistema
+      description: |
+        Retorna os dados do produto cadastrado no sistema.
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
       tags:
         - Products
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -441,22 +560,75 @@ paths:
 
     put:
       summary: Retorna o produto atualizado
-      description: Retorna os dados do produto atualizado no sistema
+      description: |
+        Retorna os dados do produto atualizado no sistema
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
       tags:
         - Products
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: 'Produto atualizado com sucesso.'
           content:
             application/json: {}
 
+    delete:
+      summary: Deleta um produto
+      description: |
+        Retorna o dado do produto deletado do sistema.
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
+      tags:
+        - Products
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: ID do produto
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Produto deletado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '1'
+
   # --- Orders ---
   /api/orders:
     get:
       summary: Retorna uma lista de todos os pedidos
-      description: Retorna uma lista com os dados dos pedidos no sistema
+      description: |
+        Retorna uma lista com os dados dos pedidos no sistema
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
       tags:
         - Orders
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: Pedidos encontrados com sucesso.
@@ -494,7 +666,12 @@ paths:
 
     post:
       summary: Cadastra um pedido
-      description: Retorna os dados do pedido cadastrado no sistema
+      description: |
+        Retorna os dados do pedido cadastrado no sistema.
+
+        Requer autenticação via token JWT.
+        
+        **Apenas usuários autenticados podem acessar este endpoint.**
       tags:
         - Orders
       security:
@@ -564,7 +741,12 @@ paths:
   /api/orders/user:
     get:
       summary: Retorna uma lista de todos os pedidos do usuário
-      description: Retorna uma lista com os dados de todos os pedidos do usuário no sistema
+      description: |
+        Retorna uma lista com os dados de todos os pedidos do usuário no sistema.
+
+        Requer autenticação via token JWT.
+        
+        **Apenas usuários autenticados podem acessar este endpoint.**
       tags:
         - Orders
       security:
@@ -617,7 +799,6 @@ paths:
             type: integer
       responses:
         '200':
-          description: Mensagem
           content:
             application/json:
               schema:
@@ -678,3 +859,42 @@ paths:
       tags:
         - Orders
       responses:
+
+    delete:
+      summary: Deleta um pedido
+      description: |
+        Retorna o dado do pedido deletado do sistema.
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
+      tags:
+        - Orders
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: ID do pedido
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Pedido deletado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '1'

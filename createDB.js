@@ -5,10 +5,10 @@ require('dotenv').config();
 
 //configuração do banco de dados;
 const connectionConfig = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  port: process.env.MYSQLPORT,
 };
 
 // Caminho para o arquivo SQL
@@ -24,7 +24,7 @@ const executeDB = async () => {
   try {
     // Lê o  conteúdo do arquivo SQL
     let sql = await fs.readFile(scriptsPath, 'utf8');
-    sql = sql.replace('${DB_NAME}', process.env.DB_NAME);
+    sql = sql.replace('${MYSQLDATABASE}', process.env.MYSQLDATABASE);
 
     try {
       // Executa o script SQL

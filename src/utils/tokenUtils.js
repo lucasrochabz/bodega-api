@@ -8,7 +8,7 @@ const generateToken = (userData) => {
     return jwt.sign(
       {
         id: userData.id,
-        name: userData.name,
+        role: userData.role,
       },
       SECRET_KEY,
       { expiresIn: '2h' },
@@ -24,7 +24,7 @@ const verifyToken = (token) => {
     return jwt.verify(token, SECRET_KEY);
   } catch (error) {
     console.error('Erro ao verificar token:', error);
-    throw new Error(`Erro ao verificar token: ${error.module}`);
+    throw new Error(`Erro ao verificar token: ${error.message}`);
   }
 };
 
