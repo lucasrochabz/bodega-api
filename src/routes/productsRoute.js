@@ -20,6 +20,11 @@ router.put(
   authorizeAdmin,
   productsController.updateProduct,
 );
-router.delete('/:productId', productsController.deleteProduct);
+router.delete(
+  '/:productId',
+  authenticate,
+  authorizeAdmin,
+  productsController.deleteProduct,
+);
 
 module.exports = router;

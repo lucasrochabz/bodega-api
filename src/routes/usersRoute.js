@@ -16,6 +16,11 @@ router.put(
   validateUserUpdate,
   usersController.updateUser,
 );
-router.delete('/:userId', usersController.deleteUser);
+router.delete(
+  '/:userId',
+  authenticate,
+  authorizeAdmin,
+  usersController.deleteUser,
+);
 
 module.exports = router;

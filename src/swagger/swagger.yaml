@@ -328,6 +328,47 @@ paths:
                         type: number
                         example: 1
 
+  /api/users/{userId}:
+    delete:
+      summary: Deleta o usuário
+      description: |
+        Retorna o dado do usuário deletado do sistema.
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: ID do usuário
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Usuário deletado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Usuário deletado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '1'
+
   #  --- Products ---
   /api/products:
     get:
@@ -535,6 +576,45 @@ paths:
           content:
             application/json: {}
 
+    delete:
+      summary: Deleta um produto
+      description: |
+        Retorna o dado do produto deletado do sistema.
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
+      tags:
+        - Products
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: ID do produto
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Produto deletado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '1'
+
   # --- Orders ---
   /api/orders:
     get:
@@ -719,7 +799,6 @@ paths:
             type: integer
       responses:
         '200':
-          description: Mensagem
           content:
             application/json:
               schema:
@@ -780,3 +859,42 @@ paths:
       tags:
         - Orders
       responses:
+
+    delete:
+      summary: Deleta um pedido
+      description: |
+        Retorna o dado do pedido deletado do sistema.
+
+        Requer autenticação via token JWT.
+
+        **Apenas administradores têm permissão para acessar este endpoint.**
+      tags:
+        - Orders
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: ID do pedido
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Pedido deletado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '1'
