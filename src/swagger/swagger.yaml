@@ -384,9 +384,6 @@ paths:
                       email:
                         type: string
                         example: 'nome@email.com'
-                      password:
-                        type: string
-                        example: 'bcrypthash'
                       zip_code:
                         type: number
                         example: 60710000
