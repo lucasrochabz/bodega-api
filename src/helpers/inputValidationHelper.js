@@ -39,6 +39,10 @@ const validationRules = {
     regex: /^[a-zA-Z]{2}$/,
     message: 'Estado inválido.',
   },
+  orderStatus: {
+    regex: /^(rascunho|aguardando pagamento|pagamento efetuado|concluido)$/,
+    message: 'Status do pedido inválido.',
+  },
 };
 
 const validateInput = (fieldName, value) => {

@@ -9,8 +9,236 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      bearerformat: JWT
-      in: header
+      bearerFormat: JWT
+  
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          example: 'user@example.com'
+        password:
+          type: string
+          example: '123456'
+    LoginResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Login realizado com sucesso.'
+        token:
+          type: string
+          example: 'jwt-token-here'
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        user_id:
+          type: number
+          example: 1
+        address_id:
+          type: number
+          example: 1
+        created_at:
+          type: string
+          example: '2024-11-07T17:30:00.000Z'
+        status:
+          type: string
+          example: 'pagamento efetuado'
+
+    OrderProduct:
+      type: object
+      properties:
+        product_id:
+          type: number
+          example: 1
+        quantity:
+          type: number
+          example: 1
+
+    CreateOrderRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          example: 'rascunho'
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderProduct'
+
+    CreateOrderResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Pedido cadastrado com sucesso.'
+        data:
+          type: object
+          properties:
+            id:
+              type: number
+              example: 1
+            userId:
+              type: number
+              example: 1
+            addressId:
+              type: number
+              example: 1
+            status:
+              type: string
+              example: 'rascunho'
+            products:
+              type: array
+              items:
+                $ref: '#/components/schemas/OrderProduct'
+
+    OrdersListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Pedidos encontrados com sucesso.'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+
+    UserOrdersResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Pedido(s) encontrado(s) com sucesso.'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                example: 1
+              name:
+                type: string
+                example: 'Produto'
+              status:
+                type: string
+                example: 'rascunho'
+              image_path:
+                type: string
+              created_at:
+                type: string
+                example: '2025-03-25T17:04:28.000Z'
+
+    OrderDetailsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Pedido encontrado com sucesso.'
+        data:
+          type: object
+          properties:
+            id:
+              type: number
+              example: 1
+            status:
+              type: string
+              example: 'aguardando pagamento'
+            created_at:
+              type: string
+              example: '2024-11-07T17:30:00.000Z'
+            name:
+              type: string
+              example: 'Produto'
+            price:
+              type: string
+              example: '1500.00'
+            image_path:
+              type: string
+              example: 'produto.jpg'
+            address_id:
+              type: number
+              example: 1
+            street:
+              type: string
+              example: 'Rua Nome do logradouro'
+            number:
+              type: number
+              example: 1
+            neighborhood:
+              type: string
+              example: 'Bairro'
+            city:
+              type: string
+              example: 'Cidade'
+            state:
+              type: string
+              example: 'UF'
+            zip_code:
+              type: string
+              example: '60000000'
+
+    UpdateOrderRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          example: 'pagamento efetuado'
+
+    UpdateOrderResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Pedido atualizado com sucesso.'
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: '1'
+            status:
+              type: string
+              example: 'pagamento efetuado'
+
+    DeleteOrderResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: 'Pedido deletado com sucesso.'
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              example: '1'
 
 paths:
   # --- Auth ---
@@ -25,31 +253,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: 'user@example.com'
-                password:
-                  type: string
-                  example: '123456'
+              $ref: '#/components/schemas/LoginRequest'
       responses:
         '200':
           description: Login realizado com sucesso
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: 'Login realizado com sucesso.'
-                  token:
-                    type: string
-                    example: 'jwt-token-here'
+                $ref: '#/components/schemas/LoginResponse'
 
   # --- Users ---
   /api/users/:
@@ -96,9 +307,6 @@ paths:
                         email:
                           type: string
                           example: 'user@example.com'
-                        password:
-                          type: string
-                          example: 'passwordhash'
                         status:
                           type: string
                           example: 'ativo'
@@ -495,7 +703,7 @@ paths:
                         example:  1234.56
                       description:
                         type: string
-                        example: 'Descrição do produto cadastrada...'
+                        example: 'Descrição do produto cadastrado...'
                       stock:
                         type: number
                         example: 10
@@ -507,18 +715,19 @@ paths:
                         example: 'default_image.png'
 
   /api/products/{productId}:
+    parameters:
+      - name: productId
+        in: path
+        required: true
+        description: ID do produto
+        schema:
+          type: integer
+
     get:
       summary: Retorna um produto
       description: Retorna os dados do produto selecionado no sistema
       tags:
         - Products
-      parameters:
-        - name: productId
-          in: path
-          required: true
-          description: ID do produto
-          schema:
-            type: integer
       responses:
         '200':
           description: Produto encontrado com sucesso.
@@ -570,11 +779,39 @@ paths:
         - Products
       security:
         - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: 'Descrição do produto atualizada...'
       responses:
         '200':
-          description: 'Produto atualizado com sucesso.'
+          description: Produto atualizado com sucesso.
           content:
-            application/json: {}
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Produto atualizado com sucesso.'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '1'
+                      description:
+                        type: string
+                        example: 'Descrição do produto atualizada...'
 
     delete:
       summary: Deleta um produto
@@ -597,6 +834,7 @@ paths:
             type: integer
       responses:
         '200':
+          description: Produto deletado com sucesso.
           content:
             application/json:
               schema:
@@ -635,34 +873,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: 'Pedidos encontrados com sucesso.'
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: number
-                          example: 1
-                        user_id:
-                          type: number
-                          example: 1
-                        address_id:
-                          type: number
-                          example: 1
-                        created_at:
-                          type: string
-                          example: '2024-11-07T17:30:00.000Z'
-                        status:
-                          type: string
-                          example: 'pagamento efetuado'
+                $ref: '#/components/schemas/OrdersListResponse'
 
     post:
       summary: Cadastra um pedido
@@ -681,62 +892,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                status:
-                  type: string
-                  example: 'rascunho'
-                products:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      product_id:
-                        type: number
-                        example: 1
-                      quantity:
-                        type: number
-                        example: 1
+                $ref: '#/components/schemas/CreateOrderRequest'
       responses:
         '201':
           description: Pedido cadastrado com sucesso.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: 'Pedido cadastrado com sucesso.'
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: number
-                        example: 1
-                      userId:
-                        type: number
-                        example: 1
-                      addressId:
-                        type: number
-                        example: 1
-                      status:
-                        type: string
-                        example: 'rascunho'
-                      products:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            product_id:
-                              type: number
-                              example: 1
-                            quantity:
-                              type: number
-                              example: 1
+                $ref: '#/components/schemas/CreateOrderResponse'
 
   /api/orders/user:
     get:
@@ -757,108 +920,48 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  message:
-                    type: string
-                    example: 'Pedido(s) encontrado(s) com sucesso.'
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: number
-                          example: 1
-                        name:
-                          type: string
-                          example: 'Produto'
-                        status:
-                          type: string
-                          example: 'rascunho'
-                        image_path:
-                          type: string
-                        created_at:
-                          type: string
-                          example: '2025-03-25T17:04:28.000Z'
+                $ref: '#/components/schemas/UserOrdersResponse'
 
   /api/orders/{orderId}:
+    parameters:
+      - name: orderId
+        in: path
+        required: true
+        description: ID do pedido
+        schema:
+          type: integer
+
     get:
       summary: Retorna os detalhes do pedido
       description: Retorna os dados dos detalhes do pedido no sistema
       tags:
         - Orders
-      parameters:
-        - name: orderId
-          in: path
-          required: true
-          description: ID do pedido
-          schema:
-            type: integer
       responses:
         '200':
+          description: Pedido encontrado com success
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: 'Pedido encontrado com sucesso.'
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: number
-                        example: 1
-                      status:
-                        type: string
-                        example: 'aguardando pagamento'
-                      created_at:
-                        type: string
-                        example: '2024-11-07T17:30:00.000Z'
-                      name:
-                        type: string
-                        example: 'Produto'
-                      price:
-                        type: string
-                        example: '1500.00'
-                      image_path:
-                        type: string
-                        example: 'produto.jpg'
-                      address_id:
-                        type: number
-                        example: 1
-                      street:
-                        type: string
-                        example: 'Rua Nome do logradouro'
-                      number:
-                        type: number
-                        example: 1
-                      neighborhood:
-                        type: string
-                        example: 'Bairro'
-                      city:
-                        type: string
-                        example: 'Cidade'
-                      state:
-                        type: string
-                        example: 'UF'
-                      zip_code:
-                        type: string
-                        example: '60000000'
+                $ref: '#/components/schemas/OrderDetailsResponse'
 
     put:
       summary: Atualiza um pedido
       description: Retorna os dados do pedido atualizado no sistema
       tags:
         - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/UpdateOrderRequest'
       responses:
+        '200':
+          description: Pedido atualizado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateOrderResponse'
 
     delete:
       summary: Deleta um pedido
@@ -881,20 +984,8 @@ paths:
             type: integer
       responses:
         '200':
+          description: Pedido deletado com sucesso.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: 'Pedido deletado com sucesso.'
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        example: '1'
+                $ref: '#/components/schemas/DeleteOrderResponse'
