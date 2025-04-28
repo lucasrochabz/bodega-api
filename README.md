@@ -1,5 +1,7 @@
 ## Bodega API v1.0
 
+![Imagem do projeto](docs/bodega-api01.png)
+
 ### Sobre
 
 Este projeto é uma simulação de e-commerce desenvolvida com **Node.js** e **Express**, utilizando **JSON Web Tokens (JWT)** para autenticação segura e **bcrypt** para criptografia de senhas. O **MySQL** é utilizado como banco de dados, garantindo armazenamento estruturado e eficiente.
@@ -31,7 +33,7 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
    ```bash
    cp .env.example .env
    ```
-4. Edite o arquivo **.env** com os valores apropriados para o seu ambiente.
+4. Edite o arquivo `.env` com os valores apropriados para o seu ambiente.
 5. Instale as dependências usando o comando:
    ```bash
    npm install

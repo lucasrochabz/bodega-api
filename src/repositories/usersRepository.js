@@ -6,7 +6,7 @@ const usersRepository = {
     try {
       const [results] = await connection.query(
         `
-        SELECT id, first_name, last_name, email, password, status
+        SELECT id, first_name, last_name, email, status
         FROM users`,
       );
 
