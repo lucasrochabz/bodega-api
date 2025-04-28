@@ -10,8 +10,9 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-  
+
   schemas:
+  # --- Auth ---
     LoginRequest:
       type: object
       properties:
@@ -34,6 +35,7 @@ components:
           type: string
           example: 'jwt-token-here'
 
+  # --- Orders ---
     Order:
       type: object
       properties:
