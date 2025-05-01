@@ -1,26 +1,17 @@
 const { getDBConnection } = require('../database/connection');
+const executeQuery = require('../helpers/databaseQuery');
 
 const ordersProductsRepository = {
   insertOrderProducts: async (orderProducts) => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        INSERT INTO orders_products (order_id, product_id, quantity)
-        VALUES ?`,
-        [orderProducts],
-      );
+    const query = `
+      INSERT INTO orders_products (order_id, product_id, quantity)
+      VALUES ?
+    `;
 
-      return results;
-    } catch (error) {
-      console.error(
-        'Erro ao associar produtos ao pedido no Banco de Dados:',
-        error,
-      );
-      throw new Error('Erro ao associar produtos ao pedido no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage =
+      'Erro ao associar produtos ao pedido no Banco de Dados';
+
+    return await executeQuery(query, [orderProducts], errorMessage);
   },
 };
 

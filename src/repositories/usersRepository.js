@@ -25,37 +25,29 @@ const usersRepository = {
   },
 
   fetchById: async (userId) => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        SELECT
-          users.id,
-          users.first_name,
-          users.last_name,
-          users.email,
-          addresses.street,
-          addresses.number,
-          addresses.neighborhood,
-          addresses.city,
-          addresses.state,
-          addresses.zip_code
-        FROM
-          users 
-        JOIN
-          addresses ON users.id = addresses.user_id
-        WHERE
-          users.id = ?`,
-        [userId],
-      );
+    const query = `
+      SELECT
+        users.id,
+        users.first_name,
+        users.last_name,
+        users.email,
+        addresses.street,
+        addresses.number,
+        addresses.neighborhood,
+        addresses.city,
+        addresses.state,
+        addresses.zip_code
+      FROM
+        users 
+      JOIN
+        addresses ON users.id = addresses.user_id
+      WHERE
+        users.id = ?
+    `;
 
-      return results;
-    } catch (error) {
-      console.error('Erro ao buscar usuário no Banco de Dados:', error);
-      throw new Error('Erro ao buscar usuário no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage = 'Erro ao buscar usuário no Banco de Dados';
+
+    return await executeQuery(query, [userId], errorMessage);
   },
 
   insertUser: async (user) => {
@@ -120,21 +112,13 @@ const usersRepository = {
   },
 
   removeById: async (userId) => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        DELETE FROM users WHERE id = ?`,
-        [userId],
-      );
+    const query = `
+      DELETE FROM users WHERE id = ?
+    `;
 
-      return results;
-    } catch (error) {
-      console.error('Erro ao deletar usuário no Banco de Dados:', error);
-      throw new Error('Erro ao deletar usuário no Banco de Dados');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage = 'Erro ao deletar usuário no Banco de Dados';
+
+    return await executeQuery(query, [userId], errorMessage);
   },
 
   fetchUserAddress: async (userId) => {

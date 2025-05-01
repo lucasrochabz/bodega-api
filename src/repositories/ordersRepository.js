@@ -1,93 +1,70 @@
 const { getDBConnection } = require('../database/connection');
+const executeQuery = require('../helpers/databaseQuery');
 
 const ordersRepository = {
   fetchAll: async () => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        SELECT id, user_id, address_id, created_at, status
-        FROM orders`,
-      );
+    const query = `
+      SELECT id, user_id, address_id, created_at, status
+      FROM orders
+    `;
 
-      return results;
-    } catch (error) {
-      console.error('Erro ao buscar pedidos no Banco de Dados:', error);
-      throw new Error('Erro ao buscar pedidos no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage = 'Erro ao buscar pedidos no Banco de Dados';
+
+    return await executeQuery(query, errorMessage);
   },
 
   fetchAllUserOrders: async (userId) => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        SELECT 
-          orders.id,
-          products.name,
-          orders.status,
-          products.image_path,
-          orders.created_at
-        FROM 
-          orders
-        JOIN
-          orders_products
-          ON orders.id = orders_products.order_id
-        JOIN 
-          products ON
-          orders_products.product_id = products.id
-        WHERE 
-          orders.user_id = ?`,
-        [userId],
-      );
+    const query = `
+      SELECT 
+        orders.id,
+        products.name,
+        orders.status,
+        products.image_path,
+        orders.created_at
+      FROM 
+        orders
+      JOIN
+        orders_products
+        ON orders.id = orders_products.order_id
+      JOIN 
+        products ON
+        orders_products.product_id = products.id
+      WHERE 
+        orders.user_id = ?
+    `;
 
-      return results;
-    } catch (error) {
-      console.error(
-        'Erro ao buscar pedido(s) do usuário no Banco de Dados:',
-        error,
-      );
-      throw new Error('Erro ao buscar pedido(s) do usuário no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage =
+      'Erro ao buscar pedido(s) do usuário no Banco de Dados';
+
+    return await executeQuery(query, [userId], errorMessage);
   },
 
   fetchOrderById: async (orderId) => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        SELECT
-          orders.id,
-          orders.status,
-          orders.created_at,
-          products.name,
-          products.price,
-          products.image_path,
-          orders.address_id
-        FROM
-          orders
-        JOIN
-          addresses ON orders.address_id = addresses.id
-        JOIN
-          orders_products ON orders.id = orders_products.order_id
-        JOIN
-          products ON orders_products.product_id = products.id
-        WHERE
-          orders.id = ?`,
-        [orderId],
-      );
+    const query = `
+      SELECT
+        orders.id,
+        orders.status,
+        orders.created_at,
+        products.name,
+        products.price,
+        products.image_path,
+        orders.address_id
+      FROM
+        orders
+      JOIN
+        addresses ON orders.address_id = addresses.id
+      JOIN
+        orders_products ON orders.id = orders_products.order_id
+      JOIN
+        products ON orders_products.product_id = products.id
+      WHERE
+        orders.id = ?
+    `;
 
-      return results[0];
-    } catch (error) {
-      console.error('Erro ao buscar pedido no Banco de Dados:', error);
-      throw new Error('Erro ao buscar pedido no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage = 'Erro ao buscar pedido no Banco de Dados';
+
+    const result = await executeQuery(query, [orderId], errorMessage);
+    return result[0];
   },
 
   insertOrder: async ({ userId, addressId, status }) => {
@@ -110,41 +87,25 @@ const ordersRepository = {
   },
 
   editById: async ({ status, orderId }) => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        UPDATE orders
-        SET status = ?
-        WHERE id = ?`,
-        [status, orderId],
-      );
+    const query = `
+      UPDATE orders
+      SET status = ?
+      WHERE id = ?
+    `;
 
-      return results;
-    } catch (error) {
-      console.error('Erro ao atualizar pedido no Banco de Dados:', error);
-      throw new Error('Erro ao atualizar pedido no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage = 'Erro ao atualizar pedido no Banco de Dados';
+
+    return await executeQuery(query, [status, orderId], errorMessage);
   },
 
   removeById: async (orderId) => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        DELETE FROM orders WHERE id = ?`,
-        [orderId],
-      );
+    const query = `
+      DELETE FROM orders WHERE id = ?
+    `;
 
-      return results;
-    } catch (error) {
-      console.error('Erro ao deletar pedido no Banco de Dados:', error);
-      throw new Error('Erro ao deletar pedido no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage = 'Erro ao deletar pedido no Banco de Dados';
+
+    return await executeQuery(query, [orderId], errorMessage);
   },
 };
 

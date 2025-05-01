@@ -36,8 +36,9 @@ const productsRepository = {
 
   fetchById: async (productID) => {
     const query = `
-    SELECT id, name, price, description, stock, status, image_path
-    FROM products WHERE id = ?`;
+      SELECT id, name, price, description, stock, status, image_path
+      FROM products WHERE id = ?
+    `;
 
     const errorMessage = 'Erro ao buscar produto no Banco de Dados';
 
@@ -71,41 +72,25 @@ const productsRepository = {
   },
 
   editById: async ({ description, productId }) => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        UPDATE products
-        SET description = ?
-        WHERE id = ?`,
-        [description, productId],
-      );
+    const query = `
+      UPDATE products
+      SET description = ?
+      WHERE id = ?
+    `;
 
-      return results;
-    } catch (error) {
-      console.error('Erro ao atualizar pedido no Banco de Dados:', error);
-      throw new Error('Erro ao atualizar pedido no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage = 'Erro ao atualizar pedido no Banco de Dados';
+
+    return await executeQuery(query, [description, productId], errorMessage);
   },
 
   removeById: async (productId) => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        DELETE FROM products WHERE id = ?`,
-        [productId],
-      );
+    const query = `
+      DELETE FROM products WHERE id = ?
+    `;
 
-      return results;
-    } catch (error) {
-      console.error('Erro ao deletar produto no Banco de Dados:', error);
-      throw new Error('Erro ao deletar produto no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage = 'Erro ao deletar produto no Banco de Dados';
+
+    return await executeQuery(query, [productId], errorMessage);
   },
 };
 
