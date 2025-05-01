@@ -1,70 +1,26 @@
 const { validateInput } = require('../helpers/inputValidationHelper');
 
 const validateUserUpdate = (req, res, next) => {
-  const {
-    first_name,
-    last_name,
-    email,
-    password,
-    zip_code,
-    street,
-    number,
-    neighborhood,
-    city,
-    state,
-  } = req.body;
-
-  const firstNameValidate = validateInput('firstName', first_name);
-  const lastNameValidate = validateInput('lastName', last_name);
-  const emailValidate = validateInput('email', email);
-  const passwordValidate = validateInput('password', password);
-  const zipCodeValidate = validateInput('zipCode', zip_code);
-  const streetValidate = validateInput('street', street);
-  const numberValidate = validateInput('number', number);
-  const neighborhoodValidate = validateInput('neighborhood', neighborhood);
-  const cityValidate = validateInput('city', city);
-  const stateValidate = validateInput('state', state);
+  const fields = [
+    { key: 'first_name', label: 'firstName' },
+    { key: 'last_name', label: 'lastName' },
+    { key: 'email', label: 'email' },
+    { key: 'password', label: 'password' },
+    { key: 'zip_code', label: 'zipCode' },
+    { key: 'street', label: 'street' },
+    { key: 'number', label: 'number' },
+    { key: 'neighborhood', label: 'neighborhood' },
+    { key: 'city', label: 'city' },
+    { key: 'state', label: 'state' },
+  ];
 
   const errors = [];
 
-  if (!firstNameValidate.valid) {
-    errors.push({ message: firstNameValidate.message });
-  }
-
-  if (!lastNameValidate.valid) {
-    errors.push({ message: lastNameValidate.message });
-  }
-
-  if (!emailValidate.valid) {
-    errors.push({ message: emailValidate.message });
-  }
-
-  if (!passwordValidate.valid) {
-    errors.push({ message: passwordValidate.message });
-  }
-
-  if (!zipCodeValidate.valid) {
-    errors.push({ message: zipCodeValidate.message });
-  }
-
-  if (!streetValidate.valid) {
-    errors.push({ message: streetValidate.message });
-  }
-
-  if (!numberValidate.valid) {
-    errors.push({ message: numberValidate.message });
-  }
-
-  if (!neighborhoodValidate.valid) {
-    errors.push({ message: neighborhoodValidate.message });
-  }
-
-  if (!cityValidate.valid) {
-    errors.push({ message: cityValidate.message });
-  }
-
-  if (!stateValidate.valid) {
-    errors.push({ message: stateValidate.message });
+  for (const { key, label } of fields) {
+    const validation = validateInput(label, req.body[key]);
+    if (!validation.valid) {
+      errors.push({ message: validation.message });
+    }
   }
 
   if (errors.length > 0) {

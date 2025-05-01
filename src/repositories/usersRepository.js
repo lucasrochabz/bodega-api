@@ -4,7 +4,7 @@ const executeQuery = require('../helpers/databaseQuery');
 const usersRepository = {
   verifyUser: async ({ email }) => {
     const query = `
-      SELECT id, first_name, passwor, role FROM users
+      SELECT id, first_name, password, role FROM users
       WHERE email = ?`;
 
     const errorMessage = 'Erro ao verificar usuário no Banco de Dados';
