@@ -5,7 +5,8 @@ const usersRepository = {
   verifyUser: async ({ email }) => {
     const query = `
       SELECT id, first_name, password, role FROM users
-      WHERE email = ?`;
+      WHERE email = ?
+    `;
 
     const errorMessage = 'Erro ao verificar usuário no Banco de Dados';
 
@@ -13,21 +14,14 @@ const usersRepository = {
   },
 
   fetchAll: async () => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        SELECT id, first_name, last_name, email, status
-        FROM users`,
-      );
+    const query = `
+      SELECT id, first_name, last_name, email, status
+      FROM users
+    `;
 
-      return results;
-    } catch (error) {
-      console.error('Erro ao buscar usuários no Banco de Dados:', error);
-      throw new Error('Erro ao buscar usuários no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage = 'Erro ao buscar usuários no Banco de Dados';
+
+    return await executeQuery(query, errorMessage);
   },
 
   fetchById: async (userId) => {
