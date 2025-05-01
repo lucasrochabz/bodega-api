@@ -1,4 +1,3 @@
-const { getDBConnection } = require('../database/connection');
 const executeQuery = require('../helpers/databaseQuery');
 
 const ordersProductsRepository = {
