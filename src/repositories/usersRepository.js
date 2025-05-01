@@ -7,10 +7,11 @@ const usersRepository = {
       SELECT id, first_name, password, role FROM users
       WHERE email = ?
     `;
+    const params = [email];
 
     const errorMessage = 'Erro ao verificar usuário no Banco de Dados';
 
-    return await executeQuery(query, [email], errorMessage);
+    return await executeQuery(query, params, errorMessage);
   },
 
   fetchAll: async () => {
@@ -44,10 +45,11 @@ const usersRepository = {
       WHERE
         users.id = ?
     `;
+    const params = [userId];
 
     const errorMessage = 'Erro ao buscar usuário no Banco de Dados';
 
-    return await executeQuery(query, [userId], errorMessage);
+    return await executeQuery(query, params, errorMessage);
   },
 
   insertUser: async (user) => {
@@ -115,10 +117,11 @@ const usersRepository = {
     const query = `
       DELETE FROM users WHERE id = ?
     `;
+    const params = [userId];
 
     const errorMessage = 'Erro ao deletar usuário no Banco de Dados';
 
-    return await executeQuery(query, [userId], errorMessage);
+    return await executeQuery(query, params, errorMessage);
   },
 
   fetchUserAddress: async (userId) => {

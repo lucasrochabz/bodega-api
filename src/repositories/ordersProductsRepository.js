@@ -7,11 +7,12 @@ const ordersProductsRepository = {
       INSERT INTO orders_products (order_id, product_id, quantity)
       VALUES ?
     `;
+    const params = [orderProducts];
 
     const errorMessage =
       'Erro ao associar produtos ao pedido no Banco de Dados';
 
-    return await executeQuery(query, [orderProducts], errorMessage);
+    return await executeQuery(query, params, errorMessage);
   },
 };
 

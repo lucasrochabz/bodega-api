@@ -32,11 +32,12 @@ const ordersRepository = {
       WHERE 
         orders.user_id = ?
     `;
+    const params = [userId];
 
     const errorMessage =
       'Erro ao buscar pedido(s) do usuário no Banco de Dados';
 
-    return await executeQuery(query, [userId], errorMessage);
+    return await executeQuery(query, params, errorMessage);
   },
 
   fetchOrderById: async (orderId) => {
@@ -60,10 +61,11 @@ const ordersRepository = {
       WHERE
         orders.id = ?
     `;
+    const params = [orderId];
 
     const errorMessage = 'Erro ao buscar pedido no Banco de Dados';
 
-    const result = await executeQuery(query, [orderId], errorMessage);
+    const result = await executeQuery(query, params, errorMessage);
     return result[0];
   },
 
@@ -92,20 +94,22 @@ const ordersRepository = {
       SET status = ?
       WHERE id = ?
     `;
+    const params = [status, orderId];
 
     const errorMessage = 'Erro ao atualizar pedido no Banco de Dados';
 
-    return await executeQuery(query, [status, orderId], errorMessage);
+    return await executeQuery(query, params, errorMessage);
   },
 
   removeById: async (orderId) => {
     const query = `
       DELETE FROM orders WHERE id = ?
     `;
+    const params = [orderId];
 
     const errorMessage = 'Erro ao deletar pedido no Banco de Dados';
 
-    return await executeQuery(query, [orderId], errorMessage);
+    return await executeQuery(query, params, errorMessage);
   },
 };
 

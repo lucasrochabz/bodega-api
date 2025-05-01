@@ -39,10 +39,11 @@ const productsRepository = {
       SELECT id, name, price, description, stock, status, image_path
       FROM products WHERE id = ?
     `;
+    const params = [productID];
 
     const errorMessage = 'Erro ao buscar produto no Banco de Dados';
 
-    return await executeQuery(query, [productID], errorMessage);
+    return await executeQuery(query, params, errorMessage);
   },
 
   insertProduct: async (newProduct) => {
@@ -77,20 +78,22 @@ const productsRepository = {
       SET description = ?
       WHERE id = ?
     `;
+    const params = [description, productId];
 
     const errorMessage = 'Erro ao atualizar pedido no Banco de Dados';
 
-    return await executeQuery(query, [description, productId], errorMessage);
+    return await executeQuery(query, params, errorMessage);
   },
 
   removeById: async (productId) => {
     const query = `
       DELETE FROM products WHERE id = ?
     `;
+    const params = [productId];
 
     const errorMessage = 'Erro ao deletar produto no Banco de Dados';
 
-    return await executeQuery(query, [productId], errorMessage);
+    return await executeQuery(query, params, errorMessage);
   },
 };
 
