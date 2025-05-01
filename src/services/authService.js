@@ -11,10 +11,10 @@ const authService = {
 
       return { success: true, data: user[0] };
     } catch (error) {
-      console.error('Erro ao buscar usuário no Banco de Dados:', error);
+      console.error('Erro no Service ao verificar usuário:', error);
       return {
         success: false,
-        message: 'Erro ao buscar usuário no Banco de Dados.',
+        message: 'Erro no Service ao verificar usuário.',
       };
     }
   },

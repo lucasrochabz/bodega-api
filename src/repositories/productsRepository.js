@@ -1,4 +1,5 @@
 const { getDBConnection } = require('../database/connection');
+const executeQuery = require('../helpers/databaseQuery');
 
 const productsRepository = {
   fetchAll: async ({ pageNumber, pageSizeNumber }) => {
@@ -33,23 +34,14 @@ const productsRepository = {
     }
   },
 
-  fetchById: async (productId) => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        SELECT id, name, price, description, stock, status, image_path
-        FROM products WHERE id = ?`,
-        [productId],
-      );
+  fetchById: async (productID) => {
+    const query = `
+    SELECT id, name, price, description, stock, status, image_path
+    FROM products WHERE id = ?`;
 
-      return results;
-    } catch (error) {
-      console.error('Erro ao buscar produto no Banco de Dados:', error);
-      throw new Error('Erro ao buscar produto no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage = 'Erro ao buscar produto no Banco de Dados';
+
+    return await executeQuery(query, [productID], errorMessage);
   },
 
   insertProduct: async (newProduct) => {

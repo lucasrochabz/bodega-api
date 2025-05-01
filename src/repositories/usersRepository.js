@@ -1,23 +1,15 @@
 const { getDBConnection } = require('../database/connection');
+const executeQuery = require('../helpers/databaseQuery');
 
 const usersRepository = {
   verifyUser: async ({ email }) => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        SELECT id, first_name, password, role FROM users
-        WHERE email = ?`,
-        [email],
-      );
+    const query = `
+      SELECT id, first_name, passwor, role FROM users
+      WHERE email = ?`;
 
-      return results;
-    } catch (error) {
-      console.error('Erro ao buscar usuário no Banco de Dados:', error);
-      throw new Error('Erro ao buscar usuário no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage = 'Erro ao verificar usuário no Banco de Dados';
+
+    return await executeQuery(query, [email], errorMessage);
   },
 
   fetchAll: async () => {
