@@ -1,4 +1,3 @@
-const { getDBConnection } = require('../database/connection');
 const executeQuery = require('../helpers/databaseQuery');
 
 const ordersRepository = {
@@ -70,22 +69,16 @@ const ordersRepository = {
   },
 
   insertOrder: async ({ userId, addressId, status }) => {
-    const connection = await getDBConnection();
-    try {
-      const [results] = await connection.query(
-        `
-        INSERT INTO orders (user_id, address_id, status)
-        VALUES (?, ?, ?)`,
-        [userId, addressId, status],
-      );
+    const query = `
+      INSERT INTO orders (user_id, address_id, status)
+      VALUES (?, ?, ?)
+    `;
+    const params = [userId, addressId, status];
 
-      return results.insertId;
-    } catch (error) {
-      console.error('Erro ao cadastrar pedido no Banco de Dados:', error);
-      throw new Error('Erro ao cadastrar pedido no Banco de Dados.');
-    } finally {
-      await connection.end();
-    }
+    const errorMessage = 'Erro ao cadastrar pedido no Banco de Dados';
+
+    const results = await executeQuery(query, params, errorMessage);
+    return results.insertId;
   },
 
   editById: async ({ status, orderId }) => {
