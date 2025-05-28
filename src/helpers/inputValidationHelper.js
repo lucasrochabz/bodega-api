@@ -48,7 +48,13 @@ const validationRules = {
 const validateInput = (fieldName, value) => {
   const rule = validationRules[fieldName];
 
-  if (!rule.regex.test(value)) {
+  if (!rule) {
+    return { valid: false, message: `Campo ${fieldName} não é reconhecido.` };
+  }
+
+  const stringValue = String(value ?? '').trim();
+
+  if (!rule.regex.test(stringValue)) {
     return { valid: false, message: rule.message };
   }
   return { valid: true };
