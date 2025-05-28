@@ -1,6 +1,6 @@
-const executeQuery = require('../helpers/databaseQuery');
+import executeQuery from '../helpers/databaseQuery.js';
 
-const productsRepository = {
+export const productsRepository = {
   fetchAll: async ({ pageNumber, pageSizeNumber }) => {
     const offset = (pageNumber - 1) * pageSizeNumber;
 
@@ -83,5 +83,3 @@ const productsRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 };
-
-module.exports = { productsRepository };

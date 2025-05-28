@@ -1,15 +1,18 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
-require('dotenv').config();
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
 
 // Rota da documentação Swagger
-const docsRouter = require('./routes/docsSwagger');
+import docsRouter from './routes/docsSwagger.js';
 
-const authRouter = require('./routes/authRoute');
-const usersRouter = require('./routes/usersRoute');
-const productsRouter = require('./routes/productsRoute');
-const ordersRouter = require('./routes/ordersRoute');
+// Rota da Aplicação
+import authRouter from './routes/authRoute.js';
+import usersRouter from './routes/usersRoute.js';
+import productsRouter from './routes/productsRoute.js';
+import ordersRouter from './routes/ordersRoute.js';
+
+const app = express();
+dotenv.config();
 
 app.use(express.json());
 app.use(
@@ -27,4 +30,4 @@ app.use('/api/users', usersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/orders', ordersRouter);
 
-module.exports = app;
+export default app;

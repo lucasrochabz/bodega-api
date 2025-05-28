@@ -1,6 +1,6 @@
-const { validateInput } = require('../helpers/inputValidationHelper');
+import validateInput from '../helpers/inputValidationHelper.js';
 
-const validateUserUpdate = (req, res, next) => {
+export const validateUserUpdate = (req, res, next) => {
   const fields = [
     { key: 'first_name', label: 'firstName' },
     { key: 'last_name', label: 'lastName' },
@@ -29,5 +29,3 @@ const validateUserUpdate = (req, res, next) => {
 
   next();
 };
-
-module.exports = { validateUserUpdate };

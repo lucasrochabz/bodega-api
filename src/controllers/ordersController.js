@@ -1,6 +1,6 @@
-const { ordersService } = require('../services/ordersService');
+import { ordersService } from '../services/ordersService.js';
 
-const ordersController = {
+export const ordersController = {
   getAllOrders: async (req, res) => {
     try {
       const orders = await ordersService.fetchAllOrders();
@@ -165,5 +165,3 @@ const ordersController = {
     }
   },
 };
-
-module.exports = { ordersController };

@@ -1,6 +1,6 @@
-const executeQuery = require('../helpers/databaseQuery');
+import executeQuery from '../helpers/databaseQuery.js';
 
-const addressesRepository = {
+export const addressesRepository = {
   fetchAddressById: async (addressId) => {
     const query = `
       SELECT street, number, neighborhood, city, state, zip_code
@@ -37,5 +37,3 @@ const addressesRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 };
-
-module.exports = { addressesRepository };

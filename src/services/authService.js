@@ -1,6 +1,6 @@
-const { usersRepository } = require('../repositories/usersRepository');
+import { usersRepository } from '../repositories/usersRepository.js';
 
-const authService = {
+export const authService = {
   verifyUserInDB: async ({ email }) => {
     try {
       const user = await usersRepository.verifyUser({ email });
@@ -19,5 +19,3 @@ const authService = {
     }
   },
 };
-
-module.exports = { authService };

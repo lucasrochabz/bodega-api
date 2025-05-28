@@ -1,6 +1,6 @@
-const executeQuery = require('../helpers/databaseQuery');
+import executeQuery from '../helpers/databaseQuery.js';
 
-const ordersRepository = {
+export const ordersRepository = {
   fetchAll: async () => {
     const query = `
       SELECT id, user_id, address_id, created_at, status
@@ -105,5 +105,3 @@ const ordersRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 };
-
-module.exports = { ordersRepository };

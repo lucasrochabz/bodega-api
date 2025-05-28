@@ -60,4 +60,4 @@ const validateInput = (fieldName, value) => {
   return { valid: true };
 };
 
-module.exports = { validateInput };
+export default validateInput;

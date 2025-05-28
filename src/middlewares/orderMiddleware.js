@@ -1,6 +1,6 @@
-const { validateInput } = require('../helpers/inputValidationHelper');
+import validateInput from '../helpers/inputValidationHelper.js';
 
-const validateOrder = (req, res, next) => {
+export const validateOrder = (req, res, next) => {
   const { status } = req.body;
 
   const validateOrderStatus = validateInput('orderStatus', status);
@@ -17,5 +17,3 @@ const validateOrder = (req, res, next) => {
 
   next();
 };
-
-module.exports = { validateOrder };

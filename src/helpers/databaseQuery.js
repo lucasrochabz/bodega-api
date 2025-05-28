@@ -1,4 +1,4 @@
-const { getDBConnection } = require('../database/connection');
+import getDBConnection from '../database/connection.js';
 
 const executeQuery = async (query, params = [], errorMessage) => {
   const connection = await getDBConnection();
@@ -14,4 +14,4 @@ const executeQuery = async (query, params = [], errorMessage) => {
   }
 };
 
-module.exports = executeQuery;
+export default executeQuery;

@@ -1,6 +1,6 @@
-const executeQuery = require('../helpers/databaseQuery');
+import executeQuery from '../helpers/databaseQuery.js';
 
-const ordersProductsRepository = {
+export const ordersProductsRepository = {
   insertOrderProducts: async (orderProducts) => {
     const query = `
       INSERT INTO orders_products (order_id, product_id, quantity)
@@ -14,5 +14,3 @@ const ordersProductsRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 };
-
-module.exports = { ordersProductsRepository };

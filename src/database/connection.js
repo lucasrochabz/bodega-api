@@ -1,5 +1,7 @@
-require('dotenv').config();
-const mysql = require('mysql2/promise');
+import dotenv from 'dotenv';
+import mysql from 'mysql2/promise';
+
+dotenv.config();
 
 const getDBConnection = async () => {
   try {
@@ -17,4 +19,4 @@ const getDBConnection = async () => {
   }
 };
 
-module.exports = { getDBConnection };
+export default getDBConnection;

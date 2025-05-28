@@ -1,6 +1,6 @@
-const executeQuery = require('../helpers/databaseQuery');
+import executeQuery from '../helpers/databaseQuery.js';
 
-const usersRepository = {
+export const usersRepository = {
   verifyUser: async ({ email }) => {
     const query = `
       SELECT id, first_name, password, role FROM users
@@ -123,5 +123,3 @@ const usersRepository = {
     return results[0].id;
   },
 };
-
-module.exports = { usersRepository };
