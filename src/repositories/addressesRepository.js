@@ -12,7 +12,7 @@ export const addressesRepository = {
     const errorMessage =
       'Erro ao buscar o endereço do usuário no Banco de Dados';
 
-    results = await executeQuery(query, params, errorMessage);
+    const results = await executeQuery(query, params, errorMessage);
     return results[0];
   },
 
