@@ -21,7 +21,7 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
 
 ### Requisitos
 
-- Node na versão versão 22.12 ou superior
+- Node na versão versão 16.0 ou superior
 - NPM na versão versão 10.9 ou superior
 - MySQL na versão versão 8.0 ou superior
 

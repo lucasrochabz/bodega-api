@@ -6,6 +6,9 @@
     "db:create-tables": "node createTables.js",
     "db:insert-data": "node insertData.js"
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
