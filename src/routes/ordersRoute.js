@@ -1,11 +1,9 @@
-const express = require('express');
+import express from 'express';
+import { authenticate, authorizeAdmin } from '../middlewares/authMiddleware.js';
+import { validateOrder } from '../middlewares/orderMiddleware.js';
+import { ordersController } from '../controllers/ordersController.js';
+
 const router = express.Router();
-const {
-  authenticate,
-  authorizeAdmin,
-} = require('../middlewares/authMiddleware');
-const { validateOrder } = require('../middlewares/orderMiddleware');
-const { ordersController } = require('../controllers/ordersController');
 
 router.get('/', authenticate, authorizeAdmin, ordersController.getAllOrders);
 router.get('/user', authenticate, ordersController.getUserOrders);
@@ -19,4 +17,4 @@ router.delete(
   ordersController.deleteOrder,
 );
 
-module.exports = router;
+export default router;

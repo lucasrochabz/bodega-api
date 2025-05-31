@@ -1,6 +1,6 @@
-const { validateInput } = require('../helpers/inputValidationHelper');
+import validateInput from '../helpers/inputValidationHelper.js';
 
-const validateLogin = (req, res, next) => {
+export const validateLogin = (req, res, next) => {
   const { email, password } = req.body;
 
   const emailValidate = validateInput('email', email);
@@ -22,5 +22,3 @@ const validateLogin = (req, res, next) => {
 
   next();
 };
-
-module.exports = { validateLogin };

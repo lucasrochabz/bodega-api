@@ -1,6 +1,6 @@
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
-const generateHash = async (passwordValue, saltRounds) => {
+export const generateHash = async (passwordValue, saltRounds) => {
   try {
     return await bcrypt.hash(passwordValue, saltRounds);
   } catch (error) {
@@ -9,7 +9,7 @@ const generateHash = async (passwordValue, saltRounds) => {
   }
 };
 
-const compareHash = async (plainPassword, hashedPassword) => {
+export const compareHash = async (plainPassword, hashedPassword) => {
   try {
     return await bcrypt.compare(plainPassword, hashedPassword);
   } catch (error) {
@@ -17,5 +17,3 @@ const compareHash = async (plainPassword, hashedPassword) => {
     throw new Error(`Erro ao comparar hash: ${error.message}`);
   }
 };
-
-module.exports = { generateHash, compareHash };

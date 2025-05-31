@@ -1,31 +1,21 @@
-const { getDBConnection } = require('../database/connection');
+import { usersRepository } from '../repositories/usersRepository.js';
 
-const authService = {
+export const authService = {
   verifyUserInDB: async ({ email }) => {
-    const connection = await getDBConnection();
     try {
-      const [results] = await connection.query(
-        `
-        SELECT id, first_name, password, role FROM users
-        WHERE email = ?`,
-        [email],
-      );
+      const user = await usersRepository.verifyUser({ email });
 
-      if (results.length === 0) {
+      if (user.length === 0) {
         return { success: false, message: 'E-mail ou senha incorretos.' };
       }
 
-      return { success: true, data: results[0] };
+      return { success: true, data: user[0] };
     } catch (error) {
-      console.error('Erro ao buscar usuário no Banco de Dados:', error);
+      console.error('Erro no Service ao verificar usuário:', error);
       return {
         success: false,
-        message: 'Erro ao buscar usuário no Banco de Dados.',
+        message: 'Erro no Service ao verificar usuário.',
       };
-    } finally {
-      await connection.end();
     }
   },
 };
-
-module.exports = { authService };

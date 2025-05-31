@@ -1,6 +1,6 @@
-const { verifyToken } = require('../utils/tokenUtils');
+import { verifyToken } from '../utils/tokenUtils.js';
 
-const authenticate = (req, res, next) => {
+export const authenticate = (req, res, next) => {
   const authUser = req.headers.authorization;
 
   if (!authUser) {
@@ -25,7 +25,7 @@ const authenticate = (req, res, next) => {
   }
 };
 
-const authorizeAdmin = (req, res, next) => {
+export const authorizeAdmin = (req, res, next) => {
   if (req.user.role !== 'admin') {
     return res.status(403).json({
       success: false,
@@ -35,5 +35,3 @@ const authorizeAdmin = (req, res, next) => {
 
   next();
 };
-
-module.exports = { authenticate, authorizeAdmin };

@@ -1,8 +1,8 @@
-const { generateHash } = require('../utils/hashUtils');
-const { usersService } = require('../services/usersService');
-const User = require('../models/usersModel');
+import { generateHash } from '../utils/hashUtils.js';
+import { usersService } from '../services/usersService.js';
+import User from '../models/usersModel.js';
 
-const usersController = {
+export const usersController = {
   getAllUsers: async (req, res) => {
     try {
       const users = await usersService.fetchAllUsers();
@@ -160,5 +160,3 @@ const usersController = {
     }
   },
 };
-
-module.exports = { usersController };
