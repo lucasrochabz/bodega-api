@@ -1,9 +1,9 @@
-const { authService } = require('../services/authService');
-const { compareHash } = require('../utils/hashUtils');
-const { generateToken } = require('../utils/tokenUtils');
-const User = require('../models/usersModel');
+import { authService } from '../services/authService.js';
+import { compareHash } from '../utils/hashUtils.js';
+import { generateToken } from '../utils/tokenUtils.js';
+import User from '../models/usersModel.js';
 
-const authController = {
+export const authController = {
   login: async (req, res) => {
     const { email, password: plainPassword } = req.body;
     try {
@@ -42,5 +42,3 @@ const authController = {
     }
   },
 };
-
-module.exports = { authController };

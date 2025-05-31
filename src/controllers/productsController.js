@@ -1,7 +1,7 @@
-const { productsService } = require('../services/productsService');
-const Product = require('../models/productsModel');
+import { productsService } from '../services/productsService.js';
+import Product from '../models/productsModel.js';
 
-const productsController = {
+export const productsController = {
   getAllProducts: async (req, res) => {
     const { page, pageSize } = req.query;
 
@@ -150,5 +150,3 @@ const productsController = {
     }
   },
 };
-
-module.exports = { productsController };

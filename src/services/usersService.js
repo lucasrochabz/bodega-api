@@ -1,7 +1,7 @@
-const { addressesRepository } = require('../repositories/addressesRepository');
-const { usersRepository } = require('../repositories/usersRepository');
+import { addressesRepository } from '../repositories/addressesRepository.js';
+import { usersRepository } from '../repositories/usersRepository.js';
 
-const usersService = {
+export const usersService = {
   fetchAllUsers: async () => {
     try {
       const users = await usersRepository.fetchAll();
@@ -114,5 +114,3 @@ const usersService = {
     }
   },
 };
-
-module.exports = { usersService };

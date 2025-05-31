@@ -1,6 +1,6 @@
-const { productsRepository } = require('../repositories/productsRepository');
+import { productsRepository } from '../repositories/productsRepository.js';
 
-const productsService = {
+export const productsService = {
   fetchAllProducts: async ({ pageNumber, pageSizeNumber }) => {
     try {
       const products = await productsRepository.fetchAll({
@@ -111,5 +111,3 @@ const productsService = {
     }
   },
 };
-
-module.exports = { productsService };
