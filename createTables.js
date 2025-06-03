@@ -1,13 +1,20 @@
-const fs = require('fs/promises');
-const mysql = require('mysql2/promise');
-const path = require('path');
-require('dotenv').config();
+import fs from 'fs/promises';
+import mysql from 'mysql2/promise';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+// Pega o caminho do arquivo atual (equivalente ao __dirname no CommonJS)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuração do banco de dados
 const connectionConfig = {
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
+  host: process.env.MYSQL_DOCKER_HOST,
+  user: process.env.MYSQL_DOCKER_USER,
+  password: process.env.MYSQL_DOCKER_PASSWORD,
   database: process.env.MYSQLDATABASE,
   port: process.env.MYSQLPORT,
 };
