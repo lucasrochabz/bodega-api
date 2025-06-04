@@ -67,7 +67,7 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
 1. Clone o projeto e entre na pasta do mesmo.
 2. Execute o comando para buildar e iniciar os containers:
    ```bash
-   docker-compose up --build
+   docker-compose up -d --build
    ```
 3. A API estará disponível em: http://localhost:4000
 4. Para acessar o terminal do container da API, execute:
