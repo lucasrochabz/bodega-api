@@ -1,5 +1,7 @@
 node_modules
-npm-debug.log
+docs
+README.md
 .git
 .gitignore
 .env
+npm-debug.log

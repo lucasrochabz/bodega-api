@@ -57,10 +57,12 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
 
 ### Como rodar com Docker
 
-Pré-requisitos
+**Pré-requisitos**
 
 - Docker instalado na sua máquina.
 - Docker compose.
+
+**Passos para rodar a API com Docker:**
 
 1. Clone o projeto e entre na pasta do mesmo.
 2. Execute o comando para buildar e iniciar os containers:
