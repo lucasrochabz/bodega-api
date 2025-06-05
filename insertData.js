@@ -1,8 +1,8 @@
-import fs from 'fs/promises';
-import mysql from 'mysql2/promise';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import fs from 'node:fs/promises';
 import dotenv from 'dotenv';
+import mysql from 'mysql2/promise';
 
 dotenv.config();
 
