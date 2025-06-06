@@ -4,4 +4,4 @@ README.md
 .git
 .gitignore
 .env
-npm-debug.log
+npm-debug.log*
