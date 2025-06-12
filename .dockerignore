@@ -1,7 +1,16 @@
-node_modules
+# Documentation
 docs
 README.md
-.git
+
+# Dependencies
+node_modules
+
+# Git
+.git/
 .gitignore
+
+# Environment
 .env
+
+# Logs
 npm-debug.log*
