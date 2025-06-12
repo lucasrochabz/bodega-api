@@ -1,8 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
     "db:create": "node createDB.js",
     "db:create-tables": "node createTables.js",
     "db:insert-data": "node insertData.js"
