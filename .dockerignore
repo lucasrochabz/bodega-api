@@ -1,9 +1,9 @@
 # Documentation
-docs
+docs/
 README.md
 
 # Dependencies
-node_modules
+node_modules/
 
 # Git
 .git/
