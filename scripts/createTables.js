@@ -20,7 +20,7 @@ const connectionConfig = {
 };
 
 // Caminho para a pasta com os scripts SQL
-const scriptsPath = path.join(__dirname, 'sql_scripts/create_tables');
+const scriptsPath = path.join(__dirname, 'sql/create_tables');
 
 // Função para executar os scripts SQL
 const executeTables = async () => {

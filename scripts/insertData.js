@@ -20,7 +20,7 @@ const connectionConfig = {
 };
 
 // Caminho para a pasta com os scripts de inserção de dados
-const insertsPath = path.join(__dirname, 'sql_scripts/insert_datas');
+const insertsPath = path.join(__dirname, 'sql/insert_datas');
 
 // Função para executar os inserts
 const executeInserts = async () => {

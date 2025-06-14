@@ -3,9 +3,9 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "db:create": "node createDB.js",
-    "db:create-tables": "node createTables.js",
-    "db:insert-data": "node insertData.js"
+    "db:create": "node scripts/createDB.js",
+    "db:create-tables": "node scripts/createTables.js",
+    "db:insert-data": "node scripts/insertData.js"
   },
   "engines": {
     "node": ">=16.0.0"

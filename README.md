@@ -83,6 +83,58 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
    npm run db:insert-data
    ```
 
+### Estrutura do projeto
+
+```bash
+bodega-api/
+├── scripts/
+│   ├── createDB.js
+│   ├── createTables.js
+│   └── insertData.js
+│
+├── sql/
+│   ├── create_db/
+│   │   └── 1_create_db.sql
+│   │
+│   ├── create_tables/
+│   │   ├── 1_users_table.sql
+│   │   ├── 2_addresses_table.sql
+│   │   ├── 3_products_table.sql
+│   │   ├── 4_orders_table.sql
+│   │   └── 5_orders_products_table.sql
+│   │
+│   └── insert_datas
+│       ├── 1_users_data.sql
+│       ├── 2_addresses_data.sql
+│       ├── 3_products_data.sql
+│       ├── 4_orders_data.sql
+│       └── 5_orders_products_data.sql
+│
+├── src/
+│   ├── controllers/
+│   ├── database/
+│   ├── helpers/
+│   ├── middlewares/
+│   ├── models/
+│   ├── repositories/
+│   ├── routes/
+│   ├── services/
+│   ├── swagger/
+│   ├── utils/
+│   ├── app.js
+│   └── server.js
+│
+├── .dockerignore
+├── .env
+├── env.example
+├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+├── package-lock.json
+├── package.json
+└── README.md
+```
+
 ### Front-end do Projeto
 
 Este projeto possui um Front-end desenvolvido para consumir esta API. Você pode acessá-lo no repositório:

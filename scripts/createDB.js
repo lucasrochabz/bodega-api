@@ -19,10 +19,7 @@ const connectionConfig = {
 };
 
 // Caminho para o arquivo SQL
-const scriptsPath = path.join(
-  __dirname,
-  'sql_scripts/create_db/1_create_db.sql',
-);
+const scriptsPath = path.join(__dirname, 'sql/create_db/1_create_db.sql');
 
 // Função para executar o script
 const executeDB = async () => {
