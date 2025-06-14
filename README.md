@@ -55,6 +55,86 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
    npm start
    ```
 
+### Como rodar com Docker
+
+**Pré-requisitos**
+
+- Docker instalado na sua máquina.
+- Docker compose.
+
+**Passos para rodar a API com Docker:**
+
+1. Clone o projeto e entre na pasta do mesmo.
+2. Execute o comando para buildar e iniciar os containers:
+   ```bash
+   docker-compose up -d --build
+   ```
+3. A API estará disponível em: http://localhost:4000
+4. Para acessar o terminal do container da API, execute:
+   ```bash
+   docker exec -it bodega-api-api-1 bash
+   ```
+5. Dentro do container, crie as tabelas do banco de dados:
+   ```bash
+   npm run db:create-tables
+   ```
+6. Ainda dentro do container, insira os dados iniciais nas tabelas:
+   ```bash
+   npm run db:insert-data
+   ```
+
+### Estrutura do projeto
+
+```bash
+bodega-api/
+├── scripts/
+│   ├── createDB.js
+│   ├── createTables.js
+│   └── insertData.js
+│
+├── sql/
+│   ├── create_db/
+│   │   └── 1_create_db.sql
+│   │
+│   ├── create_tables/
+│   │   ├── 1_users_table.sql
+│   │   ├── 2_addresses_table.sql
+│   │   ├── 3_products_table.sql
+│   │   ├── 4_orders_table.sql
+│   │   └── 5_orders_products_table.sql
+│   │
+│   └── insert_datas
+│       ├── 1_users_data.sql
+│       ├── 2_addresses_data.sql
+│       ├── 3_products_data.sql
+│       ├── 4_orders_data.sql
+│       └── 5_orders_products_data.sql
+│
+├── src/
+│   ├── controllers/
+│   ├── database/
+│   ├── helpers/
+│   ├── middlewares/
+│   ├── models/
+│   ├── repositories/
+│   ├── routes/
+│   ├── services/
+│   ├── swagger/
+│   ├── utils/
+│   ├── app.js
+│   └── server.js
+│
+├── .dockerignore
+├── .env
+├── env.example
+├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+├── package-lock.json
+├── package.json
+└── README.md
+```
+
 ### Front-end do Projeto
 
 Este projeto possui um Front-end desenvolvido para consumir esta API. Você pode acessá-lo no repositório:
