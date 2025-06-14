@@ -1,8 +1,8 @@
-## Bodega API v1.0.0
+# Bodega API v1.0.0
 
 ![Imagem do projeto](docs/bodega-api01.png)
 
-### Sobre
+## Sobre
 
 Este projeto é uma simulação de e-commerce desenvolvida com **Node.js** e **Express**, utilizando **JSON Web Tokens (JWT)** para autenticação segura e **bcrypt** para criptografia de senhas. O **MySQL** é utilizado como banco de dados, garantindo armazenamento estruturado e eficiente.
 
@@ -11,7 +11,7 @@ O Front-end [Bodega](https://github.com/lucasrochabz/bodega), desenvolvido em **
 
 A aplicação segue boas práticas de desenvolvimento, garantindo uma experiência moderna, segura e eficiente.
 
-### Tecnologias
+## Tecnologias
 
 - **Node.js**: Ambiente de execução JavaScript.
 - **Express**: Framework web para Node.js.
@@ -19,13 +19,13 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
 - **Bcrypt**: Biblioteca para hash e criptografia de senhas.
 - **MySQL**: Banco de dados relacional.
 
-### Requisitos
+## Requisitos
 
 - Node na versão versão 16.0 ou superior
 - NPM na versão versão 10.9 ou superior
 - MySQL na versão versão 8.0 ou superior
 
-### Como instalar?
+## Como instalar?
 
 1. Faça o clone do projeto.
 2. Abra o terminal e navegue até a pasta do projeto.
@@ -55,14 +55,14 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
    npm start
    ```
 
-### Como rodar com Docker
+## Como rodar com Docker
 
-**Pré-requisitos**
+### Pré-requisitos
 
 - Docker instalado na sua máquina.
 - Docker compose.
 
-**Passos para rodar a API com Docker:**
+### Passos para rodar a API com Docker:
 
 1. Clone o projeto e entre na pasta do mesmo.
 2. Execute o comando para buildar e iniciar os containers:
@@ -83,7 +83,7 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
    npm run db:insert-data
    ```
 
-### Estrutura do projeto
+## Estrutura do projeto
 
 ```bash
 bodega-api/
@@ -125,7 +125,6 @@ bodega-api/
 │   └── server.js
 │
 ├── .dockerignore
-├── .env
 ├── env.example
 ├── .gitignore
 ├── docker-compose.yml
@@ -135,11 +134,11 @@ bodega-api/
 └── README.md
 ```
 
-### Front-end do Projeto
+## Front-end do Projeto
 
 Este projeto possui um Front-end desenvolvido para consumir esta API. Você pode acessá-lo no repositório:
 [Acesse o repositório do Front-end](https://github.com/lucasrochabz/bodega)
 
-### Encontrou algum problema?
+## Encontrou algum problema?
 
 Abra uma [issue](https://github.com/lucasrochabz/bodega-api/issues) com sua sugestão ou crítica.
