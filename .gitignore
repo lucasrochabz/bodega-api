@@ -4,7 +4,7 @@ node_modules/
 # Environment
 .env
 .env.docker
-# .env.production
+.env.production
 
 # Logs
 npm-debug.log*
