@@ -1,10 +1,7 @@
 import path from 'node:path';
 import dotenv from 'dotenv';
 
-dotenv.config();
-
-const env = process.env.NODE_ENV;
-console.log('env:', env);
+const env = process.env.NODE_ENV || 'development';
 
 const envFileMap = {
   development: '.env',

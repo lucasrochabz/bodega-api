@@ -4,6 +4,8 @@ services:
   api:
     build: .
     image: bodega-api:1.0.0
+    env_file:
+      - .env.docker
     ports:
       - '4000:4000'
     volumes:
