@@ -17,8 +17,8 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQLPASSWORD}
-      MYSQL_USER: ${MYSQL_DOCKER_USER}
-      MYSQL_PASSWORD: ${MYSQL_DOCKER_PASSWORD}
+      MYSQL_USER: ${MYSQLUSER}
+      MYSQL_PASSWORD: ${MYSQLPASSWORD}
       MYSQL_DATABASE: ${MYSQLDATABASE}
     ports:
       - '3307:3306'
