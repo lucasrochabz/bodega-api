@@ -1,10 +1,8 @@
+import '../src/env/index.js';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import dotenv from 'dotenv';
 import mysql from 'mysql2/promise';
-
-dotenv.config();
 
 // Pega o caminho do arquivo atual (equivalente ao __dirname no CommonJS)
 const __filename = fileURLToPath(import.meta.url);
@@ -19,7 +17,7 @@ const connectionConfig = {
 };
 
 // Caminho para o arquivo SQL
-const scriptsPath = path.join(__dirname, 'sql/create_db/1_create_db.sql');
+const scriptsPath = path.join(__dirname, '../sql/create_db/1_create_db.sql');
 
 // Função para executar o script
 const executeDB = async () => {

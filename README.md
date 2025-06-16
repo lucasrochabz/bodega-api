@@ -64,21 +64,29 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
 
 ### Passos para rodar a API com Docker:
 
-1. Clone o projeto e entre na pasta do mesmo.
-2. Execute o comando para buildar e iniciar os containers:
+1. Clone o projeto e entre na pasta dele.
+2. Instale as dependências com:
    ```bash
-   docker-compose up -d --build
+   npm install
    ```
-3. A API estará disponível em: http://localhost:4000
-4. Para acessar o terminal do container da API, execute:
+3. Construa a imagem Docker:
+   ```bash
+   npm run docker:build
+   ```
+4. Inicie os containers em modo detached:
+   ```bash
+   npm run docker:up
+   ```
+5. A API estará disponível em: http://localhost:4000
+6. Para acessar o terminal do container da API, execute:
    ```bash
    docker exec -it bodega-api-api-1 bash
    ```
-5. Dentro do container, crie as tabelas do banco de dados:
+7. Dentro do container, crie as tabelas do banco de dados:
    ```bash
    npm run db:create-tables
    ```
-6. Ainda dentro do container, insira os dados iniciais nas tabelas:
+8. Ainda dentro do container, insira os dados iniciais nas tabelas:
    ```bash
    npm run db:insert-data
    ```
