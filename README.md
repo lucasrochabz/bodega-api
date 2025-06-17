@@ -123,6 +123,9 @@ bodega-api/
 │   ├── database/
 │   ├── env/
 │   ├── helpers/
+│   │   ├── databaseQuery.js
+│   │   └── inputValidationHelper.js
+│   │
 │   ├── middlewares/
 │   ├── models/
 │   ├── repositories/
@@ -130,6 +133,9 @@ bodega-api/
 │   ├── services/
 │   ├── swagger/
 │   ├── utils/
+│   │   ├── hashUtils.js
+│   │   └── tokenUtils.js
+│   │
 │   ├── app.js
 │   └── server.js
 │
