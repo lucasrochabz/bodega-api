@@ -40,19 +40,19 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
    ```
 6. Crie o banco de dados com o comando:
    ```bash
-   npm run db:create
+   npm run db:init
    ```
 7. Crie as tabelas com o comando:
    ```bash
-   npm run db:create-tables
+   npm run db:tables
    ```
 8. Insira os dados nas tabelas com o comando:
    ```bash
-   npm run db:insert-data
+   npm run db:seed
    ```
 9. Inicie o servidor localmente com o comando:
    ```bash
-   npm start
+   npm run dev
    ```
 
 ## Como rodar com Docker
@@ -121,6 +121,7 @@ bodega-api/
 ├── src/
 │   ├── controllers/
 │   ├── database/
+│   ├── env/
 │   ├── helpers/
 │   ├── middlewares/
 │   ├── models/

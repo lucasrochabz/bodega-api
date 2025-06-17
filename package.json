@@ -1,13 +1,13 @@
 {
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "NODE_ENV=production node src/server.js",
     "dev": "nodemon src/server.js",
     "docker:build": "docker compose build",
     "docker:up": "docker compose --env-file .env.docker up -d",
-    "db:create": "node scripts/createDB.js",
-    "db:create-tables": "node scripts/createTables.js",
-    "db:insert-data": "node scripts/insertData.js"
+    "db:init": "node scripts/createDB.js",
+    "db:tables": "node scripts/createTables.js",
+    "db:seed": "node scripts/insertData.js"
   },
   "engines": {
     "node": ">=16.0.0"
