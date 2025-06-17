@@ -1,0 +1,19 @@
+# Documentation
+docs/
+README.md
+
+# Dependencies
+node_modules/
+
+# Git
+.git/
+.gitignore
+
+# Environment
+.env
+.env.example
+.env.docker.example
+.env.production.example
+
+# Logs
+npm-debug.log*

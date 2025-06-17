@@ -1,7 +1,12 @@
-const fs = require('fs/promises');
-const mysql = require('mysql2/promise');
-const path = require('path');
-require('dotenv').config();
+import '../src/env/index.js';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import fs from 'node:fs/promises';
+import mysql from 'mysql2/promise';
+
+// Pega o caminho do arquivo atual (equivalente ao __dirname no CommonJS)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuração do banco de dados
 const connectionConfig = {
@@ -13,7 +18,7 @@ const connectionConfig = {
 };
 
 // Caminho para a pasta com os scripts de inserção de dados
-const insertsPath = path.join(__dirname, 'sql_scripts/insert_datas');
+const insertsPath = path.join(__dirname, '../sql/insert_datas');
 
 // Função para executar os inserts
 const executeInserts = async () => {

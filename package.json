@@ -1,10 +1,13 @@
 {
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "db:create": "node createDB.js",
-    "db:create-tables": "node createTables.js",
-    "db:insert-data": "node insertData.js"
+    "start": "NODE_ENV=production node src/server.js",
+    "dev": "nodemon src/server.js",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose --env-file .env.docker up -d",
+    "db:init": "node scripts/createDB.js",
+    "db:tables": "node scripts/createTables.js",
+    "db:seed": "node scripts/insertData.js"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -18,5 +21,8 @@
     "mysql2": "^3.11.3",
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
