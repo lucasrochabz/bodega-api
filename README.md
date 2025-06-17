@@ -111,7 +111,7 @@ bodega-api/
 │   │   ├── 4_orders_table.sql
 │   │   └── 5_orders_products_table.sql
 │   │
-│   └── insert_datas
+│   └── insert_data
 │       ├── 1_users_data.sql
 │       ├── 2_addresses_data.sql
 │       ├── 3_products_data.sql
