@@ -3,7 +3,7 @@ node_modules/
 
 # Environment
 .env
-.env.docker
+# .env.docker
 .env.production
 
 # Logs
