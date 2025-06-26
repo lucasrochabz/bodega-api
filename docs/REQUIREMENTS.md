@@ -76,4 +76,4 @@ npm install --save-dev nodemon
 
 ### Ajustes
 
-- [ ] Apagar arquivo loginMiddleware.js
+- [ ] Apagar arquivo loginMiddleware.js e orderMiddleware.js
