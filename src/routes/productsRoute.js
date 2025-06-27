@@ -12,12 +12,14 @@ router.post(
   authorizeAdmin,
   productsController.createProduct,
 );
+
 router.put(
   '/:productId',
   authenticate,
   authorizeAdmin,
   productsController.updateProduct,
 );
+
 router.delete(
   '/:productId',
   authenticate,
