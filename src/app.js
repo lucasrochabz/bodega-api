@@ -4,7 +4,6 @@ import cors from 'cors';
 // Importação das Rotas
 import docsRouter from './routes/docsSwagger.js';
 
-// Rota da Aplicação
 import authRouter from './routes/authRoute.js';
 import usersRouter from './routes/usersRoute.js';
 import productsRouter from './routes/productsRoute.js';
