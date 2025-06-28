@@ -5,7 +5,7 @@ import User from '../models/usersModel.js';
 
 export const authController = {
   login: async (req, res) => {
-    const { email, password: plainPassword } = req.body;
+    const { email, password } = req.body;
     try {
       const userResult = await authService.verifyUserInDB({ email });
 
@@ -17,7 +17,7 @@ export const authController = {
       }
       const user = new User(userResult.data);
 
-      const isPasswordValid = await compareHash(plainPassword, user.password);
+      const isPasswordValid = await compareHash(password, user.password);
 
       if (!isPasswordValid) {
         return res.status(401).json({

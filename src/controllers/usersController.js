@@ -55,32 +55,13 @@ export const usersController = {
   },
 
   createUser: async (req, res) => {
-    const {
-      first_name,
-      email,
-      last_name,
-      password,
-      zip_code,
-      street,
-      number,
-      neighborhood,
-      city,
-      state,
-    } = req.body;
-
+    const { password, ...rest } = req.body;
     try {
       const hashedPassword = await generateHash(password, 10);
+
       const newUser = new User({
-        first_name,
-        last_name,
-        email,
+        ...rest,
         password: hashedPassword,
-        street,
-        number,
-        neighborhood,
-        city,
-        state,
-        zip_code,
       });
 
       const result = await usersService.registerUser(newUser);

@@ -11,7 +11,7 @@ class User {
     city,
     state,
     zip_code,
-    role,
+    role = 'user',
   }) {
     this.id = id;
     this.first_name = first_name;
