@@ -1,7 +1,7 @@
 import executeQuery from '../helpers/databaseQuery.js';
 
 export const ordersProductsRepository = {
-  insertOrderProducts: async (orderProducts) => {
+  insertMany: async (orderProducts) => {
     const query = `
       INSERT INTO orders_products (order_id, product_id, quantity)
       VALUES ?

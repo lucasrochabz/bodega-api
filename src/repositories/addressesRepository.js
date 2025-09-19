@@ -1,7 +1,7 @@
 import executeQuery from '../helpers/databaseQuery.js';
 
 export const addressesRepository = {
-  fetchAddressById: async (addressId) => {
+  findById: async (addressId) => {
     const query = `
       SELECT street, number, neighborhood, city, state, zip_code
       FROM addresses

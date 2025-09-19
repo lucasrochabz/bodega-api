@@ -1,7 +1,7 @@
 import executeQuery from '../helpers/databaseQuery.js';
 
 export const usersRepository = {
-  verifyUser: async ({ email }) => {
+  findByEmail: async (email) => {
     const query = `
       SELECT id, first_name, password, role FROM users
       WHERE email = ?
@@ -109,7 +109,7 @@ export const usersRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  fetchUserAddress: async (userId) => {
+  findAddressByUserId: async (userId) => {
     const query = `
       SELECT id
       FROM addresses

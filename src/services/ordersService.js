@@ -4,8 +4,8 @@ import { ordersRepository } from '../repositories/ordersRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
 
 export const ordersService = {
-  fetchAllOrders: async () => {
-    const orders = await ordersRepository.fetchAll();
+  getAllOrders: async () => {
+    const orders = await ordersRepository.findAll();
 
     try {
       if (orders.length === 0) {
@@ -22,9 +22,9 @@ export const ordersService = {
     }
   },
 
-  fetchUserOrders: async (userId) => {
+  getUserOrders: async (userId) => {
     try {
-      const userOrders = await ordersRepository.fetchAllUserOrders(userId);
+      const userOrders = await ordersRepository.findAllByUserId(userId);
 
       if (userOrders.length === 0) {
         return {
@@ -43,11 +43,11 @@ export const ordersService = {
     }
   },
 
-  fetchOrderDetails: async (orderId) => {
+  getOrderDetails: async (orderId) => {
     try {
-      const orderDetails = await ordersRepository.fetchOrderById(orderId);
+      const orderDetails = await ordersRepository.findById(orderId);
 
-      const address = await addressesRepository.fetchAddressById(
+      const address = await addressesRepository.findById(
         orderDetails.address_id,
       );
 
@@ -65,9 +65,9 @@ export const ordersService = {
     }
   },
 
-  registerOrder: async ({ userId, status, products }) => {
+  createOrder: async ({ userId, status, products }) => {
     try {
-      const addressId = await usersRepository.fetchUserAddress(userId);
+      const addressId = await usersRepository.findAddressByUserId(userId);
 
       if (!addressId) {
         return {
@@ -76,7 +76,7 @@ export const ordersService = {
         };
       }
 
-      const orderId = await ordersRepository.insertOrder({
+      const orderId = await ordersRepository.insert({
         userId,
         addressId,
         status,
@@ -95,8 +95,9 @@ export const ordersService = {
         product.quantity,
       ]);
 
-      const isProductsInserted =
-        await ordersProductsRepository.insertOrderProducts(orderProducts);
+      const isProductsInserted = await ordersProductsRepository.insertMany(
+        orderProducts,
+      );
 
       if (isProductsInserted.affectedRows === 0) {
         return {
@@ -118,9 +119,9 @@ export const ordersService = {
     }
   },
 
-  editOrder: async ({ status, orderId }) => {
+  updateOrder: async ({ status, orderId }) => {
     try {
-      const order = await ordersRepository.editById({ status, orderId });
+      const order = await ordersRepository.updateById({ status, orderId });
 
       if (order.affectedRows === 0) {
         return { success: false, message: 'Pedido não encontrado.' };
@@ -136,9 +137,9 @@ export const ordersService = {
     }
   },
 
-  removeOrder: async (orderId) => {
+  deleteOrder: async (orderId) => {
     try {
-      const order = await ordersRepository.removeById(orderId);
+      const order = await ordersRepository.deleteById(orderId);
 
       if (order.affectedRows === 0) {
         return { success: false, message: 'Pedido não encontrado.' };

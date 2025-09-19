@@ -3,7 +3,7 @@ import { ordersService } from '../services/ordersService.js';
 export const ordersController = {
   getAllOrders: async (req, res) => {
     try {
-      const orders = await ordersService.fetchAllOrders();
+      const orders = await ordersService.getAllOrders();
 
       if (!orders.success) {
         return res.status(404).json({
@@ -29,7 +29,7 @@ export const ordersController = {
   getUserOrders: async (req, res) => {
     const userId = req.user.id;
     try {
-      const order = await ordersService.fetchUserOrders(userId);
+      const order = await ordersService.getUserOrders(userId);
 
       if (!order.success) {
         return res.status(404).json({
@@ -55,7 +55,7 @@ export const ordersController = {
   getOrderDetails: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const order = await ordersService.fetchOrderDetails(orderId);
+      const order = await ordersService.getOrderDetails(orderId);
 
       if (!order.success) {
         return res.status(404).json({
@@ -82,7 +82,7 @@ export const ordersController = {
     const userId = req.user.id;
     const { status, products } = req.body;
     try {
-      const newOrder = await ordersService.registerOrder({
+      const newOrder = await ordersService.createOrder({
         userId,
         status,
         products,
@@ -113,7 +113,7 @@ export const ordersController = {
     const { status } = req.body;
     const { orderId } = req.params;
     try {
-      const updatedOrder = await ordersService.editOrder({
+      const updatedOrder = await ordersService.updateOrder({
         status,
         orderId,
       });
@@ -142,7 +142,7 @@ export const ordersController = {
   deleteOrder: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const deletedOrder = await ordersService.removeOrder(orderId);
+      const deletedOrder = await ordersService.deleteOrder(orderId);
 
       if (!deletedOrder.success) {
         return res.status(404).json({
