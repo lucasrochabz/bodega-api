@@ -3,20 +3,13 @@ import { ordersService } from '../services/ordersService.js';
 export const ordersController = {
   getAllOrders: async (req, res) => {
     try {
-      const orders = await ordersService.getAllOrders();
+      const ordersResult = await ordersService.getAllOrders();
 
-      if (!orders.success) {
-        return res.status(404).json({
-          success: false,
-          message: orders.message,
-        });
+      if (!ordersResult.success) {
+        return res.status(404).json(ordersResult);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Pedidos encontrados com sucesso.',
-        data: orders.data,
-      });
+      res.status(200).json(ordersResult);
     } catch (error) {
       console.error('Erro ao buscar pedidos:', error);
       res.status(500).json({
@@ -29,20 +22,13 @@ export const ordersController = {
   getUserOrders: async (req, res) => {
     const userId = req.user.id;
     try {
-      const order = await ordersService.getUserOrders(userId);
+      const orderResult = await ordersService.getUserOrders(userId);
 
-      if (!order.success) {
-        return res.status(404).json({
-          success: false,
-          message: order.message,
-        });
+      if (!orderResult.success) {
+        return res.status(404).json(orderResult);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Pedido(s) encontrado(s) com sucesso.',
-        data: order.data,
-      });
+      res.status(200).json(orderResult);
     } catch (error) {
       console.error('Erro ao buscar pedidos do usuário:', error);
       res.status(500).json({
@@ -55,20 +41,13 @@ export const ordersController = {
   getOrderDetails: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const order = await ordersService.getOrderDetails(orderId);
+      const orderResult = await ordersService.getOrderDetails(orderId);
 
-      if (!order.success) {
-        return res.status(404).json({
-          success: false,
-          message: order.message,
-        });
+      if (!orderResult.success) {
+        return res.status(404).json(orderResult);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Pedido encontrado com sucesso.',
-        data: order.data,
-      });
+      res.status(200).json(orderResult);
     } catch (error) {
       console.error('Erro ao buscar pedido:', error);
       res.status(500).json({
@@ -89,17 +68,10 @@ export const ordersController = {
       });
 
       if (!newOrder.success) {
-        return res.status(404).json({
-          success: false,
-          message: newOrder.message,
-        });
+        return res.status(404).json(newOrder);
       }
 
-      res.status(201).json({
-        success: true,
-        message: 'Pedido cadastrado com sucesso.',
-        data: newOrder.data,
-      });
+      res.status(201).json(newOrder);
     } catch (error) {
       console.error('Erro ao cadastrar pedido:', error);
       res.status(500).json({
@@ -119,17 +91,10 @@ export const ordersController = {
       });
 
       if (!updatedOrder.success) {
-        return res.status(404).json({
-          success: false,
-          message: updatedOrder.message,
-        });
+        return res.status(404).json(updatedOrder);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Pedido atualizado com sucesso',
-        data: updatedOrder.data,
-      });
+      res.status(200).json(updatedOrder);
     } catch (error) {
       console.error('Erro ao atualizar pedido:', error);
       res.status(500).json({
@@ -145,17 +110,10 @@ export const ordersController = {
       const deletedOrder = await ordersService.deleteOrder(orderId);
 
       if (!deletedOrder.success) {
-        return res.status(404).json({
-          success: false,
-          message: deletedOrder.message,
-        });
+        return res.status(404).json(deletedOrder);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Pedido deletado com sucesso.',
-        data: deletedOrder.data,
-      });
+      res.status(200).json(deletedOrder);
     } catch (error) {
       console.error('Erro ao deletar pedido:', error);
       res.status(500).json({

@@ -12,7 +12,11 @@ export const ordersService = {
         return { success: false, message: 'Pedidos não encontrados.' };
       }
 
-      return { success: true, data: orders };
+      return {
+        success: true,
+        message: 'Pedidos encontrados com sucesso.',
+        data: orders,
+      };
     } catch (error) {
       console.error('Erro no Service ao buscar pedidos:', error);
       return {
@@ -33,7 +37,11 @@ export const ordersService = {
         };
       }
 
-      return { success: true, data: userOrders };
+      return {
+        success: true,
+        message: 'Pedido(s) encontrado(s) com sucesso.',
+        data: userOrders,
+      };
     } catch (error) {
       console.error('Erro no Service ao buscar pedido(s) do usuário:', error);
       return {
@@ -55,7 +63,11 @@ export const ordersService = {
         return { success: false, message: 'Pedido não encontrado.' };
       }
 
-      return { success: true, data: { ...orderDetails, ...address } };
+      return {
+        success: true,
+        message: 'Pedido encontrado com sucesso.',
+        data: { ...orderDetails, ...address },
+      };
     } catch (error) {
       console.error('Erro no Service ao buscar pedido:', error);
       return {
@@ -108,6 +120,7 @@ export const ordersService = {
 
       return {
         success: true,
+        message: 'Pedido cadastrado com sucesso.',
         data: { id: orderId, userId, addressId, status, products },
       };
     } catch (error) {
@@ -127,7 +140,11 @@ export const ordersService = {
         return { success: false, message: 'Pedido não encontrado.' };
       }
 
-      return { success: true, data: { id: orderId, status } };
+      return {
+        success: true,
+        message: 'Pedido atualizado com sucesso',
+        data: { id: orderId, status },
+      };
     } catch (error) {
       console.error('Erro no Service ao atualizar pedido:', error);
       return {
@@ -145,7 +162,11 @@ export const ordersService = {
         return { success: false, message: 'Pedido não encontrado.' };
       }
 
-      return { success: true, data: { id: orderId } };
+      return {
+        success: true,
+        message: 'Pedido deletado com sucesso.',
+        data: { id: orderId },
+      };
     } catch (error) {
       console.error('Erro no Service ao deletar pedido:', error);
       return {

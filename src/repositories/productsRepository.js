@@ -1,7 +1,7 @@
 import executeQuery from '../helpers/databaseQuery.js';
 
 export const productsRepository = {
-  fetchAll: async ({ pageNumber, pageSizeNumber }) => {
+  findAll: async ({ pageNumber, pageSizeNumber }) => {
     const offset = (pageNumber - 1) * pageSizeNumber;
 
     const countQuery = `
@@ -28,7 +28,7 @@ export const productsRepository = {
     return { results, totalPages };
   },
 
-  fetchById: async (productID) => {
+  findByProductId: async (productID) => {
     const query = `
       SELECT id, name, price, description, stock, status, image_path
       FROM products WHERE id = ?
@@ -40,7 +40,7 @@ export const productsRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  insertProduct: async (newProduct) => {
+  insert: async (newProduct) => {
     const query = `
       INSERT INTO products (name, price, description, stock, status, image_path)
       VALUES (?, ?, ?, ?, ?, ?)
@@ -59,7 +59,7 @@ export const productsRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  editById: async ({ description, productId }) => {
+  updateById: async ({ description, productId }) => {
     const query = `
       UPDATE products
       SET description = ?
@@ -72,7 +72,7 @@ export const productsRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  removeById: async (productId) => {
+  deleteById: async (productId) => {
     const query = `
       DELETE FROM products WHERE id = ?
     `;

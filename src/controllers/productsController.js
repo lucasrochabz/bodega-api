@@ -1,5 +1,4 @@
 import { productsService } from '../services/productsService.js';
-import Product from '../models/productsModel.js';
 
 export const productsController = {
   getAllProducts: async (req, res) => {
@@ -8,23 +7,16 @@ export const productsController = {
     const pageNumber = parseInt(page);
     const pageSizeNumber = parseInt(pageSize);
     try {
-      const products = await productsService.fetchAllProducts({
+      const productsResult = await productsService.getAllProducts({
         pageNumber,
         pageSizeNumber,
       });
 
-      if (!products.success) {
-        return res.status(404).json({
-          success: false,
-          message: products.message,
-        });
+      if (!productsResult.success) {
+        return res.status(404).json(productsResult);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Produtos encontrados com sucesso.',
-        data: products.data,
-      });
+      res.status(200).json(productsResult);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
       res.status(500).json({
@@ -37,20 +29,13 @@ export const productsController = {
   getProduct: async (req, res) => {
     const { productId } = req.params;
     try {
-      const product = await productsService.fetchProduct(productId);
+      const productResult = await productsService.getProduct(productId);
 
-      if (!product.success) {
-        return res.status(404).json({
-          success: false,
-          message: product.message,
-        });
+      if (!productResult.success) {
+        return res.status(404).json(productResult);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Produto encontrado com sucesso.',
-        data: product.data,
-      });
+      res.status(200).json(productResult);
     } catch (error) {
       console.error('Erro ao buscar produto:', error);
       res.status(500).json({
@@ -61,30 +46,14 @@ export const productsController = {
   },
 
   createProduct: async (req, res) => {
-    const { name, price, description, stock, status, image_path } = req.body;
     try {
-      const newProduct = new Product({
-        name,
-        price,
-        description,
-        stock,
-        status,
-        image_path,
-      });
-      const result = await productsService.registerProduct(newProduct);
+      const result = await productsService.createProduct(req.body);
 
       if (!result.success) {
-        return res.status(404).json({
-          success: false,
-          message: result.message,
-        });
+        return res.status(400).json(result);
       }
 
-      res.status(201).json({
-        success: true,
-        message: 'Produto cadastrado com sucesso.',
-        data: result.data,
-      });
+      res.status(201).json(result);
     } catch (error) {
       console.error('Erro ao cadastrar produto:', error);
       res.status(500).json({
@@ -98,23 +67,16 @@ export const productsController = {
     const { description } = req.body;
     const { productId } = req.params;
     try {
-      const updatedProduct = await productsService.editProduct({
+      const updatedProduct = await productsService.updateProduct({
         description,
         productId,
       });
 
       if (!updatedProduct.success) {
-        return res.status(404).json({
-          success: false,
-          message: updatedProduct.message,
-        });
+        return res.status(404).json(updatedProduct);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Produto atualizado com sucesso.',
-        data: updatedProduct.data,
-      });
+      res.status(200).json(updatedProduct);
     } catch (error) {
       console.error('Erro ao atualizar produto:', error);
       res.status(500).json({
@@ -127,20 +89,13 @@ export const productsController = {
   deleteProduct: async (req, res) => {
     const { productId } = req.params;
     try {
-      const deletedProduct = await productsService.removeProduct(productId);
+      const deletedProduct = await productsService.deleteProduct(productId);
 
       if (!deletedProduct.success) {
-        return res.status(404).json({
-          success: false,
-          message: deletedProduct.message,
-        });
+        return res.status(404).json(deletedProduct);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Produto deletado com sucesso.',
-        data: deletedProduct.data,
-      });
+      res.status(200).json(deletedProduct);
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
       res.status(500).json({

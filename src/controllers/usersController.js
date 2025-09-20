@@ -1,24 +1,15 @@
-import { generateHash } from '../utils/hashUtils.js';
 import { usersService } from '../services/usersService.js';
-import User from '../models/usersModel.js';
 
 export const usersController = {
   getAllUsers: async (req, res) => {
     try {
-      const users = await usersService.fetchAllUsers();
+      const usersResult = await usersService.getAllUsers();
 
-      if (!users.success) {
-        return res.status(404).json({
-          success: false,
-          message: users.message,
-        });
+      if (!usersResult.success) {
+        return res.status(404).json(usersResult);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Usuários encontrados com sucesso.',
-        data: users.data,
-      });
+      res.status(200).json(usersResult);
     } catch (error) {
       console.error('Erro ao buscar usuários:', error);
       res.status(500).json({
@@ -31,20 +22,13 @@ export const usersController = {
   getUser: async (req, res) => {
     const userId = req.user.id;
     try {
-      const user = await usersService.fetchUser(userId);
+      const userResult = await usersService.getUser(userId);
 
-      if (!user.success) {
-        return res.status(404).json({
-          success: false,
-          message: user.message,
-        });
+      if (!userResult.success) {
+        return res.status(404).json(userResult);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Usuário encontrado com sucesso.',
-        data: user.data,
-      });
+      res.status(200).json(userResult);
     } catch (error) {
       console.error('Erro ao buscar usuário:', error);
       res.status(500).json({
@@ -55,29 +39,14 @@ export const usersController = {
   },
 
   createUser: async (req, res) => {
-    const { password, ...rest } = req.body;
     try {
-      const hashedPassword = await generateHash(password, 10);
-
-      const newUser = new User({
-        ...rest,
-        password: hashedPassword,
-      });
-
-      const result = await usersService.registerUser(newUser);
+      const result = await usersService.createUser(req.body);
 
       if (!result.success) {
-        return res.status(404).json({
-          success: false,
-          message: result.message,
-        });
+        return res.status(404).json(result);
       }
 
-      res.status(201).json({
-        success: true,
-        message: 'Usuário cadastrado com sucesso.',
-        data: result.data,
-      });
+      res.status(201).json(result);
     } catch (error) {
       console.error('Erro ao cadastrar usuário:', error);
       res.status(500).json({
@@ -92,20 +61,13 @@ export const usersController = {
     const userData = req.body;
 
     try {
-      const updatedUser = await usersService.editUser(userId, userData);
+      const updatedUser = await usersService.updateUser(userId, userData);
 
       if (!updatedUser.success) {
-        return res.status(404).json({
-          success: false,
-          message: updatedUser.message,
-        });
+        return res.status(404).json(updatedUser);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Usuário atualizado com sucesso',
-        data: updatedUser.data,
-      });
+      res.status(200).json(updatedUser);
     } catch (error) {
       console.error('Erro ao atualizar usuário:', error);
       res.status(500).json({
@@ -118,20 +80,13 @@ export const usersController = {
   deleteUser: async (req, res) => {
     const { userId } = req.params;
     try {
-      const deletedUser = await usersService.removeUser(userId);
+      const deletedUser = await usersService.deleteUser(userId);
 
       if (!deletedUser.success) {
-        return res.status(404).json({
-          success: false,
-          message: deletedUser.message,
-        });
+        return res.status(404).json(deletedUser);
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'Usuário deletado com sucesso.',
-        data: deletedUser.data,
-      });
+      res.status(200).json(deletedUser);
     } catch (error) {
       console.error('Erro ao deletar usuário:', error);
       res.status(500).json({

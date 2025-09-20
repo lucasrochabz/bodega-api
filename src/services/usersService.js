@@ -1,16 +1,22 @@
+import { generateHash } from '../utils/hashUtils.js';
 import { addressesRepository } from '../repositories/addressesRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
+import User from '../models/usersModel.js';
 
 export const usersService = {
-  fetchAllUsers: async () => {
+  getAllUsers: async () => {
     try {
-      const users = await usersRepository.fetchAll();
+      const users = await usersRepository.findAll();
 
       if (users.length === 0) {
         return { success: false, message: 'Usuários não encontrados.' };
       }
 
-      return { success: true, data: users };
+      return {
+        success: true,
+        message: 'Usuários encontrados com sucesso.',
+        data: users,
+      };
     } catch (error) {
       console.error('Erro no Service ao buscar usuários:', error);
       return {
@@ -20,15 +26,19 @@ export const usersService = {
     }
   },
 
-  fetchUser: async (userId) => {
+  getUser: async (userId) => {
     try {
-      const user = await usersRepository.fetchById(userId);
+      const user = await usersRepository.findByUserId(userId);
 
       if (user.length === 0) {
         return { success: false, message: 'Usuário não encontrado.' };
       }
 
-      return { success: true, data: user[0] };
+      return {
+        success: true,
+        message: 'Usuário encontrado com sucesso.',
+        data: user[0],
+      };
     } catch (error) {
       console.error('Erro no Service ao buscar usuário:', error);
       return {
@@ -38,9 +48,12 @@ export const usersService = {
     }
   },
 
-  registerUser: async (user) => {
+  createUser: async (userData) => {
+    const hashedPassword = await generateHash(userData.password, 10);
+    const user = new User({ ...userData, password: hashedPassword });
+
     try {
-      const newUser = await usersRepository.insertUser(user);
+      const newUser = await usersRepository.insert(user);
 
       const addresses = await addressesRepository.insertAddress(
         newUser.insertId,
@@ -56,6 +69,7 @@ export const usersService = {
 
       return {
         success: true,
+        message: 'Usuário cadastrado com sucesso.',
         data: {
           id: newUser.insertId,
           first_name: user.first_name,
@@ -78,15 +92,19 @@ export const usersService = {
     }
   },
 
-  editUser: async (userId, userData) => {
+  updateUser: async (userId, userData) => {
     try {
-      const userUpdated = await usersRepository.editById(userId, userData);
+      const userUpdated = await usersRepository.updateById(userId, userData);
 
       if (userUpdated.affectedRows === 0) {
         return { success: false, message: 'Usuário não encontrado.' };
       }
 
-      return { success: true, data: { id: userId, name: userData.name } };
+      return {
+        success: true,
+        message: 'Usuário atualizado com sucesso',
+        data: { id: userId, name: userData.name },
+      };
     } catch (error) {
       console.error('Erro no Service ao atualizar usuário:', error);
       return {
@@ -96,15 +114,19 @@ export const usersService = {
     }
   },
 
-  removeUser: async (userId) => {
+  deleteUser: async (userId) => {
     try {
-      const userRemoved = await usersRepository.removeById(userId);
+      const userRemoved = await usersRepository.deleteById(userId);
 
       if (userRemoved.affectedRows === 0) {
         return { success: false, message: 'Usuário não encontrado.' };
       }
 
-      return { success: true, data: { id: userId } };
+      return {
+        success: true,
+        message: 'Usuário deletado com sucesso.',
+        data: { id: userId },
+      };
     } catch (error) {
       console.error('Erro no Service ao deletar usuário:', error);
       return {
