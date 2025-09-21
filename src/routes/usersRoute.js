@@ -1,7 +1,7 @@
 import express from 'express';
 import { authenticate, authorizeAdmin } from '../middlewares/authMiddleware.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { userSchema } from '../schemas/userSchema.js';
+import { updateUserSchema } from '../schemas/updateUserSchema.js';
 import { usersController } from '../controllers/usersController.js';
 
 const router = express.Router();
@@ -12,7 +12,7 @@ router.post('/', usersController.createUser);
 router.put(
   '/update',
   authenticate,
-  validateBody(userSchema),
+  validateBody(updateUserSchema),
   usersController.updateUser,
 );
 

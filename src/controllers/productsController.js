@@ -46,8 +46,24 @@ export const productsController = {
   },
 
   createProduct: async (req, res) => {
+    const allowedFields = [
+      'name',
+      'price',
+      'description',
+      'stock',
+      'status',
+      'image_path',
+    ];
+
+    const productData = allowedFields.reduce((obj, key) => {
+      if (req.body[key] !== undefined) {
+        obj[key] = req.body[key];
+      }
+      return obj;
+    }, {});
+
     try {
-      const result = await productsService.createProduct(req.body);
+      const result = await productsService.createProduct(productData);
 
       if (!result.success) {
         return res.status(400).json(result);

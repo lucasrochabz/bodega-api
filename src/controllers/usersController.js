@@ -39,8 +39,32 @@ export const usersController = {
   },
 
   createUser: async (req, res) => {
+    const {
+      first_name,
+      last_name,
+      email,
+      password,
+      zip_code,
+      street,
+      number,
+      neighborhood,
+      city,
+      state,
+    } = req.body;
+
     try {
-      const result = await usersService.createUser(req.body);
+      const result = await usersService.createUser({
+        first_name,
+        last_name,
+        email,
+        password,
+        zip_code,
+        street,
+        number,
+        neighborhood,
+        city,
+        state,
+      });
 
       if (!result.success) {
         return res.status(404).json(result);
