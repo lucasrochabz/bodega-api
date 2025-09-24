@@ -1,4 +1,5 @@
 import { productsService } from '../services/productsService.js';
+import handleServiceResponse from '../helpers/handleServiceResponse.js';
 
 export const productsController = {
   getAllProducts: async (req, res) => {
@@ -30,12 +31,7 @@ export const productsController = {
     const { productId } = req.params;
     try {
       const productResult = await productsService.getProduct(productId);
-
-      if (!productResult.success) {
-        return res.status(404).json(productResult);
-      }
-
-      res.status(200).json(productResult);
+      handleServiceResponse(res, productResult, 200, 404);
     } catch (error) {
       console.error('Erro ao buscar produto:', error);
       res.status(500).json({

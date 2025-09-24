@@ -123,7 +123,7 @@ bodega-api/
 │   ├── database/
 │   ├── env/
 │   ├── helpers/
-│   │   ├── databaseQuery.js
+│   │   ├── executeQuery.js
 │   │   └── inputValidationHelper.js
 │   │
 │   ├── middlewares/
