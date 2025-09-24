@@ -5,19 +5,15 @@ export const productsController = {
   getAllProducts: async (req, res) => {
     const { page, pageSize } = req.query;
 
-    const pageNumber = parseInt(page);
-    const pageSizeNumber = parseInt(pageSize);
+    const pageNumber = parseInt(page) || 1;
+    const pageSizeNumber = parseInt(pageSize) || 10;
     try {
       const productsResult = await productsService.getAllProducts({
         pageNumber,
         pageSizeNumber,
       });
 
-      if (!productsResult.success) {
-        return res.status(404).json(productsResult);
-      }
-
-      res.status(200).json(productsResult);
+      handleServiceResponse(res, productsResult, 200, 404);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
       res.status(500).json({
@@ -60,12 +56,7 @@ export const productsController = {
 
     try {
       const result = await productsService.createProduct(productData);
-
-      if (!result.success) {
-        return res.status(400).json(result);
-      }
-
-      res.status(201).json(result);
+      handleServiceResponse(res, result, 201, 400);
     } catch (error) {
       console.error('Erro ao cadastrar produto:', error);
       res.status(500).json({
@@ -84,11 +75,7 @@ export const productsController = {
         productId,
       });
 
-      if (!updatedProduct.success) {
-        return res.status(404).json(updatedProduct);
-      }
-
-      res.status(200).json(updatedProduct);
+      handleServiceResponse(res, updatedProduct, 200, 400);
     } catch (error) {
       console.error('Erro ao atualizar produto:', error);
       res.status(500).json({
@@ -102,12 +89,7 @@ export const productsController = {
     const { productId } = req.params;
     try {
       const deletedProduct = await productsService.deleteProduct(productId);
-
-      if (!deletedProduct.success) {
-        return res.status(404).json(deletedProduct);
-      }
-
-      res.status(200).json(deletedProduct);
+      handleServiceResponse(res, deletedProduct, 200, 404);
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
       res.status(500).json({

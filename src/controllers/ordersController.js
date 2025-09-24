@@ -1,15 +1,11 @@
 import { ordersService } from '../services/ordersService.js';
+import handleServiceResponse from '../helpers/handleServiceResponse.js';
 
 export const ordersController = {
   getAllOrders: async (req, res) => {
     try {
       const ordersResult = await ordersService.getAllOrders();
-
-      if (!ordersResult.success) {
-        return res.status(404).json(ordersResult);
-      }
-
-      res.status(200).json(ordersResult);
+      handleServiceResponse(res, ordersResult, 200, 404);
     } catch (error) {
       console.error('Erro ao buscar pedidos:', error);
       res.status(500).json({
@@ -23,12 +19,7 @@ export const ordersController = {
     const userId = req.user.id;
     try {
       const orderResult = await ordersService.getUserOrders(userId);
-
-      if (!orderResult.success) {
-        return res.status(404).json(orderResult);
-      }
-
-      res.status(200).json(orderResult);
+      handleServiceResponse(res, orderResult, 200, 404);
     } catch (error) {
       console.error('Erro ao buscar pedidos do usuário:', error);
       res.status(500).json({
@@ -42,12 +33,7 @@ export const ordersController = {
     const { orderId } = req.params;
     try {
       const orderResult = await ordersService.getOrderDetails(orderId);
-
-      if (!orderResult.success) {
-        return res.status(404).json(orderResult);
-      }
-
-      res.status(200).json(orderResult);
+      handleServiceResponse(res, orderResult, 200, 404);
     } catch (error) {
       console.error('Erro ao buscar pedido:', error);
       res.status(500).json({
@@ -67,11 +53,7 @@ export const ordersController = {
         products,
       });
 
-      if (!newOrder.success) {
-        return res.status(404).json(newOrder);
-      }
-
-      res.status(201).json(newOrder);
+      handleServiceResponse(res, newOrder, 201, 404);
     } catch (error) {
       console.error('Erro ao cadastrar pedido:', error);
       res.status(500).json({
@@ -90,11 +72,7 @@ export const ordersController = {
         orderId,
       });
 
-      if (!updatedOrder.success) {
-        return res.status(404).json(updatedOrder);
-      }
-
-      res.status(200).json(updatedOrder);
+      handleServiceResponse(res, updatedOrder, 200, 404);
     } catch (error) {
       console.error('Erro ao atualizar pedido:', error);
       res.status(500).json({
@@ -108,12 +86,7 @@ export const ordersController = {
     const { orderId } = req.params;
     try {
       const deletedOrder = await ordersService.deleteOrder(orderId);
-
-      if (!deletedOrder.success) {
-        return res.status(404).json(deletedOrder);
-      }
-
-      res.status(200).json(deletedOrder);
+      handleServiceResponse(res, deletedOrder, 200, 404);
     } catch (error) {
       console.error('Erro ao deletar pedido:', error);
       res.status(500).json({

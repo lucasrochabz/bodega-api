@@ -1,15 +1,11 @@
 import { usersService } from '../services/usersService.js';
+import handleServiceResponse from '../helpers/handleServiceResponse.js';
 
 export const usersController = {
   getAllUsers: async (req, res) => {
     try {
       const usersResult = await usersService.getAllUsers();
-
-      if (!usersResult.success) {
-        return res.status(404).json(usersResult);
-      }
-
-      res.status(200).json(usersResult);
+      handleServiceResponse(res, usersResult, 200, 404);
     } catch (error) {
       console.error('Erro ao buscar usuários:', error);
       res.status(500).json({
@@ -23,12 +19,7 @@ export const usersController = {
     const userId = req.user.id;
     try {
       const userResult = await usersService.getUser(userId);
-
-      if (!userResult.success) {
-        return res.status(404).json(userResult);
-      }
-
-      res.status(200).json(userResult);
+      handleServiceResponse(res, userResult, 200, 404);
     } catch (error) {
       console.error('Erro ao buscar usuário:', error);
       res.status(500).json({
@@ -66,11 +57,7 @@ export const usersController = {
         state,
       });
 
-      if (!result.success) {
-        return res.status(404).json(result);
-      }
-
-      res.status(201).json(result);
+      handleServiceResponse(res, result, 201, 404);
     } catch (error) {
       console.error('Erro ao cadastrar usuário:', error);
       res.status(500).json({
@@ -86,12 +73,7 @@ export const usersController = {
 
     try {
       const updatedUser = await usersService.updateUser(userId, userData);
-
-      if (!updatedUser.success) {
-        return res.status(404).json(updatedUser);
-      }
-
-      res.status(200).json(updatedUser);
+      handleServiceResponse(res, updatedUser, 200, 404);
     } catch (error) {
       console.error('Erro ao atualizar usuário:', error);
       res.status(500).json({
@@ -105,12 +87,7 @@ export const usersController = {
     const { userId } = req.params;
     try {
       const deletedUser = await usersService.deleteUser(userId);
-
-      if (!deletedUser.success) {
-        return res.status(404).json(deletedUser);
-      }
-
-      res.status(200).json(deletedUser);
+      handleServiceResponse(res, deletedUser, 200, 404);
     } catch (error) {
       console.error('Erro ao deletar usuário:', error);
       res.status(500).json({
