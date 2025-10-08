@@ -98,6 +98,20 @@ export const usersRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
+  updatePassword: async ({ hashedPassword, userId }) => {
+    const query = `
+      UPDATE users
+      SET password = ?
+      WHERE id = ?
+    `;
+
+    const params = [hashedPassword, userId];
+
+    const errorMessage = 'Erro ao atualizar a senha no Banco de Dados.';
+
+    return await executeQuery(query, params, errorMessage);
+  },
+
   deleteById: async (userId) => {
     const query = `
       DELETE FROM users WHERE id = ?
