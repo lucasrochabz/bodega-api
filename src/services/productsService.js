@@ -1,9 +1,10 @@
 import { productsRepository } from '../repositories/productsRepository.js';
+import Product from '../models/productsModel.js';
 
 export const productsService = {
-  fetchAllProducts: async ({ pageNumber, pageSizeNumber }) => {
+  getAllProducts: async ({ pageNumber, pageSizeNumber }) => {
     try {
-      const products = await productsRepository.fetchAll({
+      const products = await productsRepository.findAll({
         pageNumber,
         pageSizeNumber,
       });
@@ -14,6 +15,7 @@ export const productsService = {
 
       return {
         success: true,
+        message: 'Produtos encontrados com sucesso.',
         data: { totalPages: products.totalPages, results: products.results },
       };
     } catch (error) {
@@ -25,15 +27,19 @@ export const productsService = {
     }
   },
 
-  fetchProduct: async (productId) => {
+  getProduct: async (productId) => {
     try {
-      const product = await productsRepository.fetchById(productId);
+      const product = await productsRepository.findByProductId(productId);
 
       if (product.length === 0) {
         return { success: false, message: 'Produto não encontrado.' };
       }
 
-      return { success: true, data: product[0] };
+      return {
+        success: true,
+        message: 'Produto encontrado com sucesso.',
+        data: product[0],
+      };
     } catch (error) {
       console.error('Erro no Service ao buscar produto:', error);
       return {
@@ -43,9 +49,10 @@ export const productsService = {
     }
   },
 
-  registerProduct: async (product) => {
+  createProduct: async (productData) => {
+    const product = new Product(productData);
     try {
-      const newProduct = await productsRepository.insertProduct(product);
+      const newProduct = await productsRepository.insert(product);
 
       if (newProduct.affectedRows === 0) {
         return { success: false, message: 'Produto não cadastrado.' };
@@ -53,6 +60,7 @@ export const productsService = {
 
       return {
         success: true,
+        message: 'Produto cadastrado com sucesso.',
         data: {
           id: newProduct.insertId,
           name: product.name,
@@ -72,9 +80,9 @@ export const productsService = {
     }
   },
 
-  editProduct: async ({ description, productId }) => {
+  updateProduct: async ({ description, productId }) => {
     try {
-      const product = await productsRepository.editById({
+      const product = await productsRepository.updateById({
         description,
         productId,
       });
@@ -83,7 +91,11 @@ export const productsService = {
         return { success: false, message: 'Produto não encontrado.' };
       }
 
-      return { success: true, data: { id: productId, description } };
+      return {
+        success: true,
+        message: 'Produto atualizado com sucesso.',
+        data: { id: productId, description },
+      };
     } catch (error) {
       console.error('Erro no Service ao atualizar produto:', error);
       return {
@@ -93,15 +105,19 @@ export const productsService = {
     }
   },
 
-  removeProduct: async (productId) => {
+  deleteProduct: async (productId) => {
     try {
-      const product = await productsRepository.removeById(productId);
+      const product = await productsRepository.deleteById(productId);
 
       if (product.affectedRows === 0) {
         return { success: false, message: 'Produto não encontrado.' };
       }
 
-      return { success: true, data: { id: productId } };
+      return {
+        success: true,
+        message: 'Produto deletado com sucesso.',
+        data: { id: productId },
+      };
     } catch (error) {
       console.error('Erro no Service ao deletar produto:', error);
       return {

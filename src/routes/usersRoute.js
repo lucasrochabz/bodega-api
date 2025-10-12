@@ -1,6 +1,7 @@
 import express from 'express';
 import { authenticate, authorizeAdmin } from '../middlewares/authMiddleware.js';
-import { validateUserUpdate } from '../middlewares/userMiddleware.js';
+import { validateBody } from '../middlewares/validateBody.js';
+import { updateUserSchema } from '../schemas/updateUserSchema.js';
 import { usersController } from '../controllers/usersController.js';
 
 const router = express.Router();
@@ -11,9 +12,10 @@ router.post('/', usersController.createUser);
 router.put(
   '/update',
   authenticate,
-  validateUserUpdate,
+  validateBody(updateUserSchema),
   usersController.updateUser,
 );
+
 router.delete(
   '/:userId',
   authenticate,

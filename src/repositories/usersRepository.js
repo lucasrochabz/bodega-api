@@ -1,7 +1,7 @@
-import executeQuery from '../helpers/databaseQuery.js';
+import executeQuery from '../helpers/executeQuery.js';
 
 export const usersRepository = {
-  verifyUser: async ({ email }) => {
+  findByEmail: async (email) => {
     const query = `
       SELECT id, first_name, password, role FROM users
       WHERE email = ?
@@ -13,7 +13,7 @@ export const usersRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  fetchAll: async () => {
+  findAll: async () => {
     const query = `
       SELECT id, first_name, last_name, email, status
       FROM users
@@ -24,7 +24,7 @@ export const usersRepository = {
     return await executeQuery(query, errorMessage);
   },
 
-  fetchById: async (userId) => {
+  findByUserId: async (userId) => {
     const query = `
       SELECT
         users.id,
@@ -51,7 +51,7 @@ export const usersRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  insertUser: async (user) => {
+  insert: async (user) => {
     const query = `
       INSERT INTO users (first_name, last_name, email, password)
       VALUES (?, ?, ?, ?)
@@ -63,7 +63,7 @@ export const usersRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  editById: async (userId, userData) => {
+  updateById: async (userId, userData) => {
     const query = `
       UPDATE users
       JOIN
@@ -98,7 +98,21 @@ export const usersRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  removeById: async (userId) => {
+  updatePassword: async ({ hashedPassword, userId }) => {
+    const query = `
+      UPDATE users
+      SET password = ?
+      WHERE id = ?
+    `;
+
+    const params = [hashedPassword, userId];
+
+    const errorMessage = 'Erro ao atualizar a senha no Banco de Dados.';
+
+    return await executeQuery(query, params, errorMessage);
+  },
+
+  deleteById: async (userId) => {
     const query = `
       DELETE FROM users WHERE id = ?
     `;
@@ -109,11 +123,11 @@ export const usersRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  fetchUserAddress: async (userId) => {
+  findAddressByUserId: async (userId) => {
     const query = `
       SELECT id
       FROM addresses
-      WHERE id = ?
+      WHERE user_id = ?
     `;
     const params = [userId];
 

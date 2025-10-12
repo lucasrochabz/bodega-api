@@ -1,7 +1,7 @@
-import executeQuery from '../helpers/databaseQuery.js';
+import executeQuery from '../helpers/executeQuery.js';
 
 export const ordersRepository = {
-  fetchAll: async () => {
+  findAll: async () => {
     const query = `
       SELECT id, user_id, address_id, created_at, status
       FROM orders
@@ -12,7 +12,7 @@ export const ordersRepository = {
     return await executeQuery(query, errorMessage);
   },
 
-  fetchAllUserOrders: async (userId) => {
+  findAllByUserId: async (userId) => {
     const query = `
       SELECT 
         orders.id,
@@ -39,7 +39,7 @@ export const ordersRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  fetchOrderById: async (orderId) => {
+  findById: async (orderId) => {
     const query = `
       SELECT
         orders.id,
@@ -68,7 +68,7 @@ export const ordersRepository = {
     return result[0];
   },
 
-  insertOrder: async ({ userId, addressId, status }) => {
+  insert: async ({ userId, addressId, status }) => {
     const query = `
       INSERT INTO orders (user_id, address_id, status)
       VALUES (?, ?, ?)
@@ -81,7 +81,7 @@ export const ordersRepository = {
     return results.insertId;
   },
 
-  editById: async ({ status, orderId }) => {
+  updateById: async ({ status, orderId }) => {
     const query = `
       UPDATE orders
       SET status = ?
@@ -94,7 +94,7 @@ export const ordersRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  removeById: async (orderId) => {
+  deleteById: async (orderId) => {
     const query = `
       DELETE FROM orders WHERE id = ?
     `;

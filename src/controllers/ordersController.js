@@ -1,22 +1,11 @@
 import { ordersService } from '../services/ordersService.js';
+import handleServiceResponse from '../helpers/handleServiceResponse.js';
 
 export const ordersController = {
   getAllOrders: async (req, res) => {
     try {
-      const orders = await ordersService.fetchAllOrders();
-
-      if (!orders.success) {
-        return res.status(404).json({
-          success: false,
-          message: orders.message,
-        });
-      }
-
-      res.status(200).json({
-        success: true,
-        message: 'Pedidos encontrados com sucesso.',
-        data: orders.data,
-      });
+      const ordersResult = await ordersService.getAllOrders();
+      handleServiceResponse(res, ordersResult, 200, 404);
     } catch (error) {
       console.error('Erro ao buscar pedidos:', error);
       res.status(500).json({
@@ -29,20 +18,8 @@ export const ordersController = {
   getUserOrders: async (req, res) => {
     const userId = req.user.id;
     try {
-      const order = await ordersService.fetchUserOrders(userId);
-
-      if (!order.success) {
-        return res.status(404).json({
-          success: false,
-          message: order.message,
-        });
-      }
-
-      res.status(200).json({
-        success: true,
-        message: 'Pedido(s) encontrado(s) com sucesso.',
-        data: order.data,
-      });
+      const orderResult = await ordersService.getUserOrders(userId);
+      handleServiceResponse(res, orderResult, 200, 404);
     } catch (error) {
       console.error('Erro ao buscar pedidos do usuário:', error);
       res.status(500).json({
@@ -55,20 +32,8 @@ export const ordersController = {
   getOrderDetails: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const order = await ordersService.fetchOrderDetails(orderId);
-
-      if (!order.success) {
-        return res.status(404).json({
-          success: false,
-          message: order.message,
-        });
-      }
-
-      res.status(200).json({
-        success: true,
-        message: 'Pedido encontrado com sucesso.',
-        data: order.data,
-      });
+      const orderResult = await ordersService.getOrderDetails(orderId);
+      handleServiceResponse(res, orderResult, 200, 404);
     } catch (error) {
       console.error('Erro ao buscar pedido:', error);
       res.status(500).json({
@@ -82,24 +47,13 @@ export const ordersController = {
     const userId = req.user.id;
     const { status, products } = req.body;
     try {
-      const newOrder = await ordersService.registerOrder({
+      const newOrder = await ordersService.createOrder({
         userId,
         status,
         products,
       });
 
-      if (!newOrder.success) {
-        return res.status(404).json({
-          success: false,
-          message: newOrder.message,
-        });
-      }
-
-      res.status(201).json({
-        success: true,
-        message: 'Pedido cadastrado com sucesso.',
-        data: newOrder.data,
-      });
+      handleServiceResponse(res, newOrder, 201, 404);
     } catch (error) {
       console.error('Erro ao cadastrar pedido:', error);
       res.status(500).json({
@@ -113,23 +67,12 @@ export const ordersController = {
     const { status } = req.body;
     const { orderId } = req.params;
     try {
-      const updatedOrder = await ordersService.editOrder({
+      const updatedOrder = await ordersService.updateOrder({
         status,
         orderId,
       });
 
-      if (!updatedOrder.success) {
-        return res.status(404).json({
-          success: false,
-          message: updatedOrder.message,
-        });
-      }
-
-      res.status(200).json({
-        success: true,
-        message: 'Pedido atualizado com sucesso',
-        data: updatedOrder.data,
-      });
+      handleServiceResponse(res, updatedOrder, 200, 404);
     } catch (error) {
       console.error('Erro ao atualizar pedido:', error);
       res.status(500).json({
@@ -142,20 +85,8 @@ export const ordersController = {
   deleteOrder: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const deletedOrder = await ordersService.removeOrder(orderId);
-
-      if (!deletedOrder.success) {
-        return res.status(404).json({
-          success: false,
-          message: deletedOrder.message,
-        });
-      }
-
-      res.status(200).json({
-        success: true,
-        message: 'Pedido deletado com sucesso.',
-        data: deletedOrder.data,
-      });
+      const deletedOrder = await ordersService.deleteOrder(orderId);
+      handleServiceResponse(res, deletedOrder, 200, 404);
     } catch (error) {
       console.error('Erro ao deletar pedido:', error);
       res.status(500).json({

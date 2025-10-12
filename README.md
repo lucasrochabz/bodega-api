@@ -1,4 +1,4 @@
-# Bodega API v1.0.0
+# Bodega API v1.1.1
 
 ![Imagem do projeto](docs/bodega-api01.png)
 
@@ -111,7 +111,7 @@ bodega-api/
 │   │   ├── 4_orders_table.sql
 │   │   └── 5_orders_products_table.sql
 │   │
-│   └── insert_data
+│   └── insert_data/
 │       ├── 1_users_data.sql
 │       ├── 2_addresses_data.sql
 │       ├── 3_products_data.sql
@@ -123,7 +123,7 @@ bodega-api/
 │   ├── database/
 │   ├── env/
 │   ├── helpers/
-│   │   ├── databaseQuery.js
+│   │   ├── executeQuery.js
 │   │   └── inputValidationHelper.js
 │   │
 │   ├── middlewares/

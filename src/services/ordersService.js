@@ -4,15 +4,19 @@ import { ordersRepository } from '../repositories/ordersRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
 
 export const ordersService = {
-  fetchAllOrders: async () => {
-    const orders = await ordersRepository.fetchAll();
+  getAllOrders: async () => {
+    const orders = await ordersRepository.findAll();
 
     try {
       if (orders.length === 0) {
         return { success: false, message: 'Pedidos não encontrados.' };
       }
 
-      return { success: true, data: orders };
+      return {
+        success: true,
+        message: 'Pedidos encontrados com sucesso.',
+        data: orders,
+      };
     } catch (error) {
       console.error('Erro no Service ao buscar pedidos:', error);
       return {
@@ -22,9 +26,9 @@ export const ordersService = {
     }
   },
 
-  fetchUserOrders: async (userId) => {
+  getUserOrders: async (userId) => {
     try {
-      const userOrders = await ordersRepository.fetchAllUserOrders(userId);
+      const userOrders = await ordersRepository.findAllByUserId(userId);
 
       if (userOrders.length === 0) {
         return {
@@ -33,7 +37,11 @@ export const ordersService = {
         };
       }
 
-      return { success: true, data: userOrders };
+      return {
+        success: true,
+        message: 'Pedido(s) encontrado(s) com sucesso.',
+        data: userOrders,
+      };
     } catch (error) {
       console.error('Erro no Service ao buscar pedido(s) do usuário:', error);
       return {
@@ -43,11 +51,11 @@ export const ordersService = {
     }
   },
 
-  fetchOrderDetails: async (orderId) => {
+  getOrderDetails: async (orderId) => {
     try {
-      const orderDetails = await ordersRepository.fetchOrderById(orderId);
+      const orderDetails = await ordersRepository.findById(orderId);
 
-      const address = await addressesRepository.fetchAddressById(
+      const address = await addressesRepository.findById(
         orderDetails.address_id,
       );
 
@@ -55,7 +63,11 @@ export const ordersService = {
         return { success: false, message: 'Pedido não encontrado.' };
       }
 
-      return { success: true, data: { ...orderDetails, ...address } };
+      return {
+        success: true,
+        message: 'Pedido encontrado com sucesso.',
+        data: { ...orderDetails, ...address },
+      };
     } catch (error) {
       console.error('Erro no Service ao buscar pedido:', error);
       return {
@@ -65,9 +77,9 @@ export const ordersService = {
     }
   },
 
-  registerOrder: async ({ userId, status, products }) => {
+  createOrder: async ({ userId, status, products }) => {
     try {
-      const addressId = await usersRepository.fetchUserAddress(userId);
+      const addressId = await usersRepository.findAddressByUserId(userId);
 
       if (!addressId) {
         return {
@@ -76,7 +88,7 @@ export const ordersService = {
         };
       }
 
-      const orderId = await ordersRepository.insertOrder({
+      const orderId = await ordersRepository.insert({
         userId,
         addressId,
         status,
@@ -95,8 +107,9 @@ export const ordersService = {
         product.quantity,
       ]);
 
-      const isProductsInserted =
-        await ordersProductsRepository.insertOrderProducts(orderProducts);
+      const isProductsInserted = await ordersProductsRepository.insertMany(
+        orderProducts,
+      );
 
       if (isProductsInserted.affectedRows === 0) {
         return {
@@ -107,6 +120,7 @@ export const ordersService = {
 
       return {
         success: true,
+        message: 'Pedido cadastrado com sucesso.',
         data: { id: orderId, userId, addressId, status, products },
       };
     } catch (error) {
@@ -118,15 +132,19 @@ export const ordersService = {
     }
   },
 
-  editOrder: async ({ status, orderId }) => {
+  updateOrder: async ({ status, orderId }) => {
     try {
-      const order = await ordersRepository.editById({ status, orderId });
+      const order = await ordersRepository.updateById({ status, orderId });
 
       if (order.affectedRows === 0) {
         return { success: false, message: 'Pedido não encontrado.' };
       }
 
-      return { success: true, data: { id: orderId, status } };
+      return {
+        success: true,
+        message: 'Pedido atualizado com sucesso',
+        data: { id: orderId, status },
+      };
     } catch (error) {
       console.error('Erro no Service ao atualizar pedido:', error);
       return {
@@ -136,15 +154,19 @@ export const ordersService = {
     }
   },
 
-  removeOrder: async (orderId) => {
+  deleteOrder: async (orderId) => {
     try {
-      const order = await ordersRepository.removeById(orderId);
+      const order = await ordersRepository.deleteById(orderId);
 
       if (order.affectedRows === 0) {
         return { success: false, message: 'Pedido não encontrado.' };
       }
 
-      return { success: true, data: { id: orderId } };
+      return {
+        success: true,
+        message: 'Pedido deletado com sucesso.',
+        data: { id: orderId },
+      };
     } catch (error) {
       console.error('Erro no Service ao deletar pedido:', error);
       return {

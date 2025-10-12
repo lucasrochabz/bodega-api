@@ -1,30 +1,19 @@
 import { productsService } from '../services/productsService.js';
-import Product from '../models/productsModel.js';
+import handleServiceResponse from '../helpers/handleServiceResponse.js';
 
 export const productsController = {
   getAllProducts: async (req, res) => {
     const { page, pageSize } = req.query;
 
-    const pageNumber = parseInt(page);
-    const pageSizeNumber = parseInt(pageSize);
+    const pageNumber = parseInt(page) || 1;
+    const pageSizeNumber = parseInt(pageSize) || 10;
     try {
-      const products = await productsService.fetchAllProducts({
+      const productsResult = await productsService.getAllProducts({
         pageNumber,
         pageSizeNumber,
       });
 
-      if (!products.success) {
-        return res.status(404).json({
-          success: false,
-          message: products.message,
-        });
-      }
-
-      res.status(200).json({
-        success: true,
-        message: 'Produtos encontrados com sucesso.',
-        data: products.data,
-      });
+      handleServiceResponse(res, productsResult, 200, 404);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
       res.status(500).json({
@@ -37,20 +26,8 @@ export const productsController = {
   getProduct: async (req, res) => {
     const { productId } = req.params;
     try {
-      const product = await productsService.fetchProduct(productId);
-
-      if (!product.success) {
-        return res.status(404).json({
-          success: false,
-          message: product.message,
-        });
-      }
-
-      res.status(200).json({
-        success: true,
-        message: 'Produto encontrado com sucesso.',
-        data: product.data,
-      });
+      const productResult = await productsService.getProduct(productId);
+      handleServiceResponse(res, productResult, 200, 404);
     } catch (error) {
       console.error('Erro ao buscar produto:', error);
       res.status(500).json({
@@ -61,30 +38,25 @@ export const productsController = {
   },
 
   createProduct: async (req, res) => {
-    const { name, price, description, stock, status, image_path } = req.body;
-    try {
-      const newProduct = new Product({
-        name,
-        price,
-        description,
-        stock,
-        status,
-        image_path,
-      });
-      const result = await productsService.registerProduct(newProduct);
+    const allowedFields = [
+      'name',
+      'price',
+      'description',
+      'stock',
+      'status',
+      'image_path',
+    ];
 
-      if (!result.success) {
-        return res.status(404).json({
-          success: false,
-          message: result.message,
-        });
+    const productData = allowedFields.reduce((obj, key) => {
+      if (req.body[key] !== undefined) {
+        obj[key] = req.body[key];
       }
+      return obj;
+    }, {});
 
-      res.status(201).json({
-        success: true,
-        message: 'Produto cadastrado com sucesso.',
-        data: result.data,
-      });
+    try {
+      const result = await productsService.createProduct(productData);
+      handleServiceResponse(res, result, 201, 400);
     } catch (error) {
       console.error('Erro ao cadastrar produto:', error);
       res.status(500).json({
@@ -98,23 +70,12 @@ export const productsController = {
     const { description } = req.body;
     const { productId } = req.params;
     try {
-      const updatedProduct = await productsService.editProduct({
+      const updatedProduct = await productsService.updateProduct({
         description,
         productId,
       });
 
-      if (!updatedProduct.success) {
-        return res.status(404).json({
-          success: false,
-          message: updatedProduct.message,
-        });
-      }
-
-      res.status(200).json({
-        success: true,
-        message: 'Produto atualizado com sucesso.',
-        data: updatedProduct.data,
-      });
+      handleServiceResponse(res, updatedProduct, 200, 400);
     } catch (error) {
       console.error('Erro ao atualizar produto:', error);
       res.status(500).json({
@@ -127,20 +88,8 @@ export const productsController = {
   deleteProduct: async (req, res) => {
     const { productId } = req.params;
     try {
-      const deletedProduct = await productsService.removeProduct(productId);
-
-      if (!deletedProduct.success) {
-        return res.status(404).json({
-          success: false,
-          message: deletedProduct.message,
-        });
-      }
-
-      res.status(200).json({
-        success: true,
-        message: 'Produto deletado com sucesso.',
-        data: deletedProduct.data,
-      });
+      const deletedProduct = await productsService.deleteProduct(productId);
+      handleServiceResponse(res, deletedProduct, 200, 404);
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
       res.status(500).json({
