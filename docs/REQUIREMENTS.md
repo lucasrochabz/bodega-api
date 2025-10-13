@@ -73,7 +73,5 @@ npm install --save yamljs
 <!-- Dev -->
 
 npm install --save-dev nodemon
-
-### Ajustes
-
-- [ ] Apagar arquivo inputValidationHelper.js
+npm install --save-dev vitest
+npm install --save-dev @vitest/coverage-v8

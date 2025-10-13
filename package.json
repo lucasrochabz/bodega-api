@@ -7,7 +7,9 @@
     "docker:up": "docker compose --env-file .env.docker up -d",
     "db:init": "node scripts/createDB.js",
     "db:tables": "node scripts/createTables.js",
-    "db:seed": "node scripts/insertData.js"
+    "db:seed": "node scripts/insertData.js",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -24,6 +26,8 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@vitest/coverage-v8": "^3.2.4",
+    "nodemon": "^3.1.10",
+    "vitest": "^3.2.4"
   }
 }
