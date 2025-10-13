@@ -11,6 +11,7 @@ describe('usersController', () => {
       status: vi.fn(() => res),
       json: vi.fn(),
     };
+
     usersService.getAllUsers.mockResolvedValue({ success: true });
 
     await usersController.getAllUsers(req, res);
