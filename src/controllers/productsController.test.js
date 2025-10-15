@@ -27,4 +27,28 @@ describe('productsCrontroller', () => {
 
     expect(res.json).toHaveBeenCalledWith({ success: true });
   });
+
+  test('Deve chamar productsService.getProduct', async () => {
+    const params = { productId: '1' };
+    const req = { params };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    productsService.getProduct.mockResolvedValue({
+      success: true,
+      message: 'Produto encontrado com sucesso.',
+      data: [],
+    });
+
+    await productsController.getProduct(req, res);
+
+    expect(productsService.getProduct).toHaveBeenCalledWith(params.productId);
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Produto encontrado com sucesso.',
+      data: expect.any(Array),
+    });
+  });
 });
