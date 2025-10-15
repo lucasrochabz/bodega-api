@@ -38,4 +38,32 @@ describe('authController', () => {
 
     expect(res.json).toHaveBeenCalledWith({ success: true });
   });
+
+  test('Deve chamar authService.resetPassword', async () => {
+    const query = { token: 'token123' };
+    const body = { newPassword: '123456' };
+
+    const req = { query, body };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    authService.resetPassword.mockResolvedValue({
+      success: true,
+      message: 'Senha redefinida com sucesso.',
+    });
+
+    await authController.resetPassword(req, res);
+
+    expect(authService.resetPassword).toHaveBeenCalledWith({
+      token: query.token,
+      newPassword: body.newPassword,
+    });
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Senha redefinida com sucesso.',
+    });
+  });
 });
