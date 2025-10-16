@@ -38,7 +38,7 @@ export const productsService = {
       return {
         success: true,
         message: 'Produto encontrado com sucesso.',
-        data: product[0],
+        data: product,
       };
     } catch (error) {
       console.error('Erro no Service ao buscar produto:', error);
