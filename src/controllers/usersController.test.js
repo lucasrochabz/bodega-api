@@ -20,4 +20,28 @@ describe('usersController', () => {
 
     expect(res.json).toHaveBeenCalledWith({ success: true });
   });
+
+  test('Deve chamar usersService.getUser', async () => {
+    const user = { id: '123' };
+    const req = { user };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    usersService.getUser.mockResolvedValue({
+      success: true,
+      message: 'Usuário encontrado com sucesso.',
+      data: [],
+    });
+
+    await usersController.getUser(req, res);
+
+    expect(usersService.getUser).toHaveBeenCalledWith(user.id);
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Usuário encontrado com sucesso.',
+      data: expect.any(Array),
+    });
+  });
 });

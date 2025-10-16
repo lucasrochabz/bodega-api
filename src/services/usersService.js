@@ -37,7 +37,7 @@ export const usersService = {
       return {
         success: true,
         message: 'Usuário encontrado com sucesso.',
-        data: user[0],
+        data: user,
       };
     } catch (error) {
       console.error('Erro no Service ao buscar usuário:', error);
