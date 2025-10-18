@@ -28,4 +28,29 @@ describe('ordersController', () => {
       data: expect.any(Array),
     });
   });
+
+  test('Deve chamar ordersService.getUserOrders', async () => {
+    const user = { id: '1' };
+    const req = { user };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    ordersService.getUserOrders.mockResolvedValue({
+      success: true,
+      message: 'Pedido(s) encontrado(s) com sucesso.',
+      data: [],
+    });
+
+    await ordersController.getUserOrders(req, res);
+
+    expect(ordersService.getUserOrders).toHaveBeenCalledWith(user.id);
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Pedido(s) encontrado(s) com sucesso.',
+      data: expect.any(Array),
+    });
+  });
 });

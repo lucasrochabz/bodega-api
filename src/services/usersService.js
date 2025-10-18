@@ -32,7 +32,7 @@ export const usersService = {
 
       const addressResult = await addressesRepository.findByUserId(userId);
 
-      if (userResult.length === 0) {
+      if (userResult.length === 0 || addressResult.length === 0) {
         return { success: false, message: 'Usuário não encontrado.' };
       }
 
