@@ -66,7 +66,7 @@ export const ordersService = {
       return {
         success: true,
         message: 'Pedido encontrado com sucesso.',
-        data: { ...orderDetails, ...address },
+        data: { ...orderDetails, address },
       };
     } catch (error) {
       console.error('Erro no Service ao buscar pedido:', error);

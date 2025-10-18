@@ -26,21 +26,8 @@ export const usersRepository = {
 
   findByUserId: async (userId) => {
     const query = `
-      SELECT
-        users.id,
-        users.first_name,
-        users.last_name,
-        users.email,
-        addresses.street,
-        addresses.number,
-        addresses.neighborhood,
-        addresses.city,
-        addresses.state,
-        addresses.zip_code
-      FROM
-        users 
-      JOIN
-        addresses ON users.id = addresses.user_id
+      SELECT id, first_name, last_name, email
+      FROM users 
       WHERE
         users.id = ?
     `;

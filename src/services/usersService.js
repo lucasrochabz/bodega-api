@@ -28,11 +28,18 @@ export const usersService = {
 
   getUser: async (userId) => {
     try {
-      const user = await usersRepository.findByUserId(userId);
+      const userResult = await usersRepository.findByUserId(userId);
 
-      if (user.length === 0) {
+      const addressResult = await addressesRepository.findByUserId(userId);
+
+      if (userResult.length === 0) {
         return { success: false, message: 'Usuário não encontrado.' };
       }
+
+      const user = {
+        ...userResult[0],
+        address: addressResult[0],
+      };
 
       return {
         success: true,
