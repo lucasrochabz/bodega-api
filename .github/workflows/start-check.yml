@@ -1,0 +1,16 @@
+name: Hello World
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4
+    
+    - name: Exibir mensagem
+      run: echo "Olá, Mundo! Workflow executado com sucesso."

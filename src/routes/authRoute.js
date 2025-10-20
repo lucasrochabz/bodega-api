@@ -10,13 +10,11 @@ import { authController } from '../controllers/authController.js';
 const router = express.Router();
 
 router.post('/login', validateBody(loginSchema), authController.login);
-
 router.post(
   '/forgot-password',
   validateBody(forgotPasswordSchema),
   authController.forgotPassword,
 );
-
 router.post(
   '/reset-password',
   validateQuery(tokenSchema),

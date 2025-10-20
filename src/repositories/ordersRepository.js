@@ -48,15 +48,20 @@ export const ordersRepository = {
         products.name,
         products.price,
         products.image_path,
-        orders.address_id
+        addresses.street,
+        addresses.number,
+        addresses.neighborhood,
+        addresses.city,
+        addresses.state,
+        addresses.zip_code
       FROM
         orders
-      JOIN
-        addresses ON orders.address_id = addresses.id
       JOIN
         orders_products ON orders.id = orders_products.order_id
       JOIN
         products ON orders_products.product_id = products.id
+      JOIN
+        addresses ON orders.address_id = addresses.id
       WHERE
         orders.id = ?
     `;

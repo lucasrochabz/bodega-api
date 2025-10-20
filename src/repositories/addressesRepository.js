@@ -5,7 +5,7 @@ export const addressesRepository = {
     const query = `
       SELECT street, number, neighborhood, city, state, zip_code
       FROM addresses
-      WHERE addresses.id = ?
+      WHERE id = ?
     `;
     const params = [addressId];
 
@@ -14,6 +14,20 @@ export const addressesRepository = {
 
     const results = await executeQuery(query, params, errorMessage);
     return results[0];
+  },
+
+  findByUserId: async (userId) => {
+    const query = `
+    SELECT street, number, neighborhood, city, state, zip_code
+    FROM addresses
+    WHERE user_id = ?
+    `;
+    const params = [userId];
+
+    const errorMessage =
+      'Erro ao buscar o endereço do usuário no Banco de Dados';
+
+    return await executeQuery(query, params, errorMessage);
   },
 
   insertAddress: async (userId, user) => {

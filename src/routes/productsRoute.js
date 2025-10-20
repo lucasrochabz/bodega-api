@@ -13,7 +13,6 @@ router.get(
   validateQuery(paginationSchema),
   productsController.getAllProducts,
 );
-
 router.get(
   '/:productId',
   validateParams(productParamsSchema),

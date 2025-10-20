@@ -120,6 +120,9 @@ bodega-api/
 │
 ├── src/
 │   ├── controllers/
+│   │   ├── controller.js
+│   │   └── controller.test.js
+│   │
 │   ├── database/
 │   ├── env/
 │   ├── helpers/

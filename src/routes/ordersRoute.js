@@ -9,7 +9,9 @@ const router = express.Router();
 router.get('/', authenticate, authorizeAdmin, ordersController.getAllOrders);
 router.get('/user', authenticate, ordersController.getUserOrders);
 router.get('/:orderId', ordersController.getOrderDetails);
+
 router.post('/', authenticate, ordersController.createOrder);
+
 router.put(
   '/:orderId',
   validateBody(orderSchema),
