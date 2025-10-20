@@ -53,20 +53,16 @@ export const ordersService = {
 
   getOrderDetails: async (orderId) => {
     try {
-      const orderDetails = await ordersRepository.findById(orderId);
+      const orderResults = await ordersRepository.findById(orderId);
 
-      const address = await addressesRepository.findById(
-        orderDetails.address_id,
-      );
-
-      if (orderDetails.length === 0) {
+      if (orderResults.length === 0) {
         return { success: false, message: 'Pedido não encontrado.' };
       }
 
       return {
         success: true,
         message: 'Pedido encontrado com sucesso.',
-        data: { ...orderDetails, address },
+        data: orderResults,
       };
     } catch (error) {
       console.error('Erro no Service ao buscar pedido:', error);

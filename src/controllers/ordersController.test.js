@@ -53,4 +53,29 @@ describe('ordersController', () => {
       data: expect.any(Array),
     });
   });
+
+  test('Deve chamar ordersService.getOrderDetails', async () => {
+    const params = { orderId: '123' };
+    const req = { params };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    ordersService.getOrderDetails.mockResolvedValue({
+      success: true,
+      message: 'Pedido encontrado com sucesso.',
+      data: {},
+    });
+
+    await ordersController.getOrderDetails(req, res);
+
+    expect(ordersService.getOrderDetails).toHaveBeenCalledWith(params.orderId);
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Pedido encontrado com sucesso.',
+      data: expect.any(Object),
+    });
+  });
 });

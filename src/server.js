@@ -5,6 +5,9 @@ const API_PORT = process.env.API_PORT || 3000;
 
 app.listen(API_PORT, () => {
   console.log(
+    `[DOC] Referência da API disponível em http://localhost:${API_PORT}/api/v1/docs`,
+  );
+  console.log(
     `[API] Executando servidor na porta http://localhost:${API_PORT}`,
   );
 });
