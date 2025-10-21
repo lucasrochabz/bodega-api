@@ -78,4 +78,29 @@ describe('ordersController', () => {
       data: expect.any(Object),
     });
   });
+
+  test('Deve chamar ordersService.deleteOrder', async () => {
+    const params = { orderId: '123' };
+    const req = { params };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    ordersService.deleteOrder.mockResolvedValue({
+      success: true,
+      message: 'Pedido deletado com sucesso.',
+      data: {},
+    });
+
+    await ordersController.deleteOrder(req, res);
+
+    expect(ordersService.deleteOrder).toHaveBeenCalledWith(params.orderId);
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Pedido deletado com sucesso.',
+      data: expect.any(Object),
+    });
+  });
 });
