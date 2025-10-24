@@ -51,4 +51,31 @@ describe('productsCrontroller', () => {
       data: expect.any(Array),
     });
   });
+
+  test('Deve chamar productsService.deleteProduct', async () => {
+    const params = { productId: '123' };
+    const req = { params };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    productsService.deleteProduct.mockResolvedValue({
+      success: true,
+      message: 'Produto deletado com sucesso.',
+      data: {},
+    });
+
+    await productsController.deleteProduct(req, res);
+
+    expect(productsService.deleteProduct).toHaveBeenCalledWith(
+      params.productId,
+    );
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Produto deletado com sucesso.',
+      data: expect.any(Object),
+    });
+  });
 });

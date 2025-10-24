@@ -13,13 +13,19 @@ describe('authController', () => {
       json: vi.fn(),
     };
 
-    authService.login.mockResolvedValue({ success: true });
+    authService.login.mockResolvedValue({
+      success: false,
+      message: 'Erro no Service ao verificar usuário.',
+    });
 
     await authController.login(req, res);
 
     expect(authService.login).toHaveBeenCalledWith(body);
 
-    expect(res.json).toHaveBeenCalledWith({ success: true });
+    expect(res.json).toHaveBeenCalledWith({
+      success: false,
+      message: 'Erro no Service ao verificar usuário.',
+    });
   });
 
   test('Deve chamar authService.forgotPassword', async () => {
@@ -30,13 +36,21 @@ describe('authController', () => {
       json: vi.fn(),
     };
 
-    authService.forgotPassword.mockResolvedValue({ success: true });
+    authService.forgotPassword.mockResolvedValue({
+      success: true,
+      message: 'Link de redefinição de senha gerado com sucesso.',
+      resetUrl: 'http://localhost:3000',
+    });
 
     await authController.forgotPassword(req, res);
 
     expect(authService.forgotPassword).toHaveBeenCalledWith(body.email);
 
-    expect(res.json).toHaveBeenCalledWith({ success: true });
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Link de redefinição de senha gerado com sucesso.',
+      resetUrl: 'http://localhost:3000',
+    });
   });
 
   test('Deve chamar authService.resetPassword', async () => {

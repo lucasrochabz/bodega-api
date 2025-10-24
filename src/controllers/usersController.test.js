@@ -44,4 +44,29 @@ describe('usersController', () => {
       data: expect.any(Array),
     });
   });
+
+  test('Deve chamar usersService.deleteUser', async () => {
+    const params = { userId: '123' };
+    const req = { params };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    usersService.deleteUser.mockResolvedValue({
+      success: true,
+      message: 'Usuário deletado com sucesso.',
+      data: {},
+    });
+
+    await usersController.deleteUser(req, res);
+
+    expect(usersService.deleteUser).toHaveBeenCalledWith(params.userId);
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Usuário deletado com sucesso.',
+      data: expect.any(Object),
+    });
+  });
 });

@@ -78,4 +78,59 @@ describe('ordersController', () => {
       data: expect.any(Object),
     });
   });
+
+  test('Deve chamar ordersService.createOrder', async () => {
+    const user = { id: '123' };
+    const body = { status: 'text', products: [] };
+    const req = { user, body };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    ordersService.createOrder.mockResolvedValue({
+      success: true,
+      message: 'Pedido cadastrado com sucesso.',
+      data: {},
+    });
+
+    await ordersController.createOrder(req, res);
+
+    expect(ordersService.createOrder).toHaveBeenCalledWith({
+      userId: user.id,
+      status: body.status,
+      products: body.products,
+    });
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Pedido cadastrado com sucesso.',
+      data: expect.any(Object),
+    });
+  });
+
+  test('Deve chamar ordersService.deleteOrder', async () => {
+    const params = { orderId: '123' };
+    const req = { params };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    ordersService.deleteOrder.mockResolvedValue({
+      success: true,
+      message: 'Pedido deletado com sucesso.',
+      data: {},
+    });
+
+    await ordersController.deleteOrder(req, res);
+
+    expect(ordersService.deleteOrder).toHaveBeenCalledWith(params.orderId);
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Pedido deletado com sucesso.',
+      data: expect.any(Object),
+    });
+  });
 });
