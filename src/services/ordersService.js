@@ -1,4 +1,3 @@
-import { addressesRepository } from '../repositories/addressesRepository.js';
 import { ordersProductsRepository } from '../repositories/ordersProductsRepository.js';
 import { ordersRepository } from '../repositories/ordersRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
