@@ -52,6 +52,38 @@ describe('productsCrontroller', () => {
     });
   });
 
+  test('Deve chamar productsService.createProduct', async () => {
+    const body = {
+      name: 'Name',
+      price: '123',
+      description: 'description',
+      stock: '123',
+      status: 'status',
+      image_path: 'name_path',
+    };
+    const req = { body };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    productsService.createProduct.mockResolvedValue({
+      success: true,
+      message: 'Produto cadastrado com sucesso.',
+      data: {},
+    });
+
+    await productsController.createProduct(req, res);
+
+    expect(productsService.createProduct).toHaveBeenCalledWith(body);
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Produto cadastrado com sucesso.',
+      data: expect.any(Object),
+    });
+  });
+
   test('Deve chamar productsService.deleteProduct', async () => {
     const params = { productId: '123' };
     const req = { params };
