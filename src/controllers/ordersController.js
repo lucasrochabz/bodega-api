@@ -64,12 +64,12 @@ export const ordersController = {
   },
 
   updateOrder: async (req, res) => {
-    const { status } = req.body;
     const { orderId } = req.params;
+    const { status } = req.body;
     try {
       const updatedOrder = await ordersService.updateOrder({
-        status,
         orderId,
+        status,
       });
 
       handleServiceResponse(res, updatedOrder, 200, 404);

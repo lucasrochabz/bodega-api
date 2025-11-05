@@ -45,6 +45,37 @@ describe('usersController', () => {
     });
   });
 
+  test('Deve chamar usersService.updateUser', async () => {
+    const user = { id: '123' };
+    const body = {};
+    const req = { user, body };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    const resultMock = {
+      success: true,
+      message: 'Usuário atualizado com sucesso',
+      data: {},
+    };
+
+    usersService.updateUser.mockResolvedValue(resultMock);
+
+    await usersController.updateUser(req, res);
+
+    expect(usersService.updateUser).toHaveBeenCalledWith({
+      userId: user.id,
+      userData: body,
+    });
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Usuário atualizado com sucesso',
+      data: expect.any(Object),
+    });
+  });
+
   test('Deve chamar usersService.deleteUser', async () => {
     const params = { userId: '123' };
     const req = { params };

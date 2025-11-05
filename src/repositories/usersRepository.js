@@ -50,7 +50,7 @@ export const usersRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  updateById: async (userId, userData) => {
+  updateById: async ({ userId, userData }) => {
     const query = `
       UPDATE users
       JOIN

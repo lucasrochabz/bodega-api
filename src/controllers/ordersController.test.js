@@ -109,6 +109,35 @@ describe('ordersController', () => {
     });
   });
 
+  test('Deve chamar ordersService.updateOrder', async () => {
+    const params = { orderId: '123' };
+    const body = { status: 'status' };
+    const req = { params, body };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    ordersService.updateOrder.mockResolvedValue({
+      success: true,
+      message: 'Pedido atualizado com sucesso',
+      data: {},
+    });
+
+    await ordersController.updateOrder(req, res);
+
+    expect(ordersService.updateOrder).toHaveBeenCalledWith({
+      orderId: params.orderId,
+      status: body.status,
+    });
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Pedido atualizado com sucesso',
+      data: expect.any(Object),
+    });
+  });
+
   test('Deve chamar ordersService.deleteOrder', async () => {
     const params = { orderId: '123' };
     const req = { params };

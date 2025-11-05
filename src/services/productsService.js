@@ -80,11 +80,11 @@ export const productsService = {
     }
   },
 
-  updateProduct: async ({ description, productId }) => {
+  updateProduct: async ({ productId, description }) => {
     try {
       const product = await productsRepository.updateById({
-        description,
         productId,
+        description,
       });
 
       if (product.affectedRows === 0) {

@@ -45,6 +45,7 @@ describe('productsCrontroller', () => {
     await productsController.getProduct(req, res);
 
     expect(productsService.getProduct).toHaveBeenCalledWith(params.productId);
+
     expect(res.json).toHaveBeenCalledWith({
       success: true,
       message: 'Produto encontrado com sucesso.',
@@ -80,6 +81,35 @@ describe('productsCrontroller', () => {
     expect(res.json).toHaveBeenCalledWith({
       success: true,
       message: 'Produto cadastrado com sucesso.',
+      data: expect.any(Object),
+    });
+  });
+
+  test('Deve chamar productsService.updateProduct', async () => {
+    const params = { productId: '123' };
+    const body = { description: 'description' };
+    const req = { params, body };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    productsService.updateProduct.mockResolvedValue({
+      success: true,
+      message: 'Produto atualizado com sucesso.',
+      data: {},
+    });
+
+    await productsController.updateProduct(req, res);
+
+    expect(productsService.updateProduct).toHaveBeenCalledWith({
+      productId: params.productId,
+      description: body.description,
+    });
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Produto atualizado com sucesso.',
       data: expect.any(Object),
     });
   });

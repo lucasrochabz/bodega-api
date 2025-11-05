@@ -127,9 +127,9 @@ export const ordersService = {
     }
   },
 
-  updateOrder: async ({ status, orderId }) => {
+  updateOrder: async ({ orderId, status }) => {
     try {
-      const order = await ordersRepository.updateById({ status, orderId });
+      const order = await ordersRepository.updateById({ orderId, status });
 
       if (order.affectedRows === 0) {
         return { success: false, message: 'Pedido não encontrado.' };
