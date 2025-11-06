@@ -1,5 +1,5 @@
 import { usersService } from '../services/usersService.js';
-import handleServiceResponse from '../helpers/handleServiceResponse.js';
+import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
 
 export const usersController = {
   getAllUsers: async (req, res) => {

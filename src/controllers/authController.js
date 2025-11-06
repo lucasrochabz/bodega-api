@@ -1,5 +1,5 @@
 import { authService } from '../services/authService.js';
-import handleServiceResponse from '../helpers/handleServiceResponse.js';
+import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
 
 export const authController = {
   login: async (req, res) => {

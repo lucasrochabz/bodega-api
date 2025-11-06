@@ -1,4 +1,9 @@
-const handleServiceResponse = (res, result, successStatus, failStatus) => {
+export const handleServiceResponse = (
+  res,
+  result,
+  successStatus,
+  failStatus,
+) => {
   if (successStatus === undefined || failStatus === undefined) {
     throw new Error('É preciso informar o successStatus e o failStatus');
   }
@@ -8,5 +13,3 @@ const handleServiceResponse = (res, result, successStatus, failStatus) => {
   }
   return res.status(successStatus).json(result);
 };
-
-export default handleServiceResponse;

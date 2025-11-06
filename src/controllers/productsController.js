@@ -1,5 +1,5 @@
 import { productsService } from '../services/productsService.js';
-import handleServiceResponse from '../helpers/handleServiceResponse.js';
+import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
 
 export const productsController = {
   getAllProducts: async (req, res) => {
