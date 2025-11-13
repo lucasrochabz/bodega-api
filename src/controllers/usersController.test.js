@@ -23,6 +23,7 @@ describe('usersController', () => {
     await usersController.getAllUsers(req, res);
 
     expect(usersService.getAllUsers).toHaveBeenCalled();
+
     expect(handleServiceResponse).toHaveBeenCalledWith(
       res,
       resultMock,
@@ -99,6 +100,7 @@ describe('usersController', () => {
     await usersController.createUser(req, res);
 
     expect(usersService.createUser).toHaveBeenCalledWith(body);
+
     expect(handleServiceResponse).toHaveBeenCalledWith(
       res,
       resultMock,
@@ -130,6 +132,7 @@ describe('usersController', () => {
       userId: user.id,
       userData: body,
     });
+
     expect(handleServiceResponse).toHaveBeenCalledWith(
       res,
       resultMock,
