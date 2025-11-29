@@ -5,7 +5,7 @@ import { ordersService } from '../services/ordersService';
 vi.mock('../services/ordersService');
 
 describe('ordersController', () => {
-  test('Deve chamar ordersService.getAllOrders e Retornar sucesso', async () => {
+  test('Deve chamar ordersService.getAllOrders', async () => {
     const req = {};
     const res = {
       status: vi.fn(() => res),

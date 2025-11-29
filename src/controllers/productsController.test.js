@@ -2,30 +2,34 @@ import { vi, describe, test, expect } from 'vitest';
 import { productsController } from './productsController';
 import { productsService } from '../services/productsService';
 
-// Faz o mock do service (para não chamar nada real)
 vi.mock('../services/productsService');
 
 describe('productsCrontroller', () => {
-  test('Deve chamar productsService.getAllProducts com os parâmetros corretos', async () => {
+  test('Deve chamar productsService.getAllProducts', async () => {
     const req = { query: {} };
     const res = {
       status: vi.fn(() => res),
       json: vi.fn(),
     };
 
-    // Simula retorno do service
-    productsService.getAllProducts.mockResolvedValue({ success: true });
+    productsService.getAllProducts.mockResolvedValue({
+      success: true,
+      message: 'Produtos encontrados com sucesso.',
+      data: {},
+    });
 
-    // Executa o método
     await productsController.getAllProducts(req, res);
 
-    // Verifica se foi chamado com os valores esperados
     expect(productsService.getAllProducts).toHaveBeenCalledWith({
       pageNumber: 1,
       pageSizeNumber: 10,
     });
 
-    expect(res.json).toHaveBeenCalledWith({ success: true });
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Produtos encontrados com sucesso.',
+      data: expect.any(Object),
+    });
   });
 
   test('Deve chamar productsService.getProduct', async () => {
