@@ -19,7 +19,7 @@ export const authService = {
       const isPasswordValid = await compareHash(password, user[0].password);
 
       if (!isPasswordValid) {
-        return { success: false, message: 'E-mail ou senha incorretos' };
+        return { success: false, message: 'E-mail ou senha incorretos.' };
       }
 
       const token = generateToken(new User(user[0]));

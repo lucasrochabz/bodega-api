@@ -1,4 +1,5 @@
 import express from 'express';
+import { loginLimiter } from '../middlewares/loginLimiter.js';
 import { validateQuery } from '../middlewares/validateQuery.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { loginSchema } from '../schemas/loginSchema.js';
@@ -9,7 +10,12 @@ import { authController } from '../controllers/authController.js';
 
 const router = express.Router();
 
-router.post('/login', validateBody(loginSchema), authController.login);
+router.post(
+  '/login',
+  loginLimiter,
+  validateBody(loginSchema),
+  authController.login,
+);
 router.post(
   '/forgot-password',
   validateBody(forgotPasswordSchema),
