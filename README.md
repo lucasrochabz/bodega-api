@@ -1,4 +1,4 @@
-# Bodega API v1.3.1
+# Bodega API v1.5.1
 
 ![Imagem do projeto](docs/bodega-api01.png)
 

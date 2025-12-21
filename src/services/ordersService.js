@@ -49,58 +49,50 @@ export const ordersService = {
   },
 
   createOrder: async ({ userId, status, products }) => {
-    try {
-      const addressId = await usersRepository.findAddressByUserId(userId);
+    const addressId = await usersRepository.findAddressByUserId(userId);
 
-      if (!addressId) {
-        return {
-          success: false,
-          message: 'Endereço não encontrado para o usuário.',
-        };
-      }
-
-      const orderId = await ordersRepository.insert({
-        userId,
-        addressId,
-        status,
-      });
-
-      if (!orderId) {
-        return {
-          success: false,
-          message: 'Pedido não cadastrado.',
-        };
-      }
-
-      const orderProducts = products.map((product) => [
-        orderId,
-        product.product_id,
-        product.quantity,
-      ]);
-
-      const isProductsInserted = await ordersProductsRepository.insertMany(
-        orderProducts,
-      );
-
-      if (isProductsInserted.affectedRows === 0) {
-        return {
-          success: false,
-          message: 'Erro ao associar produtos ao pedido.',
-        };
-      }
-
-      return {
-        success: true,
-        message: 'Pedido cadastrado com sucesso.',
-        data: { id: orderId, userId, addressId, status, products },
-      };
-    } catch (error) {
-      console.error('Erro no Service ao cadastrar pedido:', error);
+    if (!addressId) {
       return {
         success: false,
-        message: 'Erro no Service ao cadastrar pedido.',
+        error: 'ADDRESS_NOT_FOUND',
       };
     }
+
+    const orderId = await ordersRepository.insert({
+      userId,
+      addressId,
+      status,
+    });
+
+    if (!orderId) {
+      return {
+        success: false,
+        error: 'ORDER_NOT_CREATED',
+      };
+    }
+
+    const orderProducts = products.map((product) => [
+      orderId,
+      product.product_id,
+      product.quantity,
+    ]);
+
+    const isProductsInserted = await ordersProductsRepository.insertMany(
+      orderProducts,
+    );
+
+    if (isProductsInserted.affectedRows === 0) {
+      return {
+        success: false,
+        error: 'ORDER_PRODUCTS_NOT_CREATED',
+      };
+    }
+
+    return {
+      success: true,
+      message: 'Pedido cadastrado com sucesso.',
+      data: { id: orderId, userId, addressId, status, products },
+    };
   },
 
   updateOrder: async ({ orderId, status }) => {
