@@ -1,16 +1,20 @@
 import { ordersService } from '../services/ordersService.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
+import { OrdersErrors } from '../errors/ordersErrors.js';
+import { CommonErrors } from '../errors/commonErrors.js';
 
 export const ordersController = {
   getAllOrders: async (req, res) => {
     try {
       const ordersResult = await ordersService.getAllOrders();
-      handleServiceResponse(res, ordersResult, 200, 404);
+      handleServiceResponse(res, ordersResult, 200, OrdersErrors);
     } catch (error) {
       console.error('Erro ao buscar pedidos:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao buscar pedidos.',
+        message,
       });
     }
   },
@@ -19,12 +23,14 @@ export const ordersController = {
     const userId = req.user.id;
     try {
       const orderResult = await ordersService.getUserOrders(userId);
-      handleServiceResponse(res, orderResult, 200, 404);
+      handleServiceResponse(res, orderResult, 200, OrdersErrors);
     } catch (error) {
       console.error('Erro ao buscar pedidos do usuário:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao buscar pedidos do usuário.',
+        message,
       });
     }
   },
@@ -33,12 +39,14 @@ export const ordersController = {
     const { orderId } = req.params;
     try {
       const orderResult = await ordersService.getOrderDetails(orderId);
-      handleServiceResponse(res, orderResult, 200, 404);
+      handleServiceResponse(res, orderResult, 200, OrdersErrors);
     } catch (error) {
       console.error('Erro ao buscar pedido:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao buscar pedido.',
+        message,
       });
     }
   },
@@ -72,12 +80,14 @@ export const ordersController = {
         status,
       });
 
-      handleServiceResponse(res, updatedOrder, 200, 404);
+      handleServiceResponse(res, updatedOrder, 200, OrdersErrors);
     } catch (error) {
       console.error('Erro ao atualizar pedido:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao atualizar pedido.',
+        message,
       });
     }
   },
@@ -86,12 +96,14 @@ export const ordersController = {
     const { orderId } = req.params;
     try {
       const deletedOrder = await ordersService.deleteOrder(orderId);
-      handleServiceResponse(res, deletedOrder, 200, 404);
+      handleServiceResponse(res, deletedOrder, 200, OrdersErrors);
     } catch (error) {
       console.error('Erro ao deletar pedido:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao deletar pedido.',
+        message,
       });
     }
   },

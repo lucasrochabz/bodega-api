@@ -6,70 +6,46 @@ export const ordersService = {
   getAllOrders: async () => {
     const orders = await ordersRepository.findAll();
 
-    try {
-      if (orders.length === 0) {
-        return { success: false, message: 'Pedidos não encontrados.' };
-      }
-
-      return {
-        success: true,
-        message: 'Pedidos encontrados com sucesso.',
-        data: orders,
-      };
-    } catch (error) {
-      console.error('Erro no Service ao buscar pedidos:', error);
-      return {
-        success: false,
-        message: 'Erro no Service ao buscar pedidos.',
-      };
+    if (orders.length === 0) {
+      return { success: false, error: 'ORDERS_NOT_FOUND' };
     }
+
+    return {
+      success: true,
+      message: 'Pedidos encontrados com sucesso.',
+      data: orders,
+    };
   },
 
   getUserOrders: async (userId) => {
-    try {
-      const userOrders = await ordersRepository.findAllByUserId(userId);
+    const userOrders = await ordersRepository.findAllByUserId(userId);
 
-      if (userOrders.length === 0) {
-        return {
-          success: false,
-          message: 'Pedido(s) do usuário não encontrado(s) no Banco de Dados.',
-        };
-      }
-
-      return {
-        success: true,
-        message: 'Pedido(s) encontrado(s) com sucesso.',
-        data: userOrders,
-      };
-    } catch (error) {
-      console.error('Erro no Service ao buscar pedido(s) do usuário:', error);
+    if (userOrders.length === 0) {
       return {
         success: false,
-        message: 'Erro no Service ao buscar pedido(s) do usuário.',
+        error: 'USER_ORDERS_NOT_FOUND',
       };
     }
+
+    return {
+      success: true,
+      message: 'Pedido(s) encontrado(s) com sucesso.',
+      data: userOrders,
+    };
   },
 
   getOrderDetails: async (orderId) => {
-    try {
-      const orderResults = await ordersRepository.findById(orderId);
+    const orderResults = await ordersRepository.findById(orderId);
 
-      if (orderResults.length === 0) {
-        return { success: false, message: 'Pedido não encontrado.' };
-      }
-
-      return {
-        success: true,
-        message: 'Pedido encontrado com sucesso.',
-        data: orderResults,
-      };
-    } catch (error) {
-      console.error('Erro no Service ao buscar pedido:', error);
-      return {
-        success: false,
-        message: 'Erro no Service ao buscar pedido.',
-      };
+    if (orderResults.length === 0) {
+      return { success: false, error: 'ORDER_NOT_FOUND' };
     }
+
+    return {
+      success: true,
+      message: 'Pedido encontrado com sucesso.',
+      data: orderResults,
+    };
   },
 
   createOrder: async ({ userId, status, products }) => {
@@ -128,46 +104,30 @@ export const ordersService = {
   },
 
   updateOrder: async ({ orderId, status }) => {
-    try {
-      const order = await ordersRepository.updateById({ orderId, status });
+    const order = await ordersRepository.updateById({ orderId, status });
 
-      if (order.affectedRows === 0) {
-        return { success: false, message: 'Pedido não encontrado.' };
-      }
-
-      return {
-        success: true,
-        message: 'Pedido atualizado com sucesso',
-        data: { id: orderId, status },
-      };
-    } catch (error) {
-      console.error('Erro no Service ao atualizar pedido:', error);
-      return {
-        success: false,
-        message: 'Erro no Service ao atualizar pedido.',
-      };
+    if (order.affectedRows === 0) {
+      return { success: false, error: 'ORDER_NOT_FOUND' };
     }
+
+    return {
+      success: true,
+      message: 'Pedido atualizado com sucesso',
+      data: { id: orderId, status },
+    };
   },
 
   deleteOrder: async (orderId) => {
-    try {
-      const order = await ordersRepository.deleteById(orderId);
+    const order = await ordersRepository.deleteById(orderId);
 
-      if (order.affectedRows === 0) {
-        return { success: false, message: 'Pedido não encontrado.' };
-      }
-
-      return {
-        success: true,
-        message: 'Pedido deletado com sucesso.',
-        data: { id: orderId },
-      };
-    } catch (error) {
-      console.error('Erro no Service ao deletar pedido:', error);
-      return {
-        success: false,
-        message: 'Erro no Service ao deletar pedido.',
-      };
+    if (order.affectedRows === 0) {
+      return { success: false, error: 'ORDER_NOT_FOUND' };
     }
+
+    return {
+      success: true,
+      message: 'Pedido deletado com sucesso.',
+      data: { id: orderId },
+    };
   },
 };

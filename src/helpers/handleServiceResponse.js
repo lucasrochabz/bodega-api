@@ -7,7 +7,7 @@ export const handleServiceResponse = (res, result, successStatus, errorMap) => {
     const error = errorMap[result.error];
 
     if (!error) {
-      return res.status(400).json({
+      return res.status(500).json({
         success: false,
         message: 'Erro de negócio não mapeado.',
       });
