@@ -9,87 +9,62 @@ import User from '../models/usersModel.js';
 
 export const authService = {
   login: async ({ email, password }) => {
-    try {
-      const user = await usersRepository.findByEmail(email);
+    const user = await usersRepository.findByEmail(email);
 
-      if (user.length === 0) {
-        return { success: false, message: 'E-mail ou senha incorretos.' };
-      }
-
-      const isPasswordValid = await compareHash(password, user[0].password);
-
-      if (!isPasswordValid) {
-        return { success: false, message: 'E-mail ou senha incorretos' };
-      }
-
-      const token = generateToken(new User(user[0]));
-
-      return { success: true, message: 'Login realizado com sucesso.', token };
-    } catch (error) {
-      console.error('Erro no Service ao verificar usuário:', error);
-      return {
-        success: false,
-        message: 'Erro no Service ao verificar usuário.',
-      };
+    if (user.length === 0) {
+      return { success: false, error: 'INVALID_CREDENTIALS' };
     }
+
+    const isPasswordValid = await compareHash(password, user[0].password);
+
+    if (!isPasswordValid) {
+      return { success: false, error: 'INVALID_CREDENTIALS' };
+    }
+
+    const token = generateToken(new User(user[0]));
+
+    return { success: true, message: 'Login realizado com sucesso.', token };
   },
 
-  forgotPassword: async (email) => {
-    try {
-      const user = await usersRepository.findByEmail(email);
+  forgotPassword: async ({ email, origin }) => {
+    const user = await usersRepository.findByEmail(email);
 
-      if (user.length === 0) {
-        return {
-          success: false,
-          message:
-            'Se o email estiver cadastrado, você receberá um link para redefinir a senha.',
-        };
-      }
+    const [foundUser] = user;
 
-      const token = generateResetToken(user[0].id);
+    let resetUrl = null;
 
-      const resetUrl = `${process.env.ALLOWED_ORIGINS}/reset-password?token=${token}`;
-
-      return {
-        success: true,
-        message: 'Link de redefinição de senha gerado com sucesso.',
-        resetUrl,
-      };
-    } catch (error) {
-      console.error(
-        'Erro no Service ao solicitar a recuperação de senha:',
-        error,
+    if (foundUser) {
+      const token = generateResetToken(foundUser.id);
+      resetUrl = `${origin}/reset-password?token=${token}`;
+    } else {
+      console.info(
+        `[FORGOT_PASSWORD] Tentativa para e-mail não cadastrado: ${email}`,
       );
-      return {
-        success: false,
-        message: 'Erro no Service ao solicitar a recuperação de senha.',
-      };
     }
+
+    return {
+      success: true,
+      message:
+        'Se o e-mail estiver cadastrado, você receberá um link para redefinir a senha.',
+      resetUrl,
+    };
   },
 
   resetPassword: async ({ token, newPassword }) => {
-    try {
-      const decoded = verifyResetToken(token);
-      const userId = decoded.userId;
+    const decoded = verifyResetToken(token);
+    const userId = decoded.userId;
 
-      const hashedPassword = await generateHash(newPassword, 10);
+    const hashedPassword = await generateHash(newPassword, 10);
 
-      const result = await usersRepository.updatePassword({
-        hashedPassword,
-        userId,
-      });
+    const result = await usersRepository.updatePassword({
+      hashedPassword,
+      userId,
+    });
 
-      if (result.affectedRows === 0) {
-        return { success: false, message: 'Usuário não encontrado.' };
-      }
-
-      return { success: true, message: 'Senha redefinida com sucesso.' };
-    } catch (error) {
-      console.error('Erro ao redefinir senha:', error);
-      return {
-        success: false,
-        message: 'Erro ao redefinir senha.',
-      };
+    if (result.affectedRows === 0) {
+      return { success: false, error: 'USER_NOT_FOUND' };
     }
+
+    return { success: true, message: 'Senha redefinida com sucesso.' };
   },
 };

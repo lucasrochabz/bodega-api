@@ -1,5 +1,5 @@
 import { productsService } from '../services/productsService.js';
-import handleServiceResponse from '../helpers/handleServiceResponse.js';
+import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
 
 export const productsController = {
   getAllProducts: async (req, res) => {
@@ -67,12 +67,12 @@ export const productsController = {
   },
 
   updateProduct: async (req, res) => {
-    const { description } = req.body;
     const { productId } = req.params;
+    const { description } = req.body;
     try {
       const updatedProduct = await productsService.updateProduct({
-        description,
         productId,
+        description,
       });
 
       handleServiceResponse(res, updatedProduct, 200, 400);

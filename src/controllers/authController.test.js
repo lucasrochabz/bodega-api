@@ -13,9 +13,11 @@ describe('authController', () => {
       json: vi.fn(),
     };
 
+    const fakeToken = 'fakeToken123';
     authService.login.mockResolvedValue({
-      success: false,
-      message: 'Erro no Service ao verificar usuário.',
+      success: true,
+      message: 'Login realizado com sucesso.',
+      token: fakeToken,
     });
 
     await authController.login(req, res);
@@ -23,8 +25,9 @@ describe('authController', () => {
     expect(authService.login).toHaveBeenCalledWith(body);
 
     expect(res.json).toHaveBeenCalledWith({
-      success: false,
-      message: 'Erro no Service ao verificar usuário.',
+      success: true,
+      message: 'Login realizado com sucesso.',
+      token: fakeToken,
     });
   });
 

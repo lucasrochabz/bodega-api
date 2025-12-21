@@ -1,34 +1,38 @@
 import { authService } from '../services/authService.js';
-import handleServiceResponse from '../helpers/handleServiceResponse.js';
+import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
+import { AuthErrors } from '../errors/authErrors.js';
+import { CommonErrors } from '../errors/commonErrors.js';
 
 export const authController = {
   login: async (req, res) => {
     const { email, password } = req.body;
     try {
       const userResult = await authService.login({ email, password });
-      handleServiceResponse(res, userResult, 200, 401);
+      handleServiceResponse(res, userResult, 200, AuthErrors);
     } catch (error) {
       console.error('Erro ao realizar login:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao realizar login.',
+        message,
       });
     }
   },
 
   forgotPassword: async (req, res) => {
-    const { email } = req.body;
+    const { email, origin } = req.body;
     try {
-      const result = await authService.forgotPassword(email);
-      handleServiceResponse(res, result, 200, 401);
+      const result = await authService.forgotPassword({ email, origin });
+
+      return res.status(200).json(result);
     } catch (error) {
-      console.error(
-        'Erro ao processar a solicitação de recuperação de senha:',
-        error,
-      );
-      res.status(500).json({
+      console.error('Erro ao processar a recuperação de senha:', error);
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao processar a solicitação de recuperação de senha.',
+        message,
       });
     }
   },
@@ -38,12 +42,14 @@ export const authController = {
     const { newPassword } = req.body;
     try {
       const result = await authService.resetPassword({ token, newPassword });
-      handleServiceResponse(res, result, 200, 401);
+      handleServiceResponse(res, result, 200, AuthErrors);
     } catch (error) {
       console.error('Erro ao redefinir senha:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao redefinir senha.',
+        message,
       });
     }
   },

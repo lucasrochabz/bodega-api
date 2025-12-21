@@ -5,7 +5,7 @@ import { ordersService } from '../services/ordersService';
 vi.mock('../services/ordersService');
 
 describe('ordersController', () => {
-  test('Deve chamar ordersService.getAllOrders e Retornar sucesso', async () => {
+  test('Deve chamar ordersService.getAllOrders', async () => {
     const req = {};
     const res = {
       status: vi.fn(() => res),
@@ -105,6 +105,35 @@ describe('ordersController', () => {
     expect(res.json).toHaveBeenCalledWith({
       success: true,
       message: 'Pedido cadastrado com sucesso.',
+      data: expect.any(Object),
+    });
+  });
+
+  test('Deve chamar ordersService.updateOrder', async () => {
+    const params = { orderId: '123' };
+    const body = { status: 'status' };
+    const req = { params, body };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    ordersService.updateOrder.mockResolvedValue({
+      success: true,
+      message: 'Pedido atualizado com sucesso',
+      data: {},
+    });
+
+    await ordersController.updateOrder(req, res);
+
+    expect(ordersService.updateOrder).toHaveBeenCalledWith({
+      orderId: params.orderId,
+      status: body.status,
+    });
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Pedido atualizado com sucesso',
       data: expect.any(Object),
     });
   });

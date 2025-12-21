@@ -99,9 +99,12 @@ export const usersService = {
     }
   },
 
-  updateUser: async (userId, userData) => {
+  updateUser: async ({ userId, userData }) => {
     try {
-      const userUpdated = await usersRepository.updateById(userId, userData);
+      const userUpdated = await usersRepository.updateById({
+        userId,
+        userData,
+      });
 
       if (userUpdated.affectedRows === 0) {
         return { success: false, message: 'Usuário não encontrado.' };

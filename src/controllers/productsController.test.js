@@ -2,30 +2,34 @@ import { vi, describe, test, expect } from 'vitest';
 import { productsController } from './productsController';
 import { productsService } from '../services/productsService';
 
-// Faz o mock do service (para não chamar nada real)
 vi.mock('../services/productsService');
 
 describe('productsCrontroller', () => {
-  test('Deve chamar productsService.getAllProducts com os parâmetros corretos', async () => {
+  test('Deve chamar productsService.getAllProducts', async () => {
     const req = { query: {} };
     const res = {
       status: vi.fn(() => res),
       json: vi.fn(),
     };
 
-    // Simula retorno do service
-    productsService.getAllProducts.mockResolvedValue({ success: true });
+    productsService.getAllProducts.mockResolvedValue({
+      success: true,
+      message: 'Produtos encontrados com sucesso.',
+      data: {},
+    });
 
-    // Executa o método
     await productsController.getAllProducts(req, res);
 
-    // Verifica se foi chamado com os valores esperados
     expect(productsService.getAllProducts).toHaveBeenCalledWith({
       pageNumber: 1,
       pageSizeNumber: 10,
     });
 
-    expect(res.json).toHaveBeenCalledWith({ success: true });
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Produtos encontrados com sucesso.',
+      data: expect.any(Object),
+    });
   });
 
   test('Deve chamar productsService.getProduct', async () => {
@@ -45,10 +49,72 @@ describe('productsCrontroller', () => {
     await productsController.getProduct(req, res);
 
     expect(productsService.getProduct).toHaveBeenCalledWith(params.productId);
+
     expect(res.json).toHaveBeenCalledWith({
       success: true,
       message: 'Produto encontrado com sucesso.',
       data: expect.any(Array),
+    });
+  });
+
+  test('Deve chamar productsService.createProduct', async () => {
+    const body = {
+      name: 'Name',
+      price: '123',
+      description: 'description',
+      stock: '123',
+      status: 'status',
+      image_path: 'name_path',
+    };
+    const req = { body };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    productsService.createProduct.mockResolvedValue({
+      success: true,
+      message: 'Produto cadastrado com sucesso.',
+      data: {},
+    });
+
+    await productsController.createProduct(req, res);
+
+    expect(productsService.createProduct).toHaveBeenCalledWith(body);
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Produto cadastrado com sucesso.',
+      data: expect.any(Object),
+    });
+  });
+
+  test('Deve chamar productsService.updateProduct', async () => {
+    const params = { productId: '123' };
+    const body = { description: 'description' };
+    const req = { params, body };
+    const res = {
+      status: vi.fn(() => res),
+      json: vi.fn(),
+    };
+
+    productsService.updateProduct.mockResolvedValue({
+      success: true,
+      message: 'Produto atualizado com sucesso.',
+      data: {},
+    });
+
+    await productsController.updateProduct(req, res);
+
+    expect(productsService.updateProduct).toHaveBeenCalledWith({
+      productId: params.productId,
+      description: body.description,
+    });
+
+    expect(res.json).toHaveBeenCalledWith({
+      success: true,
+      message: 'Produto atualizado com sucesso.',
+      data: expect.any(Object),
     });
   });
 

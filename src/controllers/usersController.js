@@ -1,5 +1,5 @@
 import { usersService } from '../services/usersService.js';
-import handleServiceResponse from '../helpers/handleServiceResponse.js';
+import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
 
 export const usersController = {
   getAllUsers: async (req, res) => {
@@ -72,7 +72,7 @@ export const usersController = {
     const userData = req.body;
 
     try {
-      const updatedUser = await usersService.updateUser(userId, userData);
+      const updatedUser = await usersService.updateUser({ userId, userData });
       handleServiceResponse(res, updatedUser, 200, 404);
     } catch (error) {
       console.error('Erro ao atualizar usuário:', error);
