@@ -1,13 +1,13 @@
 import Joi from 'joi';
 
 export const userSchema = Joi.object({
-  first_name: Joi.string().max(100).required().messages({
+  firstName: Joi.string().max(100).required().messages({
     'string.empty': 'Nome não pode ser vazio.',
     'string.max': 'Nome deve ter no máximo 100 caracteres.',
     'any.required': 'Nome é obrigatório.',
   }),
 
-  last_name: Joi.string().max(200).required().messages({
+  lastName: Joi.string().max(200).required().messages({
     'string.empty': 'Sobrenome não pode ser vazio.',
     'string.max': 'Sobrenome deve ter no máximo 200 caracteres.',
     'any.required': 'Sobrenome é obrigatório.',
@@ -25,7 +25,7 @@ export const userSchema = Joi.object({
     'any.required': 'Senha é obrigatório.',
   }),
 
-  zip_code: Joi.string().length(8).pattern(/^\d+$/).required().messages({
+  zipCode: Joi.string().length(8).pattern(/^\d+$/).required().messages({
     'string.empty': 'CEP não pode ser vazio.',
     'string.length': 'CEP deve ter exatamente 8 dígitos.',
     'string.pattern.base': 'CEP deve conter apenas números.',
@@ -61,4 +61,4 @@ export const userSchema = Joi.object({
     'string.uppercase': 'Estado deve estar em letras maiúsculas.',
     'any.required': 'Estado é obrigatório.',
   }),
-});
+}).prefs({ stripUnknown: true });

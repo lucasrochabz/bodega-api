@@ -55,6 +55,9 @@ export const productsController = {
     }, {});
 
     try {
+      // req.body JÁ vem validado, normalizado e sem campos extras
+      // fix: const productData = craeteProductDTO(req.body);
+
       const result = await productsService.createProduct(productData);
       handleServiceResponse(res, result, 201, 400);
     } catch (error) {

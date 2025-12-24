@@ -31,25 +31,26 @@ export const usersController = {
 
   createUser: async (req, res) => {
     const {
-      first_name,
-      last_name,
+      firstName,
+      lastName,
       email,
       password,
-      zip_code,
+      zipCode,
       street,
       number,
       neighborhood,
       city,
       state,
     } = req.body;
+    // fix: const userData = createUserDTO(req.body)
 
     try {
       const result = await usersService.createUser({
-        first_name,
-        last_name,
+        first_name: firstName,
+        last_name: lastName,
         email,
         password,
-        zip_code,
+        zip_code: zipCode,
         street,
         number,
         neighborhood,
