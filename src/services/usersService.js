@@ -73,28 +73,20 @@ export const usersService = {
   },
 
   updateUser: async ({ userId, userData }) => {
-    try {
-      const userUpdated = await usersRepository.updateById({
-        userId,
-        userData,
-      });
+    const userUpdated = await usersRepository.updateById({
+      userId,
+      userData,
+    });
 
-      if (userUpdated.affectedRows === 0) {
-        return { success: false, message: 'Usuário não encontrado.' };
-      }
-
-      return {
-        success: true,
-        message: 'Usuário atualizado com sucesso',
-        data: { id: userId, name: userData.name },
-      };
-    } catch (error) {
-      console.error('Erro no Service ao atualizar usuário:', error);
-      return {
-        success: false,
-        message: 'Erro no Service ao atualizar usuário.',
-      };
+    if (userUpdated.affectedRows === 0) {
+      return { success: false, error: 'USER_NOT_FOUND' };
     }
+
+    return {
+      success: true,
+      message: 'Usuário atualizado com sucesso',
+      data: { id: userId, name: userData.name },
+    };
   },
 
   deleteUser: async (userId) => {

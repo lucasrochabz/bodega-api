@@ -82,12 +82,14 @@ export const usersController = {
 
     try {
       const updatedUser = await usersService.updateUser({ userId, userData });
-      handleServiceResponse(res, updatedUser, 200, 404);
+      handleServiceResponse(res, updatedUser, 200, UsersErrors);
     } catch (error) {
       console.error('Erro ao atualizar usuário:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao atualizar usuário.',
+        message,
       });
     }
   },

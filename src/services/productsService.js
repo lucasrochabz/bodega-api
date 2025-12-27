@@ -56,30 +56,21 @@ export const productsService = {
     };
   },
 
-  // fix: Atualizar essa função do service
   updateProduct: async ({ productId, description }) => {
-    try {
-      const product = await productsRepository.updateById({
-        productId,
-        description,
-      });
+    const product = await productsRepository.updateById({
+      productId,
+      description,
+    });
 
-      if (product.affectedRows === 0) {
-        return { success: false, message: 'Produto não encontrado.' };
-      }
-
-      return {
-        success: true,
-        message: 'Produto atualizado com sucesso.',
-        data: { id: productId, description },
-      };
-    } catch (error) {
-      console.error('Erro no Service ao atualizar produto:', error);
-      return {
-        success: false,
-        message: 'Erro no Service ao atualizar produto.',
-      };
+    if (product.affectedRows === 0) {
+      return { success: false, error: 'PRODUCT_NOT_FOUND' };
     }
+
+    return {
+      success: true,
+      message: 'Produto atualizado com sucesso.',
+      data: { id: productId, description },
+    };
   },
 
   deleteProduct: async (productId) => {

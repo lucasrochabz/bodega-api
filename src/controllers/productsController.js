@@ -70,7 +70,7 @@ export const productsController = {
       console.error('Erro ao cadastrar produto:', error);
 
       const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      res.status(statusCode).json({
+      return res.status(statusCode).json({
         success: false,
         message,
       });
@@ -87,12 +87,14 @@ export const productsController = {
         description,
       });
 
-      handleServiceResponse(res, updatedProduct, 200, 400);
+      handleServiceResponse(res, updatedProduct, 200, ProductsErrors);
     } catch (error) {
       console.error('Erro ao atualizar produto:', error);
-      return res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao atualizar produto.',
+        message,
       });
     }
   },

@@ -68,10 +68,10 @@ export const usersRepository = {
       WHERE users.id = ?
     `;
     const params = [
-      userData.first_name,
-      userData.last_name,
+      userData.firstName,
+      userData.lastName,
       userData.email,
-      userData.zip_code,
+      userData.zipCode,
       userData.street,
       userData.number,
       userData.neighborhood,

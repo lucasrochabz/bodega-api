@@ -13,9 +13,4 @@ export const UsersErrors = {
     statusCode: 400,
     message: 'Usuário não cadastrado.',
   },
-
-  // USER_ORDERS_NOT_FOUND: {
-  //   statusCode: 404,
-  //   message: 'Produto(s) do usuário não encontrado(s).',
-  // },
 };
