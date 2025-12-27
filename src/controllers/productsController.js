@@ -1,5 +1,7 @@
 import { productsService } from '../services/productsService.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
+import { ProductsErrors } from '../errors/productsErrors.js';
+import { CommonErrors } from '../errors/commonErrors.js';
 
 export const productsController = {
   getAllProducts: async (req, res) => {
@@ -13,12 +15,14 @@ export const productsController = {
         pageSizeNumber,
       });
 
-      handleServiceResponse(res, productsResult, 200, 404);
+      handleServiceResponse(res, productsResult, 200, ProductsErrors);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao buscar produtos.',
+        message,
       });
     }
   },
@@ -27,12 +31,14 @@ export const productsController = {
     const { productId } = req.params;
     try {
       const productResult = await productsService.getProduct(productId);
-      handleServiceResponse(res, productResult, 200, 404);
+      handleServiceResponse(res, productResult, 200, ProductsErrors);
     } catch (error) {
       console.error('Erro ao buscar produto:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode, message).json({
         success: false,
-        message: 'Erro ao buscar produto.',
+        message,
       });
     }
   },
@@ -59,16 +65,19 @@ export const productsController = {
       // fix: const productData = craeteProductDTO(req.body);
 
       const result = await productsService.createProduct(productData);
-      handleServiceResponse(res, result, 201, 400);
+      handleServiceResponse(res, result, 201, ProductsErrors);
     } catch (error) {
       console.error('Erro ao cadastrar produto:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      res.status(statusCode).json({
         success: false,
-        message: 'Erro ao cadastrar produto.',
+        message,
       });
     }
   },
 
+  // fix: quando fizer atualizar o service atualizar o controller
   updateProduct: async (req, res) => {
     const { productId } = req.params;
     const { description } = req.body;
@@ -81,7 +90,7 @@ export const productsController = {
       handleServiceResponse(res, updatedProduct, 200, 400);
     } catch (error) {
       console.error('Erro ao atualizar produto:', error);
-      res.status(500).json({
+      return res.status(500).json({
         success: false,
         message: 'Erro ao atualizar produto.',
       });
@@ -92,12 +101,14 @@ export const productsController = {
     const { productId } = req.params;
     try {
       const deletedProduct = await productsService.deleteProduct(productId);
-      handleServiceResponse(res, deletedProduct, 200, 404);
+      handleServiceResponse(res, deletedProduct, 200, ProductsErrors);
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao deletar produto.',
+        message,
       });
     }
   },

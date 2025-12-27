@@ -1,16 +1,20 @@
 import { usersService } from '../services/usersService.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
+import { UsersErrors } from '../errors/usersErrors.js';
+import { CommonErrors } from '../errors/commonErrors.js';
 
 export const usersController = {
   getAllUsers: async (req, res) => {
     try {
       const usersResult = await usersService.getAllUsers();
-      handleServiceResponse(res, usersResult, 200, 404);
+      handleServiceResponse(res, usersResult, 200, UsersErrors);
     } catch (error) {
       console.error('Erro ao buscar usuários:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao buscar usuários.',
+        message,
       });
     }
   },
@@ -19,12 +23,14 @@ export const usersController = {
     const userId = req.user.id;
     try {
       const userResult = await usersService.getUser(userId);
-      handleServiceResponse(res, userResult, 200, 404);
+      handleServiceResponse(res, userResult, 200, UsersErrors);
     } catch (error) {
       console.error('Erro ao buscar usuário:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao buscar usuário.',
+        message,
       });
     }
   },
@@ -58,12 +64,14 @@ export const usersController = {
         state,
       });
 
-      handleServiceResponse(res, result, 201, 404);
+      handleServiceResponse(res, result, 201, UsersErrors);
     } catch (error) {
       console.error('Erro ao cadastrar usuário:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao cadastrar usuário.',
+        message,
       });
     }
   },
@@ -88,12 +96,14 @@ export const usersController = {
     const { userId } = req.params;
     try {
       const deletedUser = await usersService.deleteUser(userId);
-      handleServiceResponse(res, deletedUser, 200, 404);
+      handleServiceResponse(res, deletedUser, 200, UsersErrors);
     } catch (error) {
       console.error('Erro ao deletar usuário:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao deletar usuário.',
+        message,
       });
     }
   },
