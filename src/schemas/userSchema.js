@@ -13,7 +13,7 @@ export const userSchema = Joi.object({
     'any.required': 'Sobrenome é obrigatório.',
   }),
 
-  email: Joi.string().email().required().messages({
+  email: Joi.string().email().lowercase().required().messages({
     'string.empty': 'Email não pode ser vazio.',
     'string.email': 'Email inválido.',
     'any.required': 'Email é obrigatório.',

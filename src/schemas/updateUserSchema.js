@@ -9,7 +9,7 @@ export const updateUserSchema = Joi.object({
     'string.empty': 'Sobrenome não pode ser vazio.',
     'string.max': 'Sobrenome deve ter no máximo 200 caracteres.',
   }),
-  email: Joi.string().email().messages({
+  email: Joi.string().email().lowercase().messages({
     'string.empty': 'Email não pode ser vazio.',
     'string.email': 'Email inválido.',
   }),

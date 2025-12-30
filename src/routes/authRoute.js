@@ -7,8 +7,11 @@ import { forgotPasswordSchema } from '../schemas/forgotPasswordSchema.js';
 import { tokenSchema } from '../schemas/tokenSchema.js';
 import { resetPasswordSchema } from '../schemas/resetPasswordSchema.js';
 import { authController } from '../controllers/authController.js';
+import { authenticate } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
+// fix: add rota '/me'
+router.get('/me', authenticate, authController.getMe);
 
 router.post(
   '/login',

@@ -124,15 +124,19 @@ bodega-api/
 │   │   └── controller.test.js
 │   │
 │   ├── database/
+│   ├── dtos/
 │   ├── env/
+│   ├── errors/
 │   ├── helpers/
 │   │   ├── executeQuery.js
+│   │   ├── handleServiceResponse.js
 │   │   └── inputValidationHelper.js
 │   │
 │   ├── middlewares/
 │   ├── models/
 │   ├── repositories/
 │   ├── routes/
+│   ├── schemas/
 │   ├── services/
 │   ├── swagger/
 │   ├── utils/
