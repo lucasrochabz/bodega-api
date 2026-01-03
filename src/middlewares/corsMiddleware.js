@@ -4,6 +4,8 @@ const allowedOrigins = [
   process.env.ORIGIN_DEV,
   process.env.ORIGIN_BUILD,
   process.env.ORIGIN_PROD,
+  // fix: remover isso
+  'http://localhost',
 ];
 
 const allowedHeaders = ['Content-Type', 'Authorization'];
