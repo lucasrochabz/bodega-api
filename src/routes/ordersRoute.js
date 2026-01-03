@@ -8,10 +8,12 @@ const router = express.Router();
 
 router.get('/', authenticate, authorizeAdmin, ordersController.getAllOrders);
 router.get('/user', authenticate, ordersController.getUserOrders);
+// fix: proteger essa rota
 router.get('/:orderId', ordersController.getOrderDetails);
 
 router.post('/', authenticate, ordersController.createOrder);
 
+// fix: proteger essa rota
 router.put(
   '/:orderId',
   validateBody(orderSchema),

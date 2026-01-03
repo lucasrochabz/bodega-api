@@ -61,12 +61,14 @@ export const ordersController = {
         products,
       });
 
-      handleServiceResponse(res, newOrder, 201, 404);
+      handleServiceResponse(res, newOrder, 201, OrdersErrors);
     } catch (error) {
       console.error('Erro ao cadastrar pedido:', error);
-      res.status(500).json({
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
         success: false,
-        message: 'Erro ao cadastrar pedido.',
+        message,
       });
     }
   },

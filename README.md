@@ -1,4 +1,4 @@
-# Bodega API v1.3.1
+# Bodega API v1.5.1
 
 ![Imagem do projeto](docs/bodega-api01.png)
 
@@ -124,15 +124,19 @@ bodega-api/
 │   │   └── controller.test.js
 │   │
 │   ├── database/
+│   ├── dtos/
 │   ├── env/
+│   ├── errors/
 │   ├── helpers/
 │   │   ├── executeQuery.js
+│   │   ├── handleServiceResponse.js
 │   │   └── inputValidationHelper.js
 │   │
 │   ├── middlewares/
 │   ├── models/
 │   ├── repositories/
 │   ├── routes/
+│   ├── schemas/
 │   ├── services/
 │   ├── swagger/
 │   ├── utils/

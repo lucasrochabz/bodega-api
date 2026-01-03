@@ -4,6 +4,22 @@ import { AuthErrors } from '../errors/authErrors.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
 export const authController = {
+  getMe: async (req, res) => {
+    const userId = req.user.id;
+    try {
+      const result = await authService.getMe(userId);
+      handleServiceResponse(res, result, 200, AuthErrors);
+    } catch (error) {
+      console.error('Erro buscar dados do usuário.');
+
+      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
+      return res.status(statusCode).json({
+        success: false,
+        message,
+      });
+    }
+  },
+
   login: async (req, res) => {
     const { email, password } = req.body;
     try {

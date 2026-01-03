@@ -2,9 +2,11 @@ import { vi, describe, test, expect } from 'vitest';
 import { usersController } from './usersController';
 import { usersService } from '../services/usersService';
 import { handleServiceResponse } from '../helpers/handleServiceResponse';
+import { UsersErrors } from '../errors/usersErrors';
 
 vi.mock('../services/usersService');
 vi.mock('../helpers/handleServiceResponse');
+vi.mock('../errors/usersErrors');
 
 describe('usersController', () => {
   test('Deve chamar usersService.getAllUsers', async () => {
@@ -28,7 +30,7 @@ describe('usersController', () => {
       res,
       resultMock,
       200,
-      404,
+      UsersErrors,
     );
   });
 
@@ -55,17 +57,17 @@ describe('usersController', () => {
       res,
       resultMock,
       200,
-      404,
+      UsersErrors,
     );
   });
 
   test('Deve chamar usersService.createUser', async () => {
     const body = {
-      first_name: 'Name',
-      last_name: 'Teste',
+      firstName: 'Name',
+      lastName: 'Teste',
       email: 'teste@email.com',
       password: '123456',
-      zip_code: '60000000',
+      zipCode: '60000000',
       street: 'Rua Teste',
       number: '123',
       neighborhood: 'Bairro',
@@ -99,13 +101,24 @@ describe('usersController', () => {
 
     await usersController.createUser(req, res);
 
-    expect(usersService.createUser).toHaveBeenCalledWith(body);
+    expect(usersService.createUser).toHaveBeenCalledWith({
+      first_name: 'Name',
+      last_name: 'Teste',
+      email: 'teste@email.com',
+      password: '123456',
+      zip_code: '60000000',
+      street: 'Rua Teste',
+      number: '123',
+      neighborhood: 'Bairro',
+      city: 'Cidade',
+      state: 'Estado',
+    });
 
     expect(handleServiceResponse).toHaveBeenCalledWith(
       res,
       resultMock,
       201,
-      404,
+      UsersErrors,
     );
   });
 
@@ -137,7 +150,7 @@ describe('usersController', () => {
       res,
       resultMock,
       200,
-      404,
+      UsersErrors,
     );
   });
 
@@ -165,7 +178,7 @@ describe('usersController', () => {
       res,
       resultMock,
       200,
-      404,
+      UsersErrors,
     );
   });
 });

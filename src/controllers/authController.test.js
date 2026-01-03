@@ -32,7 +32,7 @@ describe('authController', () => {
   });
 
   test('Deve chamar authService.forgotPassword', async () => {
-    const body = { email: 'teste@email.com' };
+    const body = { email: 'teste@email.com', origin: 'http://localhost:3000' };
     const req = { body };
     const res = {
       status: vi.fn(() => res),
@@ -47,7 +47,10 @@ describe('authController', () => {
 
     await authController.forgotPassword(req, res);
 
-    expect(authService.forgotPassword).toHaveBeenCalledWith(body.email);
+    expect(authService.forgotPassword).toHaveBeenCalledWith({
+      email: body.email,
+      origin: body.origin,
+    });
 
     expect(res.json).toHaveBeenCalledWith({
       success: true,

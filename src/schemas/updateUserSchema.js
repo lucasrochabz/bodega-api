@@ -1,19 +1,19 @@
 import Joi from 'joi';
 
 export const updateUserSchema = Joi.object({
-  first_name: Joi.string().max(100).messages({
+  firstName: Joi.string().max(100).messages({
     'string.empty': 'Nome não pode ser vazio.',
     'string.max': 'Nome deve ter no máximo 100 caracteres.',
   }),
-  last_name: Joi.string().max(200).messages({
+  lastName: Joi.string().max(200).messages({
     'string.empty': 'Sobrenome não pode ser vazio.',
     'string.max': 'Sobrenome deve ter no máximo 200 caracteres.',
   }),
-  email: Joi.string().email().messages({
+  email: Joi.string().email().lowercase().messages({
     'string.empty': 'Email não pode ser vazio.',
     'string.email': 'Email inválido.',
   }),
-  zip_code: Joi.string().length(8).pattern(/^\d+$/).messages({
+  zipCode: Joi.string().length(8).pattern(/^\d+$/).messages({
     'string.empty': 'CEP não pode ser vazio.',
     'string.length': 'CEP deve ter exatamente 8 dígitos.',
     'string.pattern.base': 'CEP deve conter apenas números.',

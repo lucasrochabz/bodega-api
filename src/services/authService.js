@@ -1,4 +1,5 @@
 import { usersRepository } from '../repositories/usersRepository.js';
+import { addressesRepository } from '../repositories/addressesRepository.js';
 import { compareHash, generateHash } from '../utils/hashUtils.js';
 import {
   generateResetToken,
@@ -8,6 +9,26 @@ import {
 import User from '../models/usersModel.js';
 
 export const authService = {
+  getMe: async (userId) => {
+    const userResult = await usersRepository.findByUserId(userId);
+    const addressResult = await addressesRepository.findByUserId(userId);
+
+    if (userResult.length === 0 || addressResult.length === 0) {
+      return { success: false, error: 'USER_NOT_FOUND' };
+    }
+
+    const userData = {
+      ...userResult[0],
+      address: addressResult[0],
+    };
+
+    return {
+      success: true,
+      message: 'Usuário encontrado com sucesso.',
+      data: userData,
+    };
+  },
+
   login: async ({ email, password }) => {
     const user = await usersRepository.findByEmail(email);
 
