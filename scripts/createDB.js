@@ -1,4 +1,4 @@
-import '../src/env/index.js';
+import '../src/config/env.js';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import fs from 'node:fs/promises';

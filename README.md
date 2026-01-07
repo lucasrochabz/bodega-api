@@ -115,6 +115,7 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
 ```bash
 bodega-api/
 ├── scripts/
+│   ├── git/
 │   ├── createDB.js
 │   ├── createTables.js
 │   └── insertData.js
@@ -138,13 +139,13 @@ bodega-api/
 │       └── 5_orders_products_data.sql
 │
 ├── src/
+│   ├── config/
 │   ├── controllers/
 │   │   ├── controller.js
 │   │   └── controller.test.js
 │   │
 │   ├── database/
 │   ├── dtos/
-│   ├── env/
 │   ├── errors/
 │   ├── helpers/
 │   │   ├── executeQuery.js
