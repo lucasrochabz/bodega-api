@@ -13,11 +13,30 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
 
 ## Tecnologias
 
-- **Node.js**: Ambiente de execução JavaScript.
-- **Express**: Framework web para Node.js.
-- **Json Web Token**: Mecanismo de autenticação baseado em tokens.
-- **Bcrypt**: Biblioteca para hash e criptografia de senhas.
-- **MySQL**: Banco de dados relacional.
+### Backend
+
+- **Node.js** — Ambiente de execução JavaScript (Runtime).
+- **Express** — Framework para construção de APIs REST.
+
+### Banco de Dados
+
+- **MySQL** — Banco de dados relacional.
+
+### Autenticação e Segurança
+
+- **JWT (JSON Web Token)** — Autenticação baseada em tokens.
+- **Bcrypt** — Biblioteca para hash e criptografia de senhas.
+- **Rate Limit (Express Rate Limit)** — Middleware para limitar requisições e prevenir ataques.
+
+### Validação e Documentação
+
+- **Joi** — Validação e sanitização de dados.
+- **Swagger** — Documentação interativa da API.
+
+### Infraestrutura e Qualidade
+
+- **Docker** — Padronização e execução do ambiente.
+- **Vitest** — Testes automatizados.
 
 ## Requisitos
 
@@ -137,6 +156,12 @@ bodega-api/
 │   ├── repositories/
 │   ├── routes/
 │   ├── schemas/
+│   │   ├── auth/
+│   │   ├── orders/
+│   │   ├── products/
+│   │   ├── shared/
+│   │   └── users/
+│   │
 │   ├── services/
 │   ├── swagger/
 │   ├── utils/
