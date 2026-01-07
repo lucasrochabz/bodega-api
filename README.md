@@ -4,11 +4,11 @@
 
 ## Sobre
 
-A **Bodega API** é uma **API REST** que simula o Back-end de um e-commerce, desenvolvido com **Node.js** e **Express**. Ela fornece recursos para autenticação de usuários, gerenciamento de produtos e pedidos, além da consulta ao histórico de compras.
+A **Bodega API** é uma **API REST** que simula o Backend de um e-commerce, desenvolvido com **Node.js** e **Express**. Ela fornece recursos para autenticação de usuários, gerenciamento de produtos e pedidos, além da consulta ao histórico de compras.
 
 A autenticação é feita via **JWT**, com senhas protegidas por **bcrypt**, e os dados são armazenados em um banco **MySQL**.
 
-Está API é consumida pelo Front-end do projeto Bodega, desenvolvido em **React**, disponível em: [Bodega](https://github.com/lucasrochabz/bodega).
+Está API é consumida pelo Frontend do projeto **Bodega**, desenvolvido em **React**, disponível em: [Bodega](https://github.com/lucasrochabz/bodega).
 
 A aplicação segue boas práticas de desenvolvimento, segurança e padronização de código.
 
@@ -18,7 +18,7 @@ A aplicação segue boas práticas de desenvolvimento, segurança e padronizaç�
 - Cadastro e login de usuários
 - Listagem de produtos
 - Criação e consulta de pedidos
-- Histórico de compras do usuário
+- Histórico de compras por usuário
 
 ## Tecnologias
 
@@ -49,9 +49,9 @@ A aplicação segue boas práticas de desenvolvimento, segurança e padronizaç�
 
 ## Requisitos
 
-- Node.js na versão versão 16.0 ou superior
-- NPM na versão versão 10.9 ou superior
-- MySQL na versão versão 8.0 ou superior
+- **Node.js** na versão 16.0 ou superior
+- **NPM** na versão 10.9 ou superior
+- **MySQL** na versão 8.0 ou superior
 
 ## Rodando localmente
 
@@ -158,8 +158,7 @@ bodega-api/
 │   ├── errors/
 │   ├── helpers/
 │   │   ├── executeQuery.js
-│   │   ├── handleServiceResponse.js
-│   │   └── inputValidationHelper.js
+│   │   └── handleServiceResponse.js
 │   │
 │   ├── middlewares/
 │   ├── models/
@@ -173,6 +172,9 @@ bodega-api/
 │   │   └── users/
 │   │
 │   ├── services/
+│   │   ├── services.js
+│   │   └── services.test.js
+│   │
 │   ├── swagger/
 │   ├── utils/
 │   │   ├── hashUtils.js
@@ -191,10 +193,9 @@ bodega-api/
 └── README.md
 ```
 
-## Front-end do Projeto
+## Frontend do Projeto
 
-O Front-end que consome esta API está disponível no repositório:
-[Acesse o repositório do Front-end](https://github.com/lucasrochabz/bodega)
+O Front-end que consome esta API está disponível no repositório: [Acesse o repositório do Frontend](https://github.com/lucasrochabz/bodega)
 
 ## Encontrou algum problema?
 

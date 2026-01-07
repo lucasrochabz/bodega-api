@@ -1,3 +1,4 @@
+// fix: atualizar o service
 export const handleServiceResponse = (res, result, successStatus, errorMap) => {
   if (successStatus === undefined || errorMap === undefined) {
     throw new Error('É preciso informar o successStatus e o errorMap');
