@@ -36,7 +36,7 @@ const executeTables = async () => {
 
       try {
         await connection.query(sql);
-        console.log(`Script ${file} executado com sucesso.`);
+        console.info(`Script ${file} executado com sucesso.`);
       } catch (queryErr) {
         console.error(`Erro ao executar o script ${file}:`, queryErr.message);
       }
