@@ -1,5 +1,6 @@
 import { usersService } from '../services/usersService.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
+import { createUserDTO } from '../dtos/createUserDTO.js';
 import { UsersErrors } from '../errors/usersErrors.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
@@ -36,33 +37,10 @@ export const usersController = {
   },
 
   createUser: async (req, res) => {
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-      zipCode,
-      street,
-      number,
-      neighborhood,
-      city,
-      state,
-    } = req.body;
-    // fix: const userData = createUserDTO(req.body)
+    const userData = createUserDTO(req.body);
 
     try {
-      const result = await usersService.createUser({
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        password,
-        zip_code: zipCode,
-        street,
-        number,
-        neighborhood,
-        city,
-        state,
-      });
+      const result = await usersService.createUser(userData);
 
       handleServiceResponse(res, result, 201, UsersErrors);
     } catch (error) {

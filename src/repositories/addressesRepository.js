@@ -30,19 +30,19 @@ export const addressesRepository = {
     return await executeQuery(query, params, errorMessage);
   },
 
-  insertAddress: async (userId, user) => {
+  insert: async (addressData) => {
     const query = `
       INSERT INTO addresses (user_id, street, number, neighborhood, city, state, zip_code)
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
     const params = [
-      userId,
-      user.street,
-      user.number,
-      user.neighborhood,
-      user.city,
-      user.state,
-      user.zip_code,
+      addressData.user_id,
+      addressData.street,
+      addressData.number,
+      addressData.neighborhood,
+      addressData.city,
+      addressData.state,
+      addressData.zip_code,
     ];
 
     const errorMessage =

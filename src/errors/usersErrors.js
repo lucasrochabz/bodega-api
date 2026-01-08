@@ -13,4 +13,9 @@ export const UsersErrors = {
     statusCode: 400,
     message: 'Usuário não cadastrado.',
   },
+
+  ADDRESS_NOT_CREATED: {
+    statusCode: 400,
+    message: 'Endereço do usuário não cadastrado.',
+  },
 };

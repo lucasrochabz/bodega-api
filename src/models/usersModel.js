@@ -5,12 +5,6 @@ class User {
     last_name,
     email,
     password,
-    street,
-    number,
-    neighborhood,
-    city,
-    state,
-    zip_code,
     role = 'user',
   }) {
     this.id = id;
@@ -18,13 +12,31 @@ class User {
     this.last_name = last_name;
     this.email = email;
     this.password = password;
-    this.street = street;
-    this.number = number;
-    this.neighborhood = neighborhood;
-    this.city = city;
-    this.state = state;
-    this.zip_code = zip_code;
     this.role = role;
+  }
+
+  toPersistence() {
+    return {
+      first_name: this.first_name,
+      last_name: this.last_name,
+      email: this.email,
+      password: this.password,
+      role: this.role,
+    };
+  }
+
+  toPublic() {
+    return {
+      id: this.id,
+      first_name: this.first_name,
+      last_name: this.last_name,
+      email: this.email,
+      role: this.role,
+    };
+  }
+
+  isAdmin() {
+    return this.role === 'admin';
   }
 }
 
