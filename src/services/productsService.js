@@ -1,5 +1,5 @@
 import { productsRepository } from '../repositories/productsRepository.js';
-import Product from '../models/productsModel.js';
+import Product from '../models/productModel.js';
 
 export const productsService = {
   getAllProducts: async ({ pageNumber, pageSizeNumber }) => {

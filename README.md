@@ -162,6 +162,11 @@ bodega-api/
 │   │
 │   ├── middlewares/
 │   ├── models/
+│   │   ├── addressModel.js
+│   │   ├── orderModel.js
+│   │   ├── productModel.js
+│   │   └── userModel.js
+│   │
 │   ├── repositories/
 │   ├── routes/
 │   ├── schemas/

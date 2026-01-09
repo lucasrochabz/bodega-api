@@ -1,7 +1,7 @@
 import { generateHash } from '../utils/hashUtils.js';
 import { addressesRepository } from '../repositories/addressesRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
-import User from '../models/usersModel.js';
+import User from '../models/userModel.js';
 import Address from '../models/addressModel.js';
 
 export const usersService = {
@@ -46,7 +46,7 @@ export const usersService = {
 
     const user = new User({
       ...userData,
-      password: hashedPassword,
+      passwordHash: hashedPassword,
     });
 
     const result = await usersRepository.insert(user.toPersistence());
