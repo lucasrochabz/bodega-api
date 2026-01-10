@@ -1,5 +1,6 @@
 import { productsRepository } from '../repositories/productsRepository.js';
 import Product from '../models/productModel.js';
+import { ProductsErrors } from '../errors/productsErrors.js';
 
 export const productsService = {
   getAllProducts: async ({ pageNumber, pageSizeNumber }) => {
@@ -9,7 +10,10 @@ export const productsService = {
     });
 
     if (products.results.length === 0) {
-      return { success: false, error: 'PRODUCTS_NOT_FOUND' };
+      return {
+        success: false,
+        error: ProductsErrors.PRODUCTS_NOT_FOUND,
+      };
     }
 
     return {
@@ -23,7 +27,10 @@ export const productsService = {
     const product = await productsRepository.findByProductId(productId);
 
     if (product.length === 0) {
-      return { success: false, erro: 'PRODUCT_NOT_FOUND' };
+      return {
+        success: false,
+        error: ProductsErrors.PRODUCT_NOT_FOUND,
+      };
     }
 
     return {
@@ -38,7 +45,10 @@ export const productsService = {
     const result = await productsRepository.insert(product.toPersistence());
 
     if (result.affectedRows === 0) {
-      return { success: false, error: 'PRODUCT_NOT_CREATED' };
+      return {
+        success: false,
+        error: ProductsErrors.PRODUCT_NOT_CREATED,
+      };
     }
 
     product.id = result.insertId;
@@ -57,7 +67,10 @@ export const productsService = {
     });
 
     if (product.affectedRows === 0) {
-      return { success: false, error: 'PRODUCT_NOT_FOUND' };
+      return {
+        success: false,
+        error: ProductsErrors.PRODUCT_NOT_FOUND,
+      };
     }
 
     return {
@@ -71,7 +84,10 @@ export const productsService = {
     const product = await productsRepository.deleteById(productId);
 
     if (product.affectedRows === 0) {
-      return { success: false, error: 'PRODUCT_NOT_FOUND' };
+      return {
+        success: false,
+        error: ProductsErrors.PRODUCT_NOT_FOUND,
+      };
     }
 
     return {

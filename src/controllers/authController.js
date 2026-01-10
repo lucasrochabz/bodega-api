@@ -1,6 +1,5 @@
 import { authService } from '../services/authService.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
-import { AuthErrors } from '../errors/authErrors.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
 export const authController = {
@@ -8,7 +7,7 @@ export const authController = {
     const userId = req.user.id;
     try {
       const result = await authService.getMe(userId);
-      handleServiceResponse(res, result, 200, AuthErrors);
+      handleServiceResponse(res, result, 200);
     } catch (error) {
       console.error('Erro buscar dados do usuário.');
 
@@ -24,7 +23,8 @@ export const authController = {
     const { email, password } = req.body;
     try {
       const userResult = await authService.login({ email, password });
-      handleServiceResponse(res, userResult, 200, AuthErrors);
+      console.log(userResult);
+      handleServiceResponse(res, userResult, 200);
     } catch (error) {
       console.error('Erro ao realizar login:', error);
 

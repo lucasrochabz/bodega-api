@@ -1,22 +1,18 @@
-// fix: atualizar o service
-export const handleServiceResponse = (res, result, successStatus, errorMap) => {
-  if (successStatus === undefined || errorMap === undefined) {
-    throw new Error('É preciso informar o successStatus e o errorMap');
+// fix: remover successStatus
+export const handleServiceResponse = (res, result, successStatus) => {
+  if (successStatus === undefined) {
+    throw new Error('É preciso informar o successStatus.');
   }
 
   if (!result.success) {
-    const error = errorMap[result.error];
+    const { statusCode, message } = result.error ?? {
+      statusCode: 500,
+      message: 'Ocorreu um erro inesperado. Tente novamente mais tarde.',
+    };
 
-    if (!error) {
-      return res.status(500).json({
-        success: false,
-        message: 'Erro de negócio não mapeado.',
-      });
-    }
-
-    return res.status(error.statusCode).json({
+    return res.status(statusCode).json({
       success: false,
-      message: error.message,
+      message,
     });
   }
 

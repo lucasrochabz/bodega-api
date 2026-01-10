@@ -1,13 +1,17 @@
 import { ordersProductsRepository } from '../repositories/ordersProductsRepository.js';
 import { ordersRepository } from '../repositories/ordersRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
+import { OrdersErrors } from '../errors/ordersErrors.js';
 
 export const ordersService = {
   getAllOrders: async () => {
     const orders = await ordersRepository.findAll();
 
     if (orders.length === 0) {
-      return { success: false, error: 'ORDERS_NOT_FOUND' };
+      return {
+        success: false,
+        error: OrdersErrors.ORDERS_NOT_FOUND,
+      };
     }
 
     return {
@@ -23,7 +27,7 @@ export const ordersService = {
     if (userOrders.length === 0) {
       return {
         success: false,
-        error: 'USER_ORDERS_NOT_FOUND',
+        error: OrdersErrors.USER_ORDERS_NOT_FOUND,
       };
     }
 
@@ -38,7 +42,10 @@ export const ordersService = {
     const orderResults = await ordersRepository.findById(orderId);
 
     if (orderResults.length === 0) {
-      return { success: false, error: 'ORDER_NOT_FOUND' };
+      return {
+        success: false,
+        error: OrdersErrors.ORDER_NOT_FOUND,
+      };
     }
 
     return {
@@ -54,7 +61,7 @@ export const ordersService = {
     if (!addressId) {
       return {
         success: false,
-        error: 'ADDRESS_NOT_FOUND',
+        error: OrdersErrors.ADDRESS_NOT_FOUND,
       };
     }
 
@@ -67,7 +74,7 @@ export const ordersService = {
     if (!orderId) {
       return {
         success: false,
-        error: 'ORDER_NOT_CREATED',
+        error: OrdersErrors.ORDER_NOT_CREATED,
       };
     }
 
@@ -84,7 +91,7 @@ export const ordersService = {
     if (isProductsInserted.affectedRows === 0) {
       return {
         success: false,
-        error: 'ORDER_PRODUCTS_NOT_CREATED',
+        error: OrdersErrors.ORDER_PRODUCTS_NOT_CREATED,
       };
     }
 
@@ -99,7 +106,10 @@ export const ordersService = {
     const order = await ordersRepository.updateById({ orderId, status });
 
     if (order.affectedRows === 0) {
-      return { success: false, error: 'ORDER_NOT_FOUND' };
+      return {
+        success: false,
+        error: OrdersErrors.ORDER_NOT_FOUND,
+      };
     }
 
     return {
@@ -113,7 +123,10 @@ export const ordersService = {
     const order = await ordersRepository.deleteById(orderId);
 
     if (order.affectedRows === 0) {
-      return { success: false, error: 'ORDER_NOT_FOUND' };
+      return {
+        success: false,
+        error: OrdersErrors.ORDER_NOT_FOUND,
+      };
     }
 
     return {

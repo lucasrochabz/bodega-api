@@ -1,6 +1,5 @@
 import { productsService } from '../services/productsService.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
-import { ProductsErrors } from '../errors/productsErrors.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
 export const productsController = {
@@ -15,7 +14,7 @@ export const productsController = {
         pageSizeNumber,
       });
 
-      handleServiceResponse(res, productsResult, 200, ProductsErrors);
+      handleServiceResponse(res, productsResult, 200);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
 
@@ -31,7 +30,7 @@ export const productsController = {
     const { productId } = req.params;
     try {
       const productResult = await productsService.getProduct(productId);
-      handleServiceResponse(res, productResult, 200, ProductsErrors);
+      handleServiceResponse(res, productResult, 200);
     } catch (error) {
       console.error('Erro ao buscar produto:', error);
 
@@ -65,7 +64,7 @@ export const productsController = {
       // fix: const productData = craeteProductDTO(req.body);
 
       const result = await productsService.createProduct(productData);
-      handleServiceResponse(res, result, 201, ProductsErrors);
+      handleServiceResponse(res, result, 201);
     } catch (error) {
       console.error('Erro ao cadastrar produto:', error);
 
@@ -87,7 +86,7 @@ export const productsController = {
         description,
       });
 
-      handleServiceResponse(res, updatedProduct, 200, ProductsErrors);
+      handleServiceResponse(res, updatedProduct, 200);
     } catch (error) {
       console.error('Erro ao atualizar produto:', error);
 
@@ -103,7 +102,7 @@ export const productsController = {
     const { productId } = req.params;
     try {
       const deletedProduct = await productsService.deleteProduct(productId);
-      handleServiceResponse(res, deletedProduct, 200, ProductsErrors);
+      handleServiceResponse(res, deletedProduct, 200);
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
 

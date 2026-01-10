@@ -3,13 +3,17 @@ import { addressesRepository } from '../repositories/addressesRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
 import User from '../models/userModel.js';
 import Address from '../models/addressModel.js';
+import { UsersErrors } from '../errors/usersErrors.js';
 
 export const usersService = {
   getAllUsers: async () => {
     const users = await usersRepository.findAll();
 
     if (users.length === 0) {
-      return { success: false, error: 'USERS_NOT_FOUND' };
+      return {
+        success: false,
+        error: UsersErrors.USERS_NOT_FOUND,
+      };
     }
 
     return {
@@ -25,7 +29,10 @@ export const usersService = {
     const addressResult = await addressesRepository.findByUserId(userId);
 
     if (userResult.length === 0 || addressResult.length === 0) {
-      return { success: false, error: 'USER_NOT_FOUND' };
+      return {
+        success: false,
+        error: UsersErrors.USER_NOT_FOUND,
+      };
     }
 
     const user = {
@@ -52,7 +59,10 @@ export const usersService = {
     const result = await usersRepository.insert(user.toPersistence());
 
     if (result.affectedRows === 0) {
-      return { success: false, error: 'USER_NOT_CREATED' };
+      return {
+        success: false,
+        error: UsersErrors.USER_NOT_CREATED,
+      };
     }
 
     user.id = result.insertId;
@@ -85,7 +95,10 @@ export const usersService = {
     });
 
     if (userUpdated.affectedRows === 0) {
-      return { success: false, error: 'USER_NOT_FOUND' };
+      return {
+        success: false,
+        error: UsersErrors.USER_NOT_FOUND,
+      };
     }
 
     return {
@@ -99,7 +112,10 @@ export const usersService = {
     const userRemoved = await usersRepository.deleteById(userId);
 
     if (userRemoved.affectedRows === 0) {
-      return { success: false, error: 'USER_NOT_FOUND' };
+      return {
+        success: false,
+        error: UsersErrors.USER_NOT_FOUND,
+      };
     }
 
     return {
