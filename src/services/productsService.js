@@ -35,24 +35,18 @@ export const productsService = {
 
   createProduct: async (productData) => {
     const product = new Product(productData);
-    const newProduct = await productsRepository.insert(product);
+    const result = await productsRepository.insert(product.toPersistence());
 
-    if (newProduct.affectedRows === 0) {
+    if (result.affectedRows === 0) {
       return { success: false, error: 'PRODUCT_NOT_CREATED' };
     }
+
+    product.id = result.insertId;
 
     return {
       success: true,
       message: 'Produto cadastrado com sucesso.',
-      data: {
-        id: newProduct.insertId,
-        name: product.name,
-        price: product.price,
-        description: product.description,
-        stock: product.stock,
-        status: product.status,
-        image_path: product.image_path,
-      },
+      data: product.toPublic(),
     };
   },
 

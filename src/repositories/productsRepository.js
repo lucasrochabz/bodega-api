@@ -9,9 +9,8 @@ export const productsRepository = {
       AS total
       FROM products
     `;
-    const countErrorMessage = 'Erro ao contar produtos no Banco de Dados';
 
-    const countResults = await executeQuery(countQuery, countErrorMessage);
+    const countResults = await executeQuery(countQuery);
     const totalProducts = countResults[0].total;
     const totalPages = Math.ceil(totalProducts / pageSizeNumber);
 
@@ -22,9 +21,7 @@ export const productsRepository = {
     `;
     const params = [pageSizeNumber, offset];
 
-    const errorMessage = 'Erro ao buscar produtos no Banco de Dados';
-
-    const results = await executeQuery(fetchQuery, params, errorMessage);
+    const results = await executeQuery(fetchQuery, params);
     return { results, totalPages };
   },
 
@@ -35,28 +32,24 @@ export const productsRepository = {
     `;
     const params = [productID];
 
-    const errorMessage = 'Erro ao buscar produto no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 
-  insert: async (newProduct) => {
+  insert: async (productData) => {
     const query = `
       INSERT INTO products (name, price, description, stock, status, image_path)
       VALUES (?, ?, ?, ?, ?, ?)
     `;
     const params = [
-      newProduct.name,
-      newProduct.price,
-      newProduct.description,
-      newProduct.stock,
-      newProduct.status,
-      newProduct.image_path,
+      productData.name,
+      productData.price,
+      productData.description,
+      productData.stock,
+      productData.status,
+      productData.image_path,
     ];
 
-    const errorMessage = 'Erro ao cadastrar produto no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 
   updateById: async ({ description, productId }) => {
@@ -67,9 +60,7 @@ export const productsRepository = {
     `;
     const params = [description, productId];
 
-    const errorMessage = 'Erro ao atualizar pedido no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 
   deleteById: async (productId) => {
@@ -78,8 +69,6 @@ export const productsRepository = {
     `;
     const params = [productId];
 
-    const errorMessage = 'Erro ao deletar produto no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 };

@@ -8,7 +8,7 @@ A **Bodega API** é uma **API REST** que simula o Backend de um e-commerce, dese
 
 A autenticação é feita via **JWT**, com senhas protegidas por **bcrypt**, e os dados são armazenados em um banco **MySQL**.
 
-Está API é consumida pelo Frontend do projeto **Bodega**, desenvolvido em **React**, disponível em: [Bodega](https://github.com/lucasrochabz/bodega).
+Esta API é consumida pelo Frontend do projeto **Bodega**, desenvolvido em **React**, disponível em: [Bodega](https://github.com/lucasrochabz/bodega).
 
 A aplicação segue boas práticas de desenvolvimento, segurança e padronização de código.
 

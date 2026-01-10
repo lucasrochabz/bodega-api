@@ -9,10 +9,7 @@ export const addressesRepository = {
     `;
     const params = [addressId];
 
-    const errorMessage =
-      'Erro ao buscar o endereço do usuário no Banco de Dados';
-
-    const results = await executeQuery(query, params, errorMessage);
+    const results = await executeQuery(query, params);
     return results[0];
   },
 
@@ -24,10 +21,7 @@ export const addressesRepository = {
     `;
     const params = [userId];
 
-    const errorMessage =
-      'Erro ao buscar o endereço do usuário no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 
   insert: async (addressData) => {
@@ -45,9 +39,6 @@ export const addressesRepository = {
       addressData.zip_code,
     ];
 
-    const errorMessage =
-      'Erro ao cadastrar endereço do usuário no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 };

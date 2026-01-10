@@ -16,6 +16,29 @@ class Product {
     this.status = status;
     this.image_path = image_path;
   }
+
+  toPersistence() {
+    return {
+      name: this.name,
+      price: this.price,
+      description: this.description,
+      stock: this.stock,
+      status: this.status,
+      image_path: this.image_path,
+    };
+  }
+
+  toPublic() {
+    return {
+      id: this.id,
+      name: this.name,
+      price: this.price,
+      description: this.description,
+      stock: this.stock,
+      status: this.status,
+      image_path: this.image_path,
+    };
+  }
 }
 
 export default Product;

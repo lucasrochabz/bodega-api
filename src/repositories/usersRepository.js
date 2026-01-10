@@ -8,9 +8,7 @@ export const usersRepository = {
     `;
     const params = [email];
 
-    const errorMessage = 'Erro ao verificar usuário no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 
   findAll: async () => {
@@ -19,9 +17,7 @@ export const usersRepository = {
       FROM users
     `;
 
-    const errorMessage = 'Erro ao buscar usuários no Banco de Dados';
-
-    return await executeQuery(query, errorMessage);
+    return await executeQuery(query);
   },
 
   findByUserId: async (userId) => {
@@ -33,9 +29,7 @@ export const usersRepository = {
     `;
     const params = [userId];
 
-    const errorMessage = 'Erro ao buscar usuário no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 
   insert: async (user) => {
@@ -45,9 +39,7 @@ export const usersRepository = {
     `;
     const params = [user.first_name, user.last_name, user.email, user.password];
 
-    const errorMessage = 'Erro ao cadastrar usuário no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 
   updateById: async ({ userId, userData }) => {
@@ -80,9 +72,7 @@ export const usersRepository = {
       userId,
     ];
 
-    const errorMessage = 'Erro ao atualizar usuário no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 
   updatePassword: async ({ hashedPassword, userId }) => {
@@ -94,9 +84,7 @@ export const usersRepository = {
 
     const params = [hashedPassword, userId];
 
-    const errorMessage = 'Erro ao atualizar a senha no Banco de Dados.';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 
   deleteById: async (userId) => {
@@ -105,9 +93,7 @@ export const usersRepository = {
     `;
     const params = [userId];
 
-    const errorMessage = 'Erro ao deletar usuário no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 
   findAddressByUserId: async (userId) => {
@@ -118,9 +104,7 @@ export const usersRepository = {
     `;
     const params = [userId];
 
-    const errorMessage = 'Erro ao buscar endereço do usuário no Banco de Dados';
-
-    const results = await executeQuery(query, params, errorMessage);
+    const results = await executeQuery(query, params);
     return results[0].id;
   },
 };

@@ -8,9 +8,6 @@ export const ordersProductsRepository = {
     `;
     const params = [orderProducts];
 
-    const errorMessage =
-      'Erro ao associar produtos ao pedido no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 };

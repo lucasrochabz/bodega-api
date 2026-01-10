@@ -7,9 +7,7 @@ export const ordersRepository = {
       FROM orders
     `;
 
-    const errorMessage = 'Erro ao buscar pedidos no Banco de Dados';
-
-    return await executeQuery(query, errorMessage);
+    return await executeQuery(query);
   },
 
   findAllByUserId: async (userId) => {
@@ -33,10 +31,7 @@ export const ordersRepository = {
     `;
     const params = [userId];
 
-    const errorMessage =
-      'Erro ao buscar pedido(s) do usuário no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 
   findById: async (orderId) => {
@@ -67,9 +62,7 @@ export const ordersRepository = {
     `;
     const params = [orderId];
 
-    const errorMessage = 'Erro ao buscar pedido no Banco de Dados';
-
-    const result = await executeQuery(query, params, errorMessage);
+    const result = await executeQuery(query, params);
     return result[0];
   },
 
@@ -80,9 +73,7 @@ export const ordersRepository = {
     `;
     const params = [userId, addressId, status];
 
-    const errorMessage = 'Erro ao cadastrar pedido no Banco de Dados';
-
-    const results = await executeQuery(query, params, errorMessage);
+    const results = await executeQuery(query, params);
     return results.insertId;
   },
 
@@ -94,9 +85,7 @@ export const ordersRepository = {
     `;
     const params = [status, orderId];
 
-    const errorMessage = 'Erro ao atualizar pedido no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 
   deleteById: async (orderId) => {
@@ -105,8 +94,6 @@ export const ordersRepository = {
     `;
     const params = [orderId];
 
-    const errorMessage = 'Erro ao deletar pedido no Banco de Dados';
-
-    return await executeQuery(query, params, errorMessage);
+    return await executeQuery(query, params);
   },
 };

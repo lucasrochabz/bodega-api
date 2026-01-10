@@ -6,7 +6,7 @@ import {
   generateToken,
   verifyResetToken,
 } from '../utils/tokenUtils.js';
-import User from '../models/usersModel.js';
+import User from '../models/userModel.js';
 
 export const authService = {
   getMe: async (userId) => {
