@@ -41,7 +41,7 @@ export const ordersService = {
   getOrderDetails: async (orderId) => {
     const orderResults = await ordersRepository.findById(orderId);
 
-    if (orderResults.length === 0) {
+    if (!orderResults) {
       return {
         success: false,
         error: OrdersErrors.ORDER_NOT_FOUND,

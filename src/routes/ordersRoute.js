@@ -7,9 +7,9 @@ import { ordersController } from '../controllers/ordersController.js';
 const router = express.Router();
 
 router.get('/', authenticate, authorizeAdmin, ordersController.getAllOrders);
-router.get('/user', authenticate, ordersController.getUserOrders);
 // fix: proteger essa rota
 router.get('/:orderId', ordersController.getOrderDetails);
+router.get('/user', authenticate, ordersController.getUserOrders);
 
 router.post('/', authenticate, ordersController.createOrder);
 

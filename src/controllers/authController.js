@@ -23,7 +23,6 @@ export const authController = {
     const { email, password } = req.body;
     try {
       const userResult = await authService.login({ email, password });
-      console.log(userResult);
       handleServiceResponse(res, userResult, 200);
     } catch (error) {
       console.error('Erro ao realizar login:', error);
