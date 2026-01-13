@@ -7,10 +7,12 @@ import { ordersController } from '../controllers/ordersController.js';
 const router = express.Router();
 
 router.get('/', authenticate, authorizeAdmin, ordersController.getAllOrders);
+
+// fix: transformar rota em /user/:id ou /user/me
+router.get('/user', authenticate, ordersController.getUserOrders);
+
 // fix: proteger essa rota
 router.get('/:orderId', ordersController.getOrderDetails);
-// fix: pegar teste dessa função, transformar rota em /user/:id
-router.get('/user', authenticate, ordersController.getUserOrders);
 
 // fix: add schema
 router.post('/', authenticate, ordersController.createOrder);

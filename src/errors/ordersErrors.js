@@ -4,14 +4,14 @@ export const OrdersErrors = {
     message: 'Pedidos não encontrados.',
   },
 
-  USER_ORDERS_NOT_FOUND: {
-    statusCode: 404,
-    message: 'Pedido(s) do usuário não encontrado(s).',
-  },
-
   ORDER_NOT_FOUND: {
     statusCode: 404,
     message: 'Pedido não encontrado.',
+  },
+
+  USER_ORDERS_NOT_FOUND: {
+    statusCode: 404,
+    message: 'Pedido(s) do usuário não encontrado(s).',
   },
 
   ADDRESS_NOT_FOUND: {
