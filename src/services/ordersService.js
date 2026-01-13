@@ -8,14 +8,10 @@ export const ordersService = {
     const orders = await ordersRepository.findAll();
 
     if (orders.length === 0) {
-      return {
-        success: false,
-        error: OrdersErrors.ORDERS_NOT_FOUND,
-      };
+      return { error: OrdersErrors.ORDERS_NOT_FOUND };
     }
 
     return {
-      success: true,
       message: 'Pedidos encontrados com sucesso.',
       data: orders,
     };
@@ -25,14 +21,10 @@ export const ordersService = {
     const userOrders = await ordersRepository.findAllByUserId(userId);
 
     if (userOrders.length === 0) {
-      return {
-        success: false,
-        error: OrdersErrors.USER_ORDERS_NOT_FOUND,
-      };
+      return { error: OrdersErrors.USER_ORDERS_NOT_FOUND };
     }
 
     return {
-      success: true,
       message: 'Pedido(s) encontrado(s) com sucesso.',
       data: userOrders,
     };
@@ -42,14 +34,10 @@ export const ordersService = {
     const orderResults = await ordersRepository.findById(orderId);
 
     if (!orderResults) {
-      return {
-        success: false,
-        error: OrdersErrors.ORDER_NOT_FOUND,
-      };
+      return { error: OrdersErrors.ORDER_NOT_FOUND };
     }
 
     return {
-      success: true,
       message: 'Pedido encontrado com sucesso.',
       data: orderResults,
     };
@@ -60,7 +48,6 @@ export const ordersService = {
 
     if (!addressId) {
       return {
-        success: false,
         error: OrdersErrors.ADDRESS_NOT_FOUND,
       };
     }
@@ -72,10 +59,7 @@ export const ordersService = {
     });
 
     if (!orderId) {
-      return {
-        success: false,
-        error: OrdersErrors.ORDER_NOT_CREATED,
-      };
+      return { error: OrdersErrors.ORDER_NOT_CREATED };
     }
 
     const orderProducts = products.map((product) => [
@@ -89,14 +73,10 @@ export const ordersService = {
     );
 
     if (isProductsInserted.affectedRows === 0) {
-      return {
-        success: false,
-        error: OrdersErrors.ORDER_PRODUCTS_NOT_CREATED,
-      };
+      return { error: OrdersErrors.ORDER_PRODUCTS_NOT_CREATED };
     }
 
     return {
-      success: true,
       message: 'Pedido cadastrado com sucesso.',
       data: { id: orderId, userId, addressId, status, products },
     };
@@ -106,14 +86,10 @@ export const ordersService = {
     const order = await ordersRepository.updateById({ orderId, status });
 
     if (order.affectedRows === 0) {
-      return {
-        success: false,
-        error: OrdersErrors.ORDER_NOT_FOUND,
-      };
+      return { error: OrdersErrors.ORDER_NOT_FOUND };
     }
 
     return {
-      success: true,
       message: 'Pedido atualizado com sucesso',
       data: { id: orderId, status },
     };
@@ -123,14 +99,10 @@ export const ordersService = {
     const order = await ordersRepository.deleteById(orderId);
 
     if (order.affectedRows === 0) {
-      return {
-        success: false,
-        error: OrdersErrors.ORDER_NOT_FOUND,
-      };
+      return { error: OrdersErrors.ORDER_NOT_FOUND };
     }
 
     return {
-      success: true,
       message: 'Pedido deletado com sucesso.',
       data: { id: orderId },
     };

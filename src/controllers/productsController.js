@@ -76,7 +76,6 @@ export const productsController = {
     }
   },
 
-  // fix: quando fizer atualizar o service atualizar o controller
   updateProduct: async (req, res) => {
     const { productId } = req.params;
     const { description } = req.body;
