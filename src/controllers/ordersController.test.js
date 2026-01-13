@@ -1,9 +1,12 @@
 import { describe, expect, test, vi } from 'vitest';
 import { ordersController } from './ordersController';
 import { ordersService } from '../services/ordersService';
-// fix: add handleServiceResponse
-vi.mock('../services/ordersService');
+import { handleServiceResponse } from '../helpers/handleServiceResponse';
 
+vi.mock('../services/ordersService');
+vi.mock('../helpers/handleServiceResponse');
+
+// fix: add handleServiceResponse nos testes
 describe('ordersController', () => {
   test('Deve chamar ordersService.getAllOrders', async () => {
     const req = {};
