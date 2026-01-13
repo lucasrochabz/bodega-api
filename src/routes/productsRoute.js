@@ -26,7 +26,7 @@ router.post(
   productsController.createProduct,
 );
 
-router.put(
+router.patch(
   '/:productId',
   authenticate,
   authorizeAdmin,

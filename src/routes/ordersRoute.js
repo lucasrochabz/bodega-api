@@ -18,7 +18,7 @@ router.get('/:orderId', ordersController.getOrderDetails);
 router.post('/', authenticate, ordersController.createOrder);
 
 // fix: proteger essa rota
-router.put(
+router.patch(
   '/:orderId',
   validateBody(orderSchema),
   ordersController.updateOrder,
