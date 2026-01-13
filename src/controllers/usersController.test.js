@@ -2,19 +2,20 @@ import { vi, describe, test, expect } from 'vitest';
 import { usersController } from './usersController';
 import { usersService } from '../services/usersService';
 import { handleServiceResponse } from '../helpers/handleServiceResponse';
-import { UsersErrors } from '../errors/usersErrors';
 
 vi.mock('../services/usersService');
 vi.mock('../helpers/handleServiceResponse');
 vi.mock('../errors/usersErrors');
 
+const makeRes = () => ({
+  status: vi.fn(() => res),
+  json: vi.fn(),
+});
+
 describe('usersController', () => {
   test('Deve chamar usersService.getAllUsers', async () => {
     const req = {};
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
-    };
+    const res = makeRes();
 
     const resultMock = {
       success: true,
@@ -26,21 +27,13 @@ describe('usersController', () => {
 
     expect(usersService.getAllUsers).toHaveBeenCalled();
 
-    expect(handleServiceResponse).toHaveBeenCalledWith(
-      res,
-      resultMock,
-      200,
-      UsersErrors,
-    );
+    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 200);
   });
 
   test('Deve chamar usersService.getUser', async () => {
     const user = { id: '123' };
     const req = { user };
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
-    };
+    const res = makeRes();
 
     const resultMock = {
       success: true,
@@ -53,12 +46,7 @@ describe('usersController', () => {
     await usersController.getUser(req, res);
 
     expect(usersService.getUser).toHaveBeenCalledWith(user.id);
-    expect(handleServiceResponse).toHaveBeenCalledWith(
-      res,
-      resultMock,
-      200,
-      UsersErrors,
-    );
+    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 200);
   });
 
   test('Deve chamar usersService.createUser', async () => {
@@ -75,10 +63,7 @@ describe('usersController', () => {
       state: 'Estado',
     };
     const req = { body };
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
-    };
+    const res = makeRes();
 
     const resultMock = {
       success: true,
@@ -113,23 +98,14 @@ describe('usersController', () => {
       city: 'Cidade',
       state: 'Estado',
     });
-
-    expect(handleServiceResponse).toHaveBeenCalledWith(
-      res,
-      resultMock,
-      201,
-      UsersErrors,
-    );
+    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 201);
   });
 
   test('Deve chamar usersService.updateUser', async () => {
     const user = { id: '123' };
     const body = {};
     const req = { user, body };
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
-    };
+    const res = makeRes();
 
     const resultMock = {
       success: true,
@@ -145,22 +121,13 @@ describe('usersController', () => {
       userId: user.id,
       userData: body,
     });
-
-    expect(handleServiceResponse).toHaveBeenCalledWith(
-      res,
-      resultMock,
-      200,
-      UsersErrors,
-    );
+    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 200);
   });
 
   test('Deve chamar usersService.deleteUser', async () => {
     const params = { userId: '123' };
     const req = { params };
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
-    };
+    const res = makeRes();
 
     const resultMock = {
       success: true,
@@ -173,12 +140,6 @@ describe('usersController', () => {
     await usersController.deleteUser(req, res);
 
     expect(usersService.deleteUser).toHaveBeenCalledWith(params.userId);
-
-    expect(handleServiceResponse).toHaveBeenCalledWith(
-      res,
-      resultMock,
-      200,
-      UsersErrors,
-    );
+    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 200);
   });
 });

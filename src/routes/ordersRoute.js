@@ -9,8 +9,10 @@ const router = express.Router();
 router.get('/', authenticate, authorizeAdmin, ordersController.getAllOrders);
 // fix: proteger essa rota
 router.get('/:orderId', ordersController.getOrderDetails);
+// fix: pegar teste dessa função, transformar rota em /user/:id
 router.get('/user', authenticate, ordersController.getUserOrders);
 
+// fix: add schema
 router.post('/', authenticate, ordersController.createOrder);
 
 // fix: proteger essa rota

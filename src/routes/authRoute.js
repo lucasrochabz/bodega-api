@@ -10,7 +10,7 @@ import { resetPasswordSchema } from '../schemas/auth/resetPasswordSchema.js';
 import { authController } from '../controllers/authController.js';
 
 const router = express.Router();
-// fix: add rota '/me'
+
 router.get('/me', authenticate, authController.getMe);
 
 router.post(

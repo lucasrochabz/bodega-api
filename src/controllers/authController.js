@@ -57,7 +57,7 @@ export const authController = {
     const { newPassword } = req.body;
     try {
       const result = await authService.resetPassword({ token, newPassword });
-      handleServiceResponse(res, result, 200, AuthErrors);
+      handleServiceResponse(res, result, 200);
     } catch (error) {
       console.error('Erro ao redefinir senha:', error);
 
