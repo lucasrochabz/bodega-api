@@ -1,71 +1,99 @@
-# Bodega API v1.5.1
+# Bodega API v1.6.1
 
 ![Imagem do projeto](docs/bodega-api01.png)
 
 ## Sobre
 
-Este projeto é uma simulação de e-commerce desenvolvida com **Node.js** e **Express**, utilizando **JSON Web Tokens (JWT)** para autenticação segura e **bcrypt** para criptografia de senhas. O **MySQL** é utilizado como banco de dados, garantindo armazenamento estruturado e eficiente.
+A **Bodega API** é uma **API REST** que simula o Backend de um e-commerce, desenvolvido com **Node.js** e **Express**. Ela fornece recursos para autenticação de usuários, gerenciamento de produtos e pedidos, além da consulta ao histórico de compras.
 
-A API desenvolvida permite aos usuários visualizar e comprar produtos, consultar o histórico de pedidos, além de fornecer páginas de login e criação de cadastro para acesso seguro à plataforma.
-O Front-end [Bodega](https://github.com/lucasrochabz/bodega), desenvolvido em **JavaScript** com **React**, oferecendo uma navegação fluida com **React Router**, consome essa API para exibir dados dinâmicos, proporcionando uma experiência interativa e moderna.
+A autenticação é feita via **JWT**, com senhas protegidas por **bcrypt**, e os dados são armazenados em um banco **MySQL**.
 
-A aplicação segue boas práticas de desenvolvimento, garantindo uma experiência moderna, segura e eficiente.
+Esta API é consumida pelo Frontend do projeto **Bodega**, desenvolvido em **React**, disponível em: [Bodega](https://github.com/lucasrochabz/bodega).
+
+A aplicação segue boas práticas de desenvolvimento, segurança e padronização de código.
+
+## Funcionalidades
+
+- Autenticação e autorização com JWT
+- Cadastro e login de usuários
+- Listagem de produtos
+- Criação e consulta de pedidos
+- Histórico de compras por usuário
 
 ## Tecnologias
 
-- **Node.js**: Ambiente de execução JavaScript.
-- **Express**: Framework web para Node.js.
-- **Json Web Token**: Mecanismo de autenticação baseado em tokens.
-- **Bcrypt**: Biblioteca para hash e criptografia de senhas.
-- **MySQL**: Banco de dados relacional.
+### Backend
+
+- **Node.js** — Ambiente de execução JavaScript (Runtime).
+- **Express** — Framework para construção de APIs REST.
+
+### Banco de Dados
+
+- **MySQL** — Banco de dados relacional.
+
+### Autenticação e Segurança
+
+- **JWT (JSON Web Token)** — Autenticação baseada em tokens.
+- **Bcrypt** — Biblioteca para hash e criptografia de senhas.
+- **Rate Limit (Express Rate Limit)** — Middleware para limitar requisições e prevenir ataques.
+
+### Validação e Documentação
+
+- **Joi** — Validação e sanitização de dados.
+- **Swagger** — Documentação interativa da API.
+
+### Infraestrutura e Qualidade
+
+- **Docker** — Padronização e execução do ambiente.
+- **Vitest** — Testes automatizados.
 
 ## Requisitos
 
-- Node na versão versão 16.0 ou superior
-- NPM na versão versão 10.9 ou superior
-- MySQL na versão versão 8.0 ou superior
+- **Node.js** na versão 16.0 ou superior
+- **NPM** na versão 10.9 ou superior
+- **MySQL** na versão 8.0 ou superior
 
-## Como instalar?
+## Rodando localmente
 
-1. Faça o clone do projeto.
-2. Abra o terminal e navegue até a pasta do projeto.
-3. Faça uma cópia do arquivo `.env.example`:
+1. Clone do projeto.
+2. Acesse a pasta do projeto.
+3. Copie o arquivo de variáveis de ambiente `.env.example`:
    ```bash
    cp .env.example .env
    ```
-4. Edite o arquivo `.env` com os valores apropriados para o seu ambiente.
-5. Instale as dependências usando o comando:
+4. Configure o arquivo `.env` conforme seu ambiente.
+5. Instale as dependências:
    ```bash
    npm install
    ```
-6. Crie o banco de dados com o comando:
+6. Crie o banco de dados:
    ```bash
    npm run db:init
    ```
-7. Crie as tabelas com o comando:
+7. Crie as tabelas:
    ```bash
    npm run db:tables
    ```
-8. Insira os dados nas tabelas com o comando:
+8. Insira os dados iniciais:
    ```bash
    npm run db:seed
    ```
-9. Inicie o servidor localmente com o comando:
+9. Inicie o servidor:
    ```bash
    npm run dev
    ```
 
-## Como rodar com Docker
+## Rodando com Docker
 
 ### Pré-requisitos
 
-- Docker instalado na sua máquina.
-- Docker compose.
+- Docker.
+- Docker Compose.
 
-### Passos para rodar a API com Docker:
+### Passos:
 
-1. Clone o projeto e entre na pasta dele.
-2. Instale as dependências com:
+1. Clone o projeto e acesse a pasta.
+2. Instale as dependências:
    ```bash
    npm install
    ```
@@ -78,7 +106,7 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
    npm run docker:up
    ```
 5. A API estará disponível em: http://localhost:4000
-6. Para acessar o terminal do container da API, execute:
+6. Para acessar o terminal do container da API:
    ```bash
    docker exec -it bodega-api-api-1 bash
    ```
@@ -86,7 +114,7 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
    ```bash
    npm run db:create-tables
    ```
-8. Ainda dentro do container, insira os dados iniciais nas tabelas:
+8. Insira os dados iniciais nas tabelas:
    ```bash
    npm run db:insert-data
    ```
@@ -96,6 +124,7 @@ A aplicação segue boas práticas de desenvolvimento, garantindo uma experiênc
 ```bash
 bodega-api/
 ├── scripts/
+│   ├── git/
 │   ├── createDB.js
 │   ├── createTables.js
 │   └── insertData.js
@@ -119,25 +148,38 @@ bodega-api/
 │       └── 5_orders_products_data.sql
 │
 ├── src/
+│   ├── config/
 │   ├── controllers/
 │   │   ├── controller.js
 │   │   └── controller.test.js
 │   │
 │   ├── database/
 │   ├── dtos/
-│   ├── env/
 │   ├── errors/
 │   ├── helpers/
 │   │   ├── executeQuery.js
-│   │   ├── handleServiceResponse.js
-│   │   └── inputValidationHelper.js
+│   │   └── handleServiceResponse.js
 │   │
 │   ├── middlewares/
 │   ├── models/
+│   │   ├── addressModel.js
+│   │   ├── orderModel.js
+│   │   ├── productModel.js
+│   │   └── userModel.js
+│   │
 │   ├── repositories/
 │   ├── routes/
 │   ├── schemas/
+│   │   ├── auth/
+│   │   ├── orders/
+│   │   ├── products/
+│   │   ├── shared/
+│   │   └── users/
+│   │
 │   ├── services/
+│   │   ├── services.js
+│   │   └── services.test.js
+│   │
 │   ├── swagger/
 │   ├── utils/
 │   │   ├── hashUtils.js
@@ -156,11 +198,10 @@ bodega-api/
 └── README.md
 ```
 
-## Front-end do Projeto
+## Frontend do Projeto
 
-Este projeto possui um Front-end desenvolvido para consumir esta API. Você pode acessá-lo no repositório:
-[Acesse o repositório do Front-end](https://github.com/lucasrochabz/bodega)
+O Front-end que consome esta API está disponível no repositório: [Acesse o repositório do Frontend](https://github.com/lucasrochabz/bodega)
 
 ## Encontrou algum problema?
 
-Abra uma [issue](https://github.com/lucasrochabz/bodega-api/issues) com sua sugestão ou crítica.
+Caso encontre algum problema ou tenha sugestões de melhoria, abra uma [issue](https://github.com/lucasrochabz/bodega-api/issues).

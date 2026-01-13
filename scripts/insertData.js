@@ -1,4 +1,4 @@
-import '../src/env/index.js';
+import '../src/config/env.js';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import fs from 'node:fs/promises';
@@ -36,7 +36,7 @@ const executeInserts = async () => {
 
       try {
         await connection.query(sql);
-        console.log(`Dados do script ${file} inseridos com sucesso.`);
+        console.info(`Dados do script ${file} inseridos com sucesso.`);
       } catch (queryErr) {
         console.error(
           `Erro ao inserir dados do script ${file}:`,

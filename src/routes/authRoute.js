@@ -1,13 +1,13 @@
 import express from 'express';
-import { loginLimiter } from '../middlewares/loginLimiter.js';
-import { validateQuery } from '../middlewares/validateQuery.js';
-import { validateBody } from '../middlewares/validateBody.js';
-import { loginSchema } from '../schemas/loginSchema.js';
-import { forgotPasswordSchema } from '../schemas/forgotPasswordSchema.js';
-import { tokenSchema } from '../schemas/tokenSchema.js';
-import { resetPasswordSchema } from '../schemas/resetPasswordSchema.js';
-import { authController } from '../controllers/authController.js';
 import { authenticate } from '../middlewares/authMiddleware.js';
+import { loginLimiter } from '../middlewares/loginLimiter.js';
+import { validateBody } from '../middlewares/validateBody.js';
+import { validateQuery } from '../middlewares/validateQuery.js';
+import { loginSchema } from '../schemas/auth/loginSchema.js';
+import { forgotPasswordSchema } from '../schemas/auth/forgotPasswordSchema.js';
+import { tokenSchema } from '../schemas/auth/tokenSchema.js';
+import { resetPasswordSchema } from '../schemas/auth/resetPasswordSchema.js';
+import { authController } from '../controllers/authController.js';
 
 const router = express.Router();
 // fix: add rota '/me'

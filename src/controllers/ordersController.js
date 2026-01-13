@@ -1,13 +1,12 @@
 import { ordersService } from '../services/ordersService.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
-import { OrdersErrors } from '../errors/ordersErrors.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
 export const ordersController = {
   getAllOrders: async (req, res) => {
     try {
       const ordersResult = await ordersService.getAllOrders();
-      handleServiceResponse(res, ordersResult, 200, OrdersErrors);
+      handleServiceResponse(res, ordersResult, 200);
     } catch (error) {
       console.error('Erro ao buscar pedidos:', error);
 
@@ -23,7 +22,7 @@ export const ordersController = {
     const userId = req.user.id;
     try {
       const orderResult = await ordersService.getUserOrders(userId);
-      handleServiceResponse(res, orderResult, 200, OrdersErrors);
+      handleServiceResponse(res, orderResult, 200);
     } catch (error) {
       console.error('Erro ao buscar pedidos do usuário:', error);
 
@@ -39,7 +38,7 @@ export const ordersController = {
     const { orderId } = req.params;
     try {
       const orderResult = await ordersService.getOrderDetails(orderId);
-      handleServiceResponse(res, orderResult, 200, OrdersErrors);
+      handleServiceResponse(res, orderResult, 200);
     } catch (error) {
       console.error('Erro ao buscar pedido:', error);
 
@@ -61,7 +60,7 @@ export const ordersController = {
         products,
       });
 
-      handleServiceResponse(res, newOrder, 201, OrdersErrors);
+      handleServiceResponse(res, newOrder, 201);
     } catch (error) {
       console.error('Erro ao cadastrar pedido:', error);
 
@@ -82,7 +81,7 @@ export const ordersController = {
         status,
       });
 
-      handleServiceResponse(res, updatedOrder, 200, OrdersErrors);
+      handleServiceResponse(res, updatedOrder, 200);
     } catch (error) {
       console.error('Erro ao atualizar pedido:', error);
 
@@ -98,7 +97,7 @@ export const ordersController = {
     const { orderId } = req.params;
     try {
       const deletedOrder = await ordersService.deleteOrder(orderId);
-      handleServiceResponse(res, deletedOrder, 200, OrdersErrors);
+      handleServiceResponse(res, deletedOrder, 200);
     } catch (error) {
       console.error('Erro ao deletar pedido:', error);
 

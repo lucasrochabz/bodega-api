@@ -1,13 +1,13 @@
 import { usersService } from '../services/usersService.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
-import { UsersErrors } from '../errors/usersErrors.js';
+import { createUserDTO } from '../dtos/createUserDTO.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
 export const usersController = {
   getAllUsers: async (req, res) => {
     try {
       const usersResult = await usersService.getAllUsers();
-      handleServiceResponse(res, usersResult, 200, UsersErrors);
+      handleServiceResponse(res, usersResult, 200);
     } catch (error) {
       console.error('Erro ao buscar usuários:', error);
 
@@ -23,7 +23,7 @@ export const usersController = {
     const userId = req.user.id;
     try {
       const userResult = await usersService.getUser(userId);
-      handleServiceResponse(res, userResult, 200, UsersErrors);
+      handleServiceResponse(res, userResult, 200);
     } catch (error) {
       console.error('Erro ao buscar usuário:', error);
 
@@ -36,35 +36,12 @@ export const usersController = {
   },
 
   createUser: async (req, res) => {
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-      zipCode,
-      street,
-      number,
-      neighborhood,
-      city,
-      state,
-    } = req.body;
-    // fix: const userData = createUserDTO(req.body)
+    const userData = createUserDTO(req.body);
 
     try {
-      const result = await usersService.createUser({
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        password,
-        zip_code: zipCode,
-        street,
-        number,
-        neighborhood,
-        city,
-        state,
-      });
+      const result = await usersService.createUser(userData);
 
-      handleServiceResponse(res, result, 201, UsersErrors);
+      handleServiceResponse(res, result, 201);
     } catch (error) {
       console.error('Erro ao cadastrar usuário:', error);
 
@@ -82,7 +59,7 @@ export const usersController = {
 
     try {
       const updatedUser = await usersService.updateUser({ userId, userData });
-      handleServiceResponse(res, updatedUser, 200, UsersErrors);
+      handleServiceResponse(res, updatedUser, 200);
     } catch (error) {
       console.error('Erro ao atualizar usuário:', error);
 
@@ -98,7 +75,7 @@ export const usersController = {
     const { userId } = req.params;
     try {
       const deletedUser = await usersService.deleteUser(userId);
-      handleServiceResponse(res, deletedUser, 200, UsersErrors);
+      handleServiceResponse(res, deletedUser, 200);
     } catch (error) {
       console.error('Erro ao deletar usuário:', error);
 

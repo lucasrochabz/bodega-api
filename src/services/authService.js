@@ -6,7 +6,8 @@ import {
   generateToken,
   verifyResetToken,
 } from '../utils/tokenUtils.js';
-import User from '../models/usersModel.js';
+import User from '../models/userModel.js';
+import { AuthErrors } from '../errors/authErrors.js';
 
 export const authService = {
   getMe: async (userId) => {
@@ -14,7 +15,10 @@ export const authService = {
     const addressResult = await addressesRepository.findByUserId(userId);
 
     if (userResult.length === 0 || addressResult.length === 0) {
-      return { success: false, error: 'USER_NOT_FOUND' };
+      return {
+        success: false,
+        error: AuthErrors.USER_NOT_FOUND,
+      };
     }
 
     const userData = {
@@ -33,13 +37,19 @@ export const authService = {
     const user = await usersRepository.findByEmail(email);
 
     if (user.length === 0) {
-      return { success: false, error: 'INVALID_CREDENTIALS' };
+      return {
+        success: false,
+        error: AuthErrors.INVALID_CREDENTIALS,
+      };
     }
 
     const isPasswordValid = await compareHash(password, user[0].password);
 
     if (!isPasswordValid) {
-      return { success: false, error: 'INVALID_CREDENTIALS' };
+      return {
+        success: false,
+        error: AuthErrors.INVALID_CREDENTIALS,
+      };
     }
 
     const token = generateToken(new User(user[0]));
@@ -83,7 +93,10 @@ export const authService = {
     });
 
     if (result.affectedRows === 0) {
-      return { success: false, error: 'USER_NOT_FOUND' };
+      return {
+        success: false,
+        error: AuthErrors.USER_NOT_FOUND,
+      };
     }
 
     return { success: true, message: 'Senha redefinida com sucesso.' };

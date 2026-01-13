@@ -1,5 +1,6 @@
 import { productsRepository } from '../repositories/productsRepository.js';
-import Product from '../models/productsModel.js';
+import Product from '../models/productModel.js';
+import { ProductsErrors } from '../errors/productsErrors.js';
 
 export const productsService = {
   getAllProducts: async ({ pageNumber, pageSizeNumber }) => {
@@ -9,7 +10,10 @@ export const productsService = {
     });
 
     if (products.results.length === 0) {
-      return { success: false, error: 'PRODUCTS_NOT_FOUND' };
+      return {
+        success: false,
+        error: ProductsErrors.PRODUCTS_NOT_FOUND,
+      };
     }
 
     return {
@@ -23,7 +27,10 @@ export const productsService = {
     const product = await productsRepository.findByProductId(productId);
 
     if (product.length === 0) {
-      return { success: false, erro: 'PRODUCT_NOT_FOUND' };
+      return {
+        success: false,
+        error: ProductsErrors.PRODUCT_NOT_FOUND,
+      };
     }
 
     return {
@@ -35,24 +42,21 @@ export const productsService = {
 
   createProduct: async (productData) => {
     const product = new Product(productData);
-    const newProduct = await productsRepository.insert(product);
+    const result = await productsRepository.insert(product.toPersistence());
 
-    if (newProduct.affectedRows === 0) {
-      return { success: false, error: 'PRODUCT_NOT_CREATED' };
+    if (result.affectedRows === 0) {
+      return {
+        success: false,
+        error: ProductsErrors.PRODUCT_NOT_CREATED,
+      };
     }
+
+    product.id = result.insertId;
 
     return {
       success: true,
       message: 'Produto cadastrado com sucesso.',
-      data: {
-        id: newProduct.insertId,
-        name: product.name,
-        price: product.price,
-        description: product.description,
-        stock: product.stock,
-        status: product.status,
-        image_path: product.image_path,
-      },
+      data: product.toPublic(),
     };
   },
 
@@ -63,7 +67,10 @@ export const productsService = {
     });
 
     if (product.affectedRows === 0) {
-      return { success: false, error: 'PRODUCT_NOT_FOUND' };
+      return {
+        success: false,
+        error: ProductsErrors.PRODUCT_NOT_FOUND,
+      };
     }
 
     return {
@@ -77,7 +84,10 @@ export const productsService = {
     const product = await productsRepository.deleteById(productId);
 
     if (product.affectedRows === 0) {
-      return { success: false, error: 'PRODUCT_NOT_FOUND' };
+      return {
+        success: false,
+        error: ProductsErrors.PRODUCT_NOT_FOUND,
+      };
     }
 
     return {

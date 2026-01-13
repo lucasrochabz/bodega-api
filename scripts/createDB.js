@@ -1,4 +1,4 @@
-import '../src/env/index.js';
+import '../src/config/env.js';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import fs from 'node:fs/promises';
@@ -31,7 +31,7 @@ const executeDB = async () => {
     try {
       // Executa o script SQL
       await connection.query(sql);
-      console.log('Banco de dados criado com sucesso.');
+      console.info('Banco de dados criado com sucesso.');
     } catch (queryErr) {
       console.error('Erro ao criar Banco de dados:', queryErr);
     }
