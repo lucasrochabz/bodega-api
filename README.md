@@ -200,7 +200,7 @@ bodega-api/
 
 ## Frontend do Projeto
 
-O Front-end que consome esta API está disponível no repositório: [Acesse o repositório do Frontend](https://github.com/lucasrochabz/bodega)
+O Frontend que consome esta API está disponível no repositório: [Acesse o repositório do Frontend](https://github.com/lucasrochabz/bodega)
 
 ## Encontrou algum problema?
 

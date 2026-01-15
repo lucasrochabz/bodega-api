@@ -1,4 +1,5 @@
 import { productsService } from '../services/productsService.js';
+import { createProductDTO } from '../dtos/createProductDTO.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
@@ -43,26 +44,8 @@ export const productsController = {
   },
 
   createProduct: async (req, res) => {
-    const allowedFields = [
-      'name',
-      'price',
-      'description',
-      'stock',
-      'status',
-      'image_path',
-    ];
-
-    const productData = allowedFields.reduce((obj, key) => {
-      if (req.body[key] !== undefined) {
-        obj[key] = req.body[key];
-      }
-      return obj;
-    }, {});
-
+    const productData = createProductDTO(req.body);
     try {
-      // req.body JÁ vem validado, normalizado e sem campos extras
-      // fix: const productData = craeteProductDTO(req.body);
-
       const result = await productsService.createProduct(productData);
       handleServiceResponse(res, result, 201);
     } catch (error) {
