@@ -1,4 +1,5 @@
 import { ordersProductsRepository } from '../repositories/ordersProductsRepository.js';
+import { paymentEventsMapper } from '../mappers/paymentEventsMapper.js';
 import { ordersRepository } from '../repositories/ordersRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
 import { OrdersErrors } from '../errors/ordersErrors.js';
@@ -68,9 +69,8 @@ export const ordersService = {
       product.quantity,
     ]);
 
-    const isProductsInserted = await ordersProductsRepository.insertMany(
-      orderProducts,
-    );
+    const isProductsInserted =
+      await ordersProductsRepository.insertMany(orderProducts);
 
     if (isProductsInserted.affectedRows === 0) {
       return { error: OrdersErrors.ORDER_PRODUCTS_NOT_CREATED };
@@ -82,16 +82,27 @@ export const ordersService = {
     };
   },
 
-  updateOrder: async ({ orderId, status }) => {
-    const order = await ordersRepository.updateById({ orderId, status });
+  updateOrder: async ({ event, order_id }) => {
+    const status = paymentEventsMapper[event];
+
+    if (!status) {
+      // fix: apagar isso abaixo
+      // return { error: OrdersErrors.INVALID_PAYMENT_EVENT };
+      return {
+        message: 'Evento de pagamento não mapeado. Ignorado.',
+        data: null,
+      };
+    }
+
+    const order = await ordersRepository.updateById({ order_id, status });
 
     if (order.affectedRows === 0) {
       return { error: OrdersErrors.ORDER_NOT_FOUND };
     }
 
     return {
-      message: 'Pedido atualizado com sucesso',
-      data: { id: orderId, status },
+      message: 'Status do pedido atualizado via webhook.',
+      data: { id: order_id, status, event },
     };
   },
 

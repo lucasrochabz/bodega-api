@@ -28,4 +28,9 @@ export const OrdersErrors = {
     statusCode: 400,
     message: 'Erro ao associar produtos ao pedido.',
   },
+
+  INVALID_PAYMENT_EVENT: {
+    statusCode: 400,
+    message: 'Evento de pagamento não suportado.',
+  },
 };

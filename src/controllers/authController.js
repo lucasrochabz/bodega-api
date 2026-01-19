@@ -9,7 +9,7 @@ export const authController = {
       const result = await authService.getMe(userId);
       handleServiceResponse(res, result, 200);
     } catch (error) {
-      console.error('Erro buscar dados do usuário.');
+      console.error('Erro buscar dados do usuário.', error);
 
       const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
       return res.status(statusCode).json({

@@ -77,13 +77,13 @@ export const ordersRepository = {
     return results.insertId;
   },
 
-  updateById: async ({ status, orderId }) => {
+  updateById: async ({ status, order_id }) => {
     const query = `
       UPDATE orders
       SET status = ?
       WHERE id = ?
     `;
-    const params = [status, orderId];
+    const params = [status, order_id];
 
     return await executeQuery(query, params);
   },
