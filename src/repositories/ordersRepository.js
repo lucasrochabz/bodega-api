@@ -82,8 +82,9 @@ export const ordersRepository = {
       UPDATE orders
       SET status = ?
       WHERE id = ?
+      AND status <> ?
     `;
-    const params = [status, order_id];
+    const params = [status, order_id, status];
 
     return await executeQuery(query, params);
   },

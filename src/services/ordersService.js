@@ -86,8 +86,6 @@ export const ordersService = {
     const status = paymentEventsMapper[event];
 
     if (!status) {
-      // fix: apagar isso abaixo
-      // return { error: OrdersErrors.INVALID_PAYMENT_EVENT };
       return {
         message: 'Evento de pagamento não mapeado. Ignorado.',
         data: null,
@@ -97,7 +95,10 @@ export const ordersService = {
     const order = await ordersRepository.updateById({ order_id, status });
 
     if (order.affectedRows === 0) {
-      return { error: OrdersErrors.ORDER_NOT_FOUND };
+      return {
+        message: 'Evento já processado ou pedido inexistente.',
+        data: { id: order_id, status },
+      };
     }
 
     return {

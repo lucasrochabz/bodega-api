@@ -1,5 +1,5 @@
 import express from 'express';
-import { authenticate } from '../middlewares/authMiddleware.js';
+import { authenticateUser } from '../middlewares/authMiddleware.js';
 import { loginLimiter } from '../middlewares/loginLimiter.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { validateQuery } from '../middlewares/validateQuery.js';
@@ -11,7 +11,7 @@ import { authController } from '../controllers/authController.js';
 
 const router = express.Router();
 
-router.get('/me', authenticate, authController.getMe);
+router.get('/me', authenticateUser, authController.getMe);
 
 router.post(
   '/login',

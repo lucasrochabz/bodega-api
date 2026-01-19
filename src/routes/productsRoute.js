@@ -1,5 +1,8 @@
 import express from 'express';
-import { authenticate, authorizeAdmin } from '../middlewares/authMiddleware.js';
+import {
+  authenticateUser,
+  authorizeAdmin,
+} from '../middlewares/authMiddleware.js';
 import { validateQuery } from '../middlewares/validateQuery.js';
 import { validateParams } from '../middlewares/validateParams.js';
 import { validateBody } from '../middlewares/validateBody.js';
@@ -23,7 +26,7 @@ router.get(
 
 router.post(
   '/',
-  authenticate,
+  authenticateUser,
   authorizeAdmin,
   validateBody(createProductSchema),
   productsController.createProduct,
@@ -31,14 +34,14 @@ router.post(
 
 router.patch(
   '/:productId',
-  authenticate,
+  authenticateUser,
   authorizeAdmin,
   productsController.updateProduct,
 );
 
 router.delete(
   '/:productId',
-  authenticate,
+  authenticateUser,
   authorizeAdmin,
   productsController.deleteProduct,
 );

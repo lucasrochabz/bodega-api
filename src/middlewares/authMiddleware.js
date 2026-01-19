@@ -1,6 +1,6 @@
 import { verifyToken } from '../utils/tokenUtils.js';
 
-export const authenticate = (req, res, next) => {
+export const authenticateUser = (req, res, next) => {
   const authUser = req.headers.authorization;
 
   if (!authUser) {
@@ -30,6 +30,19 @@ export const authorizeAdmin = (req, res, next) => {
     return res.status(403).json({
       success: false,
       message: 'Acesso negado. Permissões insuficientes.',
+    });
+  }
+
+  next();
+};
+
+export const authenticateWebhook = (req, res, next) => {
+  const secret = req.headers['x-webhook-secret'];
+
+  if (secret !== process.env.WEBHOOK_SECRET) {
+    return res.status(401).json({
+      success: false,
+      message: 'Webhook não autorizado.',
     });
   }
 
