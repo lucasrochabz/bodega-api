@@ -1,13 +1,12 @@
 import { verifyToken } from '../utils/tokenUtils.js';
+import { sendError } from '../helpers/errorHanlder.js';
+import { AuthErrors } from '../errors/authErrors.js';
 
 export const authenticateUser = (req, res, next) => {
   const authUser = req.headers.authorization;
 
   if (!authUser) {
-    return res.status(401).json({
-      success: false,
-      message: 'Acesso negado. Usuário não autenticado',
-    });
+    return sendError(res, AuthErrors.UNAUTHENTICATED);
   }
 
   const token = authUser.split(' ')[1];
@@ -18,19 +17,13 @@ export const authenticateUser = (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(401).json({
-      success: false,
-      message: 'Token inválido ou expirado',
-    });
+    return sendError(res, AuthErrors.INVALID_TOKEN);
   }
 };
 
 export const authorizeAdmin = (req, res, next) => {
   if (req.user.role !== 'admin') {
-    return res.status(403).json({
-      success: false,
-      message: 'Acesso negado. Permissões insuficientes.',
-    });
+    return sendError(res, AuthErrors.UNAUTHORIZED_ACCESS);
   }
 
   next();
@@ -40,10 +33,7 @@ export const authenticateWebhook = (req, res, next) => {
   const secret = req.headers['x-webhook-secret'];
 
   if (secret !== process.env.WEBHOOK_SECRET) {
-    return res.status(401).json({
-      success: false,
-      message: 'Webhook não autorizado.',
-    });
+    return sendError(res, AuthErrors.INVALID_WEBHOOK);
   }
 
   next();
