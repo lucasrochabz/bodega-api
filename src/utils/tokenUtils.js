@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
 const RESET_SECRET_KEY = process.env.JWT_RESET_SECRET_KEY;
 
-export const generateToken = (userData) => {
+const generateToken = (userData) => {
   try {
     return jwt.sign(
       {
@@ -19,7 +19,7 @@ export const generateToken = (userData) => {
   }
 };
 
-export const verifyToken = (token) => {
+const verifyToken = (token) => {
   try {
     return jwt.verify(token, SECRET_KEY);
   } catch (error) {
@@ -28,7 +28,7 @@ export const verifyToken = (token) => {
   }
 };
 
-export const generateResetToken = (userId) => {
+const generateResetToken = (userId) => {
   try {
     return jwt.sign({ userId }, RESET_SECRET_KEY, { expiresIn: '15m' });
   } catch (error) {
@@ -37,7 +37,7 @@ export const generateResetToken = (userId) => {
   }
 };
 
-export const verifyResetToken = (token) => {
+const verifyResetToken = (token) => {
   try {
     return jwt.verify(token, RESET_SECRET_KEY);
   } catch (error) {
@@ -45,3 +45,5 @@ export const verifyResetToken = (token) => {
     throw new Error('Token de redefinição inválido ou expirado.');
   }
 };
+
+export { generateToken, verifyToken, generateResetToken, verifyResetToken };

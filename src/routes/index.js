@@ -1,19 +1,20 @@
 import express from 'express';
 // importacao das Rotas
-import docsRouter from './docsSwagger.js';
-import authRouter from './authRoute.js';
-import usersRouter from './usersRoute.js';
-import productsRouter from './productsRoute.js';
-import ordersRouter from './ordersRoute.js';
+import docsRoutes from './docsSwagger.js';
+
+import authRoutes from './authRoute.js';
+import usersRoutes from './usersRoute.js';
+import productsRoutes from './productsRoute.js';
+import ordersRoutes from './ordersRoute.js';
 
 const router = express.Router();
 
 // Rotas
-router.use('/docs', docsRouter);
+router.use('/docs', docsRoutes);
 
-router.use('/auth', authRouter);
-router.use('/users', usersRouter);
-router.use('/products', productsRouter);
-router.use('/orders', ordersRouter);
+router.use('/auth', authRoutes);
+router.use('/users', usersRoutes);
+router.use('/products', productsRoutes);
+router.use('/orders', ordersRoutes);
 
 export default router;

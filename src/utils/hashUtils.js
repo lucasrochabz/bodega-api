@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 
-export const generateHash = async (passwordValue, saltRounds) => {
+const generateHash = async (passwordValue, saltRounds) => {
   try {
     return await bcrypt.hash(passwordValue, saltRounds);
   } catch (error) {
@@ -9,7 +9,7 @@ export const generateHash = async (passwordValue, saltRounds) => {
   }
 };
 
-export const compareHash = async (password, hashedPassword) => {
+const compareHash = async (password, hashedPassword) => {
   try {
     return await bcrypt.compare(password, hashedPassword);
   } catch (error) {
@@ -17,3 +17,5 @@ export const compareHash = async (password, hashedPassword) => {
     throw new Error(`Erro ao comparar hash: ${error.message}`);
   }
 };
+
+export { generateHash, compareHash };
