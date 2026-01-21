@@ -1,5 +1,6 @@
 import { authService } from '../services/authService.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
+import { sendError } from '../helpers/errorHanlder.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
 export const authController = {
@@ -10,12 +11,7 @@ export const authController = {
       handleServiceResponse(res, result, 200);
     } catch (error) {
       console.error('Erro buscar dados do usuário.', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -26,12 +22,7 @@ export const authController = {
       handleServiceResponse(res, userResult, 200);
     } catch (error) {
       console.error('Erro ao realizar login:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -43,12 +34,7 @@ export const authController = {
       return res.status(200).json(result);
     } catch (error) {
       console.error('Erro ao processar a recuperação de senha:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -60,12 +46,7 @@ export const authController = {
       handleServiceResponse(res, result, 200);
     } catch (error) {
       console.error('Erro ao redefinir senha:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 };

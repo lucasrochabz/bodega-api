@@ -1,5 +1,6 @@
 import { ordersService } from '../services/ordersService.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
+import { sendError } from '../helpers/errorHanlder.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
 export const ordersController = {
@@ -9,12 +10,7 @@ export const ordersController = {
       handleServiceResponse(res, ordersResult, 200);
     } catch (error) {
       console.error('Erro ao buscar pedidos:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -25,12 +21,7 @@ export const ordersController = {
       handleServiceResponse(res, orderResult, 200);
     } catch (error) {
       console.error('Erro ao buscar pedidos do usuário:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -41,12 +32,7 @@ export const ordersController = {
       handleServiceResponse(res, orderResult, 200);
     } catch (error) {
       console.error('Erro ao buscar pedido:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -63,12 +49,7 @@ export const ordersController = {
       handleServiceResponse(res, newOrder, 201);
     } catch (error) {
       console.error('Erro ao cadastrar pedido:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -84,12 +65,7 @@ export const ordersController = {
       handleServiceResponse(res, updatedOrder, 200);
     } catch (error) {
       console.error('Erro ao atualizar pedido:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -100,12 +76,7 @@ export const ordersController = {
       handleServiceResponse(res, deletedOrder, 200);
     } catch (error) {
       console.error('Erro ao deletar pedido:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 };

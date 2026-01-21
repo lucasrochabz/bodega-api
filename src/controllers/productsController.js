@@ -1,6 +1,7 @@
 import { productsService } from '../services/productsService.js';
 import { createProductDTO } from '../dtos/createProductDTO.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
+import { sendError } from '../helpers/errorHanlder.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
 export const productsController = {
@@ -18,12 +19,7 @@ export const productsController = {
       handleServiceResponse(res, productsResult, 200);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -34,12 +30,7 @@ export const productsController = {
       handleServiceResponse(res, productResult, 200);
     } catch (error) {
       console.error('Erro ao buscar produto:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode, message).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -50,12 +41,7 @@ export const productsController = {
       handleServiceResponse(res, result, 201);
     } catch (error) {
       console.error('Erro ao cadastrar produto:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -71,12 +57,7 @@ export const productsController = {
       handleServiceResponse(res, updatedProduct, 200);
     } catch (error) {
       console.error('Erro ao atualizar produto:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -87,12 +68,7 @@ export const productsController = {
       handleServiceResponse(res, deletedProduct, 200);
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 };

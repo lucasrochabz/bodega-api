@@ -1,6 +1,7 @@
 import { usersService } from '../services/usersService.js';
 import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
 import { createUserDTO } from '../dtos/createUserDTO.js';
+import { sendError } from '../helpers/errorHanlder.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
 export const usersController = {
@@ -10,12 +11,7 @@ export const usersController = {
       handleServiceResponse(res, usersResult, 200);
     } catch (error) {
       console.error('Erro ao buscar usuários:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -26,12 +22,7 @@ export const usersController = {
       handleServiceResponse(res, userResult, 200);
     } catch (error) {
       console.error('Erro ao buscar usuário:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -44,12 +35,7 @@ export const usersController = {
       handleServiceResponse(res, result, 201);
     } catch (error) {
       console.error('Erro ao cadastrar usuário:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -62,12 +48,7 @@ export const usersController = {
       handleServiceResponse(res, updatedUser, 200);
     } catch (error) {
       console.error('Erro ao atualizar usuário:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -78,12 +59,7 @@ export const usersController = {
       handleServiceResponse(res, deletedUser, 200);
     } catch (error) {
       console.error('Erro ao deletar usuário:', error);
-
-      const { statusCode, message } = CommonErrors.INTERNAL_SERVER_ERROR;
-      return res.status(statusCode).json({
-        success: false,
-        message,
-      });
+      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 };

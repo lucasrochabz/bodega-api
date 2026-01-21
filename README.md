@@ -1,4 +1,4 @@
-# Bodega API v1.7.1
+# Bodega API
 
 ![Imagem do projeto](docs/bodega-api01.png)
 
@@ -52,6 +52,17 @@ A aplicação segue boas práticas de desenvolvimento, segurança e padronizaç�
 - **Node.js** na versão 16.0 ou superior
 - **NPM** na versão 10.9 ou superior
 - **MySQL** na versão 8.0 ou superior
+
+## Estratégia de Branches
+
+Este projeto utiliza o **Git Flow**.
+
+- A branch `main` contém apenas código pronto para produção
+- A branch `develop` é usada para integração das funcionalidades
+- As branches `feature/*` são criadas a partir da `develop`
+- As branches `release/*` são usadas para preparar novas versões
+- As branches `hotfix/*` são usadas para correções urgentes
+- As versões são marcadas com tags na branch `main`
 
 ## Rodando localmente
 
@@ -157,6 +168,7 @@ bodega-api/
 │   ├── dtos/
 │   ├── errors/
 │   ├── helpers/
+│   │   ├── errorHandler.js
 │   │   ├── executeQuery.js
 │   │   └── handleServiceResponse.js
 │   │
