@@ -1,5 +1,5 @@
 import { verifyToken } from '../utils/tokenUtils.js';
-import { sendError } from '../helpers/errorHanlder.js';
+import { handleError } from '../helpers/handleError.js';
 import { AuthErrors } from '../errors/authErrors.js';
 
 export const authenticateUser = (req, res, next) => {
@@ -17,13 +17,13 @@ export const authenticateUser = (req, res, next) => {
 
     next();
   } catch (error) {
-    return sendError(res, AuthErrors.INVALID_TOKEN);
+    return handleError(res, AuthErrors.INVALID_TOKEN);
   }
 };
 
 export const authorizeAdmin = (req, res, next) => {
   if (req.user.role !== 'admin') {
-    return sendError(res, AuthErrors.UNAUTHORIZED_ACCESS);
+    return handleError(res, AuthErrors.UNAUTHORIZED_ACCESS);
   }
 
   next();
@@ -33,7 +33,7 @@ export const authenticateWebhook = (req, res, next) => {
   const secret = req.headers['x-webhook-secret'];
 
   if (secret !== process.env.WEBHOOK_SECRET) {
-    return sendError(res, AuthErrors.INVALID_WEBHOOK);
+    return handleError(res, AuthErrors.INVALID_WEBHOOK);
   }
 
   next();

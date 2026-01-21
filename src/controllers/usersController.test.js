@@ -1,11 +1,11 @@
 import { vi, describe, test, expect } from 'vitest';
-import { usersController } from './usersController';
-import { usersService } from '../services/usersService';
-import { handleServiceResponse } from '../helpers/handleServiceResponse';
+import { usersController } from './usersController.js';
+import { usersService } from '../services/usersService.js';
+import { handleResponse } from '../helpers/handleResponse.js';
 
-vi.mock('../services/usersService');
-vi.mock('../helpers/handleServiceResponse');
-vi.mock('../errors/usersErrors');
+vi.mock('../services/usersService.js');
+vi.mock('../helpers/handleResponse.js');
+vi.mock('../errors/usersErrors.js');
 
 const makeRes = () => ({
   status: vi.fn(() => res),
@@ -27,7 +27,7 @@ describe('usersController', () => {
 
     expect(usersService.getAllUsers).toHaveBeenCalled();
 
-    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
   });
 
   test('Deve chamar usersService.getUser', async () => {
@@ -46,7 +46,7 @@ describe('usersController', () => {
     await usersController.getUser(req, res);
 
     expect(usersService.getUser).toHaveBeenCalledWith(user.id);
-    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
   });
 
   test('Deve chamar usersService.createUser', async () => {
@@ -98,7 +98,7 @@ describe('usersController', () => {
       city: 'Cidade',
       state: 'Estado',
     });
-    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 201);
+    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 201);
   });
 
   test('Deve chamar usersService.updateUser', async () => {
@@ -121,7 +121,7 @@ describe('usersController', () => {
       userId: user.id,
       userData: body,
     });
-    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
   });
 
   test('Deve chamar usersService.deleteUser', async () => {
@@ -140,6 +140,6 @@ describe('usersController', () => {
     await usersController.deleteUser(req, res);
 
     expect(usersService.deleteUser).toHaveBeenCalledWith(params.userId);
-    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
   });
 });

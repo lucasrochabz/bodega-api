@@ -168,9 +168,9 @@ bodega-api/
 │   ├── dtos/
 │   ├── errors/
 │   ├── helpers/
-│   │   ├── errorHandler.js
 │   │   ├── executeQuery.js
-│   │   └── handleServiceResponse.js
+│   │   ├── handleError.js
+│   │   └── handleResponse.js
 │   │
 │   ├── middlewares/
 │   ├── models/

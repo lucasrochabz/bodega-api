@@ -1,7 +1,7 @@
 import { productsService } from '../services/productsService.js';
 import { createProductDTO } from '../dtos/createProductDTO.js';
-import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
-import { sendError } from '../helpers/errorHanlder.js';
+import { handleResponse } from '../helpers/handleResponse.js';
+import { handleError } from '../helpers/handleError.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
 export const productsController = {
@@ -16,10 +16,10 @@ export const productsController = {
         pageSizeNumber,
       });
 
-      handleServiceResponse(res, productsResult, 200);
+      handleResponse(res, productsResult, 200);
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
-      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -27,10 +27,10 @@ export const productsController = {
     const { productId } = req.params;
     try {
       const productResult = await productsService.getProduct(productId);
-      handleServiceResponse(res, productResult, 200);
+      handleResponse(res, productResult, 200);
     } catch (error) {
       console.error('Erro ao buscar produto:', error);
-      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -38,10 +38,10 @@ export const productsController = {
     const productData = createProductDTO(req.body);
     try {
       const result = await productsService.createProduct(productData);
-      handleServiceResponse(res, result, 201);
+      handleResponse(res, result, 201);
     } catch (error) {
       console.error('Erro ao cadastrar produto:', error);
-      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -54,10 +54,10 @@ export const productsController = {
         description,
       });
 
-      handleServiceResponse(res, updatedProduct, 200);
+      handleResponse(res, updatedProduct, 200);
     } catch (error) {
       console.error('Erro ao atualizar produto:', error);
-      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 
@@ -65,10 +65,10 @@ export const productsController = {
     const { productId } = req.params;
     try {
       const deletedProduct = await productsService.deleteProduct(productId);
-      handleServiceResponse(res, deletedProduct, 200);
+      handleResponse(res, deletedProduct, 200);
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
-      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 };

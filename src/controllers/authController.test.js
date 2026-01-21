@@ -1,10 +1,10 @@
 import { vi, describe, test, expect } from 'vitest';
 import { authController } from './authController';
 import { authService } from '../services/authService';
-import { handleServiceResponse } from '../helpers/handleServiceResponse';
+import { handleResponse } from '../helpers/handleResponse';
 
 vi.mock('../services/authService');
-vi.mock('../helpers/handleServiceResponse');
+vi.mock('../helpers/handleResponse');
 
 const makeRes = () => ({
   status: vi.fn(() => res),
@@ -28,7 +28,7 @@ describe('authController', () => {
     await authController.getMe(req, res);
 
     expect(authService.getMe).toHaveBeenCalledWith(user.id);
-    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
   });
 
   test('Deve chamar authService.login', async () => {
@@ -48,7 +48,7 @@ describe('authController', () => {
     await authController.login(req, res);
 
     expect(authService.login).toHaveBeenCalledWith(body);
-    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
   });
 
   test('Deve chamar authService.forgotPassword', async () => {
@@ -99,6 +99,6 @@ describe('authController', () => {
       token: query.token,
       newPassword: body.newPassword,
     });
-    expect(handleServiceResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
   });
 });

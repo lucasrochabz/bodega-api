@@ -1,6 +1,6 @@
 import { ordersService } from '../services/ordersService.js';
-import { handleServiceResponse } from '../helpers/handleServiceResponse.js';
-import { sendError } from '../helpers/errorHanlder.js';
+import { handleResponse } from '../helpers/handleResponse.js';
+import { handleError } from '../helpers/handleError.js';
 import { CommonErrors } from '../errors/commonErrors.js';
 
 export const webhooksController = {
@@ -9,10 +9,10 @@ export const webhooksController = {
     try {
       const result = await ordersService.updateOrder({ event, order_id });
 
-      handleServiceResponse(res, result, 200);
+      handleResponse(res, result, 200);
     } catch (error) {
       console.error('Erro ao processar webhook pagamento.', error);
-      return sendError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
     }
   },
 };

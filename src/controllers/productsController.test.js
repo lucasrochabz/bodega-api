@@ -1,7 +1,7 @@
 import { vi, describe, test, expect } from 'vitest';
-import { productsController } from './productsController';
-import { productsService } from '../services/productsService';
-// fix: add handleServiceResponse
+import { productsController } from './productsController.js';
+import { productsService } from '../services/productsService.js';
+// fix: add handleResponse
 
 vi.mock('../services/productsService');
 

@@ -1,4 +1,4 @@
-export const sendError = (res, error) => {
+export const handleError = (res, error) => {
   const { statusCode, message } = error;
 
   return res.status(statusCode).json({

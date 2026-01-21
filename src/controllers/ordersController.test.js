@@ -1,12 +1,12 @@
 import { describe, expect, test, vi } from 'vitest';
-import { ordersController } from './ordersController';
-import { ordersService } from '../services/ordersService';
-import { handleServiceResponse } from '../helpers/handleServiceResponse';
+import { ordersController } from './ordersController.js';
+import { ordersService } from '../services/ordersService.js';
+import { handleResponse } from '../helpers/handleResponse.js';
 
-vi.mock('../services/ordersService');
-vi.mock('../helpers/handleServiceResponse');
+vi.mock('../services/ordersService.js');
+vi.mock('../helpers/handleResponse.js');
 
-// fix: add handleServiceResponse nos testes
+// fix: add handleResponse nos testes
 describe('ordersController', () => {
   test('Deve chamar ordersService.getAllOrders', async () => {
     const req = {};

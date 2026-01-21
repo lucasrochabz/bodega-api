@@ -1,6 +1,6 @@
 import { CommonErrors } from '../errors/commonErrors.js';
 
-export const handleServiceResponse = (res, result, successStatus) => {
+export const handleResponse = (res, result, successStatus) => {
   if (successStatus === undefined) {
     throw new Error('É preciso informar o successStatus.');
   }
