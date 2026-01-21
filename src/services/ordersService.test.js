@@ -1,8 +1,8 @@
 import { vi, describe, test, expect } from 'vitest';
-import { ordersService } from './ordersService';
-import { ordersRepository } from '../repositories/ordersRepository';
+import { ordersService } from './ordersService.js';
+import { ordersRepository } from '../repositories/ordersRepository.js';
 
-vi.mock('../repositories/ordersRepository');
+vi.mock('../repositories/ordersRepository.js');
 
 describe('ordersService', () => {
   test('Deve chamar ordersRepository.findAllByUserId', async () => {

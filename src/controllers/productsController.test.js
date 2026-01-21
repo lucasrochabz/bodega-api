@@ -3,7 +3,7 @@ import { productsController } from './productsController.js';
 import { productsService } from '../services/productsService.js';
 // fix: add handleResponse
 
-vi.mock('../services/productsService');
+vi.mock('../services/productsService.js');
 
 describe('productsCrontroller', () => {
   test('Deve chamar productsService.getAllProducts', async () => {

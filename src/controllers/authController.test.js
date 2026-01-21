@@ -1,10 +1,10 @@
 import { vi, describe, test, expect } from 'vitest';
-import { authController } from './authController';
-import { authService } from '../services/authService';
-import { handleResponse } from '../helpers/handleResponse';
+import { authController } from './authController.js';
+import { authService } from '../services/authService.js';
+import { handleResponse } from '../helpers/handleResponse.js';
 
-vi.mock('../services/authService');
-vi.mock('../helpers/handleResponse');
+vi.mock('../services/authService.js');
+vi.mock('../helpers/handleResponse.js');
 
 const makeRes = () => ({
   status: vi.fn(() => res),

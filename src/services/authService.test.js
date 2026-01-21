@@ -1,12 +1,12 @@
 import { vi, describe, test, expect } from 'vitest';
-import { authService } from './authService';
-import { usersRepository } from '../repositories/usersRepository';
-import { compareHash } from '../utils/hashUtils';
-import { generateToken } from '../utils/tokenUtils';
+import { authService } from './authService.js';
+import { usersRepository } from '../repositories/usersRepository.js';
+import { compareHash } from '../utils/hashUtils.js';
+import { generateToken } from '../utils/tokenUtils.js';
 
-vi.mock('../repositories/usersRepository');
-vi.mock('../utils/hashUtils');
-vi.mock('../utils/tokenUtils');
+vi.mock('../repositories/usersRepository.js');
+vi.mock('../utils/hashUtils.js');
+vi.mock('../utils/tokenUtils.js');
 
 describe('authService', () => {
   test('Deve chamar usersRepository.findByEmail', async () => {
