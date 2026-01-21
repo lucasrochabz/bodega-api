@@ -45,6 +45,7 @@ const executeTables = async () => {
     // Fecha a conexão
     await connection.end();
   } catch (error) {
+    // fix: add throw error;
     console.error('Erro ao executar os scripts:', error.message);
   }
 };
