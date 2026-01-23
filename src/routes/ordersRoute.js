@@ -24,6 +24,11 @@ router.get('/:orderId', ordersController.getOrderDetails);
 
 // fix: add schema
 router.post('/', authenticateUser, ordersController.createOrder);
+router.post(
+  '/:orderId/checkout',
+  // authenticateUser,
+  ordersController.checkout,
+);
 
 // fix: proteger essa rota
 router.patch(

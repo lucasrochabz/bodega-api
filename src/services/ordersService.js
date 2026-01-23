@@ -21,9 +21,10 @@ export const ordersService = {
   getUserOrders: async (userId) => {
     const userOrders = await ordersRepository.findAllByUserId(userId);
 
-    if (userOrders.length === 0) {
-      return { error: OrdersErrors.USER_ORDERS_NOT_FOUND };
-    }
+    // fix: remover isso do mapa de erros
+    // if (userOrders.length === 0) {
+    //   return { error: OrdersErrors.USER_ORDERS_NOT_FOUND };
+    // }
 
     return {
       message: 'Pedido(s) encontrado(s) com sucesso.',

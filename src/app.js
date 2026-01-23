@@ -14,3 +14,5 @@ app.use(`${apiPrefix}/webhooks`, webhooksRoutes);
 
 // API pública — com CORS
 app.use(apiPrefix, corsMiddleware, apiRoutes);
+
+// fix: add errorHandler depois que entender o uso.

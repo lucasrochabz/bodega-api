@@ -53,6 +53,21 @@ export const ordersController = {
     }
   },
 
+  // fix: corrigir isso
+  // essa rota deve fazer: validar pedido, validar se está em draft, simular criação de pagamento.
+  // {
+  //   message: 'Pagamento iniciado.',
+  //   orderId: 123,
+  //   paymentId: 'fake_123',
+  //   status: 'processing'
+  // }
+  checkout: async (req, res) => {
+    res.status(202).json({
+      success: true,
+      message: 'Pagamento iniciado. Aguardando confirmação.',
+    });
+  },
+
   updateOrder: async (req, res) => {
     const { orderId } = req.params;
     const { status } = req.body;
