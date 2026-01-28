@@ -6,7 +6,7 @@ export const authenticateUser = (req, res, next) => {
   const authUser = req.headers.authorization;
 
   if (!authUser) {
-    return sendError(res, AuthErrors.UNAUTHENTICATED);
+    return handleError(res, AuthErrors.UNAUTHENTICATED);
   }
 
   const token = authUser.split(' ')[1];
