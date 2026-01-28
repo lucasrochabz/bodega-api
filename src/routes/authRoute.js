@@ -11,6 +11,8 @@ import { authController } from '../controllers/authController.js';
 
 const router = express.Router();
 
+// fix: add rota de refresh depois
+
 router.get('/me', authenticateUser, authController.getMe);
 
 router.post(

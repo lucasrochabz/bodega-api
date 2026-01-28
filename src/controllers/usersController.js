@@ -16,7 +16,7 @@ export const usersController = {
   },
 
   getUser: async (req, res) => {
-    const userId = req.user.id;
+    const { userId } = req.params;
     try {
       const userResult = await usersService.getUser(userId);
       handleResponse(res, userResult, 200);

@@ -10,7 +10,7 @@ export const AuthErrors = {
   },
 
   UNAUTHORIZED_ACCESS: {
-    statuscode: 403,
+    statusCode: 403,
     message: 'Acesso negado. Permissões insuficientes.',
   },
 

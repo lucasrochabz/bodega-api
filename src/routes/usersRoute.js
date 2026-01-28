@@ -11,9 +11,12 @@ import { usersController } from '../controllers/usersController.js';
 const router = express.Router();
 
 router.get('/', authenticateUser, authorizeAdmin, usersController.getAllUsers);
-
-// fix: essa rota deve receber '/:id' apos o user para o admin poder utilizar
-router.get('/user', authenticateUser, usersController.getUser);
+router.get(
+  '/:userId',
+  authenticateUser,
+  authorizeAdmin,
+  usersController.getUser,
+);
 
 router.post('/', validateBody(createUserSchema), usersController.createUser);
 
