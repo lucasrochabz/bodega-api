@@ -14,11 +14,11 @@ A aplicação segue boas práticas de desenvolvimento, segurança e padronizaç�
 
 ## Funcionalidades
 
-- Autenticação e autorização com JWT
 - Cadastro e login de usuários
-- Listagem de produtos
-- Criação e consulta de pedidos
-- Histórico de compras por usuário
+- Autenticação JWT com controle de acesso por usuário
+- CRUD de produtos
+- Criação de pedidos com relacionamento produto-pedido
+- Consulta de histórico de compras por usuário autenticado
 
 ## Tecnologias
 
@@ -47,22 +47,59 @@ A aplicação segue boas práticas de desenvolvimento, segurança e padronizaç�
 - **Docker** — Padronização e execução do ambiente.
 - **Vitest** — Testes automatizados.
 
+## Arquitetura e Decisões Técnicas
+
+A API foi estruturada seguindo separação de responsabilidades:
+
+- **Controllers**: Camada HTTP
+- **Services**: Regras de negócio
+- **Models**: Entidades de domínio
+- **Repositories**: Acesso a dados
+- **Schemas**: Validação de entrada
+- **Helpers**: Padronização de respostas e execução de queries
+
+Essa separação facilita testes, manutenção e evolução da aplicação.
+
+## Fluxo de uma Requisição
+
+1. A requisição chega pela rota.
+2. Middlewares executam validações e autenticação.
+3. O Controller recebe os dados já validados.
+4. O Service aplica as regras de negócio.
+5. O Repository acessa o banco de dados.
+6. O Controller retorna a resposta padronizada.
+
+## Padronização de Respostas
+
+A API utiliza um padrão consistente de respostas HTTP:
+
+- **200**: Requisição realizada com sucesso.
+- **201**: Recurso criado com sucesso.
+- **202**: Requisição aceita para processamento assíncrono.
+- **400**: Erro de validação ou violação de regra de negócio.
+- **401**: Não autenticado (token ausente ou inválido).
+- **403**: Autenticado, porém sem permissão para acessar o recurso.
+- **404**: Recurso não encontrado.
+- **429**: Muitas requisições em um curto período (rate limit excedido).
+- **500**: Erro interno inesperado no servidor.
+
+## Testes
+
+Os testes automatizados cobrem:
+
+- Controllers (fluxo HTTP e respostas)
+- Services (regras de negócio)
+- Helpers críticos
+
+Os testes foram pensados para validar comportamento, não implementação.
+
+Framework utilizado: **Vitest**.
+
 ## Requisitos
 
-- **Node.js** na versão 16.0 ou superior
-- **NPM** na versão 10.9 ou superior
-- **MySQL** na versão 8.0 ou superior
-
-## Estratégia de Branches
-
-Este projeto utiliza o **Git Flow**.
-
-- A branch `main` contém apenas código pronto para produção
-- A branch `develop` é usada para integração das funcionalidades
-- As branches `feature/*` são criadas a partir da `develop`
-- As branches `release/*` são usadas para preparar novas versões
-- As branches `hotfix/*` são usadas para correções urgentes
-- As versões são marcadas com tags na branch `main`
+- **Node.js** >= 16.0
+- **NPM** >= 10.9
+- **MySQL** >= 8.0
 
 ## Rodando localmente
 
@@ -93,6 +130,14 @@ Este projeto utiliza o **Git Flow**.
    ```bash
    npm run dev
    ```
+
+## Ambiente com Docker
+
+O uso do Docker garante:
+
+- Ambiente padronizado entre desenvolvimento e produção
+- Isolamento de dependências
+- Facilidade de setup para novos desenvolvedores
 
 ## Rodando com Docker
 
@@ -130,7 +175,7 @@ Este projeto utiliza o **Git Flow**.
    npm run db:insert-data
    ```
 
-## Estrutura do projeto
+## Estrutura do projeto (visão geral)
 
 ```bash
 bodega-api/
@@ -209,6 +254,17 @@ bodega-api/
 ├── package.json
 └── README.md
 ```
+
+## Estratégia de Branches
+
+Este projeto utiliza o **Git Flow**.
+
+- A branch `main` contém apenas código pronto para produção
+- A branch `develop` é usada para integração das funcionalidades
+- As branches `feature/*` são criadas a partir da `develop`
+- As branches `release/*` são usadas para preparar novas versões
+- As branches `hotfix/*` são usadas para correções urgentes
+- As versões são marcadas com tags na branch `main`
 
 ## Frontend do Projeto
 
