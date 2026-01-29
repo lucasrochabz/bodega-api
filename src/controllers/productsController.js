@@ -1,6 +1,7 @@
 import { productsService } from '../services/productsService.js';
 import { createProductDTO } from '../dtos/createProductDTO.js';
 import { createProductResDTO } from '../dtos/createProductResDTO.js';
+import { getAllProductsResDTO } from '../dtos/getAllProductsResDTO.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
 import { CommonErrors } from '../errors/commonErrors.js';
@@ -12,12 +13,21 @@ export const productsController = {
     const pageNumber = parseInt(page) || 1;
     const pageSizeNumber = parseInt(pageSize) || 10;
     try {
-      const productsResult = await productsService.getAllProducts({
+      const result = await productsService.getAllProducts({
         pageNumber,
         pageSizeNumber,
       });
 
-      handleResponse(res, productsResult, 200);
+      const data = getAllProductsResDTO(result);
+
+      handleResponse(
+        res,
+        {
+          message: 'Produtos encontrados com sucesso FOIII fix:.',
+          data,
+        },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);

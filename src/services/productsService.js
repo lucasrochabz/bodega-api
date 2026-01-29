@@ -14,10 +14,9 @@ export const productsService = {
     }
 
     return {
-      message: 'Produtos encontrados com sucesso.',
-      data: {
-        pagination: { totalPages: products.totalPages },
-        items: products.results,
+      items: products.results,
+      pagination: {
+        totalPages: products.totalPages,
       },
     };
   },
