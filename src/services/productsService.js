@@ -15,7 +15,10 @@ export const productsService = {
 
     return {
       message: 'Produtos encontrados com sucesso.',
-      data: { totalPages: products.totalPages, results: products.results },
+      data: {
+        pagination: { totalPages: products.totalPages },
+        items: products.results,
+      },
     };
   },
 

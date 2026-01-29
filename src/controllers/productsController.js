@@ -1,5 +1,6 @@
 import { productsService } from '../services/productsService.js';
 import { createProductDTO } from '../dtos/createProductDTO.js';
+import { createProductResDTO } from '../dtos/createProductResDTO.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
 import { CommonErrors } from '../errors/commonErrors.js';
@@ -35,10 +36,12 @@ export const productsController = {
   },
 
   createProduct: async (req, res) => {
-    const productData = createProductDTO(req.body);
     try {
+      const productData = createProductDTO(req.body);
       const result = await productsService.createProduct(productData);
-      handleResponse(res, result, 201);
+      // fix: acho que não precisa do DTO pois o ideal é retornar apenas uma mensagem.
+      const response = createProductResDTO(result);
+      handleResponse(res, response, 201);
     } catch (error) {
       console.error('Erro ao cadastrar produto:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
