@@ -6,8 +6,12 @@ import { CommonErrors } from '../errors/commonErrors.js';
 export const ordersController = {
   getAllOrders: async (req, res) => {
     try {
-      const ordersResult = await ordersService.getAllOrders();
-      handleResponse(res, ordersResult, 200);
+      const result = await ordersService.getAllOrders();
+      handleResponse(
+        res,
+        { message: 'Pedidos encontrados com sucesso.', data: result },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao buscar pedidos:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
@@ -17,8 +21,12 @@ export const ordersController = {
   getUserOrders: async (req, res) => {
     const userId = req.user.id;
     try {
-      const orderResult = await ordersService.getUserOrders(userId);
-      handleResponse(res, orderResult, 200);
+      const result = await ordersService.getUserOrders(userId);
+      handleResponse(
+        res,
+        { message: 'Pedido(s) encontrado(s) com sucesso.', data: result },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao buscar pedidos do usuário:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
@@ -28,8 +36,12 @@ export const ordersController = {
   getOrderDetails: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const orderResult = await ordersService.getOrderDetails(orderId);
-      handleResponse(res, orderResult, 200);
+      const result = await ordersService.getOrderDetails(orderId);
+      handleResponse(
+        res,
+        { message: 'Pedido encontrado com sucesso.', data: result },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao buscar pedido:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
@@ -40,13 +52,16 @@ export const ordersController = {
     const userId = req.user.id;
     const { status, products } = req.body;
     try {
-      const newOrder = await ordersService.createOrder({
+      const result = await ordersService.createOrder({
         userId,
         status,
         products,
       });
-
-      handleResponse(res, newOrder, 201);
+      handleResponse(
+        res,
+        { message: 'Pedido cadastrado com sucesso.', data: result },
+        201,
+      );
     } catch (error) {
       console.error('Erro ao cadastrar pedido:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
@@ -72,12 +87,18 @@ export const ordersController = {
     const { orderId } = req.params;
     const { status } = req.body;
     try {
-      const updatedOrder = await ordersService.updateOrder({
+      const result = await ordersService.updateOrder({
         orderId,
         status,
       });
-
-      handleResponse(res, updatedOrder, 200);
+      handleResponse(
+        res,
+        {
+          message: 'Status do pedido atualizado via webhook.',
+          data: result,
+        },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao atualizar pedido:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
@@ -87,8 +108,12 @@ export const ordersController = {
   deleteOrder: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const deletedOrder = await ordersService.deleteOrder(orderId);
-      handleResponse(res, deletedOrder, 200);
+      const result = await ordersService.deleteOrder(orderId);
+      handleResponse(
+        res,
+        { message: 'Pedido deletado com sucesso.', data: result },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao deletar pedido:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);

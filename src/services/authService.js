@@ -23,10 +23,7 @@ export const authService = {
       address: addressResult[0],
     };
 
-    return {
-      message: 'Usuário encontrado com sucesso.',
-      data: userData,
-    };
+    return userData;
   },
 
   login: async ({ email, password }) => {
@@ -44,7 +41,7 @@ export const authService = {
 
     const token = generateToken(new User(user[0]));
 
-    return { message: 'Login realizado com sucesso.', token };
+    return token;
   },
 
   forgotPassword: async ({ email, origin }) => {
@@ -63,11 +60,7 @@ export const authService = {
       );
     }
 
-    return {
-      message:
-        'Se o e-mail estiver cadastrado, você receberá um link para redefinir a senha.',
-      resetUrl,
-    };
+    return resetUrl;
   },
 
   resetPassword: async ({ token, newPassword }) => {
@@ -85,6 +78,6 @@ export const authService = {
       return { error: AuthErrors.USER_NOT_FOUND };
     }
 
-    return { message: 'Senha redefinida com sucesso.' };
+    return;
   },
 };

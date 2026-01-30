@@ -13,10 +13,7 @@ export const usersService = {
       return { error: UsersErrors.USERS_NOT_FOUND };
     }
 
-    return {
-      message: 'Usuários encontrados com sucesso.',
-      data: users,
-    };
+    return users;
   },
 
   getUser: async (userId) => {
@@ -33,10 +30,7 @@ export const usersService = {
       address: addressResult[0],
     };
 
-    return {
-      message: 'Usuário encontrado com sucesso.',
-      data: user,
-    };
+    return user;
   },
 
   // fix: preciso implementar transaction nessa etapa
@@ -68,11 +62,8 @@ export const usersService = {
     }
 
     return {
-      message: 'Usuário cadastrado com sucesso.',
-      data: {
-        ...user.toPublic(),
-        address: address.toPublic(),
-      },
+      ...user.toPublic(),
+      address: address.toPublic(),
     };
   },
 
@@ -87,8 +78,8 @@ export const usersService = {
     }
 
     return {
-      message: 'Usuário atualizado com sucesso',
-      data: { id: userId, name: userData.name },
+      id: userId,
+      name: userData.name,
     };
   },
 
@@ -100,8 +91,7 @@ export const usersService = {
     }
 
     return {
-      message: 'Usuário deletado com sucesso.',
-      data: { id: userId },
+      id: userId,
     };
   },
 };

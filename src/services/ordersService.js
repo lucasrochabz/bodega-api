@@ -12,10 +12,7 @@ export const ordersService = {
       return { error: OrdersErrors.ORDERS_NOT_FOUND };
     }
 
-    return {
-      message: 'Pedidos encontrados com sucesso.',
-      data: orders,
-    };
+    return orders;
   },
 
   getUserOrders: async (userId) => {
@@ -26,10 +23,7 @@ export const ordersService = {
     //   return { error: OrdersErrors.USER_ORDERS_NOT_FOUND };
     // }
 
-    return {
-      message: 'Pedido(s) encontrado(s) com sucesso.',
-      data: userOrders,
-    };
+    return userOrders;
   },
 
   getOrderDetails: async (orderId) => {
@@ -39,10 +33,7 @@ export const ordersService = {
       return { error: OrdersErrors.ORDER_NOT_FOUND };
     }
 
-    return {
-      message: 'Pedido encontrado com sucesso.',
-      data: orderResults,
-    };
+    return orderResults;
   },
 
   createOrder: async ({ userId, status, products }) => {
@@ -78,8 +69,11 @@ export const ordersService = {
     }
 
     return {
-      message: 'Pedido cadastrado com sucesso.',
-      data: { id: orderId, userId, addressId, status, products },
+      id: orderId,
+      userId,
+      addressId,
+      status,
+      products,
     };
   },
 
@@ -103,8 +97,9 @@ export const ordersService = {
     }
 
     return {
-      message: 'Status do pedido atualizado via webhook.',
-      data: { id: order_id, status, event },
+      id: order_id,
+      status,
+      event,
     };
   },
 
@@ -115,9 +110,6 @@ export const ordersService = {
       return { error: OrdersErrors.ORDER_NOT_FOUND };
     }
 
-    return {
-      message: 'Pedido deletado com sucesso.',
-      data: { id: orderId },
-    };
+    return { id: orderId };
   },
 };

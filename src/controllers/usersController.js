@@ -7,8 +7,12 @@ import { CommonErrors } from '../errors/commonErrors.js';
 export const usersController = {
   getAllUsers: async (req, res) => {
     try {
-      const usersResult = await usersService.getAllUsers();
-      handleResponse(res, usersResult, 200);
+      const result = await usersService.getAllUsers();
+      handleResponse(
+        res,
+        { message: 'Usuários encontrados com sucesso.', data: result },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao buscar usuários:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
@@ -18,8 +22,12 @@ export const usersController = {
   getUser: async (req, res) => {
     const { userId } = req.params;
     try {
-      const userResult = await usersService.getUser(userId);
-      handleResponse(res, userResult, 200);
+      const result = await usersService.getUser(userId);
+      handleResponse(
+        res,
+        { message: 'Usuário encontrado com sucesso.', data: result },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao buscar usuário:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
@@ -31,8 +39,11 @@ export const usersController = {
 
     try {
       const result = await usersService.createUser(userData);
-
-      handleResponse(res, result, 201);
+      handleResponse(
+        res,
+        { message: 'Usuário cadastrado com sucesso.', data: result },
+        201,
+      );
     } catch (error) {
       console.error('Erro ao cadastrar usuário:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
@@ -44,8 +55,12 @@ export const usersController = {
     const userData = req.body;
 
     try {
-      const updatedUser = await usersService.updateUser({ userId, userData });
-      handleResponse(res, updatedUser, 200);
+      const result = await usersService.updateUser({ userId, userData });
+      handleResponse(
+        res,
+        { message: 'Usuário atualizado com sucesso', data: result },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao atualizar usuário:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
@@ -55,8 +70,12 @@ export const usersController = {
   deleteUser: async (req, res) => {
     const { userId } = req.params;
     try {
-      const deletedUser = await usersService.deleteUser(userId);
-      handleResponse(res, deletedUser, 200);
+      const result = await usersService.deleteUser(userId);
+      handleResponse(
+        res,
+        { message: 'Usuário deletado com sucesso.', data: result },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao deletar usuário:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);

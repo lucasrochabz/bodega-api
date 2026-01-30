@@ -28,10 +28,7 @@ export const productsService = {
       return { error: ProductsErrors.PRODUCT_NOT_FOUND };
     }
 
-    return {
-      message: 'Produto encontrado com sucesso.',
-      data: product,
-    };
+    return product;
   },
 
   createProduct: async (productData) => {
@@ -44,10 +41,7 @@ export const productsService = {
 
     product.id = result.insertId;
 
-    return {
-      message: 'Produto cadastrado com sucesso.',
-      data: product.toPublic(),
-    };
+    return product.toPublic();
   },
 
   updateProduct: async ({ productId, description }) => {
@@ -61,8 +55,8 @@ export const productsService = {
     }
 
     return {
-      message: 'Produto atualizado com sucesso.',
-      data: { id: productId, description },
+      id: productId,
+      description,
     };
   },
 
@@ -73,9 +67,6 @@ export const productsService = {
       return { error: ProductsErrors.PRODUCT_NOT_FOUND };
     }
 
-    return {
-      message: 'Produto deletado com sucesso.',
-      data: { id: productId },
-    };
+    return { id: productId };
   },
 };

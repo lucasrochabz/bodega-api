@@ -8,7 +8,11 @@ export const authController = {
     const userId = req.user.id;
     try {
       const result = await authService.getMe(userId);
-      handleResponse(res, result, 200);
+      handleResponse(
+        res,
+        { message: 'Usuário encontrado com sucesso.', data: result },
+        200,
+      );
     } catch (error) {
       console.error('Erro buscar dados do usuário.', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
@@ -18,8 +22,12 @@ export const authController = {
   login: async (req, res) => {
     const { email, password } = req.body;
     try {
-      const userResult = await authService.login({ email, password });
-      handleResponse(res, userResult, 200);
+      const result = await authService.login({ email, password });
+      handleResponse(
+        res,
+        { message: 'Login realizado com sucesso.', token: result },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao realizar login:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
@@ -30,8 +38,15 @@ export const authController = {
     const { email, origin } = req.body;
     try {
       const result = await authService.forgotPassword({ email, origin });
-
-      return res.status(200).json(result);
+      handleResponse(
+        res,
+        {
+          message:
+            'Se o e-mail estiver cadastrado, enviaremos um link de redefinição.',
+          token: result,
+        },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao processar a recuperação de senha:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
@@ -43,7 +58,7 @@ export const authController = {
     const { newPassword } = req.body;
     try {
       const result = await authService.resetPassword({ token, newPassword });
-      handleResponse(res, result, 200);
+      handleResponse(res, { message: 'Senha redefinida com sucesso.' }, 200);
     } catch (error) {
       console.error('Erro ao redefinir senha:', error);
       return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
