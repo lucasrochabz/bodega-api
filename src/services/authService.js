@@ -30,13 +30,13 @@ export const authService = {
     const user = await usersRepository.findByEmail(email);
 
     if (user.length === 0) {
-      return { error: AuthErrors.INVALID_CREDENTIALS };
+      throw AuthErrors.INVALID_CREDENTIALS;
     }
 
     const isPasswordValid = await compareHash(password, user[0].password);
 
     if (!isPasswordValid) {
-      return { error: AuthErrors.INVALID_CREDENTIALS };
+      throw AuthErrors.INVALID_CREDENTIALS;
     }
 
     const token = generateToken(new User(user[0]));

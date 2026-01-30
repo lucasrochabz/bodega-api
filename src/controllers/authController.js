@@ -30,7 +30,7 @@ export const authController = {
       );
     } catch (error) {
       console.error('Erro ao realizar login:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 

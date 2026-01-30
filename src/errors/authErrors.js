@@ -1,4 +1,5 @@
 export const AuthErrors = {
+  // fix: add code: 'UNAUTHENTICATED' abaixo do status
   UNAUTHENTICATED: {
     statusCode: 401,
     message: 'Acesso negado. Usuário não autenticado.',

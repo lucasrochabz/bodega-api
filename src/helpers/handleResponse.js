@@ -1,18 +1,9 @@
 import { CommonErrors } from '../errors/commonErrors.js';
 
 export const handleResponse = (res, result, successStatus) => {
-  if (successStatus === undefined) {
-    throw new Error('É preciso informar o successStatus.');
-  }
-
-  if (result.error) {
-    const defaultError = CommonErrors.UNMAPPED_BUSINESS_ERROR;
-    const { statusCode, message } = result.error ?? defaultError;
-
-    return res.status(statusCode).json({
-      success: false,
-      message,
-    });
+  // fix: nullish check cobre undefined e null (anotar)
+  if (successStatus == null || result == null) {
+    throw new Error('É preciso informar o successStatus e/ou result.');
   }
 
   return res.status(successStatus).json({

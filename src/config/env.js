@@ -13,4 +13,4 @@ const envFileMap = {
 const envPath = path.resolve(process.cwd(), envFileMap[env]);
 
 dotenv.config({ path: envPath });
-console.info(`[ENV] Variáveis carregadas de: ${envPath}`);
+console.info(`[INFO][ENV] Variáveis carregadas de: ${envPath}`);
