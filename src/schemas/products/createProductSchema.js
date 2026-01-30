@@ -1,15 +1,15 @@
 import Joi from 'joi';
 
 export const createProductSchema = Joi.object({
-  name: Joi.string().min(3).max(200).required().messages({}),
+  name: Joi.string().min(3).max(200).required(),
 
-  price: Joi.number().precision(2).positive().required().messages({}),
+  price: Joi.number().precision(2).positive().required(),
 
-  description: Joi.string().required().messages({}),
+  description: Joi.string().required(),
 
-  stock: Joi.number().integer().min(0).required().messages({}),
+  stock: Joi.number().integer().min(0).required(),
 
-  status: Joi.string().valid('ativo', 'inativo').messages({}),
+  status: Joi.string().valid('ativo', 'inativo').required(),
 
-  imagePath: Joi.string().max(200).optional().messages({}),
+  imagePath: Joi.string().max(200).required(),
 }).prefs({ stripUnknown: true });

@@ -4,9 +4,8 @@ export const CommonErrors = {
     message: 'Erro interno do servidor. Tente novamente mais tarde.',
   },
 
-  // fix: BUSINESS_ERROR_NOT_MAPPED no handleServiceResponse
-  BUSINESS_ERROR_NOT_MAPPED: {
+  UNMAPPED_BUSINESS_ERROR: {
     statusCode: 500,
-    message: 'Erro de negócio não mapeado.',
+    message: 'Ocorreu um erro inesperado. Tente novamente mais tarde.',
   },
 };

@@ -10,17 +10,10 @@ export const usersService = {
     const users = await usersRepository.findAll();
 
     if (users.length === 0) {
-      return {
-        success: false,
-        error: UsersErrors.USERS_NOT_FOUND,
-      };
+      return { error: UsersErrors.USERS_NOT_FOUND };
     }
 
-    return {
-      success: true,
-      message: 'Usuários encontrados com sucesso.',
-      data: users,
-    };
+    return users;
   },
 
   getUser: async (userId) => {
@@ -29,10 +22,7 @@ export const usersService = {
     const addressResult = await addressesRepository.findByUserId(userId);
 
     if (userResult.length === 0 || addressResult.length === 0) {
-      return {
-        success: false,
-        error: UsersErrors.USER_NOT_FOUND,
-      };
+      return { error: UsersErrors.USER_NOT_FOUND };
     }
 
     const user = {
@@ -40,11 +30,7 @@ export const usersService = {
       address: addressResult[0],
     };
 
-    return {
-      success: true,
-      message: 'Usuário encontrado com sucesso.',
-      data: user,
-    };
+    return user;
   },
 
   // fix: preciso implementar transaction nessa etapa
@@ -59,10 +45,7 @@ export const usersService = {
     const result = await usersRepository.insert(user.toPersistence());
 
     if (result.affectedRows === 0) {
-      return {
-        success: false,
-        error: UsersErrors.USER_NOT_CREATED,
-      };
+      return { error: UsersErrors.USER_NOT_CREATED };
     }
 
     user.id = result.insertId;
@@ -75,16 +58,12 @@ export const usersService = {
     );
 
     if (addressResult.affectedRows === 0) {
-      return { success: false, error: 'ADDRESS_NOT_CREATED' };
+      return { error: UsersErrors.ADDRESS_NOT_CREATED };
     }
 
     return {
-      success: true,
-      message: 'Usuário cadastrado com sucesso.',
-      data: {
-        ...user.toPublic(),
-        address: address.toPublic(),
-      },
+      ...user.toPublic(),
+      address: address.toPublic(),
     };
   },
 
@@ -95,16 +74,12 @@ export const usersService = {
     });
 
     if (userUpdated.affectedRows === 0) {
-      return {
-        success: false,
-        error: UsersErrors.USER_NOT_FOUND,
-      };
+      return { error: UsersErrors.USER_NOT_FOUND };
     }
 
     return {
-      success: true,
-      message: 'Usuário atualizado com sucesso',
-      data: { id: userId, name: userData.name },
+      id: userId,
+      name: userData.name,
     };
   },
 
@@ -112,16 +87,11 @@ export const usersService = {
     const userRemoved = await usersRepository.deleteById(userId);
 
     if (userRemoved.affectedRows === 0) {
-      return {
-        success: false,
-        error: UsersErrors.USER_NOT_FOUND,
-      };
+      return { error: UsersErrors.USER_NOT_FOUND };
     }
 
     return {
-      success: true,
-      message: 'Usuário deletado com sucesso.',
-      data: { id: userId },
+      id: userId,
     };
   },
 };

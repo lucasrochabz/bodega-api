@@ -13,6 +13,7 @@ const getDBConnection = async () => {
     return connection;
   } catch (error) {
     console.error('Erro ao conectar ao banco de dados:', error);
+    throw error;
   }
 };
 

@@ -15,10 +15,7 @@ export const authService = {
     const addressResult = await addressesRepository.findByUserId(userId);
 
     if (userResult.length === 0 || addressResult.length === 0) {
-      return {
-        success: false,
-        error: AuthErrors.USER_NOT_FOUND,
-      };
+      return { error: AuthErrors.USER_NOT_FOUND };
     }
 
     const userData = {
@@ -26,35 +23,25 @@ export const authService = {
       address: addressResult[0],
     };
 
-    return {
-      success: true,
-      message: 'Usuário encontrado com sucesso.',
-      data: userData,
-    };
+    return userData;
   },
 
   login: async ({ email, password }) => {
     const user = await usersRepository.findByEmail(email);
 
     if (user.length === 0) {
-      return {
-        success: false,
-        error: AuthErrors.INVALID_CREDENTIALS,
-      };
+      return { error: AuthErrors.INVALID_CREDENTIALS };
     }
 
     const isPasswordValid = await compareHash(password, user[0].password);
 
     if (!isPasswordValid) {
-      return {
-        success: false,
-        error: AuthErrors.INVALID_CREDENTIALS,
-      };
+      return { error: AuthErrors.INVALID_CREDENTIALS };
     }
 
     const token = generateToken(new User(user[0]));
 
-    return { success: true, message: 'Login realizado com sucesso.', token };
+    return token;
   },
 
   forgotPassword: async ({ email, origin }) => {
@@ -73,12 +60,7 @@ export const authService = {
       );
     }
 
-    return {
-      success: true,
-      message:
-        'Se o e-mail estiver cadastrado, você receberá um link para redefinir a senha.',
-      resetUrl,
-    };
+    return resetUrl;
   },
 
   resetPassword: async ({ token, newPassword }) => {
@@ -93,12 +75,9 @@ export const authService = {
     });
 
     if (result.affectedRows === 0) {
-      return {
-        success: false,
-        error: AuthErrors.USER_NOT_FOUND,
-      };
+      return { error: AuthErrors.USER_NOT_FOUND };
     }
 
-    return { success: true, message: 'Senha redefinida com sucesso.' };
+    return;
   },
 };

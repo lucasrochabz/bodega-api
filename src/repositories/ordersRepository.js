@@ -10,30 +10,6 @@ export const ordersRepository = {
     return await executeQuery(query);
   },
 
-  findAllByUserId: async (userId) => {
-    const query = `
-      SELECT 
-        orders.id,
-        products.name,
-        orders.status,
-        products.image_path,
-        orders.created_at
-      FROM 
-        orders
-      JOIN
-        orders_products
-        ON orders.id = orders_products.order_id
-      JOIN 
-        products ON
-        orders_products.product_id = products.id
-      WHERE 
-        orders.user_id = ?
-    `;
-    const params = [userId];
-
-    return await executeQuery(query, params);
-  },
-
   findById: async (orderId) => {
     const query = `
       SELECT
@@ -66,6 +42,30 @@ export const ordersRepository = {
     return result[0];
   },
 
+  findAllByUserId: async (userId) => {
+    const query = `
+      SELECT 
+        orders.id,
+        products.name,
+        orders.status,
+        products.image_path,
+        orders.created_at
+      FROM 
+        orders
+      JOIN
+        orders_products
+        ON orders.id = orders_products.order_id
+      JOIN 
+        products ON
+        orders_products.product_id = products.id
+      WHERE 
+        orders.user_id = ?
+    `;
+    const params = [userId];
+
+    return await executeQuery(query, params);
+  },
+
   insert: async ({ userId, addressId, status }) => {
     const query = `
       INSERT INTO orders (user_id, address_id, status)
@@ -77,13 +77,14 @@ export const ordersRepository = {
     return results.insertId;
   },
 
-  updateById: async ({ status, orderId }) => {
+  updateById: async ({ status, order_id }) => {
     const query = `
       UPDATE orders
       SET status = ?
       WHERE id = ?
+      AND status <> ?
     `;
-    const params = [status, orderId];
+    const params = [status, order_id, status];
 
     return await executeQuery(query, params);
   },

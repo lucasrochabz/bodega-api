@@ -38,6 +38,7 @@ const executeDB = async () => {
 
     // fecha a conexão
   } catch (error) {
+    // fix: add throw error;
     console.error('Erro ao criar o banco de dados', error.message);
   } finally {
     await connection.end();

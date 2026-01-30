@@ -1,5 +1,5 @@
 import express from 'express';
-import { authenticate } from '../middlewares/authMiddleware.js';
+import { authenticateUser } from '../middlewares/authMiddleware.js';
 import { loginLimiter } from '../middlewares/loginLimiter.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { validateQuery } from '../middlewares/validateQuery.js';
@@ -10,8 +10,10 @@ import { resetPasswordSchema } from '../schemas/auth/resetPasswordSchema.js';
 import { authController } from '../controllers/authController.js';
 
 const router = express.Router();
-// fix: add rota '/me'
-router.get('/me', authenticate, authController.getMe);
+
+// fix: add rota de refresh depois
+
+router.get('/me', authenticateUser, authController.getMe);
 
 router.post(
   '/login',

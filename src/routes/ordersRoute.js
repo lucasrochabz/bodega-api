@@ -1,20 +1,37 @@
 import express from 'express';
-import { authenticate, authorizeAdmin } from '../middlewares/authMiddleware.js';
+import {
+  authenticateUser,
+  authorizeAdmin,
+} from '../middlewares/authMiddleware.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { orderSchema } from '../schemas/orders/orderSchema.js';
 import { ordersController } from '../controllers/ordersController.js';
 
 const router = express.Router();
 
-router.get('/', authenticate, authorizeAdmin, ordersController.getAllOrders);
+router.get(
+  '/',
+  authenticateUser,
+  authorizeAdmin,
+  ordersController.getAllOrders,
+);
+
+// fix: transformar rota em /user/:id ou /user/me (não sei se isso está correto)
+router.get('/user', authenticateUser, ordersController.getUserOrders);
+
 // fix: proteger essa rota
 router.get('/:orderId', ordersController.getOrderDetails);
-router.get('/user', authenticate, ordersController.getUserOrders);
 
-router.post('/', authenticate, ordersController.createOrder);
+// fix: add schema
+router.post('/', authenticateUser, ordersController.createOrder);
+router.post(
+  '/:orderId/checkout',
+  // authenticateUser,
+  ordersController.checkout,
+);
 
 // fix: proteger essa rota
-router.put(
+router.patch(
   '/:orderId',
   validateBody(orderSchema),
   ordersController.updateOrder,
@@ -22,7 +39,7 @@ router.put(
 
 router.delete(
   '/:orderId',
-  authenticate,
+  authenticateUser,
   authorizeAdmin,
   ordersController.deleteOrder,
 );

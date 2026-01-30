@@ -1,4 +1,5 @@
 import { ordersProductsRepository } from '../repositories/ordersProductsRepository.js';
+import { paymentEventsMapper } from '../mappers/paymentEventsMapper.js';
 import { ordersRepository } from '../repositories/ordersRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
 import { OrdersErrors } from '../errors/ordersErrors.js';
@@ -8,51 +9,31 @@ export const ordersService = {
     const orders = await ordersRepository.findAll();
 
     if (orders.length === 0) {
-      return {
-        success: false,
-        error: OrdersErrors.ORDERS_NOT_FOUND,
-      };
+      return { error: OrdersErrors.ORDERS_NOT_FOUND };
     }
 
-    return {
-      success: true,
-      message: 'Pedidos encontrados com sucesso.',
-      data: orders,
-    };
+    return orders;
   },
 
   getUserOrders: async (userId) => {
     const userOrders = await ordersRepository.findAllByUserId(userId);
 
-    if (userOrders.length === 0) {
-      return {
-        success: false,
-        error: OrdersErrors.USER_ORDERS_NOT_FOUND,
-      };
-    }
+    // fix: remover isso do mapa de erros
+    // if (userOrders.length === 0) {
+    //   return { error: OrdersErrors.USER_ORDERS_NOT_FOUND };
+    // }
 
-    return {
-      success: true,
-      message: 'Pedido(s) encontrado(s) com sucesso.',
-      data: userOrders,
-    };
+    return userOrders;
   },
 
   getOrderDetails: async (orderId) => {
     const orderResults = await ordersRepository.findById(orderId);
 
     if (!orderResults) {
-      return {
-        success: false,
-        error: OrdersErrors.ORDER_NOT_FOUND,
-      };
+      return { error: OrdersErrors.ORDER_NOT_FOUND };
     }
 
-    return {
-      success: true,
-      message: 'Pedido encontrado com sucesso.',
-      data: orderResults,
-    };
+    return orderResults;
   },
 
   createOrder: async ({ userId, status, products }) => {
@@ -60,7 +41,6 @@ export const ordersService = {
 
     if (!addressId) {
       return {
-        success: false,
         error: OrdersErrors.ADDRESS_NOT_FOUND,
       };
     }
@@ -72,10 +52,7 @@ export const ordersService = {
     });
 
     if (!orderId) {
-      return {
-        success: false,
-        error: OrdersErrors.ORDER_NOT_CREATED,
-      };
+      return { error: OrdersErrors.ORDER_NOT_CREATED };
     }
 
     const orderProducts = products.map((product) => [
@@ -84,38 +61,45 @@ export const ordersService = {
       product.quantity,
     ]);
 
-    const isProductsInserted = await ordersProductsRepository.insertMany(
-      orderProducts,
-    );
+    const isProductsInserted =
+      await ordersProductsRepository.insertMany(orderProducts);
 
     if (isProductsInserted.affectedRows === 0) {
-      return {
-        success: false,
-        error: OrdersErrors.ORDER_PRODUCTS_NOT_CREATED,
-      };
+      return { error: OrdersErrors.ORDER_PRODUCTS_NOT_CREATED };
     }
 
     return {
-      success: true,
-      message: 'Pedido cadastrado com sucesso.',
-      data: { id: orderId, userId, addressId, status, products },
+      id: orderId,
+      userId,
+      addressId,
+      status,
+      products,
     };
   },
 
-  updateOrder: async ({ orderId, status }) => {
-    const order = await ordersRepository.updateById({ orderId, status });
+  updateOrder: async ({ event, order_id }) => {
+    const status = paymentEventsMapper[event];
+
+    if (!status) {
+      return {
+        message: 'Evento de pagamento não mapeado. Ignorado.',
+        data: null,
+      };
+    }
+
+    const order = await ordersRepository.updateById({ order_id, status });
 
     if (order.affectedRows === 0) {
       return {
-        success: false,
-        error: OrdersErrors.ORDER_NOT_FOUND,
+        message: 'Evento já processado ou pedido inexistente.',
+        data: { id: order_id, status },
       };
     }
 
     return {
-      success: true,
-      message: 'Pedido atualizado com sucesso',
-      data: { id: orderId, status },
+      id: order_id,
+      status,
+      event,
     };
   },
 
@@ -123,16 +107,9 @@ export const ordersService = {
     const order = await ordersRepository.deleteById(orderId);
 
     if (order.affectedRows === 0) {
-      return {
-        success: false,
-        error: OrdersErrors.ORDER_NOT_FOUND,
-      };
+      return { error: OrdersErrors.ORDER_NOT_FOUND };
     }
 
-    return {
-      success: true,
-      message: 'Pedido deletado com sucesso.',
-      data: { id: orderId },
-    };
+    return { id: orderId };
   },
 };
