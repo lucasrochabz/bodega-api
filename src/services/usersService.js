@@ -10,7 +10,7 @@ export const usersService = {
     const users = await usersRepository.findAll();
 
     if (users.length === 0) {
-      return { error: UsersErrors.USERS_NOT_FOUND };
+      throw UsersErrors.USERS_NOT_FOUND;
     }
 
     return users;
@@ -22,7 +22,7 @@ export const usersService = {
     const addressResult = await addressesRepository.findByUserId(userId);
 
     if (userResult.length === 0 || addressResult.length === 0) {
-      return { error: UsersErrors.USER_NOT_FOUND };
+      throw UsersErrors.USER_NOT_FOUND;
     }
 
     const user = {
@@ -45,7 +45,7 @@ export const usersService = {
     const result = await usersRepository.insert(user.toPersistence());
 
     if (result.affectedRows === 0) {
-      return { error: UsersErrors.USER_NOT_CREATED };
+      throw UsersErrors.USER_NOT_CREATED;
     }
 
     user.id = result.insertId;
@@ -58,7 +58,7 @@ export const usersService = {
     );
 
     if (addressResult.affectedRows === 0) {
-      return { error: UsersErrors.ADDRESS_NOT_CREATED };
+      throw UsersErrors.ADDRESS_NOT_CREATED;
     }
 
     return {
@@ -74,7 +74,7 @@ export const usersService = {
     });
 
     if (userUpdated.affectedRows === 0) {
-      return { error: UsersErrors.USER_NOT_FOUND };
+      throw UsersErrors.USER_NOT_FOUND;
     }
 
     return {
@@ -87,7 +87,7 @@ export const usersService = {
     const userRemoved = await usersRepository.deleteById(userId);
 
     if (userRemoved.affectedRows === 0) {
-      return { error: UsersErrors.USER_NOT_FOUND };
+      throw UsersErrors.USER_NOT_FOUND;
     }
 
     return {

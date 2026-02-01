@@ -15,7 +15,7 @@ export const authService = {
     const addressResult = await addressesRepository.findByUserId(userId);
 
     if (userResult.length === 0 || addressResult.length === 0) {
-      return { error: AuthErrors.USER_NOT_FOUND };
+      throw AuthErrors.USER_NOT_FOUND;
     }
 
     const userData = {
@@ -75,7 +75,7 @@ export const authService = {
     });
 
     if (result.affectedRows === 0) {
-      return { error: AuthErrors.USER_NOT_FOUND };
+      throw AuthErrors.USER_NOT_FOUND;
     }
 
     return;

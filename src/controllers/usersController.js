@@ -2,7 +2,6 @@ import { usersService } from '../services/usersService.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { createUserDTO } from '../dtos/createUserDTO.js';
 import { handleError } from '../helpers/handleError.js';
-import { CommonErrors } from '../errors/commonErrors.js';
 
 export const usersController = {
   getAllUsers: async (req, res) => {
@@ -15,7 +14,7 @@ export const usersController = {
       );
     } catch (error) {
       console.error('Erro ao buscar usuários:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -30,7 +29,7 @@ export const usersController = {
       );
     } catch (error) {
       console.error('Erro ao buscar usuário:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -46,7 +45,7 @@ export const usersController = {
       );
     } catch (error) {
       console.error('Erro ao cadastrar usuário:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -63,7 +62,7 @@ export const usersController = {
       );
     } catch (error) {
       console.error('Erro ao atualizar usuário:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -78,7 +77,7 @@ export const usersController = {
       );
     } catch (error) {
       console.error('Erro ao deletar usuário:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 };

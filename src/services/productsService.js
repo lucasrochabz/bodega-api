@@ -10,7 +10,7 @@ export const productsService = {
     });
 
     if (products.results.length === 0) {
-      return { error: ProductsErrors.PRODUCTS_NOT_FOUND };
+      throw ProductsErrors.PRODUCTS_NOT_FOUND;
     }
 
     return {
@@ -25,7 +25,7 @@ export const productsService = {
     const product = await productsRepository.findByProductId(productId);
 
     if (product.length === 0) {
-      return { error: ProductsErrors.PRODUCT_NOT_FOUND };
+      throw ProductsErrors.PRODUCT_NOT_FOUND;
     }
 
     return product;
@@ -36,7 +36,7 @@ export const productsService = {
     const result = await productsRepository.insert(product.toPersistence());
 
     if (result.affectedRows === 0) {
-      return { error: ProductsErrors.PRODUCT_NOT_CREATED };
+      throw ProductsErrors.PRODUCT_NOT_CREATED;
     }
 
     product.id = result.insertId;
@@ -51,7 +51,7 @@ export const productsService = {
     });
 
     if (product.affectedRows === 0) {
-      return { error: ProductsErrors.PRODUCT_NOT_FOUND };
+      throw ProductsErrors.PRODUCT_NOT_FOUND;
     }
 
     return {
@@ -64,7 +64,7 @@ export const productsService = {
     const product = await productsRepository.deleteById(productId);
 
     if (product.affectedRows === 0) {
-      return { error: ProductsErrors.PRODUCT_NOT_FOUND };
+      throw ProductsErrors.PRODUCT_NOT_FOUND;
     }
 
     return { id: productId };

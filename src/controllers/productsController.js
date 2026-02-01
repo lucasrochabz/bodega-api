@@ -4,7 +4,6 @@ import { createProductDTO } from '../dtos/createProductDTO.js';
 import { productDTO } from '../dtos/productDTO.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
-import { CommonErrors } from '../errors/commonErrors.js';
 
 export const productsController = {
   getAllProducts: async (req, res) => {
@@ -26,7 +25,7 @@ export const productsController = {
       );
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -41,7 +40,7 @@ export const productsController = {
       );
     } catch (error) {
       console.error('Erro ao buscar produto:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -58,7 +57,7 @@ export const productsController = {
       );
     } catch (error) {
       console.error('Erro ao cadastrar produto:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -77,7 +76,7 @@ export const productsController = {
       );
     } catch (error) {
       console.error('Erro ao atualizar produto:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -92,7 +91,7 @@ export const productsController = {
       );
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 };

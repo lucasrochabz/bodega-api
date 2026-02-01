@@ -1,7 +1,6 @@
 import { authService } from '../services/authService.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
-import { CommonErrors } from '../errors/commonErrors.js';
 
 export const authController = {
   getMe: async (req, res) => {
@@ -15,7 +14,7 @@ export const authController = {
       );
     } catch (error) {
       console.error('Erro buscar dados do usuário.', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -49,7 +48,7 @@ export const authController = {
       );
     } catch (error) {
       console.error('Erro ao processar a recuperação de senha:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -61,7 +60,7 @@ export const authController = {
       handleResponse(res, { message: 'Senha redefinida com sucesso.' }, 200);
     } catch (error) {
       console.error('Erro ao redefinir senha:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 };

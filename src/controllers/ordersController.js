@@ -1,7 +1,6 @@
 import { ordersService } from '../services/ordersService.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
-import { CommonErrors } from '../errors/commonErrors.js';
 
 export const ordersController = {
   getAllOrders: async (req, res) => {
@@ -14,7 +13,7 @@ export const ordersController = {
       );
     } catch (error) {
       console.error('Erro ao buscar pedidos:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -29,7 +28,7 @@ export const ordersController = {
       );
     } catch (error) {
       console.error('Erro ao buscar pedidos do usuário:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -44,7 +43,7 @@ export const ordersController = {
       );
     } catch (error) {
       console.error('Erro ao buscar pedido:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -64,7 +63,7 @@ export const ordersController = {
       );
     } catch (error) {
       console.error('Erro ao cadastrar pedido:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -101,7 +100,7 @@ export const ordersController = {
       );
     } catch (error) {
       console.error('Erro ao atualizar pedido:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -116,7 +115,7 @@ export const ordersController = {
       );
     } catch (error) {
       console.error('Erro ao deletar pedido:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 };

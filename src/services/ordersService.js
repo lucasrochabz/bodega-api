@@ -9,7 +9,7 @@ export const ordersService = {
     const orders = await ordersRepository.findAll();
 
     if (orders.length === 0) {
-      return { error: OrdersErrors.ORDERS_NOT_FOUND };
+      throw OrdersErrors.ORDERS_NOT_FOUND;
     }
 
     return orders;
@@ -30,7 +30,7 @@ export const ordersService = {
     const orderResults = await ordersRepository.findById(orderId);
 
     if (!orderResults) {
-      return { error: OrdersErrors.ORDER_NOT_FOUND };
+      throw OrdersErrors.ORDER_NOT_FOUND;
     }
 
     return orderResults;
@@ -40,9 +40,7 @@ export const ordersService = {
     const addressId = await usersRepository.findAddressByUserId(userId);
 
     if (!addressId) {
-      return {
-        error: OrdersErrors.ADDRESS_NOT_FOUND,
-      };
+      throw OrdersErrors.ADDRESS_NOT_FOUND;
     }
 
     const orderId = await ordersRepository.insert({
@@ -52,7 +50,7 @@ export const ordersService = {
     });
 
     if (!orderId) {
-      return { error: OrdersErrors.ORDER_NOT_CREATED };
+      throw OrdersErrors.ORDER_NOT_CREATED;
     }
 
     const orderProducts = products.map((product) => [
@@ -65,7 +63,7 @@ export const ordersService = {
       await ordersProductsRepository.insertMany(orderProducts);
 
     if (isProductsInserted.affectedRows === 0) {
-      return { error: OrdersErrors.ORDER_PRODUCTS_NOT_CREATED };
+      throw OrdersErrors.ORDER_PRODUCTS_NOT_CREATED;
     }
 
     return {
@@ -107,7 +105,7 @@ export const ordersService = {
     const order = await ordersRepository.deleteById(orderId);
 
     if (order.affectedRows === 0) {
-      return { error: OrdersErrors.ORDER_NOT_FOUND };
+      throw OrdersErrors.ORDER_NOT_FOUND;
     }
 
     return { id: orderId };
