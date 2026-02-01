@@ -210,6 +210,9 @@ bodega-api/
 │   │   └── controller.test.js
 │   │
 │   ├── database/
+│   │   ├── connection.js
+│   │   └── executeQuery.js
+│   │
 │   ├── dtos/
 │   ├── errors/
 │   ├── helpers/
@@ -217,6 +220,7 @@ bodega-api/
 │   │   ├── handleError.js
 │   │   └── handleResponse.js
 │   │
+│   ├── mappers/
 │   ├── middlewares/
 │   ├── models/
 │   │   ├── addressModel.js

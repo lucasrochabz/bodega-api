@@ -1,4 +1,4 @@
-import getDBConnection from '../database/connection.js';
+import getDBConnection from '../database/connection';
 
 const executeQuery = async (query, params = []) => {
   const connection = await getDBConnection();

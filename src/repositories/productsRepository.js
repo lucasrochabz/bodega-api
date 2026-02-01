@@ -1,4 +1,4 @@
-import executeQuery from '../helpers/executeQuery.js';
+import executeQuery from '../database/executeQuery.js';
 
 export const productsRepository = {
   findAll: async ({ pageNumber, pageSizeNumber }) => {
