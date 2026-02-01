@@ -8,6 +8,7 @@ import {
 } from '../utils/tokenUtils.js';
 import User from '../models/userModel.js';
 import { AuthErrors } from '../errors/authErrors.js';
+import { UsersErrors } from '../errors/usersErrors.js';
 
 export const authService = {
   getMe: async (userId) => {
@@ -15,7 +16,7 @@ export const authService = {
     const addressResult = await addressesRepository.findByUserId(userId);
 
     if (userResult.length === 0 || addressResult.length === 0) {
-      throw AuthErrors.USER_NOT_FOUND;
+      throw UsersErrors.USER_NOT_FOUND;
     }
 
     const userData = {
@@ -75,7 +76,7 @@ export const authService = {
     });
 
     if (result.affectedRows === 0) {
-      throw AuthErrors.USER_NOT_FOUND;
+      throw UsersErrors.USER_NOT_FOUND;
     }
 
     return;

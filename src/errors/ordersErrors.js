@@ -1,31 +1,26 @@
 export const OrdersErrors = {
+  // fix: acho que isso deve ser removido pois não ter pedido não significa que esteja errado.
   ORDERS_NOT_FOUND: {
     statusCode: 404,
+    code: 'ORDERS_NOT_FOUND',
     message: 'Pedidos não encontrados.',
   },
 
   ORDER_NOT_FOUND: {
     statusCode: 404,
+    code: 'ORDER_NOT_FOUND',
     message: 'Pedido não encontrado.',
-  },
-
-  USER_ORDERS_NOT_FOUND: {
-    statusCode: 404,
-    message: 'Pedido(s) do usuário não encontrado(s).',
-  },
-
-  ADDRESS_NOT_FOUND: {
-    statusCode: 404,
-    message: 'Endereço não encontrado para o usuário.',
   },
 
   ORDER_NOT_CREATED: {
     statusCode: 400,
+    code: 'ORDER_NOT_CREATED',
     message: 'Pedido não cadastrado.',
   },
 
   ORDER_PRODUCTS_NOT_CREATED: {
     statusCode: 400,
+    code: 'ORDER_PRODUCTS_NOT_CREATED',
     message: 'Erro ao associar produtos ao pedido.',
   },
 };

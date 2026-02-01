@@ -3,6 +3,7 @@ import { paymentEventsMapper } from '../mappers/paymentEventsMapper.js';
 import { ordersRepository } from '../repositories/ordersRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
 import { OrdersErrors } from '../errors/ordersErrors.js';
+import { UsersErrors } from '../errors/usersErrors.js';
 
 export const ordersService = {
   getAllOrders: async () => {
@@ -17,11 +18,6 @@ export const ordersService = {
 
   getUserOrders: async (userId) => {
     const userOrders = await ordersRepository.findAllByUserId(userId);
-
-    // fix: remover isso do mapa de erros
-    // if (userOrders.length === 0) {
-    //   return { error: OrdersErrors.USER_ORDERS_NOT_FOUND };
-    // }
 
     return userOrders;
   },
@@ -40,7 +36,7 @@ export const ordersService = {
     const addressId = await usersRepository.findAddressByUserId(userId);
 
     if (!addressId) {
-      throw OrdersErrors.ADDRESS_NOT_FOUND;
+      throw UsersErrors.USER_ADDRESS_NOT_FOUND;
     }
 
     const orderId = await ordersRepository.insert({

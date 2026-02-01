@@ -58,7 +58,7 @@ export const usersService = {
     );
 
     if (addressResult.affectedRows === 0) {
-      throw UsersErrors.ADDRESS_NOT_CREATED;
+      throw UsersErrors.USER_ADDRESS_NOT_CREATED;
     }
 
     return {
