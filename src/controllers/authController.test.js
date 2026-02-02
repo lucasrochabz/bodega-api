@@ -10,9 +10,7 @@ const makeRes = () => ({});
 
 describe('authController', () => {
   test('Deve chamar authService.getMe', async () => {
-    const user = { id: '123' };
-
-    const req = { user };
+    const req = { user: { id: '1' } };
     const res = makeRes();
 
     const resultMock = {};
@@ -20,7 +18,7 @@ describe('authController', () => {
 
     await authController.getMe(req, res);
 
-    expect(authService.getMe).toHaveBeenCalledWith(user.id);
+    expect(authService.getMe).toHaveBeenCalledWith(req.user.id);
     expect(handleResponse).toHaveBeenCalledWith(
       res,
       { message: 'Usuário encontrado com sucesso.', data: resultMock },
@@ -29,9 +27,7 @@ describe('authController', () => {
   });
 
   test('Deve chamar authService.login', async () => {
-    const body = { email: 'teste@email.com', password: '123456' };
-
-    const req = { body };
+    const req = { body: { email: 'teste@email.com', password: '123456' } };
     const res = makeRes();
 
     const fakeToken = 'fakeToken123';
@@ -40,7 +36,7 @@ describe('authController', () => {
 
     await authController.login(req, res);
 
-    expect(authService.login).toHaveBeenCalledWith(body);
+    expect(authService.login).toHaveBeenCalledWith(req.body);
     expect(handleResponse).toHaveBeenCalledWith(
       res,
       { message: 'Login realizado com sucesso.', token: resultMock },
@@ -49,9 +45,9 @@ describe('authController', () => {
   });
 
   test('Deve chamar authService.forgotPassword', async () => {
-    const body = { email: 'teste@email.com', origin: 'http://localhost:3000' };
-
-    const req = { body };
+    const req = {
+      body: { email: 'teste@email.com', origin: 'http://localhost:3000' },
+    };
     const res = makeRes();
 
     const fakeResetToken = 'fakeResetToken123';
@@ -61,8 +57,8 @@ describe('authController', () => {
     await authController.forgotPassword(req, res);
 
     expect(authService.forgotPassword).toHaveBeenCalledWith({
-      email: body.email,
-      origin: body.origin,
+      email: req.body.email,
+      origin: req.body.origin,
     });
     expect(handleResponse).toHaveBeenCalledWith(
       res,
@@ -76,10 +72,10 @@ describe('authController', () => {
   });
 
   test('Deve chamar authService.resetPassword', async () => {
-    const query = { token: 'token123' };
-    const body = { newPassword: '123456' };
-
-    const req = { query, body };
+    const req = {
+      query: { token: 'token123' },
+      body: { newPassword: '123456' },
+    };
     const res = makeRes();
 
     authService.resetPassword.mockResolvedValue();
@@ -87,8 +83,8 @@ describe('authController', () => {
     await authController.resetPassword(req, res);
 
     expect(authService.resetPassword).toHaveBeenCalledWith({
-      token: query.token,
-      newPassword: body.newPassword,
+      token: req.query.token,
+      newPassword: req.body.newPassword,
     });
     expect(handleResponse).toHaveBeenCalledWith(
       res,

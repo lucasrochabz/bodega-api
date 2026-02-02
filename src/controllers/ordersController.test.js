@@ -27,9 +27,7 @@ describe('ordersController', () => {
   });
 
   test('Deve chamar ordersService.getMyOrders', async () => {
-    const user = { id: '1' };
-
-    const req = { user };
+    const req = { user: { id: '1' } };
     const res = makeRes();
 
     const resultMock = [];
@@ -37,7 +35,7 @@ describe('ordersController', () => {
 
     await ordersController.getMyOrders(req, res);
 
-    expect(ordersService.getMyOrders).toHaveBeenCalledWith(user.id);
+    expect(ordersService.getMyOrders).toHaveBeenCalledWith(req.user.id);
     expect(handleResponse).toHaveBeenCalledWith(
       res,
       { message: 'Pedido(s) encontrado(s) com sucesso.', data: resultMock },
@@ -45,12 +43,8 @@ describe('ordersController', () => {
     );
   });
 
-  // fix: corrigir esse teste depois
   test('Deve chamar ordersService.getOrderDetails', async () => {
-    const user = '1';
-    const params = { orderId: '1' };
-
-    const req = { params };
+    const req = { params: {}, user: {} };
     const res = makeRes();
 
     const resultMock = {};
@@ -59,8 +53,8 @@ describe('ordersController', () => {
     await ordersController.getOrderDetails(req, res);
 
     expect(ordersService.getOrderDetails).toHaveBeenCalledWith({
-      user: user,
-      orderId: params.orderId,
+      user: req.user,
+      orderId: req.params.orderId,
     });
     expect(handleResponse).toHaveBeenCalledWith(
       res,
@@ -70,10 +64,10 @@ describe('ordersController', () => {
   });
 
   test('Deve chamar ordersService.createOrder', async () => {
-    const user = { id: '123' };
-    const body = { status: 'text', products: [] };
-
-    const req = { user, body };
+    const req = {
+      user: { id: '1' },
+      body: { status: 'text', products: [] },
+    };
     const res = makeRes();
 
     const resultMock = {};
@@ -82,9 +76,9 @@ describe('ordersController', () => {
     await ordersController.createOrder(req, res);
 
     expect(ordersService.createOrder).toHaveBeenCalledWith({
-      userId: user.id,
-      status: body.status,
-      products: body.products,
+      userId: req.user.id,
+      status: req.body.status,
+      products: req.body.products,
     });
     expect(handleResponse).toHaveBeenCalledWith(
       res,
@@ -94,10 +88,10 @@ describe('ordersController', () => {
   });
 
   test('Deve chamar ordersService.updateOrder', async () => {
-    const params = { orderId: '123' };
-    const body = { status: 'status' };
-
-    const req = { params, body };
+    const req = {
+      params: { orderId: '1' },
+      body: { status: 'status' },
+    };
     const res = makeRes();
 
     const resultMock = {};
@@ -106,8 +100,8 @@ describe('ordersController', () => {
     await ordersController.updateOrder(req, res);
 
     expect(ordersService.updateOrder).toHaveBeenCalledWith({
-      orderId: params.orderId,
-      status: body.status,
+      orderId: req.params.orderId,
+      status: req.body.status,
     });
     expect(handleResponse).toHaveBeenCalledWith(
       res,
@@ -117,9 +111,7 @@ describe('ordersController', () => {
   });
 
   test('Deve chamar ordersService.deleteOrder', async () => {
-    const params = { orderId: '123' };
-
-    const req = { params };
+    const req = { params: { orderId: '123' } };
     const res = makeRes();
 
     const resultMock = {};
@@ -127,7 +119,7 @@ describe('ordersController', () => {
 
     await ordersController.deleteOrder(req, res);
 
-    expect(ordersService.deleteOrder).toHaveBeenCalledWith(params.orderId);
+    expect(ordersService.deleteOrder).toHaveBeenCalledWith(req.params.orderId);
     expect(handleResponse).toHaveBeenCalledWith(
       res,
       { message: 'Pedido deletado com sucesso.', data: resultMock },

@@ -11,6 +11,7 @@ const makeRes = () => ({});
 describe('productsCrontroller', () => {
   // fix: corrigir esse teste
   test('Deve chamar productsService.getAllProducts', async () => {
+    // fix: corrigir isso query não está sendo usado
     const req = { query: {} };
     const res = makeRes();
 
@@ -31,9 +32,7 @@ describe('productsCrontroller', () => {
   });
 
   test('Deve chamar productsService.getProduct', async () => {
-    const params = { productId: '1' };
-
-    const req = { params };
+    const req = { params: { productId: '1' } };
     const res = makeRes();
 
     const resultMock = {};
@@ -41,7 +40,9 @@ describe('productsCrontroller', () => {
 
     await productsController.getProduct(req, res);
 
-    expect(productsService.getProduct).toHaveBeenCalledWith(params.productId);
+    expect(productsService.getProduct).toHaveBeenCalledWith(
+      req.params.productId,
+    );
     expect(handleResponse).toHaveBeenCalledWith(
       res,
       { message: 'Produto encontrado com sucesso.', data: resultMock },
@@ -51,16 +52,7 @@ describe('productsCrontroller', () => {
 
   // fix: corrigir esse teste
   test('Deve chamar productsService.createProduct', async () => {
-    const body = {
-      name: 'Name',
-      price: '123',
-      description: 'description',
-      stock: '123',
-      status: 'status',
-      image_path: 'name_path',
-    };
-
-    const req = { body };
+    const req = { body: {} };
     const res = makeRes();
 
     const resultMock = {};
@@ -68,7 +60,7 @@ describe('productsCrontroller', () => {
 
     await productsController.createProduct(req, res);
 
-    expect(productsService.createProduct).toHaveBeenCalledWith(body);
+    expect(productsService.createProduct).toHaveBeenCalledWith(req.body);
     expect(handleResponse).toHaveBeenCalledWith(
       res,
       { message: 'Produto cadastrado com sucesso.', data: resultMock },
@@ -77,10 +69,10 @@ describe('productsCrontroller', () => {
   });
 
   test('Deve chamar productsService.updateProduct', async () => {
-    const params = { productId: '123' };
-    const body = { description: 'description' };
-
-    const req = { params, body };
+    const req = {
+      params: { productId: '123' },
+      body: { description: 'description' },
+    };
     const res = makeRes();
 
     const resultMock = {};
@@ -89,8 +81,8 @@ describe('productsCrontroller', () => {
     await productsController.updateProduct(req, res);
 
     expect(productsService.updateProduct).toHaveBeenCalledWith({
-      productId: params.productId,
-      description: body.description,
+      productId: req.params.productId,
+      description: req.body.description,
     });
     expect(handleResponse).toHaveBeenCalledWith(
       res,
@@ -100,8 +92,7 @@ describe('productsCrontroller', () => {
   });
 
   test('Deve chamar productsService.deleteProduct', async () => {
-    const params = { productId: '123' };
-    const req = { params };
+    const req = { params: { productId: '123' } };
     const res = makeRes();
 
     const resultMock = {};
@@ -110,7 +101,7 @@ describe('productsCrontroller', () => {
     await productsController.deleteProduct(req, res);
 
     expect(productsService.deleteProduct).toHaveBeenCalledWith(
-      params.productId,
+      req.params.productId,
     );
     expect(handleResponse).toHaveBeenCalledWith(
       res,
