@@ -57,7 +57,7 @@ export const usersController = {
       const result = await usersService.updateUser({ userId, userData });
       handleResponse(
         res,
-        { message: 'Usuário atualizado com sucesso', data: result },
+        { message: 'Usuário atualizado com sucesso.', data: result },
         200,
       );
     } catch (error) {

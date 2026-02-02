@@ -5,48 +5,43 @@ import { handleResponse } from '../helpers/handleResponse.js';
 
 vi.mock('../services/usersService.js');
 vi.mock('../helpers/handleResponse.js');
-vi.mock('../errors/usersErrors.js');
 
-const makeRes = () => ({
-  status: vi.fn(() => res),
-  json: vi.fn(),
-});
+const makeRes = () => ({});
 
 describe('usersController', () => {
   test('Deve chamar usersService.getAllUsers', async () => {
     const req = {};
     const res = makeRes();
 
-    const resultMock = {
-      success: true,
-    };
-
+    const resultMock = {};
     usersService.getAllUsers.mockResolvedValue(resultMock);
 
     await usersController.getAllUsers(req, res);
 
     expect(usersService.getAllUsers).toHaveBeenCalled();
-
-    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Usuários encontrados com sucesso.', data: resultMock },
+      200,
+    );
   });
 
   test('Deve chamar usersService.getUser', async () => {
-    const user = { id: '123' };
+    const user = { id: '1' };
     const req = { user };
     const res = makeRes();
 
-    const resultMock = {
-      success: true,
-      message: 'Usuário encontrado com sucesso.',
-      data: [],
-    };
-
+    const resultMock = {};
     usersService.getUser.mockResolvedValue(resultMock);
 
     await usersController.getUser(req, res);
 
     expect(usersService.getUser).toHaveBeenCalledWith(user.id);
-    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Usuário encontrado com sucesso.', data: resultMock },
+      200,
+    );
   });
 
   test('Deve chamar usersService.createUser', async () => {
@@ -65,23 +60,7 @@ describe('usersController', () => {
     const req = { body };
     const res = makeRes();
 
-    const resultMock = {
-      success: true,
-      message: 'Usuário cadastrado com sucesso.',
-      data: {
-        id: '123',
-        first_name: 'Name',
-        last_name: 'Teste',
-        email: 'teste@email.com',
-        zip_code: '60000000',
-        street: 'Rua Teste',
-        number: '123',
-        neighborhood: 'Bairro',
-        city: 'Cidade',
-        state: 'Estado',
-      },
-    };
-
+    const resultMock = {};
     usersService.createUser.mockResolvedValue(resultMock);
 
     await usersController.createUser(req, res);
@@ -98,7 +77,11 @@ describe('usersController', () => {
       city: 'Cidade',
       state: 'Estado',
     });
-    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 201);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Usuário cadastrado com sucesso.', data: resultMock },
+      201,
+    );
   });
 
   test('Deve chamar usersService.updateUser', async () => {
@@ -107,12 +90,7 @@ describe('usersController', () => {
     const req = { user, body };
     const res = makeRes();
 
-    const resultMock = {
-      success: true,
-      message: 'Usuário atualizado com sucesso',
-      data: {},
-    };
-
+    const resultMock = {};
     usersService.updateUser.mockResolvedValue(resultMock);
 
     await usersController.updateUser(req, res);
@@ -121,7 +99,11 @@ describe('usersController', () => {
       userId: user.id,
       userData: body,
     });
-    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Usuário atualizado com sucesso.', data: resultMock },
+      200,
+    );
   });
 
   test('Deve chamar usersService.deleteUser', async () => {
@@ -129,17 +111,16 @@ describe('usersController', () => {
     const req = { params };
     const res = makeRes();
 
-    const resultMock = {
-      success: true,
-      message: 'Usuário deletado com sucesso.',
-      data: {},
-    };
-
+    const resultMock = {};
     usersService.deleteUser.mockResolvedValue(resultMock);
 
     await usersController.deleteUser(req, res);
 
     expect(usersService.deleteUser).toHaveBeenCalledWith(params.userId);
-    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Usuário deletado com sucesso.', data: resultMock },
+      200,
+    );
   });
 });
