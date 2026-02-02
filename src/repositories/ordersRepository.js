@@ -14,6 +14,7 @@ export const ordersRepository = {
     const query = `
       SELECT
         orders.id,
+        orders.user_id,
         orders.status,
         orders.created_at,
         products.name,

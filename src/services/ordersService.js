@@ -17,19 +17,26 @@ export const ordersService = {
   },
 
   getMyOrders: async (userId) => {
-    const userOrders = await ordersRepository.findAllByUserId(userId);
+    const myOrders = await ordersRepository.findAllByUserId(userId);
 
-    return userOrders;
+    return myOrders;
   },
 
-  getOrderDetails: async (orderId) => {
-    const orderResults = await ordersRepository.findById(orderId);
+  getOrderDetails: async ({ user, orderId }) => {
+    const order = await ordersRepository.findById(orderId);
 
-    if (!orderResults) {
+    if (!order) {
       throw OrdersErrors.ORDER_NOT_FOUND;
     }
 
-    return orderResults;
+    const isAdmin = user.role === 'admin';
+    const isOwner = order.user_id === user.id;
+
+    if (!isAdmin && !isOwner) {
+      throw OrdersErrors.ORDER_ACCESS_DENIED;
+    }
+
+    return order;
   },
 
   createOrder: async ({ userId, status, products }) => {

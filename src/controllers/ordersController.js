@@ -33,9 +33,10 @@ export const ordersController = {
   },
 
   getOrderDetails: async (req, res) => {
+    const user = req.user;
     const { orderId } = req.params;
     try {
-      const result = await ordersService.getOrderDetails(orderId);
+      const result = await ordersService.getOrderDetails({ user, orderId });
       handleResponse(
         res,
         { message: 'Pedido encontrado com sucesso.', data: result },

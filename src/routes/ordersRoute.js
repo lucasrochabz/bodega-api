@@ -16,9 +16,7 @@ router.get(
   ordersController.getAllOrders,
 );
 router.get('/me', authenticateUser, ordersController.getMyOrders);
-
-// fix: proteger essa rota
-router.get('/:orderId', ordersController.getOrderDetails);
+router.get('/:orderId', authenticateUser, ordersController.getOrderDetails);
 
 // fix: add schema
 router.post('/', authenticateUser, ordersController.createOrder);
