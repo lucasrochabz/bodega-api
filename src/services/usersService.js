@@ -17,20 +17,18 @@ export const usersService = {
   },
 
   getUser: async (userId) => {
-    const userResult = await usersRepository.findByUserId(userId);
+    const user = await usersRepository.findByUserId(userId);
 
-    const addressResult = await addressesRepository.findByUserId(userId);
+    const address = await addressesRepository.findByUserId(userId);
 
-    if (userResult.length === 0 || addressResult.length === 0) {
+    if (user.length === 0 || address.length === 0) {
       throw UsersErrors.USER_NOT_FOUND;
     }
 
-    const user = {
-      ...userResult[0],
-      address: addressResult[0],
+    return {
+      ...user[0],
+      address: address[0],
     };
-
-    return user;
   },
 
   // fix: preciso implementar transaction nessa etapa
@@ -83,10 +81,11 @@ export const usersService = {
     };
   },
 
+  // fix: essa função não deve retornar nada (observar outras funções de delete)
   deleteUser: async (userId) => {
-    const userRemoved = await usersRepository.deleteById(userId);
+    const userDeleted = await usersRepository.deleteById(userId);
 
-    if (userRemoved.affectedRows === 0) {
+    if (userDeleted.affectedRows === 0) {
       throw UsersErrors.USER_NOT_FOUND;
     }
 

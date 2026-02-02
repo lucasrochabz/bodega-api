@@ -12,16 +12,16 @@ import { UsersErrors } from '../errors/usersErrors.js';
 
 export const authService = {
   getMe: async (userId) => {
-    const userResult = await usersRepository.findByUserId(userId);
-    const addressResult = await addressesRepository.findByUserId(userId);
+    const user = await usersRepository.findByUserId(userId);
+    const address = await addressesRepository.findByUserId(userId);
 
-    if (userResult.length === 0 || addressResult.length === 0) {
+    if (user.length === 0 || address.length === 0) {
       throw UsersErrors.USER_NOT_FOUND;
     }
 
     const userData = {
-      ...userResult[0],
-      address: addressResult[0],
+      ...user[0],
+      address: address[0],
     };
 
     return userData;
