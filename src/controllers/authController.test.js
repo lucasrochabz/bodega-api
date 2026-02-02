@@ -6,10 +6,8 @@ import { handleResponse } from '../helpers/handleResponse.js';
 vi.mock('../services/authService.js');
 vi.mock('../helpers/handleResponse.js');
 
-const makeRes = () => ({
-  status: vi.fn(() => res),
-  json: vi.fn(),
-});
+// fix: acho que tenho que corrigir isso.
+const makeRes = () => ({});
 
 describe('authController', () => {
   test('Deve chamar authService.getMe', async () => {
@@ -17,18 +15,18 @@ describe('authController', () => {
     const req = { user };
     const res = makeRes();
 
-    const resultMock = {
-      success: true,
-      message: 'Usuário encontrado com sucesso.',
-      data: [],
-    };
+    const resultMock = {};
 
     authService.getMe.mockResolvedValue(resultMock);
 
     await authController.getMe(req, res);
 
     expect(authService.getMe).toHaveBeenCalledWith(user.id);
-    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Usuário encontrado com sucesso.', data: resultMock },
+      200,
+    );
   });
 
   test('Deve chamar authService.login', async () => {
