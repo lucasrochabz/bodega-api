@@ -15,9 +15,7 @@ router.get(
   authorizeAdmin,
   ordersController.getAllOrders,
 );
-
-// fix: transformar rota em /user/:id ou /user/me (não sei se isso está correto)
-router.get('/user', authenticateUser, ordersController.getUserOrders);
+router.get('/me', authenticateUser, ordersController.getMyOrders);
 
 // fix: proteger essa rota
 router.get('/:orderId', ordersController.getOrderDetails);

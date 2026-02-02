@@ -16,7 +16,7 @@ export const ordersService = {
     return orders;
   },
 
-  getUserOrders: async (userId) => {
+  getMyOrders: async (userId) => {
     const userOrders = await ordersRepository.findAllByUserId(userId);
 
     return userOrders;

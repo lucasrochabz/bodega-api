@@ -17,10 +17,10 @@ export const ordersController = {
     }
   },
 
-  getUserOrders: async (req, res) => {
+  getMyOrders: async (req, res) => {
     const userId = req.user.id;
     try {
-      const result = await ordersService.getUserOrders(userId);
+      const result = await ordersService.getMyOrders(userId);
       handleResponse(
         res,
         { message: 'Pedido(s) encontrado(s) com sucesso.', data: result },
