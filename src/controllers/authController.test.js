@@ -6,17 +6,16 @@ import { handleResponse } from '../helpers/handleResponse.js';
 vi.mock('../services/authService.js');
 vi.mock('../helpers/handleResponse.js');
 
-// fix: acho que tenho que corrigir isso.
 const makeRes = () => ({});
 
 describe('authController', () => {
   test('Deve chamar authService.getMe', async () => {
     const user = { id: '123' };
+
     const req = { user };
     const res = makeRes();
 
     const resultMock = {};
-
     authService.getMe.mockResolvedValue(resultMock);
 
     await authController.getMe(req, res);
@@ -31,37 +30,33 @@ describe('authController', () => {
 
   test('Deve chamar authService.login', async () => {
     const body = { email: 'teste@email.com', password: '123456' };
+
     const req = { body };
     const res = makeRes();
 
     const fakeToken = 'fakeToken123';
-    const resultMock = {
-      success: true,
-      message: 'Login realizado com sucesso.',
-      token: fakeToken,
-    };
-
+    const resultMock = fakeToken;
     authService.login.mockResolvedValue(resultMock);
 
     await authController.login(req, res);
 
     expect(authService.login).toHaveBeenCalledWith(body);
-    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Login realizado com sucesso.', token: resultMock },
+      200,
+    );
   });
 
   test('Deve chamar authService.forgotPassword', async () => {
     const body = { email: 'teste@email.com', origin: 'http://localhost:3000' };
-    const req = { body };
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
-    };
 
-    authService.forgotPassword.mockResolvedValue({
-      success: true,
-      message: 'Link de redefinição de senha gerado com sucesso.',
-      resetUrl: 'http://localhost:3000',
-    });
+    const req = { body };
+    const res = makeRes();
+
+    const fakeResetToken = 'fakeResetToken123';
+    const resultMock = fakeResetToken;
+    authService.forgotPassword.mockResolvedValue(resultMock);
 
     await authController.forgotPassword(req, res);
 
@@ -69,12 +64,15 @@ describe('authController', () => {
       email: body.email,
       origin: body.origin,
     });
-
-    expect(res.json).toHaveBeenCalledWith({
-      success: true,
-      message: 'Link de redefinição de senha gerado com sucesso.',
-      resetUrl: 'http://localhost:3000',
-    });
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      {
+        message:
+          'Se o e-mail estiver cadastrado, enviaremos um link de redefinição.',
+        token: resultMock,
+      },
+      200,
+    );
   });
 
   test('Deve chamar authService.resetPassword', async () => {
@@ -84,12 +82,7 @@ describe('authController', () => {
     const req = { query, body };
     const res = makeRes();
 
-    const resultMock = {
-      success: true,
-      message: 'Senha redefinida com sucesso.',
-    };
-
-    authService.resetPassword.mockResolvedValue(resultMock);
+    authService.resetPassword.mockResolvedValue();
 
     await authController.resetPassword(req, res);
 
@@ -97,6 +90,10 @@ describe('authController', () => {
       token: query.token,
       newPassword: body.newPassword,
     });
-    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Senha redefinida com sucesso.' },
+      200,
+    );
   });
 });
