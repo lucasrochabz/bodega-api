@@ -7,7 +7,7 @@ export const authController = {
     const userId = req.user.id;
     try {
       const result = await authService.getMe(userId);
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Usuário encontrado com sucesso.', data: result },
         200,
@@ -22,7 +22,7 @@ export const authController = {
     const { email, password } = req.body;
     try {
       const result = await authService.login({ email, password });
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Login realizado com sucesso.', token: result },
         200,
@@ -37,7 +37,7 @@ export const authController = {
     const { email, origin } = req.body;
     try {
       const result = await authService.forgotPassword({ email, origin });
-      handleResponse(
+      return handleResponse(
         res,
         {
           message:
@@ -57,7 +57,11 @@ export const authController = {
     const { newPassword } = req.body;
     try {
       const result = await authService.resetPassword({ token, newPassword });
-      handleResponse(res, { message: 'Senha redefinida com sucesso.' }, 200);
+      return handleResponse(
+        res,
+        { message: 'Senha redefinida com sucesso.' },
+        200,
+      );
     } catch (error) {
       console.error('Erro ao redefinir senha:', error);
       return handleError(res, error);

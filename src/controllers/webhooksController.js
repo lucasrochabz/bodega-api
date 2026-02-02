@@ -7,7 +7,7 @@ export const webhooksController = {
     const { event, order_id } = req.body;
     try {
       const result = await ordersService.updateOrder({ event, order_id });
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Usuário atualizado com sucesso', data: result },
         200,

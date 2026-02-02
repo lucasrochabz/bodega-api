@@ -7,7 +7,7 @@ export const usersController = {
   getAllUsers: async (req, res) => {
     try {
       const result = await usersService.getAllUsers();
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Usuários encontrados com sucesso.', data: result },
         200,
@@ -22,7 +22,7 @@ export const usersController = {
     const { userId } = req.params;
     try {
       const result = await usersService.getUser(userId);
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Usuário encontrado com sucesso.', data: result },
         200,
@@ -38,7 +38,7 @@ export const usersController = {
 
     try {
       const result = await usersService.createUser(userData);
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Usuário cadastrado com sucesso.', data: result },
         201,
@@ -55,7 +55,7 @@ export const usersController = {
 
     try {
       const result = await usersService.updateUser({ userId, userData });
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Usuário atualizado com sucesso.', data: result },
         200,
@@ -70,7 +70,7 @@ export const usersController = {
     const { userId } = req.params;
     try {
       const result = await usersService.deleteUser(userId);
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Usuário deletado com sucesso.', data: result },
         200,

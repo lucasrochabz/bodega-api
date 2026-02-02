@@ -18,7 +18,7 @@ export const productsController = {
       });
       const data = getAllProductsResDTO(result);
 
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Produtos encontrados com sucesso.', data },
         200,
@@ -33,7 +33,7 @@ export const productsController = {
     const { productId } = req.params;
     try {
       const result = await productsService.getProduct(productId);
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Produto encontrado com sucesso.', data: result },
         200,
@@ -50,7 +50,7 @@ export const productsController = {
       const result = await productsService.createProduct(productData);
       // fix: acho que não precisa do DTO pois o ideal é retornar apenas uma mensagem.
       const data = productDTO(result);
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Produto cadastrado com sucesso.', data },
         201,
@@ -69,7 +69,7 @@ export const productsController = {
         productId,
         description,
       });
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Produto atualizado com sucesso.', data: result },
         200,
@@ -84,7 +84,7 @@ export const productsController = {
     const { productId } = req.params;
     try {
       const result = await productsService.deleteProduct(productId);
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Produto deletado com sucesso.', data: result },
         200,

@@ -6,7 +6,7 @@ export const ordersController = {
   getAllOrders: async (req, res) => {
     try {
       const result = await ordersService.getAllOrders();
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Pedidos encontrados com sucesso.', data: result },
         200,
@@ -21,7 +21,7 @@ export const ordersController = {
     const userId = req.user.id;
     try {
       const result = await ordersService.getMyOrders(userId);
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Pedido(s) encontrado(s) com sucesso.', data: result },
         200,
@@ -37,7 +37,7 @@ export const ordersController = {
     const { orderId } = req.params;
     try {
       const result = await ordersService.getOrderDetails({ user, orderId });
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Pedido encontrado com sucesso.', data: result },
         200,
@@ -57,7 +57,7 @@ export const ordersController = {
         status,
         products,
       });
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Pedido cadastrado com sucesso.', data: result },
         201,
@@ -91,7 +91,7 @@ export const ordersController = {
         orderId,
         status,
       });
-      handleResponse(
+      return handleResponse(
         res,
         {
           message: 'Status do pedido atualizado via webhook.',
@@ -109,7 +109,7 @@ export const ordersController = {
     const { orderId } = req.params;
     try {
       const result = await ordersService.deleteOrder(orderId);
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Pedido deletado com sucesso.', data: result },
         200,
