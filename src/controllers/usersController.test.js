@@ -27,7 +27,7 @@ describe('usersController', () => {
   });
 
   test('Deve chamar usersService.getUser', async () => {
-    const req = { user: { id: '1' } };
+    const req = { params: { userId: '1' } };
     const res = makeRes();
 
     const resultMock = {};
@@ -35,7 +35,7 @@ describe('usersController', () => {
 
     await usersController.getUser(req, res);
 
-    expect(usersService.getUser).toHaveBeenCalledWith(req.user.id);
+    expect(usersService.getUser).toHaveBeenCalledWith(req.params.userId);
     expect(handleResponse).toHaveBeenCalledWith(
       res,
       { message: 'Usuário encontrado com sucesso.', data: resultMock },
@@ -44,20 +44,7 @@ describe('usersController', () => {
   });
 
   test('Deve chamar usersService.createUser', async () => {
-    const req = {
-      body: {
-        firstName: 'Name',
-        lastName: 'Teste',
-        email: 'teste@email.com',
-        password: '123456',
-        zipCode: '60000000',
-        street: 'Rua Teste',
-        number: '123',
-        neighborhood: 'Bairro',
-        city: 'Cidade',
-        state: 'Estado',
-      },
-    };
+    const req = { body: { userData: {} } };
     const res = makeRes();
 
     const resultMock = {};
@@ -65,7 +52,7 @@ describe('usersController', () => {
 
     await usersController.createUser(req, res);
 
-    expect(usersService.createUser).toHaveBeenCalledWith(req.body);
+    expect(usersService.createUser).toHaveBeenCalledWith(req.body.userData);
     expect(handleResponse).toHaveBeenCalledWith(
       res,
       { message: 'Usuário cadastrado com sucesso.', data: resultMock },

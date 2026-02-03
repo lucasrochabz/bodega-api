@@ -2,27 +2,28 @@ import { vi, describe, test, expect } from 'vitest';
 import { productsController } from './productsController.js';
 import { productsService } from '../services/productsService.js';
 import { handleResponse } from '../helpers/handleResponse.js';
+import { getAllProductsResDTO } from '../dtos/getAllProductsResDTO.js';
 
 vi.mock('../services/productsService.js');
 vi.mock('../helpers/handleResponse.js');
+vi.mock('../dtos/getAllProductsResDTO.js');
 
 const makeRes = () => ({});
 
 describe('productsCrontroller', () => {
-  // fix: corrigir esse teste
   test('Deve chamar productsService.getAllProducts', async () => {
-    // fix: corrigir isso query não está sendo usado
-    const req = { query: {} };
+    const req = { query: { page: '1', pageSize: '4' } };
     const res = makeRes();
 
     const resultMock = {};
     productsService.getAllProducts.mockResolvedValue(resultMock);
+    getAllProductsResDTO.mockReturnValue(resultMock);
 
     await productsController.getAllProducts(req, res);
 
     expect(productsService.getAllProducts).toHaveBeenCalledWith({
       pageNumber: 1,
-      pageSizeNumber: 10,
+      pageSizeNumber: 4,
     });
     expect(handleResponse).toHaveBeenCalledWith(
       res,
