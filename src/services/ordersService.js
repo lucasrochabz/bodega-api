@@ -78,30 +78,23 @@ export const ordersService = {
     };
   },
 
-  updateOrder: async ({ event, order_id }) => {
-    const status = paymentEventsMapper[event];
-
-    if (!status) {
-      return {
-        message: 'Evento de pagamento não mapeado. Ignorado.',
-        data: null,
-      };
-    }
-
-    const order = await ordersRepository.updateById({ order_id, status });
-
+  // fix ver como posso usar esse service
+  updateOrder: async ({}) => {
+    const order = await ordersRepository.updateByOrderId({});
     if (order.affectedRows === 0) {
       return {
         message: 'Evento já processado ou pedido inexistente.',
-        data: { id: order_id, status },
+        data: {},
       };
     }
+    return {};
+  },
 
-    return {
+  markAsPaid: (order_id) => {
+    return ordersRepository.updateStatus({
       id: order_id,
-      status,
-      event,
-    };
+      status: 'pagamento efetuado',
+    });
   },
 
   deleteOrder: async (orderId) => {

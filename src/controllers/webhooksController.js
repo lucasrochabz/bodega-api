@@ -1,15 +1,19 @@
-import { ordersService } from '../services/ordersService.js';
+import { paymentsService } from '../services/paymentsService.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
 
 export const webhooksController = {
   paymentWebhook: async (req, res) => {
-    const { event, order_id } = req.body;
+    const { event, order_id, transaction_id } = req.body;
     try {
-      const result = await ordersService.updateOrder({ event, order_id });
+      const result = await paymentsService.handlePaymentEvent({
+        event,
+        order_id,
+        transaction_id,
+      });
       return handleResponse(
         res,
-        { message: 'Usuário atualizado com sucesso', data: result },
+        { message: 'Pagamento atualizado com sucesso.', data: result },
         200,
       );
     } catch (error) {

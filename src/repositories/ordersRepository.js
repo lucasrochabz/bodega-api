@@ -78,14 +78,13 @@ export const ordersRepository = {
     return results.insertId;
   },
 
-  updateById: async ({ status, order_id }) => {
+  updateStatus: async ({ id, status }) => {
     const query = `
       UPDATE orders
       SET status = ?
       WHERE id = ?
-      AND status <> ?
     `;
-    const params = [status, order_id, status];
+    const params = [status, id];
 
     return await executeQuery(query, params);
   },

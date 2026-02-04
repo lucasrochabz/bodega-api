@@ -90,18 +90,14 @@ export const ordersController = {
     });
   },
 
+  // fix: ver como posso esta utilizando essa rota
   updateOrder: async (req, res) => {
-    const { orderId } = req.params;
-    const { status } = req.body;
     try {
-      const result = await ordersService.updateOrder({
-        orderId,
-        status,
-      });
+      const result = await ordersService.updateOrder({});
       return handleResponse(
         res,
         {
-          message: 'Status do pedido atualizado via webhook.',
+          message: '',
           data: result,
         },
         200,

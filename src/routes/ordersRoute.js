@@ -27,6 +27,8 @@ router.post(
 );
 
 // fix: proteger essa rota
+// fix: acho que essa rota tem que ir para paymentsController
+// fix: ver como posso esta utilizando essa rota
 router.patch(
   '/:orderId',
   validateBody(orderSchema),
