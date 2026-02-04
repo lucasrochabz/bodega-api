@@ -10,6 +10,7 @@ export const productsRepository = {
       FROM products
     `;
 
+    // fix: tirar essa responsabilidade do repository
     const countResults = await executeQuery(countQuery);
     const totalProducts = countResults[0].total;
     const totalPages = Math.ceil(totalProducts / pageSizeNumber);
