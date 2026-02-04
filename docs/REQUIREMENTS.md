@@ -76,3 +76,8 @@ npm install --save express-rate-limit
 npm install --save-dev nodemon
 npm install --save-dev vitest
 npm install --save-dev @vitest/coverage-v8
+
+### TODO
+
+// TODO: quando integrar webhook real,
+// validar transições de status e eventos fora de ordem

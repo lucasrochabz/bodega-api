@@ -77,7 +77,14 @@ export const ordersController = {
   //   status: 'processing'
   // }
   checkout: async (req, res) => {
-    res.status(202).json({
+    const { orderId } = req.params;
+    const { payment_method, gateway, payment_token } = req.body;
+
+    if (!payment_token) {
+      return res.status(400).json({ error: 'Pagamento inválido.' });
+    }
+
+    return res.status(202).json({
       success: true,
       message: 'Pagamento iniciado. Aguardando confirmação.',
     });
