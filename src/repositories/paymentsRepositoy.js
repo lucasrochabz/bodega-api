@@ -14,7 +14,8 @@ export const paymentsRepositoy = {
       paymentData.order_id,
     ];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 
   updateByOrderId: async ({ status, order_id, transaction_id }) => {
@@ -28,6 +29,7 @@ export const paymentsRepositoy = {
     `;
     const params = [status, transaction_id, order_id, status];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 };

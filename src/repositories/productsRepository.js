@@ -33,8 +33,8 @@ export const productsRepository = {
     `;
     const params = [productID];
 
-    const results = await executeQuery(query, params);
-    return results[0];
+    const rows = await executeQuery(query, params);
+    return rows[0];
   },
 
   insert: async (productData) => {
@@ -51,8 +51,8 @@ export const productsRepository = {
       productData.image_path,
     ];
 
-    const results = await executeQuery(query, params);
-    return results.insertId;
+    const result = await executeQuery(query, params);
+    return result.insertId;
   },
 
   updateById: async ({ description, productId }) => {
@@ -63,7 +63,8 @@ export const productsRepository = {
     `;
     const params = [description, productId];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 
   deleteById: async (productId) => {
@@ -72,6 +73,7 @@ export const productsRepository = {
     `;
     const params = [productId];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 };

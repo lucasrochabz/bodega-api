@@ -7,7 +7,8 @@ export const ordersRepository = {
       FROM orders
     `;
 
-    return await executeQuery(query);
+    const rows = await executeQuery(query);
+    return rows;
   },
 
   findById: async (orderId) => {
@@ -39,8 +40,8 @@ export const ordersRepository = {
     `;
     const params = [orderId];
 
-    const result = await executeQuery(query, params);
-    return result[0];
+    const rows = await executeQuery(query, params);
+    return rows[0];
   },
 
   findAllByUserId: async (userId) => {
@@ -74,8 +75,8 @@ export const ordersRepository = {
     `;
     const params = [userId, addressId, status];
 
-    const results = await executeQuery(query, params);
-    return results.insertId;
+    const result = await executeQuery(query, params);
+    return result.insertId;
   },
 
   updateStatus: async ({ id, status }) => {
@@ -86,7 +87,8 @@ export const ordersRepository = {
     `;
     const params = [status, id];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 
   deleteById: async (orderId) => {
@@ -95,6 +97,7 @@ export const ordersRepository = {
     `;
     const params = [orderId];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 };

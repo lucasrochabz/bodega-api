@@ -9,8 +9,8 @@ export const addressesRepository = {
     `;
     const params = [addressId];
 
-    const results = await executeQuery(query, params);
-    return results[0];
+    const rows = await executeQuery(query, params);
+    return rows[0];
   },
 
   findByUserId: async (userId) => {
@@ -20,9 +20,9 @@ export const addressesRepository = {
     WHERE user_id = ?
     `;
     const params = [userId];
-    const results = await executeQuery(query, params);
 
-    return results[0] || null;
+    const rows = await executeQuery(query, params);
+    return rows[0] || null;
   },
 
   insert: async (addressData) => {
@@ -40,6 +40,7 @@ export const addressesRepository = {
       addressData.zip_code,
     ];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 };
