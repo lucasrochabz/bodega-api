@@ -33,7 +33,8 @@ export const productsRepository = {
     `;
     const params = [productID];
 
-    return await executeQuery(query, params);
+    const results = await executeQuery(query, params);
+    return results[0];
   },
 
   insert: async (productData) => {
@@ -50,7 +51,8 @@ export const productsRepository = {
       productData.image_path,
     ];
 
-    return await executeQuery(query, params);
+    const results = await executeQuery(query, params);
+    return results.insertId;
   },
 
   updateById: async ({ description, productId }) => {

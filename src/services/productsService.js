@@ -24,7 +24,7 @@ export const productsService = {
   getProduct: async (productId) => {
     const product = await productsRepository.findByProductId(productId);
 
-    if (product.length === 0) {
+    if (!product) {
       throw ProductsErrors.PRODUCT_NOT_FOUND;
     }
 
@@ -33,13 +33,13 @@ export const productsService = {
 
   createProduct: async (productData) => {
     const product = new Product(productData);
-    const result = await productsRepository.insert(product.toPersistence());
+    const productId = await productsRepository.insert(product.toPersistence());
 
-    if (result.affectedRows === 0) {
+    if (!productId) {
       throw ProductsErrors.PRODUCT_NOT_CREATED;
     }
 
-    product.id = result.insertId;
+    product.id = productId;
 
     return product.toPublic();
   },
