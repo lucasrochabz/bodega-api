@@ -14,6 +14,7 @@ export const paymentsService = {
     return payment;
   },
 
+  // fix: corrigir retorno se error
   handlePaymentEvent: async ({ event, order_id, transaction_id }) => {
     const status = paymentEventsMapper[event];
 

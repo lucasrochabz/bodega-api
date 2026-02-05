@@ -20,8 +20,9 @@ export const addressesRepository = {
     WHERE user_id = ?
     `;
     const params = [userId];
+    const results = await executeQuery(query, params);
 
-    return await executeQuery(query, params);
+    return results[0] || null;
   },
 
   insert: async (addressData) => {

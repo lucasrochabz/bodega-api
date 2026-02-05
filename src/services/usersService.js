@@ -21,13 +21,13 @@ export const usersService = {
 
     const address = await addressesRepository.findByUserId(userId);
 
-    if (user.length === 0 || address.length === 0) {
+    if (!user || !address) {
       throw UsersErrors.USER_NOT_FOUND;
     }
 
     return {
-      ...user[0],
-      address: address[0],
+      ...user,
+      address: address,
     };
   },
 

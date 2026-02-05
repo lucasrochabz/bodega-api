@@ -15,13 +15,13 @@ export const authService = {
     const user = await usersRepository.findByUserId(userId);
     const address = await addressesRepository.findByUserId(userId);
 
-    if (user.length === 0 || address.length === 0) {
+    if (!user || !address) {
       throw UsersErrors.USER_NOT_FOUND;
     }
 
     const userData = {
-      ...user[0],
-      address: address[0],
+      ...user,
+      address: address,
     };
 
     return userData;
@@ -30,30 +30,27 @@ export const authService = {
   login: async ({ email, password }) => {
     const user = await usersRepository.findByEmail(email);
 
-    if (user.length === 0) {
+    if (!user) {
       throw AuthErrors.INVALID_CREDENTIALS;
     }
 
-    const isPasswordValid = await compareHash(password, user[0].password);
+    const isPasswordValid = await compareHash(password, user.password);
 
     if (!isPasswordValid) {
       throw AuthErrors.INVALID_CREDENTIALS;
     }
 
-    const token = generateToken(new User(user[0]));
-
+    const token = generateToken(new User(user));
     return token;
   },
 
   forgotPassword: async ({ email, origin }) => {
     const user = await usersRepository.findByEmail(email);
 
-    const [foundUser] = user;
-
     let resetUrl = null;
 
-    if (foundUser) {
-      const token = generateResetToken(foundUser.id);
+    if (user) {
+      const token = generateResetToken(user.id);
       resetUrl = `${origin}/reset-password?token=${token}`;
     } else {
       console.info(

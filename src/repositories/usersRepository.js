@@ -7,8 +7,9 @@ export const usersRepository = {
       WHERE email = ?
     `;
     const params = [email];
+    const results = await executeQuery(query, params);
 
-    return await executeQuery(query, params);
+    return results[0] || null;
   },
 
   findAll: async () => {
@@ -29,7 +30,8 @@ export const usersRepository = {
     `;
     const params = [userId];
 
-    return await executeQuery(query, params);
+    const results = await executeQuery(query, params);
+    return results[0] || null;
   },
 
   insert: async (user) => {
@@ -96,6 +98,7 @@ export const usersRepository = {
     return await executeQuery(query, params);
   },
 
+  // fix: conferir se isso tá certo. correção:(results[0]?.id || null)
   findAddressByUserId: async (userId) => {
     const query = `
       SELECT id
