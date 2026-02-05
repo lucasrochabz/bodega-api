@@ -1,5 +1,5 @@
 import { productsRepository } from '../repositories/productsRepository.js';
-import Product from '../models/productModel.js';
+import Product from '../entities/productEntity.js';
 import { ProductsErrors } from '../errors/productsErrors.js';
 
 export const productsService = {

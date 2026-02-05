@@ -1,8 +1,8 @@
 import { generateHash } from '../utils/hashUtils.js';
 import { addressesRepository } from '../repositories/addressesRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
-import User from '../models/userModel.js';
-import Address from '../models/addressModel.js';
+import User from '../entities/userEntity.js';
+import Address from '../entities/addressEntity.js';
 import { UsersErrors } from '../errors/usersErrors.js';
 
 export const usersService = {

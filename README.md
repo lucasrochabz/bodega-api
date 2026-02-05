@@ -194,7 +194,8 @@ bodega-api/
 │   │   ├── 2_addresses_table.sql
 │   │   ├── 3_products_table.sql
 │   │   ├── 4_orders_table.sql
-│   │   └── 5_orders_products_table.sql
+│   │   ├── 5_orders_products_table.sql
+│   │   └── 6_payments_table.sql
 │   │
 │   └── insert_data/
 │       ├── 1_users_data.sql
@@ -214,20 +215,19 @@ bodega-api/
 │   │   └── executeQuery.js
 │   │
 │   ├── dtos/
+│   ├── entities/
+│   │   ├── addressEntity.js
+│   │   ├── orderEntity.js
+│   │   ├── productEntity.js
+│   │   └── userEntity.js
+│   │
 │   ├── errors/
 │   ├── helpers/
-│   │   ├── executeQuery.js
 │   │   ├── handleError.js
 │   │   └── handleResponse.js
 │   │
 │   ├── mappers/
 │   ├── middlewares/
-│   ├── models/
-│   │   ├── addressModel.js
-│   │   ├── orderModel.js
-│   │   ├── productModel.js
-│   │   └── userModel.js
-│   │
 │   ├── repositories/
 │   ├── routes/
 │   ├── schemas/

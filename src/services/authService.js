@@ -6,7 +6,7 @@ import {
   generateToken,
   verifyResetToken,
 } from '../utils/tokenUtils.js';
-import User from '../models/userModel.js';
+import User from '../entities/userEntity.js';
 import { AuthErrors } from '../errors/authErrors.js';
 import { UsersErrors } from '../errors/usersErrors.js';
 
