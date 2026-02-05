@@ -4,19 +4,24 @@ import { ProductsErrors } from '../errors/productsErrors.js';
 
 export const productsService = {
   getAllProducts: async ({ pageNumber, pageSizeNumber }) => {
+    const offset = (pageNumber - 1) * pageSizeNumber;
+
+    const totalProducts = await productsRepository.countAll();
+    const totalPages = Math.ceil(totalProducts / pageSizeNumber);
+
     const products = await productsRepository.findAll({
-      pageNumber,
-      pageSizeNumber,
+      limit: pageSizeNumber,
+      offset,
     });
 
-    if (products.results.length === 0) {
+    if (products.length === 0) {
       throw ProductsErrors.PRODUCTS_NOT_FOUND;
     }
 
     return {
-      items: products.results,
+      items: products,
       pagination: {
-        totalPages: products.totalPages,
+        totalPages,
       },
     };
   },
