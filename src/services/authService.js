@@ -6,21 +6,22 @@ import {
   generateToken,
   verifyResetToken,
 } from '../utils/tokenUtils.js';
-import User from '../models/userModel.js';
+import User from '../entities/userEntity.js';
 import { AuthErrors } from '../errors/authErrors.js';
+import { UsersErrors } from '../errors/usersErrors.js';
 
 export const authService = {
   getMe: async (userId) => {
-    const userResult = await usersRepository.findByUserId(userId);
-    const addressResult = await addressesRepository.findByUserId(userId);
+    const user = await usersRepository.findByUserId(userId);
+    const address = await addressesRepository.findByUserId(userId);
 
-    if (userResult.length === 0 || addressResult.length === 0) {
-      return { error: AuthErrors.USER_NOT_FOUND };
+    if (!user || !address) {
+      throw UsersErrors.USER_NOT_FOUND;
     }
 
     const userData = {
-      ...userResult[0],
-      address: addressResult[0],
+      ...user,
+      address: address,
     };
 
     return userData;
@@ -29,30 +30,27 @@ export const authService = {
   login: async ({ email, password }) => {
     const user = await usersRepository.findByEmail(email);
 
-    if (user.length === 0) {
-      return { error: AuthErrors.INVALID_CREDENTIALS };
+    if (!user) {
+      throw AuthErrors.INVALID_CREDENTIALS;
     }
 
-    const isPasswordValid = await compareHash(password, user[0].password);
+    const isPasswordValid = await compareHash(password, user.password);
 
     if (!isPasswordValid) {
-      return { error: AuthErrors.INVALID_CREDENTIALS };
+      throw AuthErrors.INVALID_CREDENTIALS;
     }
 
-    const token = generateToken(new User(user[0]));
-
+    const token = generateToken(new User(user));
     return token;
   },
 
   forgotPassword: async ({ email, origin }) => {
     const user = await usersRepository.findByEmail(email);
 
-    const [foundUser] = user;
-
     let resetUrl = null;
 
-    if (foundUser) {
-      const token = generateResetToken(foundUser.id);
+    if (user) {
+      const token = generateResetToken(user.id);
       resetUrl = `${origin}/reset-password?token=${token}`;
     } else {
       console.info(
@@ -75,7 +73,7 @@ export const authService = {
     });
 
     if (result.affectedRows === 0) {
-      return { error: AuthErrors.USER_NOT_FOUND };
+      throw UsersErrors.USER_NOT_FOUND;
     }
 
     return;

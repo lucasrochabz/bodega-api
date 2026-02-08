@@ -1,28 +1,26 @@
-import executeQuery from '../helpers/executeQuery.js';
+import executeQuery from '../database/executeQuery.js';
 
 export const productsRepository = {
-  findAll: async ({ pageNumber, pageSizeNumber }) => {
-    const offset = (pageNumber - 1) * pageSizeNumber;
-
-    const countQuery = `
-      SELECT COUNT(*)
-      AS total
+  countAll: async () => {
+    const query = `
+      SELECT COUNT(*) AS total
       FROM products
     `;
 
-    const countResults = await executeQuery(countQuery);
-    const totalProducts = countResults[0].total;
-    const totalPages = Math.ceil(totalProducts / pageSizeNumber);
+    const rows = await executeQuery(query);
+    return rows[0].total;
+  },
 
-    const fetchQuery = `
+  findAll: async ({ limit, offset }) => {
+    const query = `
       SELECT id, name, price, description, image_path
       FROM products
       LIMIT ? OFFSET ?
     `;
-    const params = [pageSizeNumber, offset];
+    const params = [limit, offset];
 
-    const results = await executeQuery(fetchQuery, params);
-    return { results, totalPages };
+    const rows = await executeQuery(query, params);
+    return rows;
   },
 
   findByProductId: async (productID) => {
@@ -32,7 +30,8 @@ export const productsRepository = {
     `;
     const params = [productID];
 
-    return await executeQuery(query, params);
+    const rows = await executeQuery(query, params);
+    return rows[0];
   },
 
   insert: async (productData) => {
@@ -49,7 +48,8 @@ export const productsRepository = {
       productData.image_path,
     ];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result.insertId;
   },
 
   updateById: async ({ description, productId }) => {
@@ -60,7 +60,8 @@ export const productsRepository = {
     `;
     const params = [description, productId];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 
   deleteById: async (productId) => {
@@ -69,6 +70,7 @@ export const productsRepository = {
     `;
     const params = [productId];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 };

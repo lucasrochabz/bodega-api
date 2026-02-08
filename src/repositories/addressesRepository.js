@@ -1,4 +1,4 @@
-import executeQuery from '../helpers/executeQuery.js';
+import executeQuery from '../database/executeQuery.js';
 
 export const addressesRepository = {
   findById: async (addressId) => {
@@ -9,8 +9,8 @@ export const addressesRepository = {
     `;
     const params = [addressId];
 
-    const results = await executeQuery(query, params);
-    return results[0];
+    const rows = await executeQuery(query, params);
+    return rows[0];
   },
 
   findByUserId: async (userId) => {
@@ -21,7 +21,8 @@ export const addressesRepository = {
     `;
     const params = [userId];
 
-    return await executeQuery(query, params);
+    const rows = await executeQuery(query, params);
+    return rows[0] || null;
   },
 
   insert: async (addressData) => {
@@ -39,6 +40,7 @@ export const addressesRepository = {
       addressData.zip_code,
     ];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 };

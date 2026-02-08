@@ -3,46 +3,47 @@ import { paymentEventsMapper } from '../mappers/paymentEventsMapper.js';
 import { ordersRepository } from '../repositories/ordersRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
 import { OrdersErrors } from '../errors/ordersErrors.js';
+import { UsersErrors } from '../errors/usersErrors.js';
 
 export const ordersService = {
   getAllOrders: async () => {
     const orders = await ordersRepository.findAll();
 
     if (orders.length === 0) {
-      return { error: OrdersErrors.ORDERS_NOT_FOUND };
+      throw OrdersErrors.ORDERS_NOT_FOUND;
     }
 
     return orders;
   },
 
-  getUserOrders: async (userId) => {
-    const userOrders = await ordersRepository.findAllByUserId(userId);
+  getMyOrders: async (userId) => {
+    const myOrders = await ordersRepository.findAllByUserId(userId);
 
-    // fix: remover isso do mapa de erros
-    // if (userOrders.length === 0) {
-    //   return { error: OrdersErrors.USER_ORDERS_NOT_FOUND };
-    // }
-
-    return userOrders;
+    return myOrders;
   },
 
-  getOrderDetails: async (orderId) => {
-    const orderResults = await ordersRepository.findById(orderId);
+  getOrderDetails: async ({ user, orderId }) => {
+    const order = await ordersRepository.findById(orderId);
 
-    if (!orderResults) {
-      return { error: OrdersErrors.ORDER_NOT_FOUND };
+    if (!order) {
+      throw OrdersErrors.ORDER_NOT_FOUND;
     }
 
-    return orderResults;
+    const isAdmin = user.role === 'admin';
+    const isOwner = order.user_id === user.id;
+
+    if (!isAdmin && !isOwner) {
+      throw OrdersErrors.ORDER_ACCESS_DENIED;
+    }
+
+    return order;
   },
 
   createOrder: async ({ userId, status, products }) => {
     const addressId = await usersRepository.findAddressByUserId(userId);
 
     if (!addressId) {
-      return {
-        error: OrdersErrors.ADDRESS_NOT_FOUND,
-      };
+      throw UsersErrors.USER_ADDRESS_NOT_FOUND;
     }
 
     const orderId = await ordersRepository.insert({
@@ -52,7 +53,7 @@ export const ordersService = {
     });
 
     if (!orderId) {
-      return { error: OrdersErrors.ORDER_NOT_CREATED };
+      throw OrdersErrors.ORDER_NOT_CREATED;
     }
 
     const orderProducts = products.map((product) => [
@@ -65,7 +66,7 @@ export const ordersService = {
       await ordersProductsRepository.insertMany(orderProducts);
 
     if (isProductsInserted.affectedRows === 0) {
-      return { error: OrdersErrors.ORDER_PRODUCTS_NOT_CREATED };
+      throw OrdersErrors.ORDER_PRODUCTS_NOT_CREATED;
     }
 
     return {
@@ -77,37 +78,30 @@ export const ordersService = {
     };
   },
 
-  updateOrder: async ({ event, order_id }) => {
-    const status = paymentEventsMapper[event];
-
-    if (!status) {
-      return {
-        message: 'Evento de pagamento não mapeado. Ignorado.',
-        data: null,
-      };
-    }
-
-    const order = await ordersRepository.updateById({ order_id, status });
-
+  // fix ver como posso usar esse service
+  updateOrder: async ({}) => {
+    const order = await ordersRepository.updateByOrderId({});
     if (order.affectedRows === 0) {
       return {
         message: 'Evento já processado ou pedido inexistente.',
-        data: { id: order_id, status },
+        data: {},
       };
     }
+    return {};
+  },
 
-    return {
+  markAsPaid: (order_id) => {
+    return ordersRepository.updateStatus({
       id: order_id,
-      status,
-      event,
-    };
+      status: 'pagamento efetuado',
+    });
   },
 
   deleteOrder: async (orderId) => {
     const order = await ordersRepository.deleteById(orderId);
 
     if (order.affectedRows === 0) {
-      return { error: OrdersErrors.ORDER_NOT_FOUND };
+      throw OrdersErrors.ORDER_NOT_FOUND;
     }
 
     return { id: orderId };

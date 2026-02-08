@@ -1,4 +1,4 @@
-import executeQuery from '../helpers/executeQuery.js';
+import executeQuery from '../database/executeQuery.js';
 
 export const usersRepository = {
   findByEmail: async (email) => {
@@ -8,7 +8,8 @@ export const usersRepository = {
     `;
     const params = [email];
 
-    return await executeQuery(query, params);
+    const rows = await executeQuery(query, params);
+    return rows[0] || null;
   },
 
   findAll: async () => {
@@ -17,7 +18,8 @@ export const usersRepository = {
       FROM users
     `;
 
-    return await executeQuery(query);
+    const rows = await executeQuery(query);
+    return rows;
   },
 
   findByUserId: async (userId) => {
@@ -29,7 +31,8 @@ export const usersRepository = {
     `;
     const params = [userId];
 
-    return await executeQuery(query, params);
+    const rows = await executeQuery(query, params);
+    return rows[0] || null;
   },
 
   insert: async (user) => {
@@ -39,7 +42,8 @@ export const usersRepository = {
     `;
     const params = [user.first_name, user.last_name, user.email, user.password];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 
   updateById: async ({ userId, userData }) => {
@@ -72,7 +76,8 @@ export const usersRepository = {
       userId,
     ];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 
   updatePassword: async ({ hashedPassword, userId }) => {
@@ -84,7 +89,8 @@ export const usersRepository = {
 
     const params = [hashedPassword, userId];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 
   deleteById: async (userId) => {
@@ -93,9 +99,11 @@ export const usersRepository = {
     `;
     const params = [userId];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 
+  // fix: conferir se isso tá certo. correção:(results[0]?.id || null)
   findAddressByUserId: async (userId) => {
     const query = `
       SELECT id
@@ -104,7 +112,7 @@ export const usersRepository = {
     `;
     const params = [userId];
 
-    const results = await executeQuery(query, params);
-    return results[0].id;
+    const result = await executeQuery(query, params);
+    return result[0].id;
   },
 };

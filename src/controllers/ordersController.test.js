@@ -6,163 +6,124 @@ import { handleResponse } from '../helpers/handleResponse.js';
 vi.mock('../services/ordersService.js');
 vi.mock('../helpers/handleResponse.js');
 
-// fix: add handleResponse nos testes
+const makeRes = () => ({});
+
 describe('ordersController', () => {
   test('Deve chamar ordersService.getAllOrders', async () => {
     const req = {};
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
-    };
+    const res = makeRes();
 
-    ordersService.getAllOrders.mockResolvedValue({
-      success: true,
-      message: 'Pedidos encontrados com sucesso.',
-      data: [],
-    });
+    const resultMock = [];
+    ordersService.getAllOrders.mockResolvedValue(resultMock);
 
     await ordersController.getAllOrders(req, res);
 
     expect(ordersService.getAllOrders).toHaveBeenCalled();
-
-    expect(res.json).toHaveBeenCalledWith({
-      success: true,
-      message: 'Pedidos encontrados com sucesso.',
-      data: expect.any(Array),
-    });
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Pedidos encontrados com sucesso.', data: resultMock },
+      200,
+    );
   });
 
-  test('Deve chamar ordersService.getUserOrders', async () => {
-    const user = { id: '1' };
-    const req = { user };
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
-    };
+  test('Deve chamar ordersService.getMyOrders', async () => {
+    const req = { user: { id: '1' } };
+    const res = makeRes();
 
-    ordersService.getUserOrders.mockResolvedValue({
-      success: true,
-      message: 'Pedido(s) encontrado(s) com sucesso.',
-      data: [],
-    });
+    const resultMock = [];
+    ordersService.getMyOrders.mockResolvedValue(resultMock);
 
-    await ordersController.getUserOrders(req, res);
+    await ordersController.getMyOrders(req, res);
 
-    expect(ordersService.getUserOrders).toHaveBeenCalledWith(user.id);
-
-    expect(res.json).toHaveBeenCalledWith({
-      success: true,
-      message: 'Pedido(s) encontrado(s) com sucesso.',
-      data: expect.any(Array),
-    });
+    expect(ordersService.getMyOrders).toHaveBeenCalledWith(req.user.id);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Pedido(s) encontrado(s) com sucesso.', data: resultMock },
+      200,
+    );
   });
 
   test('Deve chamar ordersService.getOrderDetails', async () => {
-    const params = { orderId: '123' };
-    const req = { params };
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
-    };
+    const req = { params: {}, user: {} };
+    const res = makeRes();
 
-    ordersService.getOrderDetails.mockResolvedValue({
-      success: true,
-      message: 'Pedido encontrado com sucesso.',
-      data: {},
-    });
+    const resultMock = {};
+    ordersService.getOrderDetails.mockResolvedValue(resultMock);
 
     await ordersController.getOrderDetails(req, res);
 
-    expect(ordersService.getOrderDetails).toHaveBeenCalledWith(params.orderId);
-
-    expect(res.json).toHaveBeenCalledWith({
-      success: true,
-      message: 'Pedido encontrado com sucesso.',
-      data: expect.any(Object),
+    expect(ordersService.getOrderDetails).toHaveBeenCalledWith({
+      user: req.user,
+      orderId: req.params.orderId,
     });
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Pedido encontrado com sucesso.', data: resultMock },
+      200,
+    );
   });
 
   test('Deve chamar ordersService.createOrder', async () => {
-    const user = { id: '123' };
-    const body = { status: 'text', products: [] };
-    const req = { user, body };
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
+    const req = {
+      user: { id: '1' },
+      body: { status: 'text', products: [] },
     };
+    const res = makeRes();
 
-    ordersService.createOrder.mockResolvedValue({
-      success: true,
-      message: 'Pedido cadastrado com sucesso.',
-      data: {},
-    });
+    const resultMock = {};
+    ordersService.createOrder.mockResolvedValue(resultMock);
 
     await ordersController.createOrder(req, res);
 
     expect(ordersService.createOrder).toHaveBeenCalledWith({
-      userId: user.id,
-      status: body.status,
-      products: body.products,
+      userId: req.user.id,
+      status: req.body.status,
+      products: req.body.products,
     });
-
-    expect(res.json).toHaveBeenCalledWith({
-      success: true,
-      message: 'Pedido cadastrado com sucesso.',
-      data: expect.any(Object),
-    });
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Pedido cadastrado com sucesso.', data: resultMock },
+      201,
+    );
   });
 
   test('Deve chamar ordersService.updateOrder', async () => {
-    const params = { orderId: '123' };
-    const body = { status: 'status' };
-    const req = { params, body };
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
+    const req = {
+      params: { orderId: '1' },
+      body: { status: 'status' },
     };
+    const res = makeRes();
 
-    ordersService.updateOrder.mockResolvedValue({
-      success: true,
-      message: 'Pedido atualizado com sucesso',
-      data: {},
-    });
+    const resultMock = {};
+    ordersService.updateOrder.mockResolvedValue(resultMock);
 
     await ordersController.updateOrder(req, res);
 
     expect(ordersService.updateOrder).toHaveBeenCalledWith({
-      orderId: params.orderId,
-      status: body.status,
+      orderId: req.params.orderId,
+      status: req.body.status,
     });
-
-    expect(res.json).toHaveBeenCalledWith({
-      success: true,
-      message: 'Pedido atualizado com sucesso',
-      data: expect.any(Object),
-    });
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Status do pedido atualizado via webhook.', data: resultMock },
+      200,
+    );
   });
 
   test('Deve chamar ordersService.deleteOrder', async () => {
-    const params = { orderId: '123' };
-    const req = { params };
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
-    };
+    const req = { params: { orderId: '123' } };
+    const res = makeRes();
 
-    ordersService.deleteOrder.mockResolvedValue({
-      success: true,
-      message: 'Pedido deletado com sucesso.',
-      data: {},
-    });
+    const resultMock = {};
+    ordersService.deleteOrder.mockResolvedValue(resultMock);
 
     await ordersController.deleteOrder(req, res);
 
-    expect(ordersService.deleteOrder).toHaveBeenCalledWith(params.orderId);
-
-    expect(res.json).toHaveBeenCalledWith({
-      success: true,
-      message: 'Pedido deletado com sucesso.',
-      data: expect.any(Object),
-    });
+    expect(ordersService.deleteOrder).toHaveBeenCalledWith(req.params.orderId);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Pedido deletado com sucesso.', data: resultMock },
+      200,
+    );
   });
 });

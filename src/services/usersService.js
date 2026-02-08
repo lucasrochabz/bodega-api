@@ -1,8 +1,8 @@
 import { generateHash } from '../utils/hashUtils.js';
 import { addressesRepository } from '../repositories/addressesRepository.js';
 import { usersRepository } from '../repositories/usersRepository.js';
-import User from '../models/userModel.js';
-import Address from '../models/addressModel.js';
+import User from '../entities/userEntity.js';
+import Address from '../entities/addressEntity.js';
 import { UsersErrors } from '../errors/usersErrors.js';
 
 export const usersService = {
@@ -10,27 +10,25 @@ export const usersService = {
     const users = await usersRepository.findAll();
 
     if (users.length === 0) {
-      return { error: UsersErrors.USERS_NOT_FOUND };
+      throw UsersErrors.USERS_NOT_FOUND;
     }
 
     return users;
   },
 
   getUser: async (userId) => {
-    const userResult = await usersRepository.findByUserId(userId);
+    const user = await usersRepository.findByUserId(userId);
 
-    const addressResult = await addressesRepository.findByUserId(userId);
+    const address = await addressesRepository.findByUserId(userId);
 
-    if (userResult.length === 0 || addressResult.length === 0) {
-      return { error: UsersErrors.USER_NOT_FOUND };
+    if (!user || !address) {
+      throw UsersErrors.USER_NOT_FOUND;
     }
 
-    const user = {
-      ...userResult[0],
-      address: addressResult[0],
+    return {
+      ...user,
+      address: address,
     };
-
-    return user;
   },
 
   // fix: preciso implementar transaction nessa etapa
@@ -45,7 +43,7 @@ export const usersService = {
     const result = await usersRepository.insert(user.toPersistence());
 
     if (result.affectedRows === 0) {
-      return { error: UsersErrors.USER_NOT_CREATED };
+      throw UsersErrors.USER_NOT_CREATED;
     }
 
     user.id = result.insertId;
@@ -58,7 +56,7 @@ export const usersService = {
     );
 
     if (addressResult.affectedRows === 0) {
-      return { error: UsersErrors.ADDRESS_NOT_CREATED };
+      throw UsersErrors.USER_ADDRESS_NOT_CREATED;
     }
 
     return {
@@ -74,7 +72,7 @@ export const usersService = {
     });
 
     if (userUpdated.affectedRows === 0) {
-      return { error: UsersErrors.USER_NOT_FOUND };
+      throw UsersErrors.USER_NOT_FOUND;
     }
 
     return {
@@ -83,11 +81,12 @@ export const usersService = {
     };
   },
 
+  // fix: essa função não deve retornar nada (observar outras funções de delete)
   deleteUser: async (userId) => {
-    const userRemoved = await usersRepository.deleteById(userId);
+    const userDeleted = await usersRepository.deleteById(userId);
 
-    if (userRemoved.affectedRows === 0) {
-      return { error: UsersErrors.USER_NOT_FOUND };
+    if (userDeleted.affectedRows === 0) {
+      throw UsersErrors.USER_NOT_FOUND;
     }
 
     return {

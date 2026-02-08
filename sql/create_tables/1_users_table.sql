@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
 	email VARCHAR(200) NOT NULL UNIQUE,
 	password VARCHAR(255) NOT NULL,
 	role ENUM ('user', 'admin') NOT NULL DEFAULT 'user',
-  status ENUM ('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
+  status ENUM ('active', 'inactive') NOT NULL DEFAULT 'active',
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

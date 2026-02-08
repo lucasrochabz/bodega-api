@@ -6,6 +6,7 @@ const allowedOrigins = [
   process.env.ORIGIN_PROD,
   // fix: remover isso
   'http://localhost',
+  'http://localhost:4000', // fix: swagger servido pela api (remover isso depois)
 ];
 
 const allowedHeaders = ['Content-Type', 'Authorization'];

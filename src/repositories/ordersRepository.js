@@ -1,4 +1,4 @@
-import executeQuery from '../helpers/executeQuery.js';
+import executeQuery from '../database/executeQuery.js';
 
 export const ordersRepository = {
   findAll: async () => {
@@ -7,13 +7,15 @@ export const ordersRepository = {
       FROM orders
     `;
 
-    return await executeQuery(query);
+    const rows = await executeQuery(query);
+    return rows;
   },
 
   findById: async (orderId) => {
     const query = `
       SELECT
         orders.id,
+        orders.user_id,
         orders.status,
         orders.created_at,
         products.name,
@@ -38,8 +40,8 @@ export const ordersRepository = {
     `;
     const params = [orderId];
 
-    const result = await executeQuery(query, params);
-    return result[0];
+    const rows = await executeQuery(query, params);
+    return rows[0];
   },
 
   findAllByUserId: async (userId) => {
@@ -73,20 +75,20 @@ export const ordersRepository = {
     `;
     const params = [userId, addressId, status];
 
-    const results = await executeQuery(query, params);
-    return results.insertId;
+    const result = await executeQuery(query, params);
+    return result.insertId;
   },
 
-  updateById: async ({ status, order_id }) => {
+  updateStatus: async ({ id, status }) => {
     const query = `
       UPDATE orders
       SET status = ?
       WHERE id = ?
-      AND status <> ?
     `;
-    const params = [status, order_id, status];
+    const params = [status, id];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 
   deleteById: async (orderId) => {
@@ -95,6 +97,7 @@ export const ordersRepository = {
     `;
     const params = [orderId];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 };

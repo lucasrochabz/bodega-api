@@ -6,99 +6,90 @@ import { handleResponse } from '../helpers/handleResponse.js';
 vi.mock('../services/authService.js');
 vi.mock('../helpers/handleResponse.js');
 
-const makeRes = () => ({
-  status: vi.fn(() => res),
-  json: vi.fn(),
-});
+const makeRes = () => ({});
 
 describe('authController', () => {
   test('Deve chamar authService.getMe', async () => {
-    const user = { id: '123' };
-    const req = { user };
+    const req = { user: { id: '1' } };
     const res = makeRes();
 
-    const resultMock = {
-      success: true,
-      message: 'Usuário encontrado com sucesso.',
-      data: [],
-    };
-
+    const resultMock = {};
     authService.getMe.mockResolvedValue(resultMock);
 
     await authController.getMe(req, res);
 
-    expect(authService.getMe).toHaveBeenCalledWith(user.id);
-    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(authService.getMe).toHaveBeenCalledWith(req.user.id);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Usuário encontrado com sucesso.', data: resultMock },
+      200,
+    );
   });
 
   test('Deve chamar authService.login', async () => {
-    const body = { email: 'teste@email.com', password: '123456' };
-    const req = { body };
+    const req = { body: { email: 'teste@email.com', password: '123456' } };
     const res = makeRes();
 
     const fakeToken = 'fakeToken123';
-    const resultMock = {
-      success: true,
-      message: 'Login realizado com sucesso.',
-      token: fakeToken,
-    };
-
+    const resultMock = fakeToken;
     authService.login.mockResolvedValue(resultMock);
 
     await authController.login(req, res);
 
-    expect(authService.login).toHaveBeenCalledWith(body);
-    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(authService.login).toHaveBeenCalledWith(req.body);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Login realizado com sucesso.', token: resultMock },
+      200,
+    );
   });
 
   test('Deve chamar authService.forgotPassword', async () => {
-    const body = { email: 'teste@email.com', origin: 'http://localhost:3000' };
-    const req = { body };
-    const res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
+    const req = {
+      body: { email: 'teste@email.com', origin: 'http://localhost:3000' },
     };
+    const res = makeRes();
 
-    authService.forgotPassword.mockResolvedValue({
-      success: true,
-      message: 'Link de redefinição de senha gerado com sucesso.',
-      resetUrl: 'http://localhost:3000',
-    });
+    const fakeResetToken = 'fakeResetToken123';
+    const resultMock = fakeResetToken;
+    authService.forgotPassword.mockResolvedValue(resultMock);
 
     await authController.forgotPassword(req, res);
 
     expect(authService.forgotPassword).toHaveBeenCalledWith({
-      email: body.email,
-      origin: body.origin,
+      email: req.body.email,
+      origin: req.body.origin,
     });
-
-    expect(res.json).toHaveBeenCalledWith({
-      success: true,
-      message: 'Link de redefinição de senha gerado com sucesso.',
-      resetUrl: 'http://localhost:3000',
-    });
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      {
+        message:
+          'Se o e-mail estiver cadastrado, enviaremos um link de redefinição.',
+        token: resultMock,
+      },
+      200,
+    );
   });
 
   test('Deve chamar authService.resetPassword', async () => {
-    const query = { token: 'token123' };
-    const body = { newPassword: '123456' };
-
-    const req = { query, body };
+    const req = {
+      query: { token: 'token123' },
+      body: { newPassword: '123456' },
+    };
     const res = makeRes();
 
-    const resultMock = {
-      success: true,
-      message: 'Senha redefinida com sucesso.',
-    };
-
-    authService.resetPassword.mockResolvedValue(resultMock);
+    authService.resetPassword.mockResolvedValue();
 
     await authController.resetPassword(req, res);
 
     expect(authService.resetPassword).toHaveBeenCalledWith({
-      token: query.token,
-      newPassword: body.newPassword,
+      token: req.query.token,
+      newPassword: req.body.newPassword,
     });
-    expect(handleResponse).toHaveBeenCalledWith(res, resultMock, 200);
+    expect(handleResponse).toHaveBeenCalledWith(
+      res,
+      { message: 'Senha redefinida com sucesso.' },
+      200,
+    );
   });
 });

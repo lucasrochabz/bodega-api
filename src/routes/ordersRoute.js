@@ -15,22 +15,15 @@ router.get(
   authorizeAdmin,
   ordersController.getAllOrders,
 );
-
-// fix: transformar rota em /user/:id ou /user/me (não sei se isso está correto)
-router.get('/user', authenticateUser, ordersController.getUserOrders);
-
-// fix: proteger essa rota
-router.get('/:orderId', ordersController.getOrderDetails);
+router.get('/me', authenticateUser, ordersController.getMyOrders);
+router.get('/:orderId', authenticateUser, ordersController.getOrderDetails);
 
 // fix: add schema
 router.post('/', authenticateUser, ordersController.createOrder);
-router.post(
-  '/:orderId/checkout',
-  // authenticateUser,
-  ordersController.checkout,
-);
 
 // fix: proteger essa rota
+// fix: acho que essa rota tem que ir para paymentsController
+// fix: ver como posso esta utilizando essa rota
 router.patch(
   '/:orderId',
   validateBody(orderSchema),

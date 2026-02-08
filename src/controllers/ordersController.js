@@ -1,50 +1,50 @@
 import { ordersService } from '../services/ordersService.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
-import { CommonErrors } from '../errors/commonErrors.js';
 
 export const ordersController = {
   getAllOrders: async (req, res) => {
     try {
       const result = await ordersService.getAllOrders();
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Pedidos encontrados com sucesso.', data: result },
         200,
       );
     } catch (error) {
       console.error('Erro ao buscar pedidos:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
-  getUserOrders: async (req, res) => {
+  getMyOrders: async (req, res) => {
     const userId = req.user.id;
     try {
-      const result = await ordersService.getUserOrders(userId);
-      handleResponse(
+      const result = await ordersService.getMyOrders(userId);
+      return handleResponse(
         res,
         { message: 'Pedido(s) encontrado(s) com sucesso.', data: result },
         200,
       );
     } catch (error) {
       console.error('Erro ao buscar pedidos do usuário:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
   getOrderDetails: async (req, res) => {
+    const user = req.user;
     const { orderId } = req.params;
     try {
-      const result = await ordersService.getOrderDetails(orderId);
-      handleResponse(
+      const result = await ordersService.getOrderDetails({ user, orderId });
+      return handleResponse(
         res,
         { message: 'Pedido encontrado com sucesso.', data: result },
         200,
       );
     } catch (error) {
       console.error('Erro ao buscar pedido:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -57,51 +57,32 @@ export const ordersController = {
         status,
         products,
       });
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Pedido cadastrado com sucesso.', data: result },
         201,
       );
     } catch (error) {
       console.error('Erro ao cadastrar pedido:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
-  // fix: corrigir isso
-  // essa rota deve fazer: validar pedido, validar se está em draft, simular criação de pagamento.
-  // {
-  //   message: 'Pagamento iniciado.',
-  //   orderId: 123,
-  //   paymentId: 'fake_123',
-  //   status: 'processing'
-  // }
-  checkout: async (req, res) => {
-    res.status(202).json({
-      success: true,
-      message: 'Pagamento iniciado. Aguardando confirmação.',
-    });
-  },
-
+  // fix: ver como posso esta utilizando essa rota
   updateOrder: async (req, res) => {
-    const { orderId } = req.params;
-    const { status } = req.body;
     try {
-      const result = await ordersService.updateOrder({
-        orderId,
-        status,
-      });
-      handleResponse(
+      const result = await ordersService.updateOrder({});
+      return handleResponse(
         res,
         {
-          message: 'Status do pedido atualizado via webhook.',
+          message: '',
           data: result,
         },
         200,
       );
     } catch (error) {
       console.error('Erro ao atualizar pedido:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 
@@ -109,14 +90,14 @@ export const ordersController = {
     const { orderId } = req.params;
     try {
       const result = await ordersService.deleteOrder(orderId);
-      handleResponse(
+      return handleResponse(
         res,
         { message: 'Pedido deletado com sucesso.', data: result },
         200,
       );
     } catch (error) {
       console.error('Erro ao deletar pedido:', error);
-      return handleError(res, CommonErrors.INTERNAL_SERVER_ERROR);
+      return handleError(res, error);
     }
   },
 };

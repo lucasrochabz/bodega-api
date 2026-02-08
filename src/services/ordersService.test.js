@@ -4,21 +4,15 @@ import { ordersRepository } from '../repositories/ordersRepository.js';
 
 vi.mock('../repositories/ordersRepository.js');
 
+// fix testar o retorno do service: expect(result).toEqual(resultMock);
 describe('ordersService', () => {
   test('Deve chamar ordersRepository.findAllByUserId', async () => {
-    const userId = '123';
+    const userId = '1';
 
-    ordersRepository.findAllByUserId.mockResolvedValue([
-      {
-        id: 10,
-        name: 'Notebook',
-        status: 'pagamento efetuado',
-        image_path: 'notebook-1.jpg',
-        created_at: '2025-09-21T03:27:03.000Z',
-      },
-    ]);
+    const resultMock = [];
+    ordersRepository.findAllByUserId.mockResolvedValue(resultMock);
 
-    await ordersService.getUserOrders(userId);
+    await ordersService.getMyOrders(userId);
 
     expect(ordersRepository.findAllByUserId).toHaveBeenCalledWith(userId);
   });

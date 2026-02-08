@@ -1,4 +1,4 @@
-import executeQuery from '../helpers/executeQuery.js';
+import executeQuery from '../database/executeQuery.js';
 
 export const ordersProductsRepository = {
   insertMany: async (orderProducts) => {
@@ -8,6 +8,7 @@ export const ordersProductsRepository = {
     `;
     const params = [orderProducts];
 
-    return await executeQuery(query, params);
+    const result = await executeQuery(query, params);
+    return result;
   },
 };

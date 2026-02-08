@@ -3,9 +3,11 @@ CREATE TABLE IF NOT EXISTS products (
 	name VARCHAR(200) NOT NULL,
 	price DECIMAL(10, 2) NOT NULL,
 	description TEXT NOT NULL,
-	stock INT UNSIGNED NOT NULL DEFAULT 10,
+	stock INT UNSIGNED NOT NULL DEFAULT 0,
+	status ENUM('active', 'inactive') NOT NULL DEFAULT 'active',
 	image_path VARCHAR(200) DEFAULT 'default_image.png',
-	status ENUM('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
+	views INT NOT NULL DEFAULT 0,
+	purchases INT NOT NULL DEFAULT 0,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
