@@ -52,6 +52,17 @@ export const productsRepository = {
     return result.insertId;
   },
 
+  updateViews: async (productId) => {
+    const query = `
+      UPDATE products
+      SET views = views + 1
+      WHERE id = ?
+    `;
+    const params = [productId];
+
+    await executeQuery(query, params);
+  },
+
   updateById: async ({ description, productId }) => {
     const query = `
       UPDATE products

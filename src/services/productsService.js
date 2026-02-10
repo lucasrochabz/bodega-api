@@ -27,6 +27,7 @@ export const productsService = {
   },
 
   getProduct: async (productId) => {
+    await productsRepository.updateViews(productId);
     const product = await productsRepository.findByProductId(productId);
 
     if (!product) {
