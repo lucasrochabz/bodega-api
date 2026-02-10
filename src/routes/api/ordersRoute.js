@@ -2,10 +2,10 @@ import express from 'express';
 import {
   authenticateUser,
   authorizeAdmin,
-} from '../middlewares/authMiddleware.js';
-import { validateBody } from '../middlewares/validateBody.js';
-import { orderSchema } from '../schemas/orders/orderSchema.js';
-import { ordersController } from '../controllers/ordersController.js';
+} from '../../middlewares/authMiddleware.js';
+import { validateBody } from '../../middlewares/validateBody.js';
+import { orderSchema } from '../../schemas/orders/orderSchema.js';
+import { ordersController } from '../../controllers/ordersController.js';
 
 const router = express.Router();
 
