@@ -15,7 +15,7 @@ router.get(
   '/:userId',
   authenticateUser,
   authorizeAdmin,
-  usersController.getUser,
+  usersController.getUserById,
 );
 
 router.post('/', validateBody(createUserSchema), usersController.createUser);

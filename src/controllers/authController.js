@@ -1,4 +1,5 @@
 import { authService } from '../services/authService.js';
+import { userResDTO } from '../dtos/userResDTO.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
 
@@ -7,9 +8,12 @@ export const authController = {
     const userId = req.user.id;
     try {
       const result = await authService.getMe(userId);
+      // fix: mudar esse nome do dto
+      const data = userResDTO(result);
+
       return handleResponse(
         res,
-        { message: 'Usuário encontrado com sucesso.', data: result },
+        { message: 'Usuário encontrado com sucesso.', data },
         200,
       );
     } catch (error) {

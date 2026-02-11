@@ -1,6 +1,7 @@
 import { usersService } from '../services/usersService.js';
-import { handleResponse } from '../helpers/handleResponse.js';
+import { userResDTO } from '../dtos/userResDTO.js';
 import { createUserDTO } from '../dtos/createUserDTO.js';
+import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
 
 export const usersController = {
@@ -18,13 +19,15 @@ export const usersController = {
     }
   },
 
-  getUser: async (req, res) => {
+  getUserById: async (req, res) => {
     const { userId } = req.params;
     try {
-      const result = await usersService.getUser(userId);
+      const result = await usersService.getUserById(userId);
+      const data = userResDTO(result);
+
       return handleResponse(
         res,
-        { message: 'Usuário encontrado com sucesso.', data: result },
+        { message: 'Usuário encontrado com sucesso.', data },
         200,
       );
     } catch (error) {

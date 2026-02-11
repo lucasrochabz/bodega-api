@@ -16,9 +16,8 @@ export const usersService = {
     return users;
   },
 
-  getUser: async (userId) => {
-    const user = await usersRepository.findByUserId(userId);
-
+  getUserById: async (userId) => {
+    const user = await usersRepository.findById(userId);
     const address = await addressesRepository.findByUserId(userId);
 
     if (!user || !address) {

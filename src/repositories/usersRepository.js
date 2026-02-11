@@ -22,7 +22,7 @@ export const usersRepository = {
     return rows;
   },
 
-  findByUserId: async (userId) => {
+  findById: async (userId) => {
     const query = `
       SELECT id, first_name, last_name, email
       FROM users 

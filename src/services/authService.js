@@ -12,7 +12,7 @@ import { UsersErrors } from '../errors/usersErrors.js';
 
 export const authService = {
   getMe: async (userId) => {
-    const user = await usersRepository.findByUserId(userId);
+    const user = await usersRepository.findById(userId);
     const address = await addressesRepository.findByUserId(userId);
 
     if (!user || !address) {
