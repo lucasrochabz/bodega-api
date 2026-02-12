@@ -3,11 +3,14 @@ import { userResDTO } from '../dtos/userResDTO.js';
 import { createUserDTO } from '../dtos/createUserDTO.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
+import { userListDTO } from '../dtos/userListDTO.js';
 
 export const usersController = {
   getAllUsers: async (req, res) => {
     try {
-      const result = await usersService.getAllUsers();
+      const users = await usersService.getAllUsers();
+      const result = users.map(userListDTO);
+
       return handleResponse(
         res,
         { message: 'Usuários encontrados com sucesso.', data: result },
