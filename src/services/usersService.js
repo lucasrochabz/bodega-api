@@ -64,7 +64,7 @@ export const usersService = {
     };
   },
 
-  updateUser: async ({ userId, userData }) => {
+  updateUserById: async ({ userId, userData }) => {
     const userUpdated = await usersRepository.updateById({
       userId,
       userData,
@@ -81,7 +81,7 @@ export const usersService = {
   },
 
   // fix: essa função não deve retornar nada (observar outras funções de delete)
-  deleteUser: async (userId) => {
+  deleteUserById: async (userId) => {
     const userDeleted = await usersRepository.deleteById(userId);
 
     if (userDeleted.affectedRows === 0) {

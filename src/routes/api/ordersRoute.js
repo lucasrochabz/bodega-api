@@ -16,7 +16,7 @@ router.get(
   ordersController.getAllOrders,
 );
 router.get('/me', authenticateUser, ordersController.getMyOrders);
-router.get('/:orderId', authenticateUser, ordersController.getOrderDetails);
+router.get('/:orderId', authenticateUser, ordersController.getOrderById);
 
 // fix: add schema
 router.post('/', authenticateUser, ordersController.createOrder);
@@ -34,7 +34,7 @@ router.delete(
   '/:orderId',
   authenticateUser,
   authorizeAdmin,
-  ordersController.deleteOrder,
+  ordersController.deleteOrderById,
 );
 
 export default router;

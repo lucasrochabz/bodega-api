@@ -14,11 +14,13 @@ A aplicação segue boas práticas de desenvolvimento, segurança e padronizaç�
 
 ## Funcionalidades
 
-- Cadastro e login de usuários
-- Autenticação JWT com controle de acesso por usuário
-- CRUD de produtos
-- Criação de pedidos com relacionamento produto-pedido
-- Consulta de histórico de compras por usuário autenticado
+- Cadastro e login de usuários com autenticação segura
+- Autenticação e autorização baseada em JWT
+- Gerenciamento completo de usuários (criação, leitura, atualização e exclusão)
+- Gerenciamento completo de produtos
+- Gerenciamento completo de pedidos
+- Consulta detalhada do histórico de pedidos de usuários autenticados
+- Pagamentos simulados com atualização de status via requisições externas.
 
 ## Tecnologias
 

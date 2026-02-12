@@ -22,7 +22,7 @@ export const ordersService = {
     return myOrders;
   },
 
-  getOrderDetails: async ({ user, orderId }) => {
+  getOrderById: async ({ user, orderId }) => {
     const order = await ordersRepository.findById(orderId);
 
     if (!order) {
@@ -97,7 +97,7 @@ export const ordersService = {
     });
   },
 
-  deleteOrder: async (orderId) => {
+  deleteOrderById: async (orderId) => {
     const order = await ordersRepository.deleteById(orderId);
 
     if (order.affectedRows === 0) {

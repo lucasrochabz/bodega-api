@@ -24,14 +24,14 @@ router.patch(
   '/update',
   authenticateUser,
   validateBody(updateUserSchema),
-  usersController.updateUser,
+  usersController.updateUserById,
 );
 
 router.delete(
   '/:userId',
   authenticateUser,
   authorizeAdmin,
-  usersController.deleteUser,
+  usersController.deleteUserById,
 );
 
 export default router;

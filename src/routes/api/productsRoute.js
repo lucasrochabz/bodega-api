@@ -21,7 +21,7 @@ router.get(
 router.get(
   '/:productId',
   validateParams(productParamsSchema),
-  productsController.getProduct,
+  productsController.getProductById,
 );
 
 router.post(
@@ -36,14 +36,14 @@ router.patch(
   '/:productId',
   authenticateUser,
   authorizeAdmin,
-  productsController.updateProduct,
+  productsController.updateProductById,
 );
 
 router.delete(
   '/:productId',
   authenticateUser,
   authorizeAdmin,
-  productsController.deleteProduct,
+  productsController.deleteProductById,
 );
 
 export default router;

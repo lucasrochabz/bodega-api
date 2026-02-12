@@ -52,12 +52,12 @@ export const usersController = {
     }
   },
 
-  updateUser: async (req, res) => {
+  updateUserById: async (req, res) => {
     const userId = req.user.id;
     const userData = req.body;
 
     try {
-      const result = await usersService.updateUser({ userId, userData });
+      const result = await usersService.updateUserById({ userId, userData });
       return handleResponse(
         res,
         { message: 'Usuário atualizado com sucesso.', data: result },
@@ -69,10 +69,10 @@ export const usersController = {
     }
   },
 
-  deleteUser: async (req, res) => {
+  deleteUserById: async (req, res) => {
     const { userId } = req.params;
     try {
-      const result = await usersService.deleteUser(userId);
+      const result = await usersService.deleteUserById(userId);
       return handleResponse(
         res,
         { message: 'Usuário deletado com sucesso.', data: result },

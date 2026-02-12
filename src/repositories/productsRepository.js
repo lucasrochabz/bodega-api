@@ -23,7 +23,7 @@ export const productsRepository = {
     return rows;
   },
 
-  findByProductId: async (productID) => {
+  findById: async (productID) => {
     const query = `
       SELECT id, name, price, description, stock, status, image_path
       FROM products WHERE id = ?

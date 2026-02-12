@@ -32,11 +32,11 @@ export const ordersController = {
     }
   },
 
-  getOrderDetails: async (req, res) => {
+  getOrderById: async (req, res) => {
     const user = req.user;
     const { orderId } = req.params;
     try {
-      const result = await ordersService.getOrderDetails({ user, orderId });
+      const result = await ordersService.getOrderById({ user, orderId });
       return handleResponse(
         res,
         { message: 'Pedido encontrado com sucesso.', data: result },
@@ -86,10 +86,10 @@ export const ordersController = {
     }
   },
 
-  deleteOrder: async (req, res) => {
+  deleteOrderById: async (req, res) => {
     const { orderId } = req.params;
     try {
-      const result = await ordersService.deleteOrder(orderId);
+      const result = await ordersService.deleteOrderById(orderId);
       return handleResponse(
         res,
         { message: 'Pedido deletado com sucesso.', data: result },
