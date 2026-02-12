@@ -28,7 +28,7 @@ export const authController = {
       const result = await authService.login({ email, password });
       return handleResponse(
         res,
-        { message: 'Login realizado com sucesso.', token: result },
+        { message: 'Login realizado com sucesso.', data: result },
         200,
       );
     } catch (error) {
@@ -46,7 +46,7 @@ export const authController = {
         {
           message:
             'Se o e-mail estiver cadastrado, enviaremos um link de redefinição.',
-          token: result,
+          data: result,
         },
         200,
       );
