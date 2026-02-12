@@ -39,7 +39,7 @@ export const ordersService = {
   },
 
   createOrder: async ({ userId, status, products }) => {
-    const addressId = await addressesRepository.findByUserId(userId);
+    const addressId = await addressesRepository.findUserAddressId(userId);
 
     if (!addressId) {
       throw UsersErrors.USER_ADDRESS_NOT_FOUND;
@@ -47,7 +47,7 @@ export const ordersService = {
 
     const orderId = await ordersRepository.insert({
       userId,
-      addressId: addressId.id,
+      addressId,
       status,
     });
 

@@ -1,22 +1,21 @@
 import executeQuery from '../database/executeQuery.js';
 
 export const addressesRepository = {
-  // fix: resolver como vai ficar isso aqui separar responsabilidades
-  findById: async (addressId) => {
+  findUserAddressId: async (userId) => {
     const query = `
-    SELECT id, street, number, neighborhood, city, state, zip_code
+    SELECT id
     FROM addresses
     WHERE id = ?
     `;
-    const params = [addressId];
+    const params = [userId];
 
     const rows = await executeQuery(query, params);
-    return rows[0] || null;
+    return rows[0]?.id || null;
   },
 
   findByUserId: async (userId) => {
     const query = `
-      SELECT id, street, number, neighborhood, city, state, zip_code
+      SELECT street, number, neighborhood, city, state, zip_code
       FROM addresses
       WHERE user_id = ?
     `;
