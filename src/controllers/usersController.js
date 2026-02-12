@@ -39,6 +39,7 @@ export const usersController = {
     }
   },
 
+  // fix: falta dto de resposta
   createUser: async (req, res) => {
     const userData = createUserDTO(req.body);
 
@@ -55,6 +56,7 @@ export const usersController = {
     }
   },
 
+  // fix: falta dto de entrada e de resposta
   updateUserById: async (req, res) => {
     const userId = req.user.id;
     const userData = req.body;

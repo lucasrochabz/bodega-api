@@ -48,7 +48,7 @@ export const productsController = {
     try {
       const productData = createProductDTO(req.body);
       const result = await productsService.createProduct(productData);
-      // fix: acho que não precisa do DTO pois o ideal é retornar apenas uma mensagem.
+      // fix: fazer DTO pois o ideal é retornar o recurso criado.
       const data = productDTO(result);
       return handleResponse(
         res,

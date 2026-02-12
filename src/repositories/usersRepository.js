@@ -102,17 +102,4 @@ export const usersRepository = {
     const result = await executeQuery(query, params);
     return result;
   },
-
-  // fix: conferir se isso tá certo. correção:(results[0]?.id || null)
-  findAddressByUserId: async (userId) => {
-    const query = `
-      SELECT id
-      FROM addresses
-      WHERE user_id = ?
-    `;
-    const params = [userId];
-
-    const result = await executeQuery(query, params);
-    return result[0].id;
-  },
 };
