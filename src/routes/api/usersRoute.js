@@ -3,7 +3,7 @@ import {
   authenticateUser,
   authorizeAdmin,
 } from '../../middlewares/authMiddleware.js';
-import { validateBody } from '../../middlewares/validateBody.js';
+import { validate } from '../../middlewares/validate.js';
 import { updateUserSchema } from '../../schemas/users/updateUserSchema.js';
 import { createUserSchema } from '../../schemas/users/createUserSchema.js';
 import { usersController } from '../../controllers/usersController.js';
@@ -18,12 +18,16 @@ router.get(
   usersController.getUserById,
 );
 
-router.post('/', validateBody(createUserSchema), usersController.createUser);
+router.post(
+  '/',
+  validate({ body: createUserSchema }),
+  usersController.createUser,
+);
 
 router.patch(
   '/update',
   authenticateUser,
-  validateBody(updateUserSchema),
+  validate({ body: updateUserSchema }),
   usersController.updateUserById,
 );
 

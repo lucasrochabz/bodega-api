@@ -3,7 +3,7 @@ import {
   authenticateUser,
   authorizeAdmin,
 } from '../../middlewares/authMiddleware.js';
-import { validateBody } from '../../middlewares/validateBody.js';
+import { validate } from '../../middlewares/validate.js';
 import { orderSchema } from '../../schemas/orders/orderSchema.js';
 import { ordersController } from '../../controllers/ordersController.js';
 
@@ -26,7 +26,7 @@ router.post('/', authenticateUser, ordersController.createOrder);
 // fix: ver como posso esta utilizando essa rota
 router.patch(
   '/:orderId',
-  validateBody(orderSchema),
+  validate({ body: orderSchema }),
   ordersController.updateOrder,
 );
 

@@ -3,9 +3,7 @@ import {
   authenticateUser,
   authorizeAdmin,
 } from '../../middlewares/authMiddleware.js';
-import { validateQuery } from '../../middlewares/validateQuery.js';
-import { validateParams } from '../../middlewares/validateParams.js';
-import { validateBody } from '../../middlewares/validateBody.js';
+import { validate } from '../../middlewares/validate.js';
 import { paginationSchema } from '../../schemas/shared/paginationSchema.js';
 import { productParamsSchema } from '../../schemas/products/productParamsSchema.js';
 import { createProductSchema } from '../../schemas/products/createProductSchema.js';
@@ -15,12 +13,12 @@ const router = express.Router();
 
 router.get(
   '/',
-  validateQuery(paginationSchema),
+  validate({ query: paginationSchema }),
   productsController.getAllProducts,
 );
 router.get(
   '/:productId',
-  validateParams(productParamsSchema),
+  validate({ params: productParamsSchema }),
   productsController.getProductById,
 );
 
@@ -28,7 +26,7 @@ router.post(
   '/',
   authenticateUser,
   authorizeAdmin,
-  validateBody(createProductSchema),
+  validate({ body: createProductSchema }),
   productsController.createProduct,
 );
 
