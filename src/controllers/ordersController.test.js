@@ -1,10 +1,11 @@
-import { describe, expect, test, vi } from 'vitest';
-import { ordersController } from './ordersController.js';
-import { ordersService } from '../services/ordersService.js';
-import { handleResponse } from '../helpers/handleResponse.js';
+import { vi, describe, test, expect } from 'vitest';
 
 vi.mock('../services/ordersService.js');
 vi.mock('../helpers/handleResponse.js');
+
+import { ordersService } from '../services/ordersService.js';
+import { handleResponse } from '../helpers/handleResponse.js';
+import { ordersController } from './ordersController.js';
 
 const makeRes = () => ({});
 
@@ -43,16 +44,16 @@ describe('ordersController', () => {
     );
   });
 
-  test('Deve chamar ordersService.getOrderDetails', async () => {
+  test('Deve chamar ordersService.getOrderById', async () => {
     const req = { params: {}, user: {} };
     const res = makeRes();
 
     const resultMock = {};
-    ordersService.getOrderDetails.mockResolvedValue(resultMock);
+    ordersService.getOrderById.mockResolvedValue(resultMock);
 
-    await ordersController.getOrderDetails(req, res);
+    await ordersController.getOrderById(req, res);
 
-    expect(ordersService.getOrderDetails).toHaveBeenCalledWith({
+    expect(ordersService.getOrderById).toHaveBeenCalledWith({
       user: req.user,
       orderId: req.params.orderId,
     });
@@ -110,16 +111,18 @@ describe('ordersController', () => {
     );
   });
 
-  test('Deve chamar ordersService.deleteOrder', async () => {
+  test('Deve chamar ordersService.deleteOrderById', async () => {
     const req = { params: { orderId: '123' } };
     const res = makeRes();
 
     const resultMock = {};
-    ordersService.deleteOrder.mockResolvedValue(resultMock);
+    ordersService.deleteOrderById.mockResolvedValue(resultMock);
 
-    await ordersController.deleteOrder(req, res);
+    await ordersController.deleteOrderById(req, res);
 
-    expect(ordersService.deleteOrder).toHaveBeenCalledWith(req.params.orderId);
+    expect(ordersService.deleteOrderById).toHaveBeenCalledWith(
+      req.params.orderId,
+    );
     expect(handleResponse).toHaveBeenCalledWith(
       res,
       { message: 'Pedido deletado com sucesso.', data: resultMock },

@@ -1,10 +1,25 @@
 import { vi, describe, test, expect } from 'vitest';
-import { usersController } from './usersController.js';
-import { usersService } from '../services/usersService.js';
-import { handleResponse } from '../helpers/handleResponse.js';
+
+// fix: essa é a abordagem mais profissional pois não executa nada do service.
+// vi.mock('../services/usersService.js', () => ({
+//   usersService: {
+//     getAllUsers: vi.fn(),
+//     getUserById: vi.fn(),
+//     createUser: vi.fn(),
+//     updateUserById: vi.fn(),
+//     deleteUserById: vi.fn(),
+//   },
+// }));
+// vi.mock('../helpers/handleResponse.js', () => ({
+//   handleResponse: vi.fn(),
+// }));
 
 vi.mock('../services/usersService.js');
 vi.mock('../helpers/handleResponse.js');
+
+import { usersService } from '../services/usersService.js';
+import { handleResponse } from '../helpers/handleResponse.js';
+import { usersController } from './usersController.js';
 
 const makeRes = () => ({});
 
@@ -26,16 +41,16 @@ describe('usersController', () => {
     );
   });
 
-  test('Deve chamar usersService.getUser', async () => {
+  test('Deve chamar usersService.getUserById', async () => {
     const req = { params: { userId: '1' } };
     const res = makeRes();
 
     const resultMock = {};
-    usersService.getUser.mockResolvedValue(resultMock);
+    usersService.getUserById.mockResolvedValue(resultMock);
 
-    await usersController.getUser(req, res);
+    await usersController.getUserById(req, res);
 
-    expect(usersService.getUser).toHaveBeenCalledWith(req.params.userId);
+    expect(usersService.getUserById).toHaveBeenCalledWith(req.params.userId);
     expect(handleResponse).toHaveBeenCalledWith(
       res,
       { message: 'Usuário encontrado com sucesso.', data: resultMock },
@@ -60,7 +75,7 @@ describe('usersController', () => {
     );
   });
 
-  test('Deve chamar usersService.updateUser', async () => {
+  test('Deve chamar usersService.updateUserById', async () => {
     const req = {
       user: { id: '1' },
       body: {},
@@ -68,11 +83,11 @@ describe('usersController', () => {
     const res = makeRes();
 
     const resultMock = {};
-    usersService.updateUser.mockResolvedValue(resultMock);
+    usersService.updateUserById.mockResolvedValue(resultMock);
 
-    await usersController.updateUser(req, res);
+    await usersController.updateUserById(req, res);
 
-    expect(usersService.updateUser).toHaveBeenCalledWith({
+    expect(usersService.updateUserById).toHaveBeenCalledWith({
       userId: req.user.id,
       userData: req.body,
     });
@@ -83,16 +98,16 @@ describe('usersController', () => {
     );
   });
 
-  test('Deve chamar usersService.deleteUser', async () => {
+  test('Deve chamar usersService.deleteUserById', async () => {
     const req = { params: { userId: '1' } };
     const res = makeRes();
 
     const resultMock = {};
-    usersService.deleteUser.mockResolvedValue(resultMock);
+    usersService.deleteUserById.mockResolvedValue(resultMock);
 
-    await usersController.deleteUser(req, res);
+    await usersController.deleteUserById(req, res);
 
-    expect(usersService.deleteUser).toHaveBeenCalledWith(req.params.userId);
+    expect(usersService.deleteUserById).toHaveBeenCalledWith(req.params.userId);
     expect(handleResponse).toHaveBeenCalledWith(
       res,
       { message: 'Usuário deletado com sucesso.', data: resultMock },

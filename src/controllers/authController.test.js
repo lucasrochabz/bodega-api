@@ -1,10 +1,13 @@
 import { vi, describe, test, expect } from 'vitest';
-import { authController } from './authController.js';
-import { authService } from '../services/authService.js';
-import { handleResponse } from '../helpers/handleResponse.js';
 
 vi.mock('../services/authService.js');
+vi.mock('../dtos/userResDTO.js');
 vi.mock('../helpers/handleResponse.js');
+
+import { authService } from '../services/authService.js';
+import { userResDTO } from '../dtos/userResDTO.js';
+import { handleResponse } from '../helpers/handleResponse.js';
+import { authController } from './authController.js';
 
 const makeRes = () => ({});
 
@@ -15,6 +18,7 @@ describe('authController', () => {
 
     const resultMock = {};
     authService.getMe.mockResolvedValue(resultMock);
+    userResDTO.mockReturnValue(resultMock);
 
     await authController.getMe(req, res);
 

@@ -1,7 +1,6 @@
 import { ordersProductsRepository } from '../repositories/ordersProductsRepository.js';
-import { paymentEventsMapper } from '../mappers/paymentEventsMapper.js';
 import { ordersRepository } from '../repositories/ordersRepository.js';
-import { usersRepository } from '../repositories/usersRepository.js';
+import { addressesRepository } from '../repositories/addressesRepository.js';
 import { OrdersErrors } from '../errors/ordersErrors.js';
 import { UsersErrors } from '../errors/usersErrors.js';
 
@@ -22,7 +21,7 @@ export const ordersService = {
     return myOrders;
   },
 
-  getOrderDetails: async ({ user, orderId }) => {
+  getOrderById: async ({ user, orderId }) => {
     const order = await ordersRepository.findById(orderId);
 
     if (!order) {
@@ -40,7 +39,7 @@ export const ordersService = {
   },
 
   createOrder: async ({ userId, status, products }) => {
-    const addressId = await usersRepository.findAddressByUserId(userId);
+    const addressId = await addressesRepository.findUserAddressId(userId);
 
     if (!addressId) {
       throw UsersErrors.USER_ADDRESS_NOT_FOUND;
@@ -97,7 +96,7 @@ export const ordersService = {
     });
   },
 
-  deleteOrder: async (orderId) => {
+  deleteOrderById: async (orderId) => {
     const order = await ordersRepository.deleteById(orderId);
 
     if (order.affectedRows === 0) {

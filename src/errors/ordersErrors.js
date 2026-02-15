@@ -1,5 +1,4 @@
 export const OrdersErrors = {
-  // fix: acho que isso deve ser removido pois não ter pedido não significa que esteja errado.
   ORDERS_NOT_FOUND: {
     statusCode: 404,
     code: 'ORDERS_NOT_FOUND',

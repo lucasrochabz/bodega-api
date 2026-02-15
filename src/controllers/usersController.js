@@ -1,12 +1,16 @@
 import { usersService } from '../services/usersService.js';
-import { handleResponse } from '../helpers/handleResponse.js';
+import { userResDTO } from '../dtos/userResDTO.js';
 import { createUserDTO } from '../dtos/createUserDTO.js';
+import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
+import { userListDTO } from '../dtos/userListDTO.js';
 
 export const usersController = {
   getAllUsers: async (req, res) => {
     try {
-      const result = await usersService.getAllUsers();
+      const users = await usersService.getAllUsers();
+      const result = users.map(userListDTO);
+
       return handleResponse(
         res,
         { message: 'Usuários encontrados com sucesso.', data: result },
@@ -18,13 +22,15 @@ export const usersController = {
     }
   },
 
-  getUser: async (req, res) => {
+  getUserById: async (req, res) => {
     const { userId } = req.params;
     try {
-      const result = await usersService.getUser(userId);
+      const result = await usersService.getUserById(userId);
+      const data = userResDTO(result);
+
       return handleResponse(
         res,
-        { message: 'Usuário encontrado com sucesso.', data: result },
+        { message: 'Usuário encontrado com sucesso.', data },
         200,
       );
     } catch (error) {
@@ -33,6 +39,7 @@ export const usersController = {
     }
   },
 
+  // fix: falta dto de resposta
   createUser: async (req, res) => {
     const userData = createUserDTO(req.body);
 
@@ -49,12 +56,13 @@ export const usersController = {
     }
   },
 
-  updateUser: async (req, res) => {
+  // fix: falta dto de entrada e de resposta
+  updateUserById: async (req, res) => {
     const userId = req.user.id;
     const userData = req.body;
 
     try {
-      const result = await usersService.updateUser({ userId, userData });
+      const result = await usersService.updateUserById({ userId, userData });
       return handleResponse(
         res,
         { message: 'Usuário atualizado com sucesso.', data: result },
@@ -66,10 +74,10 @@ export const usersController = {
     }
   },
 
-  deleteUser: async (req, res) => {
+  deleteUserById: async (req, res) => {
     const { userId } = req.params;
     try {
-      const result = await usersService.deleteUser(userId);
+      const result = await usersService.deleteUserById(userId);
       return handleResponse(
         res,
         { message: 'Usuário deletado com sucesso.', data: result },
