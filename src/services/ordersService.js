@@ -1,6 +1,7 @@
 import { ordersProductsRepository } from '../repositories/ordersProductsRepository.js';
 import { ordersRepository } from '../repositories/ordersRepository.js';
 import { addressesRepository } from '../repositories/addressesRepository.js';
+import { productsRepository } from '../repositories/productsRepository.js';
 import { OrdersErrors } from '../errors/ordersErrors.js';
 import { UsersErrors } from '../errors/usersErrors.js';
 
@@ -38,6 +39,7 @@ export const ordersService = {
     return order;
   },
 
+  // fix: add transaction
   createOrder: async ({ userId, status, products }) => {
     const addressId = await addressesRepository.findUserAddressId(userId);
 
@@ -66,6 +68,13 @@ export const ordersService = {
 
     if (isProductsInserted.affectedRows === 0) {
       throw OrdersErrors.ORDER_PRODUCTS_NOT_CREATED;
+    }
+
+    const productId = products[0].product_id;
+    const stockUpdated = await productsRepository.decrementStock(productId);
+
+    if (!stockUpdated) {
+      throw OrdersErrors.INSUFFICIENT_STOCK;
     }
 
     return {

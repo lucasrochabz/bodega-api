@@ -84,4 +84,17 @@ export const productsRepository = {
     const result = await executeQuery(query, params);
     return result;
   },
+
+  decrementStock: async (productId) => {
+    const query = `
+      UPDATE products
+      SET stock = stock - 1
+      WHERE id = ?
+      AND stock >= 1
+    `;
+    const params = [productId];
+
+    const result = await executeQuery(query, params);
+    return result.affectedRows;
+  },
 };

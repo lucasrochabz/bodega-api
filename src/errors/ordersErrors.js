@@ -28,4 +28,10 @@ export const OrdersErrors = {
     code: 'ORDER_ACCESS_DENIED',
     message: 'Você não tem permissão para acessar este pedido.',
   },
+
+  INSUFFICIENT_STOCK: {
+    statusCode: 400,
+    code: 'INSUFFICIENT_STOCK',
+    message: 'Estoque insuficiente para o produto.',
+  },
 };

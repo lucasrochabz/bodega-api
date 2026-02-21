@@ -5,7 +5,7 @@ export const addressesRepository = {
     const query = `
     SELECT id
     FROM addresses
-    WHERE id = ?
+    WHERE user_id = ?
     `;
     const params = [userId];
 
