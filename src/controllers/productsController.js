@@ -29,10 +29,10 @@ export const productsController = {
     }
   },
 
-  getProduct: async (req, res) => {
+  getProductById: async (req, res) => {
     const { productId } = req.params;
     try {
-      const result = await productsService.getProduct(productId);
+      const result = await productsService.getProductById(productId);
       return handleResponse(
         res,
         { message: 'Produto encontrado com sucesso.', data: result },
@@ -48,7 +48,7 @@ export const productsController = {
     try {
       const productData = createProductDTO(req.body);
       const result = await productsService.createProduct(productData);
-      // fix: acho que não precisa do DTO pois o ideal é retornar apenas uma mensagem.
+      // fix: fazer DTO pois o ideal é retornar o recurso criado.
       const data = productDTO(result);
       return handleResponse(
         res,
@@ -61,11 +61,11 @@ export const productsController = {
     }
   },
 
-  updateProduct: async (req, res) => {
+  updateProductById: async (req, res) => {
     const { productId } = req.params;
     const { description } = req.body;
     try {
-      const result = await productsService.updateProduct({
+      const result = await productsService.updateProductById({
         productId,
         description,
       });
@@ -80,10 +80,10 @@ export const productsController = {
     }
   },
 
-  deleteProduct: async (req, res) => {
+  deleteProductById: async (req, res) => {
     const { productId } = req.params;
     try {
-      const result = await productsService.deleteProduct(productId);
+      const result = await productsService.deleteProductById(productId);
       return handleResponse(
         res,
         { message: 'Produto deletado com sucesso.', data: result },

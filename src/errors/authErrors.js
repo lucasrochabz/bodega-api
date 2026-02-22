@@ -28,4 +28,17 @@ export const AuthErrors = {
     code: 'INVALID_CREDENTIALS',
     message: 'E-mail ou senha incorretos.',
   },
+
+  // fix: usar um erro que possa valer pros dois casos. que nem no outro
+  RESET_TOKEN_EXPIRED: {
+    statusCode: 400,
+    code: 'RESET_TOKEN_EXPIRED',
+    message: 'Token expirado. Solicite novamente a recuperação de senha.',
+  },
+
+  RESET_TOKEN_INVALID: {
+    statusCode: 400,
+    code: 'RESET_TOKEN_INVALID',
+    message: 'Token inválido.',
+  },
 };

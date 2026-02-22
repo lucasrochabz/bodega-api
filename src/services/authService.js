@@ -12,7 +12,7 @@ import { UsersErrors } from '../errors/usersErrors.js';
 
 export const authService = {
   getMe: async (userId) => {
-    const user = await usersRepository.findByUserId(userId);
+    const user = await usersRepository.findById(userId);
     const address = await addressesRepository.findByUserId(userId);
 
     if (!user || !address) {
@@ -62,6 +62,7 @@ export const authService = {
   },
 
   resetPassword: async ({ token, newPassword }) => {
+    // fix: fazer try catch com o decoded (usar erros que já tem)
     const decoded = verifyResetToken(token);
     const userId = decoded.userId;
 

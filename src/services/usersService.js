@@ -16,9 +16,8 @@ export const usersService = {
     return users;
   },
 
-  getUser: async (userId) => {
-    const user = await usersRepository.findByUserId(userId);
-
+  getUserById: async (userId) => {
+    const user = await usersRepository.findById(userId);
     const address = await addressesRepository.findByUserId(userId);
 
     if (!user || !address) {
@@ -65,7 +64,7 @@ export const usersService = {
     };
   },
 
-  updateUser: async ({ userId, userData }) => {
+  updateUserById: async ({ userId, userData }) => {
     const userUpdated = await usersRepository.updateById({
       userId,
       userData,
@@ -82,7 +81,7 @@ export const usersService = {
   },
 
   // fix: essa função não deve retornar nada (observar outras funções de delete)
-  deleteUser: async (userId) => {
+  deleteUserById: async (userId) => {
     const userDeleted = await usersRepository.deleteById(userId);
 
     if (userDeleted.affectedRows === 0) {

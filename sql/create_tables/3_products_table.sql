@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS products (
 	price DECIMAL(10, 2) NOT NULL,
 	description TEXT NOT NULL,
 	stock INT UNSIGNED NOT NULL DEFAULT 0,
-	status ENUM('active', 'inactive') NOT NULL DEFAULT 'active',
+	status ENUM('active', 'inactive', 'archived') NOT NULL DEFAULT 'active',
 	image_path VARCHAR(200) DEFAULT 'default_image.png',
 	views INT NOT NULL DEFAULT 0,
 	purchases INT NOT NULL DEFAULT 0,
