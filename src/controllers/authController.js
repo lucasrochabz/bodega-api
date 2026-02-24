@@ -8,7 +8,6 @@ export const authController = {
     const userId = req.user.id;
     try {
       const result = await authService.getMe(userId);
-      // fix: mudar esse nome do dto
       const data = userResDTO(result);
 
       return handleResponse(
