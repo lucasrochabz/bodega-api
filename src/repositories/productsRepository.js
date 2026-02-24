@@ -23,7 +23,7 @@ export const productsRepository = {
     return rows;
   },
 
-  findByProductId: async (productID) => {
+  findById: async (productID) => {
     const query = `
       SELECT id, name, price, description, stock, status, image_path
       FROM products WHERE id = ?
@@ -52,6 +52,17 @@ export const productsRepository = {
     return result.insertId;
   },
 
+  updateViews: async (productId) => {
+    const query = `
+      UPDATE products
+      SET views = views + 1
+      WHERE id = ?
+    `;
+    const params = [productId];
+
+    await executeQuery(query, params);
+  },
+
   updateById: async ({ description, productId }) => {
     const query = `
       UPDATE products
@@ -72,5 +83,18 @@ export const productsRepository = {
 
     const result = await executeQuery(query, params);
     return result;
+  },
+
+  decrementStock: async (productId) => {
+    const query = `
+      UPDATE products
+      SET stock = stock - 1
+      WHERE id = ?
+      AND stock >= 1
+    `;
+    const params = [productId];
+
+    const result = await executeQuery(query, params);
+    return result.affectedRows;
   },
 };

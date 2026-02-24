@@ -1,5 +1,4 @@
 export const OrdersErrors = {
-  // fix: acho que isso deve ser removido pois não ter pedido não significa que esteja errado.
   ORDERS_NOT_FOUND: {
     statusCode: 404,
     code: 'ORDERS_NOT_FOUND',
@@ -28,5 +27,11 @@ export const OrdersErrors = {
     statusCode: 403,
     code: 'ORDER_ACCESS_DENIED',
     message: 'Você não tem permissão para acessar este pedido.',
+  },
+
+  INSUFFICIENT_STOCK: {
+    statusCode: 400,
+    code: 'INSUFFICIENT_STOCK',
+    message: 'Estoque insuficiente para o produto.',
   },
 };

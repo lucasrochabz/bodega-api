@@ -2,10 +2,10 @@ import express from 'express';
 import {
   authenticateUser,
   authorizeAdmin,
-} from '../middlewares/authMiddleware.js';
-import { validateBody } from '../middlewares/validateBody.js';
-import { orderSchema } from '../schemas/orders/orderSchema.js';
-import { ordersController } from '../controllers/ordersController.js';
+} from '../../middlewares/authMiddleware.js';
+import { validate } from '../../middlewares/validate.js';
+import { orderSchema } from '../../schemas/orders/orderSchema.js';
+import { ordersController } from '../../controllers/ordersController.js';
 
 const router = express.Router();
 
@@ -16,7 +16,7 @@ router.get(
   ordersController.getAllOrders,
 );
 router.get('/me', authenticateUser, ordersController.getMyOrders);
-router.get('/:orderId', authenticateUser, ordersController.getOrderDetails);
+router.get('/:orderId', authenticateUser, ordersController.getOrderById);
 
 // fix: add schema
 router.post('/', authenticateUser, ordersController.createOrder);
@@ -26,7 +26,7 @@ router.post('/', authenticateUser, ordersController.createOrder);
 // fix: ver como posso esta utilizando essa rota
 router.patch(
   '/:orderId',
-  validateBody(orderSchema),
+  validate({ body: orderSchema }),
   ordersController.updateOrder,
 );
 
@@ -34,7 +34,7 @@ router.delete(
   '/:orderId',
   authenticateUser,
   authorizeAdmin,
-  ordersController.deleteOrder,
+  ordersController.deleteOrderById,
 );
 
 export default router;

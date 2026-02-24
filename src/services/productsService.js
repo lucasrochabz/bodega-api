@@ -26,8 +26,9 @@ export const productsService = {
     };
   },
 
-  getProduct: async (productId) => {
-    const product = await productsRepository.findByProductId(productId);
+  getProductById: async (productId) => {
+    await productsRepository.updateViews(productId);
+    const product = await productsRepository.findById(productId);
 
     if (!product) {
       throw ProductsErrors.PRODUCT_NOT_FOUND;
@@ -49,7 +50,7 @@ export const productsService = {
     return product.toPublic();
   },
 
-  updateProduct: async ({ productId, description }) => {
+  updateProductById: async ({ productId, description }) => {
     const product = await productsRepository.updateById({
       productId,
       description,
@@ -65,7 +66,7 @@ export const productsService = {
     };
   },
 
-  deleteProduct: async (productId) => {
+  deleteProductById: async (productId) => {
     const product = await productsRepository.deleteById(productId);
 
     if (product.affectedRows === 0) {

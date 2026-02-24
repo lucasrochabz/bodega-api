@@ -1,12 +1,13 @@
 import { vi, describe, test, expect } from 'vitest';
-import { productsController } from './productsController.js';
-import { productsService } from '../services/productsService.js';
-import { handleResponse } from '../helpers/handleResponse.js';
-import { getAllProductsResDTO } from '../dtos/getAllProductsResDTO.js';
 
 vi.mock('../services/productsService.js');
 vi.mock('../helpers/handleResponse.js');
 vi.mock('../dtos/getAllProductsResDTO.js');
+
+import { productsService } from '../services/productsService.js';
+import { getAllProductsResDTO } from '../dtos/getAllProductsResDTO.js';
+import { handleResponse } from '../helpers/handleResponse.js';
+import { productsController } from './productsController.js';
 
 const makeRes = () => ({});
 
@@ -32,16 +33,16 @@ describe('productsCrontroller', () => {
     );
   });
 
-  test('Deve chamar productsService.getProduct', async () => {
+  test('Deve chamar productsService.getProductById', async () => {
     const req = { params: { productId: '1' } };
     const res = makeRes();
 
     const resultMock = {};
-    productsService.getProduct.mockResolvedValue(resultMock);
+    productsService.getProductById.mockResolvedValue(resultMock);
 
-    await productsController.getProduct(req, res);
+    await productsController.getProductById(req, res);
 
-    expect(productsService.getProduct).toHaveBeenCalledWith(
+    expect(productsService.getProductById).toHaveBeenCalledWith(
       req.params.productId,
     );
     expect(handleResponse).toHaveBeenCalledWith(
@@ -69,7 +70,7 @@ describe('productsCrontroller', () => {
     );
   });
 
-  test('Deve chamar productsService.updateProduct', async () => {
+  test('Deve chamar productsService.updateProductById', async () => {
     const req = {
       params: { productId: '123' },
       body: { description: 'description' },
@@ -77,11 +78,11 @@ describe('productsCrontroller', () => {
     const res = makeRes();
 
     const resultMock = {};
-    productsService.updateProduct.mockResolvedValue(resultMock);
+    productsService.updateProductById.mockResolvedValue(resultMock);
 
-    await productsController.updateProduct(req, res);
+    await productsController.updateProductById(req, res);
 
-    expect(productsService.updateProduct).toHaveBeenCalledWith({
+    expect(productsService.updateProductById).toHaveBeenCalledWith({
       productId: req.params.productId,
       description: req.body.description,
     });
@@ -92,16 +93,16 @@ describe('productsCrontroller', () => {
     );
   });
 
-  test('Deve chamar productsService.deleteProduct', async () => {
+  test('Deve chamar productsService.deleteProductById', async () => {
     const req = { params: { productId: '123' } };
     const res = makeRes();
 
     const resultMock = {};
-    productsService.deleteProduct.mockResolvedValue(resultMock);
+    productsService.deleteProductById.mockResolvedValue(resultMock);
 
-    await productsController.deleteProduct(req, res);
+    await productsController.deleteProductById(req, res);
 
-    expect(productsService.deleteProduct).toHaveBeenCalledWith(
+    expect(productsService.deleteProductById).toHaveBeenCalledWith(
       req.params.productId,
     );
     expect(handleResponse).toHaveBeenCalledWith(
