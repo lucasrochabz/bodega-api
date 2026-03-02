@@ -1,4 +1,5 @@
 export const AddressErrors = {
+  // fix: tem um erro que não está sendo utilizado
   INVALID_CEP: {
     statusCode: 400,
     code: 'INVALID_CEP',
