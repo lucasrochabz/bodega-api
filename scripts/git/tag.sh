@@ -8,7 +8,7 @@ if [ -z "$VERSION" ]; then
   exit 1
 fi
 
-git checkout main
+git switch main
 git pull origin main
 
 git tag -a "$VERSION" -m "Release $VERSION"
