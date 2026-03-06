@@ -8,7 +8,7 @@ if [ -z "$VERSION" ]; then
   exit 1
 fi
 
-git checkout develop
+git switch develop
 git pull origin develop
 
 git checkout -b release/"$VERSION"

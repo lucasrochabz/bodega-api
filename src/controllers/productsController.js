@@ -33,9 +33,11 @@ export const productsController = {
     const { productId } = req.params;
     try {
       const result = await productsService.getProductById(productId);
+      const data = productDTO(result);
+
       return handleResponse(
         res,
-        { message: 'Produto encontrado com sucesso.', data: result },
+        { message: 'Produto encontrado com sucesso.', data },
         200,
       );
     } catch (error) {

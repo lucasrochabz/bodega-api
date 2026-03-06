@@ -4,6 +4,7 @@ import docsRoutes from './docsSwagger.js';
 
 import authRoutes from './authRoute.js';
 import usersRoutes from './usersRoute.js';
+import addressRoutes from './addressRoute.js';
 import productsRoutes from './productsRoute.js';
 import ordersRoutes from './ordersRoute.js';
 import paymentsRoutes from './paymentsRoute.js';
@@ -15,6 +16,7 @@ router.use('/docs', docsRoutes);
 
 router.use('/auth', authRoutes);
 router.use('/users', usersRoutes);
+router.use('/address', addressRoutes);
 router.use('/products', productsRoutes);
 router.use('/orders', ordersRoutes);
 router.use('/payments', paymentsRoutes);
