@@ -208,9 +208,15 @@ bodega-api/
 │
 ├── src/
 │   ├── config/
+│   │   ├── app.js
+│   │   ├── auth.js
+│   │   ├── database.js
+│   │   └── env.js
+│   │
 │   ├── controllers/
-│   │   ├── controller.js
-│   │   └── controller.test.js
+│   │   ├── authController.js
+│   │   ├── authController.test.js
+│   │   └── ...
 │   │
 │   ├── database/
 │   │   ├── connection.js
@@ -243,8 +249,9 @@ bodega-api/
 │   │   └── users/
 │   │
 │   ├── services/
-│   │   ├── services.js
-│   │   └── services.test.js
+│   │   ├── authService.js
+│   │   ├── authService.test.js
+│   │   └── ...
 │   │
 │   ├── swagger/
 │   ├── utils/

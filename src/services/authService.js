@@ -62,7 +62,6 @@ export const authService = {
   },
 
   resetPassword: async ({ token, newPassword }) => {
-    // fix: fazer try catch com o decoded (usar erros que já tem)
     const decoded = verifyResetToken(token);
     const userId = decoded.userId;
 
