@@ -1,6 +1,6 @@
 import { paymentEventsMapper } from '../mappers/paymentEventsMapper.js';
-import { paymentsRepositoy } from '../repositories/paymentsRepositoy.js';
-import { ordersService } from './ordersService.js';
+import { paymentsRepositoy } from '../repositories/payments.repositoy.js';
+import { ordersService } from './orders.service.js';
 
 export const paymentsService = {
   // fix: continuar fazendo o service

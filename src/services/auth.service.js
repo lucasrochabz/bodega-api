@@ -1,12 +1,12 @@
-import { usersRepository } from '../repositories/usersRepository.js';
-import { addressesRepository } from '../repositories/addressesRepository.js';
-import { compareHash, generateHash } from '../utils/hashUtils.js';
+import { usersRepository } from '../repositories/users.repository.js';
+import { addressesRepository } from '../repositories/addresses.repository.js';
+import { compareHash, generateHash } from '../utils/hash.utils.js';
 import {
   generateResetToken,
   generateToken,
   verifyResetToken,
 } from '../utils/tokenUtils.js';
-import User from '../entities/userEntity.js';
+import User from '../entities/user.entity.js';
 import { AuthErrors } from '../errors/authErrors.js';
 import { UsersErrors } from '../errors/usersErrors.js';
 

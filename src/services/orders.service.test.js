@@ -1,8 +1,8 @@
 import { vi, describe, test, expect } from 'vitest';
-import { ordersService } from './ordersService.js';
-import { ordersRepository } from '../repositories/ordersRepository.js';
+import { ordersService } from './orders.service.js';
+import { ordersRepository } from '../repositories/orders.repository.js';
 
-vi.mock('../repositories/ordersRepository.js');
+vi.mock('../repositories/orders.repository.js');
 
 // fix testar o retorno do service: expect(result).toEqual(resultMock);
 describe('ordersService', () => {
