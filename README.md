@@ -261,11 +261,14 @@ bodega-api/
 │   ├── app.js
 │   └── server.js
 │
-├── .dockerignore
 ├── env.example
 ├── .gitignore
-├── docker-compose.yml
+│
+├── .dockerignore
 ├── Dockerfile
+├── docker-compose.yml
+├── docker-compose.dev.yml
+│
 ├── package-lock.json
 ├── package.json
 └── README.md
