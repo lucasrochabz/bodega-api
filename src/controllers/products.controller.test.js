@@ -1,13 +1,13 @@
 import { vi, describe, test, expect } from 'vitest';
 
-vi.mock('../services/productsService.js');
+vi.mock('../services/products.service.js');
 vi.mock('../helpers/handleResponse.js');
 vi.mock('../dtos/getAllProductsResDTO.js');
 
 import { productsService } from '../services/products.service.js';
 import { getAllProductsResDTO } from '../dtos/getAllProductsResDTO.js';
 import { handleResponse } from '../helpers/handleResponse.js';
-import { productsController } from './productsController.js';
+import { productsController } from './products.controller.js';
 
 const makeRes = () => ({});
 
