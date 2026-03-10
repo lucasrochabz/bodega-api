@@ -5,7 +5,7 @@ import {
   generateResetToken,
   generateToken,
   verifyResetToken,
-} from '../utils/tokenUtils.js';
+} from '../utils/token.utils.js';
 import User from '../entities/user.entity.js';
 import { AuthErrors } from '../errors/authErrors.js';
 import { UsersErrors } from '../errors/usersErrors.js';

@@ -7,7 +7,7 @@ import { validate } from '../../middlewares/validate.js';
 import { paginationSchema } from '../../schemas/shared/paginationSchema.js';
 import { productParamsSchema } from '../../schemas/products/productParamsSchema.js';
 import { createProductSchema } from '../../schemas/products/createProductSchema.js';
-import { productsController } from '../../controllers/productsController.js';
+import { productsController } from '../../controllers/products.controller.js';
 
 const router = express.Router();
 

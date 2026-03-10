@@ -1,4 +1,4 @@
-import { generateHash } from '../utils/hashUtils.js';
+import { generateHash } from '../utils/hash.utils.js';
 import { addressesRepository } from '../repositories/addresses.repository.js';
 import { usersRepository } from '../repositories/users.repository.js';
 import User from '../entities/user.entity.js';
