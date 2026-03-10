@@ -4,7 +4,7 @@ vi.mock('../services/productsService.js');
 vi.mock('../helpers/handleResponse.js');
 vi.mock('../dtos/getAllProductsResDTO.js');
 
-import { productsService } from '../services/productsService.js';
+import { productsService } from '../services/products.service.js';
 import { getAllProductsResDTO } from '../dtos/getAllProductsResDTO.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { productsController } from './productsController.js';
