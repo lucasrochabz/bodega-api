@@ -214,8 +214,8 @@ bodega-api/
 │   │   └── env.js
 │   │
 │   ├── controllers/
-│   │   ├── authController.js
-│   │   ├── authController.test.js
+│   │   ├── auth.controller.js
+│   │   ├── auth.controller.test.js
 │   │   └── ...
 │   │
 │   ├── database/
@@ -224,10 +224,10 @@ bodega-api/
 │   │
 │   ├── dtos/
 │   ├── entities/
-│   │   ├── addressEntity.js
-│   │   ├── orderEntity.js
-│   │   ├── productEntity.js
-│   │   └── userEntity.js
+│   │   ├── address.entity.js
+│   │   ├── order.entity.js
+│   │   ├── product.entity.js
+│   │   └── user.entity.js
 │   │
 │   ├── errors/
 │   ├── helpers/
@@ -249,14 +249,14 @@ bodega-api/
 │   │   └── users/
 │   │
 │   ├── services/
-│   │   ├── authService.js
-│   │   ├── authService.test.js
+│   │   ├── auth.service.js
+│   │   ├── auth.service.test.js
 │   │   └── ...
 │   │
 │   ├── swagger/
 │   ├── utils/
-│   │   ├── hashUtils.js
-│   │   └── tokenUtils.js
+│   │   ├── hash.utils.js
+│   │   └── token.utils.js
 │   │
 │   ├── app.js
 │   └── server.js
