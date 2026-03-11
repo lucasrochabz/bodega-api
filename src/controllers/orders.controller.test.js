@@ -1,11 +1,11 @@
 import { vi, describe, test, expect } from 'vitest';
 
-vi.mock('../services/ordersService.js');
+vi.mock('../services/orders.service.js');
 vi.mock('../helpers/handleResponse.js');
 
-import { ordersService } from '../services/ordersService.js';
+import { ordersService } from '../services/orders.service.js';
 import { handleResponse } from '../helpers/handleResponse.js';
-import { ordersController } from './ordersController.js';
+import { ordersController } from './orders.controller.js';
 
 const makeRes = () => ({});
 

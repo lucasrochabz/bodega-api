@@ -1,4 +1,4 @@
-import { verifyToken } from '../utils/tokenUtils.js';
+import { verifyToken } from '../utils/token.utils.js';
 import { handleError } from '../helpers/handleError.js';
 import { AuthErrors } from '../errors/authErrors.js';
 

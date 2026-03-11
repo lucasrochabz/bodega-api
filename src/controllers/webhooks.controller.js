@@ -1,4 +1,4 @@
-import { paymentsService } from '../services/paymentsService.js';
+import { paymentsService } from '../services/payments.service.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
 

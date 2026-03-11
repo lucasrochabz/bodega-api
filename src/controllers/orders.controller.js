@@ -1,4 +1,4 @@
-import { ordersService } from '../services/ordersService.js';
+import { ordersService } from '../services/orders.service.js';
 import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
 

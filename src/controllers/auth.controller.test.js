@@ -1,6 +1,6 @@
 import { vi, describe, test, expect } from 'vitest';
 
-vi.mock('../services/authService.js');
+vi.mock('../services/auth.service.js');
 vi.mock('../dtos/userResDTO.js');
 vi.mock('../helpers/handleResponse.js');
 

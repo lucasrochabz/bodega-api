@@ -208,9 +208,15 @@ bodega-api/
 │
 ├── src/
 │   ├── config/
+│   │   ├── app.js
+│   │   ├── auth.js
+│   │   ├── database.js
+│   │   └── env.js
+│   │
 │   ├── controllers/
-│   │   ├── controller.js
-│   │   └── controller.test.js
+│   │   ├── auth.controller.js
+│   │   ├── auth.controller.test.js
+│   │   └── ...
 │   │
 │   ├── database/
 │   │   ├── connection.js
@@ -218,10 +224,10 @@ bodega-api/
 │   │
 │   ├── dtos/
 │   ├── entities/
-│   │   ├── addressEntity.js
-│   │   ├── orderEntity.js
-│   │   ├── productEntity.js
-│   │   └── userEntity.js
+│   │   ├── address.entity.js
+│   │   ├── order.entity.js
+│   │   ├── product.entity.js
+│   │   └── user.entity.js
 │   │
 │   ├── errors/
 │   ├── helpers/
@@ -243,22 +249,26 @@ bodega-api/
 │   │   └── users/
 │   │
 │   ├── services/
-│   │   ├── services.js
-│   │   └── services.test.js
+│   │   ├── auth.service.js
+│   │   ├── auth.service.test.js
+│   │   └── ...
 │   │
 │   ├── swagger/
 │   ├── utils/
-│   │   ├── hashUtils.js
-│   │   └── tokenUtils.js
+│   │   ├── hash.utils.js
+│   │   └── token.utils.js
 │   │
 │   ├── app.js
 │   └── server.js
 │
-├── .dockerignore
 ├── env.example
 ├── .gitignore
-├── docker-compose.yml
+│
+├── .dockerignore
 ├── Dockerfile
+├── docker-compose.yml
+├── docker-compose.dev.yml
+│
 ├── package-lock.json
 ├── package.json
 └── README.md
