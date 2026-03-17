@@ -14,12 +14,12 @@ import { vi, describe, test, expect } from 'vitest';
 //   handleResponse: vi.fn(),
 // }));
 
-vi.mock('../services/usersService.js');
+vi.mock('../services/users.service.js');
 vi.mock('../helpers/handleResponse.js');
 
-import { usersService } from '../services/usersService.js';
+import { usersService } from '../services/users.service.js';
 import { handleResponse } from '../helpers/handleResponse.js';
-import { usersController } from './usersController.js';
+import { usersController } from './users.controller.js';
 
 const makeRes = () => ({});
 

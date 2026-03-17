@@ -8,9 +8,6 @@ services:
       - .env.docker
     ports:
       - '4000:4000'
-    volumes:
-      - .:/app
-      - /app/node_modules
     depends_on:
       - db
 

@@ -1,14 +1,10 @@
 import mysql from 'mysql2/promise';
+import databaseConfig from '../config/database.js';
 
+// fix: estudar sobre o pool
 const getDBConnection = async () => {
   try {
-    const connection = await mysql.createConnection({
-      host: process.env.MYSQLHOST,
-      user: process.env.MYSQLUSER,
-      password: process.env.MYSQLPASSWORD,
-      database: process.env.MYSQLDATABASE,
-      port: process.env.MYSQLPORT,
-    });
+    const connection = await mysql.createConnection(databaseConfig);
 
     return connection;
   } catch (error) {

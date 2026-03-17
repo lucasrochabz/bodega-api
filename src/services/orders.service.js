@@ -1,7 +1,7 @@
-import { ordersProductsRepository } from '../repositories/ordersProductsRepository.js';
-import { ordersRepository } from '../repositories/ordersRepository.js';
-import { addressesRepository } from '../repositories/addressesRepository.js';
-import { productsRepository } from '../repositories/productsRepository.js';
+import { ordersProductsRepository } from '../repositories/ordersProducts.repository.js';
+import { ordersRepository } from '../repositories/orders.repository.js';
+import { addressesRepository } from '../repositories/addresses.repository.js';
+import { productsRepository } from '../repositories/products.repository.js';
 import { OrdersErrors } from '../errors/ordersErrors.js';
 import { UsersErrors } from '../errors/usersErrors.js';
 

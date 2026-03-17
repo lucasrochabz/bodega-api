@@ -1,4 +1,4 @@
-import { usersService } from '../services/usersService.js';
+import { usersService } from '../services/users.service.js';
 import { userResDTO } from '../dtos/userResDTO.js';
 import { createUserDTO } from '../dtos/createUserDTO.js';
 import { handleResponse } from '../helpers/handleResponse.js';

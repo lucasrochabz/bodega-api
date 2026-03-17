@@ -6,7 +6,7 @@ import {
 import { validate } from '../../middlewares/validate.js';
 import { updateUserSchema } from '../../schemas/users/updateUserSchema.js';
 import { createUserSchema } from '../../schemas/users/createUserSchema.js';
-import { usersController } from '../../controllers/usersController.js';
+import { usersController } from '../../controllers/users.controller.js';
 
 const router = express.Router();
 

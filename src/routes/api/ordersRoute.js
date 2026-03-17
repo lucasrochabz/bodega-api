@@ -5,7 +5,7 @@ import {
 } from '../../middlewares/authMiddleware.js';
 import { validate } from '../../middlewares/validate.js';
 import { orderSchema } from '../../schemas/orders/orderSchema.js';
-import { ordersController } from '../../controllers/ordersController.js';
+import { ordersController } from '../../controllers/orders.controller.js';
 
 const router = express.Router();
 

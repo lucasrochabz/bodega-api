@@ -1,4 +1,4 @@
-import { productsService } from '../services/productsService.js';
+import { productsService } from '../services/products.service.js';
 import { getAllProductsResDTO } from '../dtos/getAllProductsResDTO.js';
 import { createProductDTO } from '../dtos/createProductDTO.js';
 import { productDTO } from '../dtos/productDTO.js';

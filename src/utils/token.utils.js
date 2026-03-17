@@ -1,7 +1,5 @@
 import jwt from 'jsonwebtoken';
-
-const SECRET_KEY = process.env.JWT_SECRET_KEY;
-const RESET_SECRET_KEY = process.env.JWT_RESET_SECRET_KEY;
+import authConfig from '../config/auth.js';
 
 const generateToken = (userData) => {
   return jwt.sign(
@@ -9,21 +7,27 @@ const generateToken = (userData) => {
       id: userData.id,
       role: userData.role,
     },
-    SECRET_KEY,
-    { expiresIn: '2h' },
+    authConfig.jwtSecret,
+    { expiresIn: authConfig.tokenExpiresIn },
   );
 };
 
 const verifyToken = (token) => {
-  return jwt.verify(token, SECRET_KEY);
+  return jwt.verify(token, authConfig.jwtSecret);
 };
 
 const generateResetToken = (userId) => {
-  return jwt.sign({ userId }, RESET_SECRET_KEY, { expiresIn: '15m' });
+  return jwt.sign(
+    {
+      userId,
+    },
+    authConfig.jwtResetSecret,
+    { expiresIn: authConfig.resetExpiresIn },
+  );
 };
 
 const verifyResetToken = (token) => {
-  return jwt.verify(token, RESET_SECRET_KEY);
+  return jwt.verify(token, authConfig.jwtResetSecret);
 };
 
 export { generateToken, verifyToken, generateResetToken, verifyResetToken };

@@ -1,6 +1,6 @@
 import { handleResponse } from '../helpers/handleResponse.js';
 import { handleError } from '../helpers/handleError.js';
-import { addressService } from '../services/addressService.js';
+import { addressService } from '../services/address.service.js';
 
 export const addressController = {
   getAddress: async (req, res) => {
