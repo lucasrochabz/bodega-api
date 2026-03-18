@@ -40,6 +40,9 @@ export const authService = {
       throw AuthErrors.INVALID_CREDENTIALS;
     }
 
+    // fix: corrigir isso depois
+    // const name = 'Usuário';
+    // emailService.sendWelcomeEmail(email, name);
     const token = generateToken(new User(user));
     return token;
   },

@@ -70,6 +70,7 @@ npm install --save joi
 npm install --save swagger-ui-express  
 npm install --save yamljs
 npm install --save express-rate-limit
+npm install --save resend
 
 <!-- Dev -->
 
