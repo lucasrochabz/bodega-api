@@ -17,9 +17,9 @@ router.get(
   productsController.getAllProducts,
 );
 router.get(
-  '/:productId',
+  '/:slug',
   validate({ params: productParamsSchema }),
-  productsController.getProductById,
+  productsController.getProductBySlug,
 );
 
 router.post(

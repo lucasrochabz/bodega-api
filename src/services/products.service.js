@@ -26,9 +26,9 @@ export const productsService = {
     };
   },
 
-  getProductById: async (productId) => {
-    await productsRepository.updateViews(productId);
-    const product = await productsRepository.findById(productId);
+  getProductBySlug: async (slug) => {
+    await productsRepository.updateViews(slug);
+    const product = await productsRepository.findBySlug(slug);
 
     if (!product) {
       throw ProductsErrors.PRODUCT_NOT_FOUND;

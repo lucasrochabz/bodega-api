@@ -13,7 +13,7 @@ export const productsRepository = {
 
   findAll: async ({ limit, offset }) => {
     const query = `
-      SELECT id, name, price, description, image_path
+      SELECT id, name, slug, price, description, image_path
       FROM products
       LIMIT ? OFFSET ?
     `;
@@ -23,12 +23,12 @@ export const productsRepository = {
     return rows;
   },
 
-  findById: async (productID) => {
+  findBySlug: async (slug) => {
     const query = `
-      SELECT id, name, price, description, stock, status, image_path
-      FROM products WHERE id = ?
+      SELECT id, name, slug, price, description, stock, status, image_path
+      FROM products WHERE slug = ?
     `;
-    const params = [productID];
+    const params = [slug];
 
     const rows = await executeQuery(query, params);
     return rows[0];
@@ -52,13 +52,13 @@ export const productsRepository = {
     return result.insertId;
   },
 
-  updateViews: async (productId) => {
+  updateViews: async (slug) => {
     const query = `
       UPDATE products
       SET views = views + 1
-      WHERE id = ?
+      WHERE slug = ?
     `;
-    const params = [productId];
+    const params = [slug];
 
     await executeQuery(query, params);
   },

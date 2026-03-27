@@ -11,6 +11,7 @@ export const productsController = {
 
     const pageNumber = parseInt(page) || 1;
     const pageSizeNumber = parseInt(pageSize) || 10;
+
     try {
       const result = await productsService.getAllProducts({
         pageNumber,
@@ -29,10 +30,10 @@ export const productsController = {
     }
   },
 
-  getProductById: async (req, res) => {
-    const { productId } = req.params;
+  getProductBySlug: async (req, res) => {
+    const { slug } = req.params;
     try {
-      const result = await productsService.getProductById(productId);
+      const result = await productsService.getProductBySlug(slug);
       const data = productDTO(result);
 
       return handleResponse(

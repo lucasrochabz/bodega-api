@@ -1,4 +1,5 @@
 INSERT INTO products
+  -- fix: add slug aqui
   (name, price, description, stock, status, image_path)
   VALUES
   ('Notebook', 1500.00, 'O Notebook é ideal para quem busca desempenho e portabilidade em um único aparelho.', 10, 'ativo', 'notebook-1.jpg'),
