@@ -211,6 +211,7 @@ bodega-api/
 │   │   ├── app.js
 │   │   ├── auth.js
 │   │   ├── database.js
+│   │   ├── email.js
 │   │   └── env.js
 │   │
 │   ├── controllers/
@@ -233,6 +234,9 @@ bodega-api/
 │   ├── helpers/
 │   │   ├── handleError.js
 │   │   └── handleResponse.js
+│   │
+│   ├── lib/
+│   │   └── resend.js
 │   │
 │   ├── mappers/
 │   ├── middlewares/

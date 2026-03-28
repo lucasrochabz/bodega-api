@@ -1,7 +1,6 @@
-import { Resend } from 'resend';
+import emailConfig from '../config/email.js';
+import { resend } from '../lib/resend.js';
 import { welcomeEmail } from '../emails/welcomeEmail.js';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 // fix: enviar email de boas-vindas
 // fix: enviar email de recuperação de senha
@@ -10,8 +9,9 @@ export const emailService = {
   sendWelcomeEmail: async (email, name) => {
     try {
       const response = await resend.emails.send({
-        from: 'onboarding@resend.dev',
-        to: 'lucasbezerrar@gmail.com',
+        from: emailConfig.from,
+        // to: 'lucasbezerrar@gmail.com',
+        to: email,
         subject: 'Bem-vindo à Bodega API!',
         html: welcomeEmail(name),
       });
