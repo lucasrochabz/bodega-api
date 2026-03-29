@@ -12,6 +12,14 @@ Esta API é consumida pelo Frontend do projeto **Bodega**, desenvolvido em **Rea
 
 A aplicação segue boas práticas de desenvolvimento, segurança e padronização de código.
 
+| Tipo de aplicação      | API RESTful |
+| ---------------------- | ----------- |
+| Estilo arquitetural    | Monolítico  |
+| Arquitetura interna    | Em camadas  |
+| Estado da aplicação    | Stateless   |
+| Infraestrutura         | Docker      |
+| Plataforma de execução | Railway     |
+
 ## Funcionalidades
 
 - Cadastro e login de usuários com autenticação segura
@@ -26,28 +34,38 @@ A aplicação segue boas práticas de desenvolvimento, segurança e padronizaç�
 
 ### Backend
 
-- **Node.js** — Ambiente de execução JavaScript (Runtime).
-- **Express** — Framework para construção de APIs REST.
+| Tecnologia | Descrição                      |
+| ---------- | ------------------------------ |
+| Node.js    | Runtime                        |
+| Express    | Framework de servidor/API REST |
 
 ### Banco de Dados
 
-- **MySQL** — Banco de dados relacional.
+| Tecnologia | Descrição                 |
+| ---------- | ------------------------- |
+| MySQL      | Banco de dados relacional |
 
 ### Autenticação e Segurança
 
-- **JWT (JSON Web Token)** — Autenticação baseada em tokens.
-- **Bcrypt** — Biblioteca para hash e criptografia de senhas.
-- **Rate Limit (Express Rate Limit)** — Middleware para limitar requisições e prevenir ataques.
+| Tecnologia         | Descrição                              |
+| ------------------ | -------------------------------------- |
+| JWT                | Autenticação baseada em tokens         |
+| bcrypt             | Hash seguro de senhas                  |
+| Express Rate Limit | Limitar requisições e prevenir ataques |
 
 ### Validação e Documentação
 
-- **Joi** — Validação e sanitização de dados.
-- **Swagger** — Documentação interativa da API.
+| Tecnologia | Descrição                        |
+| ---------- | -------------------------------- |
+| Joi        | Validação e sanitização de dados |
+| Swagger    | Documentação interativa da API   |
 
 ### Infraestrutura e Qualidade
 
-- **Docker** — Padronização e execução do ambiente.
-- **Vitest** — Testes automatizados.
+| Tecnologia | Descrição                           |
+| ---------- | ----------------------------------- |
+| Docker     | Padronização e execução do ambiente |
+| Vitest     | Testes automatizados                |
 
 ## Arquitetura e Decisões Técnicas
 

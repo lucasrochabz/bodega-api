@@ -83,3 +83,7 @@ npm install --save-dev @vitest/coverage-v8
 
 // TODO: quando integrar webhook real,
 // validar transições de status e eventos fora de ordem
+
+### Estudar
+
+add Helmet.js
