@@ -1,4 +1,5 @@
 import '../src/config/env.js';
+import databaseConfig from '../src/config/database.js';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import fs from 'node:fs/promises';
@@ -8,21 +9,13 @@ import mysql from 'mysql2/promise';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-//configuração do banco de dados;
-const connectionConfig = {
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  port: process.env.MYSQLPORT,
-};
-
 // Caminho para o arquivo SQL
 const scriptsPath = path.join(__dirname, '../sql/create_db/1_create_db.sql');
 
 // Função para executar o script
 const executeDB = async () => {
   // Conecta com o banco de dados
-  const connection = await mysql.createConnection(connectionConfig);
+  const connection = await mysql.createConnection(databaseConfig);
   try {
     // Lê o  conteúdo do arquivo SQL
     let sql = await fs.readFile(scriptsPath, 'utf8');

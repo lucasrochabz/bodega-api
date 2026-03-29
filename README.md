@@ -313,5 +313,5 @@ Caso encontre algum problema ou tenha sugestões de melhoria, abra uma [issue](h
 
 ### 👨‍💻 Autor
 
-Lucas Rocha
-Desenvolvedor Full Stack
+- Lucas Rocha
+- Desenvolvedor Full Stack
