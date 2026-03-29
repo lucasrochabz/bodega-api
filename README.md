@@ -76,15 +76,17 @@ Essa separação facilita testes, manutenção e evolução da aplicação.
 
 A API utiliza um padrão consistente de respostas HTTP:
 
-- **200**: Requisição realizada com sucesso.
-- **201**: Recurso criado com sucesso.
-- **202**: Requisição aceita para processamento assíncrono.
-- **400**: Erro de validação ou violação de regra de negócio.
-- **401**: Não autenticado (token ausente ou inválido).
-- **403**: Autenticado, porém sem permissão para acessar o recurso.
-- **404**: Recurso não encontrado.
-- **429**: Muitas requisições em um curto período (rate limit excedido).
-- **500**: Erro interno inesperado no servidor.
+| Status | Descrição                                                    |
+| ------ | ------------------------------------------------------------ |
+| 200    | Requisição realizada com sucesso                             |
+| 201    | Recurso criado com sucesso                                   |
+| 202    | Requisição aceita para processamento assíncrono              |
+| 400    | Erro de validação ou violação de regra de negócio            |
+| 401    | Não autenticado (token ausente ou inválido)                  |
+| 403    | Autenticado, porém sem permissão para acessar o recurso      |
+| 404    | Recurso não encontrado                                       |
+| 429    | Muitas requisições em um curto período (rate limit excedido) |
+| 500    | Erro interno inesperado no servidor                          |
 
 ## Testes
 
