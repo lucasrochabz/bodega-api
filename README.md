@@ -1,10 +1,15 @@
 # Bodega API
 
+![Node.js](https://img.shields.io/badge/node.js-18+-green)
+![MySQL](https://img.shields.io/badge/mysql-8-blue)
+![Docker](https://img.shields.io/badge/docker-ready-blue)
+![Tests](https://img.shields.io/badge/tests-vitest-purple)
+
 ![Imagem do projeto](docs/bodega-api01.png)
 
 ## Sobre
 
-A **Bodega API** é uma **API REST** que simula o Backend de um e-commerce, desenvolvido com **Node.js** e **Express**. Ela fornece recursos para autenticação de usuários, gerenciamento de produtos e pedidos, além da consulta ao histórico de compras.
+A **Bodega API** é uma **API REST** que fornece a infraestrutura Backend de um e-commerce, desenvolvido com **Node.js** e **Express**. Ela fornece recursos para autenticação de usuários, gerenciamento de produtos e pedidos, além da consulta ao histórico de compras.
 
 A autenticação é feita via **JWT**, com senhas protegidas por **bcrypt**, e os dados são armazenados em um banco **MySQL**.
 
@@ -32,40 +37,18 @@ A aplicação segue boas práticas de desenvolvimento, segurança e padronizaç�
 
 ## Tecnologias
 
-### Backend
-
-| Tecnologia | Descrição                      |
-| ---------- | ------------------------------ |
-| Node.js    | Runtime                        |
-| Express    | Framework de servidor/API REST |
-
-### Banco de Dados
-
-| Tecnologia | Descrição                 |
-| ---------- | ------------------------- |
-| MySQL      | Banco de dados relacional |
-
-### Autenticação e Segurança
-
-| Tecnologia         | Descrição                              |
-| ------------------ | -------------------------------------- |
-| JWT                | Autenticação baseada em tokens         |
-| bcrypt             | Hash seguro de senhas                  |
-| Express Rate Limit | Limitar requisições e prevenir ataques |
-
-### Validação e Documentação
-
-| Tecnologia | Descrição                        |
-| ---------- | -------------------------------- |
-| Joi        | Validação e sanitização de dados |
-| Swagger    | Documentação interativa da API   |
-
-### Infraestrutura e Qualidade
-
-| Tecnologia | Descrição                           |
-| ---------- | ----------------------------------- |
-| Docker     | Padronização e execução do ambiente |
-| Vitest     | Testes automatizados                |
+| Categoria      | Tecnologia         | Descrição                              |
+| -------------- | ------------------ | -------------------------------------- |
+| Backend        | Node.js            | Runtime JavaScript                     |
+| Backend        | Express            | Framework para APIs REST               |
+| Banco de Dados | MySQL              | Banco de dados relacional              |
+| Autenticação   | JWT                | Autenticação baseada em tokens         |
+| Segurança      | bcrypt             | Hash seguro de senhas                  |
+| Segurança      | Express Rate Limit | Limitar requisições e prevenir ataques |
+| Validação      | Joi                | Validação e sanitização de dados       |
+| Documentação   | Swagger            | Documentação interativa da API         |
+| Infraestrutura | Docker             | Padronização e execução do ambiente    |
+| Testes         | Vitest             | Testes automatizados                   |
 
 ## Arquitetura e Decisões Técnicas
 
@@ -120,6 +103,19 @@ Framework utilizado: **Vitest**.
 - **Node.js** >= 16.0
 - **NPM** >= 10.9
 - **MySQL** >= 8.0
+
+## Variáveis de ambiente
+
+As principais variáveis utilizadas:
+
+| Variável    | Descrição              |
+| ----------- | ---------------------- |
+| PORT        | Porta da aplicação     |
+| DB_HOST     | Host do MySQL          |
+| DB_USER     | Usuário do banco       |
+| DB_PASSWORD | Senha do banco         |
+| DB_NAME     | Nome do banco          |
+| JWT_SECRET  | Chave secreta do token |
 
 ## Rodando localmente
 
@@ -314,3 +310,8 @@ O Frontend que consome esta API está disponível no repositório: [Acesse o rep
 ## Encontrou algum problema?
 
 Caso encontre algum problema ou tenha sugestões de melhoria, abra uma [issue](https://github.com/lucasrochabz/bodega-api/issues).
+
+### 👨‍💻 Autor
+
+Lucas Rocha
+Desenvolvedor Full Stack
