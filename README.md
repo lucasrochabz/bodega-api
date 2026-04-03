@@ -284,8 +284,7 @@ bodega-api/
 │   │   └── ...
 │   │
 │   ├── swagger/
-│   ├── app.js
-│   └── server.js
+│   └── app.js
 │
 ├── env.example
 ├── .gitignore
@@ -297,6 +296,7 @@ bodega-api/
 │
 ├── package-lock.json
 ├── package.json
+├── server.js
 └── README.md
 ```
 

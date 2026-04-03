@@ -3,9 +3,13 @@
   "version": "1.11.2",
   "private": true,
   "type": "module",
+  "imports": {
+    "#shared/*": "./shared/*",
+    "#src/*": "./src/*"
+  },
   "scripts": {
     "start": "NODE_ENV=production node src/server.js",
-    "dev": "nodemon src/server.js",
+    "dev": "nodemon server.js",
     "docker:build": "docker compose build",
     "docker:up": "docker compose --env-file .env.docker up -d",
     "db:init": "node scripts/createDB.js",
