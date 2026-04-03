@@ -1,5 +1,5 @@
 import express from 'express';
-import { corsMiddleware } from './middlewares/corsMiddleware.js';
+import { corsMiddleware } from './shared/middlewares/corsMiddleware.js';
 import webhooksRoutes from './routes/webhooks/webhooksRoute.js';
 import apiRoutes from './routes/api/index.js';
 

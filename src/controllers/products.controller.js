@@ -2,8 +2,8 @@ import { productsService } from '../services/products.service.js';
 import { getAllProductsResDTO } from '../dtos/getAllProductsResDTO.js';
 import { createProductDTO } from '../dtos/createProductDTO.js';
 import { productDTO } from '../dtos/productDTO.js';
-import { handleResponse } from '../helpers/handleResponse.js';
-import { handleError } from '../helpers/handleError.js';
+import { handleResponse } from '../shared/helpers/handleResponse.js';
+import { handleError } from '../shared/helpers/handleError.js';
 
 export const productsController = {
   getAllProducts: async (req, res) => {

@@ -1,6 +1,6 @@
 import express from 'express';
-import { authenticateWebhook } from '../../middlewares/authMiddleware.js';
-import { validate } from '../../middlewares/validate.js';
+import { authenticateWebhook } from '../../shared/middlewares/authMiddleware.js';
+import { validate } from '../../shared/middlewares/validate.js';
 import { paymentSchema } from '../../schemas/webhooks/paymentSchema.js';
 import { webhooksController } from '../../controllers/webhooks.controller.js';
 

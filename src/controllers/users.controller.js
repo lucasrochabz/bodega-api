@@ -1,8 +1,8 @@
 import { usersService } from '../services/users.service.js';
 import { userResDTO } from '../dtos/userResDTO.js';
 import { createUserDTO } from '../dtos/createUserDTO.js';
-import { handleResponse } from '../helpers/handleResponse.js';
-import { handleError } from '../helpers/handleError.js';
+import { handleResponse } from '../shared/helpers/handleResponse.js';
+import { handleError } from '../shared/helpers/handleError.js';
 import { userListDTO } from '../dtos/userListDTO.js';
 
 export const usersController = {

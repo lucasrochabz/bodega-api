@@ -1,5 +1,5 @@
-import { handleResponse } from '../helpers/handleResponse.js';
-import { handleError } from '../helpers/handleError.js';
+import { handleResponse } from '../shared/helpers/handleResponse.js';
+import { handleError } from '../shared/helpers/handleError.js';
 import { addressService } from '../services/address.service.js';
 
 export const addressController = {
