@@ -1,9 +1,12 @@
 # Bodega API
 
-![Node.js](https://img.shields.io/badge/node.js-18+-green)
-![MySQL](https://img.shields.io/badge/mysql-8-blue)
-![Docker](https://img.shields.io/badge/docker-ready-blue)
-![Tests](https://img.shields.io/badge/tests-vitest-purple)
+![Node.js](https://img.shields.io/badge/node.js-18.x+-black?&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/express-4.x-black?logo=express)
+![JWT](https://img.shields.io/badge/auth-jwt-black?logo=jsonwebtokens)
+![MySQL](https://img.shields.io/badge/mysql-8.x-black?&logo=mysql&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-ready-black?&logo=docker&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-vitest-black?&logo=vitest&logoColor=white)
+![Swagger](https://img.shields.io/badge/docs-swagger-black?logo=swagger)
 
 ![Imagem do projeto](docs/bodega-api01.png)
 
@@ -17,8 +20,9 @@ Esta API é consumida pelo Frontend do projeto **Bodega**, desenvolvido em **Rea
 
 A aplicação segue boas práticas de desenvolvimento, segurança e padronização de código.
 
-| Tipo de aplicação      | API RESTful |
+| Característica         | Descrição   |
 | ---------------------- | ----------- |
+| Tipo de aplicação      | API RESTful |
 | Estilo arquitetural    | Monolítico  |
 | Arquitetura interna    | Em camadas  |
 | Estado da aplicação    | Stateless   |
@@ -27,13 +31,13 @@ A aplicação segue boas práticas de desenvolvimento, segurança e padronizaç�
 
 ## Funcionalidades
 
-- Cadastro e login de usuários com autenticação segura
-- Autenticação e autorização baseada em JWT
-- Gerenciamento completo de usuários (criação, leitura, atualização e exclusão)
-- Gerenciamento completo de produtos
-- Gerenciamento completo de pedidos
-- Consulta detalhada do histórico de pedidos de usuários autenticados
-- Pagamentos simulados com atualização de status via requisições externas.
+- [x] Cadastro e login de usuários com autenticação segura
+- [x] Autenticação e autorização baseada em JWT
+- [x] Gerenciamento completo de usuários (criação, leitura, atualização e exclusão)
+- [x] Gerenciamento completo de produtos
+- [x] Gerenciamento completo de pedidos
+- [x] Consulta detalhada do histórico de pedidos de usuários autenticados
+- [x] Pagamentos simulados com atualização de status via requisições externas.
 
 ## Tecnologias
 
@@ -246,16 +250,10 @@ bodega-api/
 │   │   ├── product.entity.js
 │   │   └── user.entity.js
 │   │
-│   ├── errors/
-│   ├── helpers/
-│   │   ├── handleError.js
-│   │   └── handleResponse.js
-│   │
 │   ├── lib/
 │   │   └── resend.js
 │   │
 │   ├── mappers/
-│   ├── middlewares/
 │   ├── repositories/
 │   ├── routes/
 │   │   ├── api/
@@ -273,11 +271,19 @@ bodega-api/
 │   │   ├── auth.service.test.js
 │   │   └── ...
 │   │
-│   ├── swagger/
-│   ├── utils/
-│   │   ├── hash.utils.js
-│   │   └── token.utils.js
+│   ├── shared/
+│   │   ├── errors/
+│   │   ├── helpers/
+│   │   │   ├── handleError.js
+│   │   │   └── handleResponse.js
+│   │   │
+│   │   ├── middlewares/
+│   │   └── utils/
+│   │       ├── hash.utils.js
+│   │       ├── slug.utils.js
+│   │       └── token.utils.js
 │   │
+│   ├── swagger/
 │   ├── app.js
 │   └── server.js
 │
@@ -312,8 +318,3 @@ O Frontend que consome esta API está disponível no repositório: [Acesse o rep
 ## Encontrou algum problema?
 
 Caso encontre algum problema ou tenha sugestões de melhoria, abra uma [issue](https://github.com/lucasrochabz/bodega-api/issues).
-
-### 👨‍💻 Autor
-
-- Lucas Rocha
-- Desenvolvedor Full Stack
