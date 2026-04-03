@@ -1,9 +1,9 @@
-import { generateHash } from '../shared/utils/hash.utils.js';
+import { generateHash } from '../../shared/utils/hash.utils.js';
 import { addressesRepository } from '../repositories/addresses.repository.js';
 import { usersRepository } from '../repositories/users.repository.js';
 import User from '../entities/user.entity.js';
 import Address from '../entities/address.entity.js';
-import { UsersErrors } from '../shared/errors/usersErrors.js';
+import { UsersErrors } from '../../shared/errors/usersErrors.js';
 
 export const usersService = {
   getAllUsers: async () => {

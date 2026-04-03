@@ -1,5 +1,5 @@
 import rateLimit from 'express-rate-limit';
-import appConfig from '../../config/app.js';
+import appConfig from '../../src/config/app.js';
 
 const { login } = appConfig.rateLimit;
 

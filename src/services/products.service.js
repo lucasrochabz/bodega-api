@@ -1,6 +1,6 @@
 import { productsRepository } from '../repositories/products.repository.js';
 import Product from '../entities/product.entity.js';
-import { ProductsErrors } from '../shared/errors/productsErrors.js';
+import { ProductsErrors } from '../../shared/errors/productsErrors.js';
 
 export const productsService = {
   getAllProducts: async ({ pageNumber, pageSizeNumber }) => {

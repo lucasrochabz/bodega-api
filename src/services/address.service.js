@@ -1,4 +1,4 @@
-import { AddressErrors } from '../shared/errors/addressErrors.js';
+import { AddressErrors } from '../../shared/errors/addressErrors.js';
 
 export const addressService = {
   getAddress: async (postalCode) => {

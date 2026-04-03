@@ -1,7 +1,7 @@
 import { authService } from '../services/auth.service.js';
 import { userResDTO } from '../dtos/userResDTO.js';
-import { handleResponse } from '../shared/helpers/handleResponse.js';
-import { handleError } from '../shared/helpers/handleError.js';
+import { handleResponse } from '../../shared/helpers/handleResponse.js';
+import { handleError } from '../../shared/helpers/handleError.js';
 
 export const authController = {
   getMe: async (req, res) => {

@@ -2,8 +2,8 @@ import express from 'express';
 import {
   authenticateUser,
   authorizeAdmin,
-} from '../../shared/middlewares/authMiddleware.js';
-import { validate } from '../../shared/middlewares/validate.js';
+} from '../../../shared/middlewares/authMiddleware.js';
+import { validate } from '../../../shared/middlewares/validate.js';
 import { paginationSchema } from '../../schemas/shared/paginationSchema.js';
 import { productParamsSchema } from '../../schemas/products/productParamsSchema.js';
 import { createProductSchema } from '../../schemas/products/createProductSchema.js';

@@ -16,12 +16,13 @@ const envPath = path.resolve(process.cwd(), envFileMap[env]);
 dotenv.config({ path: envPath });
 console.info(`[INFO][ENV] Variáveis carregadas de: ${envPath}`);
 
+// fix: add as outras variaveis de ambiente
 const schema = Joi.object({
   NODE_ENV: Joi.string()
     .valid('development', 'docker', 'production', 'test')
     .default('development'),
 
-  PORT: Joi.number().default(4000),
+  API_PORT: Joi.number().default(4000),
 
   MYSQL_HOST: Joi.string().required(),
   MYSQL_USER: Joi.string().required(),

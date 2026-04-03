@@ -1,14 +1,14 @@
 import { usersRepository } from '../repositories/users.repository.js';
 import { addressesRepository } from '../repositories/addresses.repository.js';
-import { compareHash, generateHash } from '../shared/utils/hash.utils.js';
+import { compareHash, generateHash } from '../../shared/utils/hash.utils.js';
 import {
   generateResetToken,
   generateToken,
   verifyResetToken,
-} from '../shared/utils/token.utils.js';
+} from '../../shared/utils/token.utils.js';
 import User from '../entities/user.entity.js';
-import { AuthErrors } from '../shared/errors/authErrors.js';
-import { UsersErrors } from '../shared/errors/usersErrors.js';
+import { AuthErrors } from '../../shared/errors/authErrors.js';
+import { UsersErrors } from '../../shared/errors/usersErrors.js';
 
 export const authService = {
   getMe: async (userId) => {

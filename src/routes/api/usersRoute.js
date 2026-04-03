@@ -2,8 +2,8 @@ import express from 'express';
 import {
   authenticateUser,
   authorizeAdmin,
-} from '../../shared/middlewares/authMiddleware.js';
-import { validate } from '../../shared/middlewares/validate.js';
+} from '../../../shared/middlewares/authMiddleware.js';
+import { validate } from '../../../shared/middlewares/validate.js';
 import { updateUserSchema } from '../../schemas/users/updateUserSchema.js';
 import { createUserSchema } from '../../schemas/users/createUserSchema.js';
 import { usersController } from '../../controllers/users.controller.js';
