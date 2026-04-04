@@ -1,28 +1,35 @@
 import { productsRepository } from '../repositories/products.repository.js';
 import Product from '../entities/product.entity.js';
-import { ProductsErrors } from '../../shared/errors/productsErrors.js';
+import {
+  buildPagination,
+  getPaginationMeta,
+} from '#shared/utils/paginations.utils.js';
+import { ProductsErrors } from '#shared/errors/productsErrors.js';
 
 export const productsService = {
-  getAllProducts: async ({ pageNumber, pageSizeNumber }) => {
-    const offset = (pageNumber - 1) * pageSizeNumber;
+  getAllProducts: async ({ pageNumber, limitNumber }) => {
+    const { offset, limit } = buildPagination(pageNumber, limitNumber);
 
-    const totalProducts = await productsRepository.countAll();
-    const totalPages = Math.ceil(totalProducts / pageSizeNumber);
+    const totalItems = await productsRepository.countAll();
 
     const products = await productsRepository.findAll({
-      limit: pageSizeNumber,
       offset,
+      limit,
     });
 
     if (products.length === 0) {
       throw ProductsErrors.PRODUCTS_NOT_FOUND;
     }
 
+    const pagination = getPaginationMeta({
+      totalItems,
+      pageNumber,
+      limitNumber,
+    });
+
     return {
       items: products,
-      pagination: {
-        totalPages,
-      },
+      pagination,
     };
   },
 

@@ -2,20 +2,18 @@ import { productsService } from '../services/products.service.js';
 import { getAllProductsResDTO } from '../dtos/getAllProductsResDTO.js';
 import { createProductDTO } from '../dtos/createProductDTO.js';
 import { productDTO } from '../dtos/productDTO.js';
-import { handleResponse } from '../../shared/helpers/handleResponse.js';
-import { handleError } from '../../shared/helpers/handleError.js';
+import { handleResponse } from '#shared/helpers/handleResponse.js';
+import { getPaginationQuery } from '#shared/utils/paginations.utils.js';
+import { handleError } from '#shared/helpers/handleError.js';
 
 export const productsController = {
   getAllProducts: async (req, res) => {
-    const { page, pageSize } = req.query;
-
-    const pageNumber = parseInt(page) || 1;
-    const pageSizeNumber = parseInt(pageSize) || 10;
+    const { pageNumber, limitNumber } = getPaginationQuery(req.query);
 
     try {
       const result = await productsService.getAllProducts({
         pageNumber,
-        pageSizeNumber,
+        limitNumber,
       });
       const data = getAllProductsResDTO(result);
 
