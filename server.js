@@ -1,4 +1,4 @@
-import './src/config/env.js';
+import './src/config/env/index.js';
 import { app } from './src/app.js';
 
 const API_PORT = process.env.API_PORT || 3000;

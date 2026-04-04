@@ -1,4 +1,4 @@
-import envVars from './env.js';
+import envVars from './env/index.js';
 
 export default {
   host: envVars.MYSQL_HOST,

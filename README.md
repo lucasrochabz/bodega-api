@@ -243,11 +243,11 @@ bodega-api/
 │
 ├── src/
 │   ├── config/
+│   │   ├── env/
 │   │   ├── app.js
 │   │   ├── auth.js
 │   │   ├── database.js
-│   │   ├── email.js
-│   │   └── env.js
+│   │   └── email.js
 │   │
 │   ├── controllers/
 │   │   ├── auth.controller.js
