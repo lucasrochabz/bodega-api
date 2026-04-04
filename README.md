@@ -201,6 +201,9 @@ O uso do Docker garante:
 
 ```bash
 bodega-api/
+├── .github/
+│   └── workflows/
+│
 ├── scripts/
 │   ├── git/
 │   ├── createDB.js
