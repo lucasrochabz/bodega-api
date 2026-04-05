@@ -229,6 +229,7 @@ bodega-api/
 │       ├── 4_orders_data.sql
 │       └── 5_orders_products_data.sql
 │
+# fix: mover shared para dentro de src/
 ├── shared/
 │   ├── errors/
 │   ├── helpers/
@@ -238,7 +239,7 @@ bodega-api/
 │   ├── middlewares/
 │   └── utils/
 │       ├── hash.utils.js
-│       ├── slug.utils.js
+│       ├── slugify.utils.js
 │       └── token.utils.js
 │
 ├── src/
