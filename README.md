@@ -110,19 +110,6 @@ Framework utilizado: **Vitest**.
 - **NPM** >= 10.9
 - **MySQL** >= 8.0
 
-## Variáveis de ambiente
-
-As principais variáveis utilizadas:
-
-| Variável    | Descrição              |
-| ----------- | ---------------------- |
-| PORT        | Porta da aplicação     |
-| DB_HOST     | Host do MySQL          |
-| DB_USER     | Usuário do banco       |
-| DB_PASSWORD | Senha do banco         |
-| DB_NAME     | Nome do banco          |
-| JWT_SECRET  | Chave secreta do token |
-
 ## Rodando localmente
 
 1. Clone do projeto.
@@ -136,19 +123,11 @@ As principais variáveis utilizadas:
    ```bash
    npm install
    ```
-6. Crie o banco de dados:
+6. Configure o banco de dados:
    ```bash
-   npm run db:init
+   npm run db:setup
    ```
-7. Crie as tabelas:
-   ```bash
-   npm run db:tables
-   ```
-8. Insira os dados iniciais:
-   ```bash
-   npm run db:seed
-   ```
-9. Inicie o servidor:
+7. Inicie o servidor:
    ```bash
    npm run dev
    ```

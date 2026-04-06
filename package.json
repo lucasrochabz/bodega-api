@@ -15,6 +15,7 @@
     "db:init": "node scripts/createDB.js",
     "db:tables": "node scripts/createTables.js",
     "db:seed": "node scripts/insertData.js",
+    "db:setup": "npm run db:init && npm run db:tables && npm run db:seed",
     "test": "vitest",
     "test:coverage": "vitest --coverage"
   },
