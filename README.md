@@ -106,11 +106,15 @@ Framework utilizado: **Vitest**.
 
 ## Requisitos
 
-- **Node.js** >= 16.0
+- **Node.js** >= 18.0
 - **NPM** >= 10.9
 - **MySQL** >= 8.0
+- **Docker**
+- **Docker Compose**
 
-## Rodando localmente
+## Rodando
+
+### Localmente
 
 1. Clone do projeto.
 2. Acesse a pasta do projeto.
@@ -132,27 +136,12 @@ Framework utilizado: **Vitest**.
    npm run dev
    ```
 
-## Ambiente com Docker
-
-O uso do Docker garante:
-
-- Ambiente padronizado entre desenvolvimento e produção
-- Isolamento de dependências
-- Facilidade de setup para novos desenvolvedores
-
-## Rodando com Docker
-
-### Pré-requisitos
-
-- Docker.
-- Docker Compose.
-
-### Passos:
+### Com Docker
 
 1. Clone o projeto e acesse a pasta.
-2. Instale as dependências:
+2. Copie o arquivo `.env.example`:
    ```bash
-   npm install
+   cp .env.example .env
    ```
 3. Construa a imagem Docker:
    ```bash
@@ -162,19 +151,20 @@ O uso do Docker garante:
    ```bash
    npm run docker:up
    ```
-5. A API estará disponível em: http://localhost:4000
-6. Para acessar o terminal do container da API:
+5. Para acessar o terminal do container da API:
    ```bash
    docker exec -it bodega-api-api-1 bash
    ```
-7. Dentro do container, crie as tabelas do banco de dados:
+6. Dentro do container, execute:
+   Criar tabelas:
    ```bash
    npm run db:create-tables
    ```
-8. Insira os dados iniciais nas tabelas:
+   Insira os dados iniciais:
    ```bash
    npm run db:insert-data
    ```
+7. A API estará disponível em: http://localhost:4000
 
 ## Estrutura do projeto (visão geral)
 
