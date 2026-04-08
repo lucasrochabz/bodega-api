@@ -156,14 +156,19 @@ Framework utilizado: **Vitest**.
    docker exec -it bodega-api-api-1 bash
    ```
 6. Dentro do container, execute:
+
    Criar tabelas:
+
    ```bash
    npm run db:create-tables
    ```
+
    Insira os dados iniciais:
+
    ```bash
    npm run db:insert-data
    ```
+
 7. A API estará disponível em: http://localhost:4000
 
 ## Estrutura do projeto (visão geral)
