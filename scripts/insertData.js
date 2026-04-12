@@ -40,8 +40,7 @@ const executeInserts = async () => {
     // Fecha a conexão
     await connection.end();
   } catch (error) {
-    // fix: add throw error;
-    console.error('Erro ao executar os inserts:', error.message);
+    throw error;
   }
 };
 
