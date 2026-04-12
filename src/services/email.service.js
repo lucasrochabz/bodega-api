@@ -1,25 +1,43 @@
-import emailConfig from '../config/email.js';
-import { resend } from '../lib/resend.js';
-import { welcomeEmail } from '../emails/welcomeEmail.js';
+import { sendEmail } from '#shared/helpers/sendEmail.js';
+import {
+  welcomeEmail,
+  orderConfirmationEmail,
+  passwordRecoveryEmail,
+} from '#src/emails/index.js';
 
-// fix: enviar email de boas-vindas
-// fix: enviar email de recuperação de senha
-// fix: enviar email de confirmação de pedido
+// fix: add try/catch onde chamam esse service
+// fix: remover comentario do to
 export const emailService = {
   sendWelcomeEmail: async (email, name) => {
-    try {
-      const response = await resend.emails.send({
-        from: emailConfig.from,
-        // to: 'lucasbezerrar@gmail.com',
-        to: email,
-        subject: 'Bem-vindo à Bodega API!',
-        html: welcomeEmail(name),
-      });
+    const response = await sendEmail({
+      // to: 'lucasbezerrar@gmail.com',
+      to: email,
+      subject: 'Bem-vindo à Bodega API!',
+      html: welcomeEmail(name),
+    });
 
-      console.log('E-mail enviado:', response);
-    } catch (error) {
-      console.error('Erro ao enviar e-mail:', error);
-      throw error;
-    }
+    return response;
+  },
+
+  sendOrderConfirmationEmail: async (email, name, orderId) => {
+    const response = await sendEmail({
+      // to: 'lucasbezerrar@gmail.com',
+      to: email,
+      subject: 'Pedido confirmado!',
+      html: orderConfirmationEmail(name, orderId),
+    });
+
+    return response;
+  },
+
+  sendPasswordRecoveryEmail: async (email, name, recoveryLink) => {
+    const response = await sendEmail({
+      // to: 'lucasbezerrar@gmail.com',
+      to: email,
+      subject: 'Recuperação de senha',
+      html: passwordRecoveryEmail(name, recoveryLink),
+    });
+
+    return response;
   },
 };

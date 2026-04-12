@@ -1,4 +1,3 @@
-// fix: add isso no env
-export default {
+export const EMAIL_CONFIG = {
   from: process.env.EMAIL_FROM,
 };
