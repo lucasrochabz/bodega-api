@@ -203,19 +203,6 @@ bodega-api/
 │       ├── 4_orders_data.sql
 │       └── 5_orders_products_data.sql
 │
-# fix: mover shared para dentro de src/
-├── shared/
-│   ├── errors/
-│   ├── helpers/
-│   │   ├── handleError.js
-│   │   └── handleResponse.js
-│   │
-│   ├── middlewares/
-│   └── utils/
-│       ├── hash.utils.js
-│       ├── slugify.utils.js
-│       └── token.utils.js
-│
 ├── src/
 │   ├── config/
 │   │   ├── env/
@@ -260,6 +247,18 @@ bodega-api/
 │   │   ├── auth.service.js
 │   │   ├── auth.service.test.js
 │   │   └── ...
+│   │
+│   ├── shared/
+│   │   ├── errors/
+│   │   ├── helpers/
+│   │   │   ├── handleError.js
+│   │   │   └── handleResponse.js
+│   │   │
+│   │   ├── middlewares/
+│   │   └── utils/
+│   │       ├── hash.utils.js
+│   │       ├── slugify.utils.js
+│   │       └── token.utils.js
 │   │
 │   ├── swagger/
 │   └── app.js

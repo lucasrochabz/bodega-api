@@ -2,8 +2,8 @@ import { ordersProductsRepository } from '../repositories/ordersProducts.reposit
 import { ordersRepository } from '../repositories/orders.repository.js';
 import { addressesRepository } from '../repositories/addresses.repository.js';
 import { productsRepository } from '../repositories/products.repository.js';
-import { OrdersErrors } from '../../shared/errors/ordersErrors.js';
-import { UsersErrors } from '../../shared/errors/usersErrors.js';
+import { OrdersErrors } from '#shared/errors/ordersErrors.js';
+import { UsersErrors } from '#shared/errors/usersErrors.js';
 
 export const ordersService = {
   getAllOrders: async () => {

@@ -1,7 +1,7 @@
 import express from 'express';
-import { authenticateUser } from '../../../shared/middlewares/authMiddleware.js';
-import { loginLimiter } from '../../../shared/middlewares/loginLimiter.js';
-import { validate } from '../../../shared/middlewares/validate.js';
+import { authenticateUser } from '#shared/middlewares/authMiddleware.js';
+import { loginLimiter } from '#shared/middlewares/loginLimiter.js';
+import { validate } from '#shared/middlewares/validate.js';
 import {
   loginSchema,
   forgotPasswordSchema,
