@@ -7,8 +7,8 @@ import {
   forgotPasswordSchema,
   tokenSchema,
   resetPasswordSchema,
-} from '../../schemas/auth/index.js';
-import { authController } from '../../controllers/auth.controller.js';
+} from '#src/schemas/auth/index.js';
+import { authController } from '#src/controllers/auth.controller.js';
 
 const router = express.Router();
 

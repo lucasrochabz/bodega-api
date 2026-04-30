@@ -1,8 +1,8 @@
 import express from 'express';
 import { authenticateWebhook } from '#shared/middlewares/authMiddleware.js';
 import { validate } from '#shared/middlewares/validate.js';
-import { paymentSchema } from '../../schemas/webhooks/paymentSchema.js';
-import { webhooksController } from '../../controllers/webhooks.controller.js';
+import { paymentSchema } from '#src/schemas/webhooks/paymentSchema.js';
+import { webhooksController } from '#src/controllers/webhooks.controller.js';
 
 const router = express.Router();
 
