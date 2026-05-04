@@ -8,9 +8,9 @@ export const envSchema = Joi.object({
 
   API_PORT: Joi.number().default(4000),
 
-  MYSQL_HOST: Joi.string().required(),
-  MYSQL_USER: Joi.string().required(),
-  MYSQL_PASSWORD: Joi.string().required(),
-  MYSQL_DATABASE: Joi.string().required(),
-  MYSQL_PORT: Joi.number().default(3306),
+  MYSQLHOST: Joi.string().required(),
+  MYSQLUSER: Joi.string().required(),
+  MYSQLPASSWORD: Joi.string().required(),
+  MYSQLDATABASE: Joi.string().required(),
+  MYSQLPORT: Joi.number().default(3306),
 }).unknown();
