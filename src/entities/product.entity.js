@@ -2,6 +2,8 @@ class Product {
   constructor({
     id = null,
     name,
+    // fix: acho que tenho que colocar slug = null para o caso na hora de criar o produto
+    slug,
     price,
     description,
     stock,
@@ -10,6 +12,7 @@ class Product {
   }) {
     this.id = id;
     this.name = name;
+    this.slug = slug;
     this.price = price;
     this.description = description;
     this.stock = stock;
@@ -20,6 +23,7 @@ class Product {
   toPersistence() {
     return {
       name: this.name,
+      slug: this.slug,
       price: this.price,
       description: this.description,
       stock: this.stock,
@@ -32,6 +36,7 @@ class Product {
     return {
       id: this.id,
       name: this.name,
+      slug: this.slug,
       price: this.price,
       description: this.description,
       stock: this.stock,

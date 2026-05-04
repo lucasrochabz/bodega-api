@@ -2,12 +2,12 @@ import express from 'express';
 import {
   authenticateUser,
   authorizeAdmin,
-} from '../../middlewares/authMiddleware.js';
-import { validate } from '../../middlewares/validate.js';
-import { paginationSchema } from '../../schemas/shared/paginationSchema.js';
-import { productParamsSchema } from '../../schemas/products/productParamsSchema.js';
-import { createProductSchema } from '../../schemas/products/createProductSchema.js';
-import { productsController } from '../../controllers/products.controller.js';
+} from '#shared/middlewares/authMiddleware.js';
+import { validate } from '#shared/middlewares/validate.js';
+import { paginationSchema } from '#src/schemas/shared/paginationSchema.js';
+import { productParamsSchema } from '#src/schemas/products/productParamsSchema.js';
+import { createProductSchema } from '#src/schemas/products/createProductSchema.js';
+import { productsController } from '#src/controllers/products.controller.js';
 
 const router = express.Router();
 
@@ -17,9 +17,9 @@ router.get(
   productsController.getAllProducts,
 );
 router.get(
-  '/:productId',
+  '/:slug',
   validate({ params: productParamsSchema }),
-  productsController.getProductById,
+  productsController.getProductBySlug,
 );
 
 router.post(

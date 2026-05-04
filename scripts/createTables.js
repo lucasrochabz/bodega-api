@@ -1,4 +1,5 @@
 import '../src/config/env.js';
+import databaseConfig from '../src/config/database.js';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import fs from 'node:fs/promises';
@@ -8,15 +9,6 @@ import mysql from 'mysql2/promise';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Configuração do banco de dados
-const connectionConfig = {
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT,
-};
-
 // Caminho para a pasta com os scripts SQL
 const scriptsPath = path.join(__dirname, '../sql/create_tables');
 
@@ -24,7 +16,7 @@ const scriptsPath = path.join(__dirname, '../sql/create_tables');
 const executeTables = async () => {
   try {
     // Conecta ao banco de dados
-    const connection = await mysql.createConnection(connectionConfig);
+    const connection = await mysql.createConnection(databaseConfig);
 
     // Lê os arquivos da pasta
     const files = await fs.readdir(scriptsPath);
@@ -45,8 +37,7 @@ const executeTables = async () => {
     // Fecha a conexão
     await connection.end();
   } catch (error) {
-    // fix: add throw error;
-    console.error('Erro ao executar os scripts:', error.message);
+    throw error;
   }
 };
 

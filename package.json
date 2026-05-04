@@ -3,14 +3,19 @@
   "version": "1.11.2",
   "private": true,
   "type": "module",
+  "imports": {
+    "#shared/*": "./src/shared/*",
+    "#src/*": "./src/*"
+  },
   "scripts": {
     "start": "NODE_ENV=production node src/server.js",
-    "dev": "nodemon src/server.js",
+    "dev": "nodemon server.js",
     "docker:build": "docker compose build",
     "docker:up": "docker compose --env-file .env.docker up -d",
     "db:init": "node scripts/createDB.js",
     "db:tables": "node scripts/createTables.js",
     "db:seed": "node scripts/insertData.js",
+    "db:setup": "npm run db:init && npm run db:tables && npm run db:seed",
     "test": "vitest",
     "test:coverage": "vitest --coverage"
   },
@@ -26,6 +31,8 @@
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.3",
+    "resend": "^6.9.4",
+    "slugify": "^1.6.8",
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0"
   },

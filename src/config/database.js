@@ -1,7 +1,9 @@
+import envVars from './env/index.js';
+
 export default {
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT,
+  host: envVars.MYSQL_HOST,
+  user: envVars.MYSQL_USER,
+  password: envVars.MYSQL_PASSWORD,
+  database: envVars.MYSQL_DATABASE,
+  port: envVars.MYSQL_PORT,
 };

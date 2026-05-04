@@ -16,9 +16,9 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_USER: ${MYSQLUSER}
-      MYSQL_PASSWORD: ${MYSQLPASSWORD}
-      MYSQL_DATABASE: ${MYSQLDATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - '3307:3306'
     volumes:

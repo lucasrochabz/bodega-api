@@ -2,19 +2,18 @@ import { productsService } from '../services/products.service.js';
 import { getAllProductsResDTO } from '../dtos/getAllProductsResDTO.js';
 import { createProductDTO } from '../dtos/createProductDTO.js';
 import { productDTO } from '../dtos/productDTO.js';
-import { handleResponse } from '../helpers/handleResponse.js';
-import { handleError } from '../helpers/handleError.js';
+import { handleResponse } from '#shared/helpers/handleResponse.js';
+import { getPaginationQuery } from '#shared/utils/paginations.utils.js';
+import { handleError } from '#shared/helpers/handleError.js';
 
 export const productsController = {
   getAllProducts: async (req, res) => {
-    const { page, pageSize } = req.query;
+    const { pageNumber, limitNumber } = getPaginationQuery(req.query);
 
-    const pageNumber = parseInt(page) || 1;
-    const pageSizeNumber = parseInt(pageSize) || 10;
     try {
       const result = await productsService.getAllProducts({
         pageNumber,
-        pageSizeNumber,
+        limitNumber,
       });
       const data = getAllProductsResDTO(result);
 
@@ -29,10 +28,10 @@ export const productsController = {
     }
   },
 
-  getProductById: async (req, res) => {
-    const { productId } = req.params;
+  getProductBySlug: async (req, res) => {
+    const { slug } = req.params;
     try {
-      const result = await productsService.getProductById(productId);
+      const result = await productsService.getProductBySlug(slug);
       const data = productDTO(result);
 
       return handleResponse(

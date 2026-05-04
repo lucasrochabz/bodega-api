@@ -70,6 +70,8 @@ npm install --save joi
 npm install --save swagger-ui-express  
 npm install --save yamljs
 npm install --save express-rate-limit
+npm install --save resend
+npm install --save slugify
 
 <!-- Dev -->
 
@@ -81,3 +83,7 @@ npm install --save-dev @vitest/coverage-v8
 
 // TODO: quando integrar webhook real,
 // validar transições de status e eventos fora de ordem
+
+### Estudar
+
+add Helmet.js

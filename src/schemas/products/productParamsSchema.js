@@ -1,8 +1,9 @@
 import Joi from 'joi';
 
 export const productParamsSchema = Joi.object({
-  productId: Joi.number().integer().required().messages({
-    'number.base': 'ID do produto inválido.',
-    'any.required': 'ID do produto é obrigatório',
+  slug: Joi.string().required().messages({
+    'string.base': 'Slug do produto deve ser um texto.',
+    'string.empty': 'Slug do produto inválido.',
+    'any.required': 'Slug do produto é obrigatório',
   }),
 });

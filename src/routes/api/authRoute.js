@@ -1,14 +1,14 @@
 import express from 'express';
-import { authenticateUser } from '../../middlewares/authMiddleware.js';
-import { loginLimiter } from '../../middlewares/loginLimiter.js';
-import { validate } from '../../middlewares/validate.js';
+import { authenticateUser } from '#shared/middlewares/authMiddleware.js';
+import { loginLimiter } from '#shared/middlewares/loginLimiter.js';
+import { validate } from '#shared/middlewares/validate.js';
 import {
   loginSchema,
   forgotPasswordSchema,
   tokenSchema,
   resetPasswordSchema,
-} from '../../schemas/auth/index.js';
-import { authController } from '../../controllers/auth.controller.js';
+} from '#src/schemas/auth/index.js';
+import { authController } from '#src/controllers/auth.controller.js';
 
 const router = express.Router();
 

@@ -1,6 +1,6 @@
 import { ordersService } from '../services/orders.service.js';
-import { handleResponse } from '../helpers/handleResponse.js';
-import { handleError } from '../helpers/handleError.js';
+import { handleResponse } from '#shared/helpers/handleResponse.js';
+import { handleError } from '#shared/helpers/handleError.js';
 
 export const ordersController = {
   getAllOrders: async (req, res) => {

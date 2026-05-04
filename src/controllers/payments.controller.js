@@ -1,4 +1,4 @@
-import { handleResponse } from '../helpers/handleResponse.js';
+import { handleResponse } from '#shared/helpers/handleResponse.js';
 import { paymentsService } from '../services/payments.service.js';
 
 export const paymentsController = {

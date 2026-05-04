@@ -1,10 +1,18 @@
 # Bodega API
 
+![Node.js](https://img.shields.io/badge/node.js-18.x+-black?&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/express-4.x-black?logo=express)
+![JWT](https://img.shields.io/badge/auth-jwt-black?logo=jsonwebtokens)
+![MySQL](https://img.shields.io/badge/mysql-8.x-black?&logo=mysql&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-ready-black?&logo=docker&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-vitest-black?&logo=vitest&logoColor=white)
+![Swagger](https://img.shields.io/badge/docs-swagger-black?logo=swagger)
+
 ![Imagem do projeto](docs/bodega-api01.png)
 
 ## Sobre
 
-A **Bodega API** é uma **API REST** que simula o Backend de um e-commerce, desenvolvido com **Node.js** e **Express**. Ela fornece recursos para autenticação de usuários, gerenciamento de produtos e pedidos, além da consulta ao histórico de compras.
+A **Bodega API** é uma **API REST** que fornece a infraestrutura Backend de um e-commerce, desenvolvido com **Node.js** e **Express**. Ela fornece recursos para autenticação de usuários, gerenciamento de produtos e pedidos, além da consulta ao histórico de compras.
 
 A autenticação é feita via **JWT**, com senhas protegidas por **bcrypt**, e os dados são armazenados em um banco **MySQL**.
 
@@ -12,42 +20,39 @@ Esta API é consumida pelo Frontend do projeto **Bodega**, desenvolvido em **Rea
 
 A aplicação segue boas práticas de desenvolvimento, segurança e padronização de código.
 
+| Característica         | Descrição   |
+| ---------------------- | ----------- |
+| Tipo de aplicação      | API RESTful |
+| Estilo arquitetural    | Monolítico  |
+| Arquitetura interna    | Em camadas  |
+| Estado da aplicação    | Stateless   |
+| Infraestrutura         | Docker      |
+| Plataforma de execução | Railway     |
+
 ## Funcionalidades
 
-- Cadastro e login de usuários com autenticação segura
-- Autenticação e autorização baseada em JWT
-- Gerenciamento completo de usuários (criação, leitura, atualização e exclusão)
-- Gerenciamento completo de produtos
-- Gerenciamento completo de pedidos
-- Consulta detalhada do histórico de pedidos de usuários autenticados
-- Pagamentos simulados com atualização de status via requisições externas.
+- [x] Cadastro e login de usuários com autenticação segura
+- [x] Autenticação e autorização baseada em JWT
+- [x] Gerenciamento completo de usuários (criação, leitura, atualização e exclusão)
+- [x] Gerenciamento completo de produtos
+- [x] Gerenciamento completo de pedidos
+- [x] Consulta detalhada do histórico de pedidos de usuários autenticados
+- [x] Pagamentos simulados com atualização de status via requisições externas.
 
 ## Tecnologias
 
-### Backend
-
-- **Node.js** — Ambiente de execução JavaScript (Runtime).
-- **Express** — Framework para construção de APIs REST.
-
-### Banco de Dados
-
-- **MySQL** — Banco de dados relacional.
-
-### Autenticação e Segurança
-
-- **JWT (JSON Web Token)** — Autenticação baseada em tokens.
-- **Bcrypt** — Biblioteca para hash e criptografia de senhas.
-- **Rate Limit (Express Rate Limit)** — Middleware para limitar requisições e prevenir ataques.
-
-### Validação e Documentação
-
-- **Joi** — Validação e sanitização de dados.
-- **Swagger** — Documentação interativa da API.
-
-### Infraestrutura e Qualidade
-
-- **Docker** — Padronização e execução do ambiente.
-- **Vitest** — Testes automatizados.
+| Categoria      | Tecnologia         | Descrição                              |
+| -------------- | ------------------ | -------------------------------------- |
+| Backend        | Node.js            | Runtime JavaScript                     |
+| Backend        | Express            | Framework para APIs REST               |
+| Banco de Dados | MySQL              | Banco de dados relacional              |
+| Autenticação   | JWT                | Autenticação baseada em tokens         |
+| Segurança      | bcrypt             | Hash seguro de senhas                  |
+| Segurança      | Express Rate Limit | Limitar requisições e prevenir ataques |
+| Validação      | Joi                | Validação e sanitização de dados       |
+| Documentação   | Swagger            | Documentação interativa da API         |
+| Infraestrutura | Docker             | Padronização e execução do ambiente    |
+| Testes         | Vitest             | Testes automatizados                   |
 
 ## Arquitetura e Decisões Técnicas
 
@@ -75,15 +80,17 @@ Essa separação facilita testes, manutenção e evolução da aplicação.
 
 A API utiliza um padrão consistente de respostas HTTP:
 
-- **200**: Requisição realizada com sucesso.
-- **201**: Recurso criado com sucesso.
-- **202**: Requisição aceita para processamento assíncrono.
-- **400**: Erro de validação ou violação de regra de negócio.
-- **401**: Não autenticado (token ausente ou inválido).
-- **403**: Autenticado, porém sem permissão para acessar o recurso.
-- **404**: Recurso não encontrado.
-- **429**: Muitas requisições em um curto período (rate limit excedido).
-- **500**: Erro interno inesperado no servidor.
+| Status | Descrição                                                    |
+| ------ | ------------------------------------------------------------ |
+| 200    | Requisição realizada com sucesso                             |
+| 201    | Recurso criado com sucesso                                   |
+| 202    | Requisição aceita para processamento assíncrono              |
+| 400    | Erro de validação ou violação de regra de negócio            |
+| 401    | Não autenticado (token ausente ou inválido)                  |
+| 403    | Autenticado, porém sem permissão para acessar o recurso      |
+| 404    | Recurso não encontrado                                       |
+| 429    | Muitas requisições em um curto período (rate limit excedido) |
+| 500    | Erro interno inesperado no servidor                          |
 
 ## Testes
 
@@ -99,11 +106,15 @@ Framework utilizado: **Vitest**.
 
 ## Requisitos
 
-- **Node.js** >= 16.0
+- **Node.js** >= 18.0
 - **NPM** >= 10.9
 - **MySQL** >= 8.0
+- **Docker**
+- **Docker Compose**
 
-## Rodando localmente
+## Rodando
+
+### Localmente
 
 1. Clone do projeto.
 2. Acesse a pasta do projeto.
@@ -116,44 +127,21 @@ Framework utilizado: **Vitest**.
    ```bash
    npm install
    ```
-6. Crie o banco de dados:
+6. Configure o banco de dados:
    ```bash
-   npm run db:init
+   npm run db:setup
    ```
-7. Crie as tabelas:
-   ```bash
-   npm run db:tables
-   ```
-8. Insira os dados iniciais:
-   ```bash
-   npm run db:seed
-   ```
-9. Inicie o servidor:
+7. Inicie o servidor:
    ```bash
    npm run dev
    ```
 
-## Ambiente com Docker
-
-O uso do Docker garante:
-
-- Ambiente padronizado entre desenvolvimento e produção
-- Isolamento de dependências
-- Facilidade de setup para novos desenvolvedores
-
-## Rodando com Docker
-
-### Pré-requisitos
-
-- Docker.
-- Docker Compose.
-
-### Passos:
+### Com Docker
 
 1. Clone o projeto e acesse a pasta.
-2. Instale as dependências:
+2. Copie o arquivo `.env.example`:
    ```bash
-   npm install
+   cp .env.example .env
    ```
 3. Construa a imagem Docker:
    ```bash
@@ -163,24 +151,33 @@ O uso do Docker garante:
    ```bash
    npm run docker:up
    ```
-5. A API estará disponível em: http://localhost:4000
-6. Para acessar o terminal do container da API:
+5. Para acessar o terminal do container da API:
    ```bash
    docker exec -it bodega-api-api-1 bash
    ```
-7. Dentro do container, crie as tabelas do banco de dados:
+6. Dentro do container, execute:
+
+   Criar tabelas:
+
    ```bash
    npm run db:create-tables
    ```
-8. Insira os dados iniciais nas tabelas:
+
+   Insira os dados iniciais:
+
    ```bash
    npm run db:insert-data
    ```
+
+7. A API estará disponível em: http://localhost:4000
 
 ## Estrutura do projeto (visão geral)
 
 ```bash
 bodega-api/
+├── .github/
+│   └── workflows/
+│
 ├── scripts/
 │   ├── git/
 │   ├── createDB.js
@@ -208,10 +205,11 @@ bodega-api/
 │
 ├── src/
 │   ├── config/
+│   │   ├── env/
 │   │   ├── app.js
 │   │   ├── auth.js
 │   │   ├── database.js
-│   │   └── env.js
+│   │   └── email.js
 │   │
 │   ├── controllers/
 │   │   ├── auth.controller.js
@@ -229,13 +227,10 @@ bodega-api/
 │   │   ├── product.entity.js
 │   │   └── user.entity.js
 │   │
-│   ├── errors/
-│   ├── helpers/
-│   │   ├── handleError.js
-│   │   └── handleResponse.js
+│   ├── lib/
+│   │   └── resend.js
 │   │
 │   ├── mappers/
-│   ├── middlewares/
 │   ├── repositories/
 │   ├── routes/
 │   │   ├── api/
@@ -253,13 +248,20 @@ bodega-api/
 │   │   ├── auth.service.test.js
 │   │   └── ...
 │   │
-│   ├── swagger/
-│   ├── utils/
-│   │   ├── hash.utils.js
-│   │   └── token.utils.js
+│   ├── shared/
+│   │   ├── errors/
+│   │   ├── helpers/
+│   │   │   ├── handleError.js
+│   │   │   └── handleResponse.js
+│   │   │
+│   │   ├── middlewares/
+│   │   └── utils/
+│   │       ├── hash.utils.js
+│   │       ├── slugify.utils.js
+│   │       └── token.utils.js
 │   │
-│   ├── app.js
-│   └── server.js
+│   ├── swagger/
+│   └── app.js
 │
 ├── env.example
 ├── .gitignore
@@ -271,6 +273,7 @@ bodega-api/
 │
 ├── package-lock.json
 ├── package.json
+├── server.js
 └── README.md
 ```
 
